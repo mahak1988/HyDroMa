@@ -20,11 +20,12 @@
     "preview": "npm run preview --workspace @eco-nojin/console",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "oxlint apps/console/src packages/ui/src packages/i18n/src packages/frontend-core/src",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test a11y.spec.ts",
     "test:e2e:list": "playwright test --list",
-    "verify": "npm run typecheck && npm run lint && npm run test && npm run build"
+    "verify": "npm run typecheck && npm run lint && npm run check:boundaries && npm run test && npm run build"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
