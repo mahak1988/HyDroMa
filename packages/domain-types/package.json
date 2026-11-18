@@ -1,0 +1,9 @@
+{
+  "name": "@eco-nojin/domain-types",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin domain types: identity, organization membership, tenancy and permissions.",
+  "exports": { ".": "./src/index.ts" },
+  "files": ["src"]
+}

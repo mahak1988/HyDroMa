@@ -12,14 +12,16 @@
     "packages/design-system",
     "packages/ui",
     "packages/i18n",
-    "packages/frontend-core"
+    "packages/frontend-core",
+    "packages/domain-types",
+    "packages/validation"
   ],
   "scripts": {
     "dev": "npm run dev --workspace @eco-nojin/console",
     "build": "npm run build --workspace @eco-nojin/console",
     "preview": "npm run preview --workspace @eco-nojin/console",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "oxlint apps/console/src packages/ui/src packages/i18n/src packages/frontend-core/src",
+    "lint": "oxlint apps/console/src packages/ui/src packages/i18n/src packages/frontend-core/src packages/domain-types/src packages/validation/src",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
