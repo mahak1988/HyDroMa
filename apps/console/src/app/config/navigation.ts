@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Bell, Boxes, Home, Settings } from "lucide-react";
+import { Bell, Boxes, Building2, Home, Settings, Users } from "lucide-react";
 import type { TranslationKey } from "@eco-nojin/i18n";
 
 export type NavItem = {
@@ -28,6 +28,8 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     labelKey: "nav.groupWorkspace",
     items: [
+      { to: "/organizations", labelKey: "nav.organizations", icon: Building2, permission: "org.read" },
+      { to: "/users", labelKey: "nav.users", icon: Users, permission: "users.read" },
       { to: "/components", labelKey: "nav.components", icon: Boxes, permission: "console.view" },
       {
         to: "/notifications",
@@ -53,4 +55,6 @@ export const ROUTE_BREADCRUMBS: Record<string, TranslationKey[]> = {
   "/components": ["nav.components"],
   "/notifications": ["nav.notifications"],
   "/settings": ["nav.settings"],
+  "/organizations": ["nav.organizations"],
+  "/users": ["nav.users"],
 };

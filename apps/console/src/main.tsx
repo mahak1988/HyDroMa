@@ -7,9 +7,9 @@ import "@eco-nojin/design-system/tokens.css";
 import "@eco-nojin/design-system/base.css";
 import "./styles/index.css";
 import { router } from "./app/router";
-import { AppProviders, createQueryClient, PermissionProvider } from "@eco-nojin/frontend-core";
+import { AppProviders, createQueryClient } from "@eco-nojin/frontend-core";
 import { ShellErrorBoundary } from "./app/ShellErrorBoundary";
-import { DEMO_PERMISSIONS } from "./permissions/fixture";
+import { DemoSessionProvider } from "./session/DemoSession";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Root container missing");
@@ -19,11 +19,11 @@ const queryClient = createQueryClient();
 createRoot(container).render(
   <StrictMode>
     <AppProviders queryClient={queryClient}>
-      <PermissionProvider permissions={DEMO_PERMISSIONS} isFixture>
+      <DemoSessionProvider>
         <ShellErrorBoundary>
           <RouterProvider router={router} />
         </ShellErrorBoundary>
-      </PermissionProvider>
+      </DemoSessionProvider>
     </AppProviders>
   </StrictMode>,
 );

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   Bell,
+  Building2,
   ChevronLeft,
   Globe2,
   LayoutGrid,
@@ -17,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
+import type { TranslationKey } from "@eco-nojin/i18n";
 import { useTheme } from "@eco-nojin/frontend-core";
 import type { ThemeMode } from "@eco-nojin/frontend-core";
 import { usePermissions } from "@eco-nojin/frontend-core";
@@ -34,6 +36,7 @@ import {
 } from "@eco-nojin/ui";
 import { NAV_GROUPS, ROUTE_BREADCRUMBS } from "../config/navigation";
 import { DemoFixtures } from "../../permissions/fixture";
+import { useSession } from "../../session/DemoSession";
 
 const SIDEBAR_KEY = "eco.sidebar.collapsed";
 
@@ -105,6 +108,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
 function SidebarFooter({ collapsed }: { collapsed: boolean }) {
   const { t } = useI18n();
+  const { user } = useSession();
   return (
     <div className="border-t border-sidebar-border px-3 py-3">
       <Link
@@ -113,11 +117,11 @@ function SidebarFooter({ collapsed }: { collapsed: boolean }) {
           collapsed ? "justify-center" : ""
         }`}
       >
-        <Avatar name={DemoFixtures.user.name} size="sm" />
+        <Avatar name={user.name} size="sm" />
         {!collapsed ? (
           <span className="min-w-0 flex-1">
             <span className="block truncate text-2xs font-medium text-sidebar-fg">
-              {DemoFixtures.user.name}
+              {user.name}
             </span>
             <span className="block truncate text-2xs text-sidebar-muted">
               {t("common.demoUser")}
@@ -129,6 +133,31 @@ function SidebarFooter({ collapsed }: { collapsed: boolean }) {
   );
 }
 
+function OrgSwitcher() {
+  const { t } = useI18n();
+  const { activeOrg, memberships, setActiveOrg, role } = useSession();
+  return (
+    <Dropdown
+      label={t("orgs.switcher")}
+      align="end"
+      items={memberships.map((item) => ({
+        id: item.organization.id,
+        label: `${item.organization.name} · ${t(`roles.${item.membership.role}` as TranslationKey)}`,
+        selected: item.organization.id === activeOrg.id,
+        icon: <Building2 className="size-4" aria-hidden="true" />,
+        onSelect: () => setActiveOrg(item.organization.id),
+      }))}
+      trigger={
+        <Button variant="ghost" size="sm" icon={<Building2 className="size-4" aria-hidden="true" />}>
+          <span className="hidden max-w-40 truncate sm:inline">{activeOrg.name}</span>
+          <span className="sr-only">
+            {t("orgs.current")} · {t(`roles.${role}` as TranslationKey)}
+          </span>
+        </Button>
+      }
+    />
+  );
+}
 function LanguageMenu() {
   const { t, locale, locales, setLocale } = useI18n();
   const current = locales.find((item) => item.code === locale);
@@ -212,7 +241,8 @@ function initials(name: string): string {
 function UserMenu() {
   const { t } = useI18n();
   const { push } = useToast();
-  const userName = DemoFixtures.user.name;
+  const { user } = useSession();
+  const userName = user.name;
   const items: MenuItem[] = [
     {
       id: "profile",
@@ -251,7 +281,10 @@ function UserMenu() {
 function Breadcrumbs() {
   const { t } = useI18n();
   const { pathname } = useLocation();
-  const keys = ROUTE_BREADCRUMBS[pathname] ?? ["nav.home"];
+  const match = Object.keys(ROUTE_BREADCRUMBS)
+    .filter((route) => pathname === route || pathname.startsWith(`${route}/`))
+    .sort((a, b) => b.length - a.length)[0];
+  const keys = (match ? ROUTE_BREADCRUMBS[match] : undefined) ?? ["nav.home"];
   return (
     <nav aria-label={t("common.breadcrumb")} className="mb-3">
       <ol className="flex flex-wrap items-center gap-1 text-2xs text-fg-subtle">
@@ -362,6 +395,7 @@ export function AppShell() {
             </button>
 
             <div className="ms-auto flex items-center gap-1.5">
+              <OrgSwitcher />
               <LanguageMenu />
               <ThemeMenu />
               <Link

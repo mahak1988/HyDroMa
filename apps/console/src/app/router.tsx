@@ -28,6 +28,33 @@ export const router = createBrowserRouter([
         },
       },
       {
+        path: "organizations",
+        lazy: async () => {
+          const module = await import("../features/identity/OrganizationsPage");
+          return { Component: module.OrganizationsPage };
+        },
+      },
+      {
+        path: "organizations/:id",
+        lazy: async () => {
+          const module = await import("../features/identity/OrganizationDetailPage");
+          return { Component: module.OrganizationDetailPage };
+        },
+      },
+      {
+        path: "users",
+        lazy: async () => {
+          const module = await import("../features/identity/UsersPage");
+          return { Component: module.UsersPage };
+        },
+      },
+      {
+        path: "users/:id",
+        lazy: async () => {
+          const module = await import("../features/identity/UserDetailPage");
+          return { Component: module.UserDetailPage };
+        },
+      },      {
         path: "notifications",
         lazy: async () => {
           const module = await import("../pages/NotificationsPage");

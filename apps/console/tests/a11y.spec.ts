@@ -5,7 +5,16 @@ import { expect, test } from "@playwright/test";
  * Zero-tolerance accessibility gate for the shell.
  * Every route × every shipped locale × both themes. No rule is disabled.
  */
-const routes = ["/", "/components", "/notifications", "/settings"];
+const routes = [
+  "/",
+  "/components",
+  "/notifications",
+  "/settings",
+  "/organizations",
+  "/organizations/org-karaj",
+  "/users",
+  "/users/usr-sara",
+];
 
 for (const locale of ["fa", "en", "ar"]) {
   for (const theme of ["light", "dark"]) {
