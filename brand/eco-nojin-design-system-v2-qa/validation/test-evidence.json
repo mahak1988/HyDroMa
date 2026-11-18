@@ -1,0 +1,151 @@
+{
+  "report": "test-evidence.json",
+  "project": "Eco Nojin Design System v2 — Independent QA",
+  "date": "2026-11-17",
+  "mode": "Independent verification. Reference palette, logo options, and brand identity were NOT changed.",
+  "environment": {
+    "browser": "Chrome 157.0.8103.79 (Playwright 1.65.1 channel=chrome)",
+    "viewport_widths_tested": [375, 480, 768, 1024, 1440, 1920],
+    "bonus_width_tested": [320],
+    "themes": ["A", "B"],
+    "locales": ["fa (rtl)", "en (ltr)", "ar (rtl)"]
+  },
+  "file_integrity": {
+    "original_files": 59,
+    "backup_created": "_backup-original (59 files, pristine)",
+    "qa_root_files": 59,
+    "breakdown": {
+      "html": 1, "css": 6, "js": 3, "json": 2, "md": 1,
+      "woff2": 36, "svg": 9
+    },
+    "fonts_declared_families": 6,
+    "fonts_files": 36,
+    "font_unique_content_hashes": 36,
+    "font_license_files_in_repo": 0,
+    "font_license_embedded_urls": {
+      "IBM Plex Mono": "http://scripts.sil.org/OFL",
+      "Fraunces": "https://scripts.sil.org/OFL",
+      "Vazirmatn": "https://scripts.sil.org/OFL",
+      "Estedad": "https://openfontlicense.org",
+      "DM Sans 9pt": "https://scripts.sil.org/OFL",
+      "Manrope ExtraLight": "https://openfontlicense.org"
+    },
+    "external_dependencies": "NONE (no http(s) refs in html/css/js; all local)",
+    "external_requests_at_runtime": 0,
+    "notes": [
+      "Prior report claimed 36 woff2 + fonts.css = 37 font files; confirmed 36 woff2 (36 unique).",
+      "Prior report claimed 59 files; confirmed 59.",
+      "Prior report claimed 9 SVG logos; confirmed 9.",
+      "No font license/COPYING files exist in repo; only OFL URL embedded in each font's name table."
+    ]
+  },
+  "logo_audit": {
+    "count": 9,
+    "structure": "All 9 are SVG <text> elements. 0 contain <path>. 0 contain <symbol>/<image>/<use>.",
+    "font_dependent": true,
+    "symbol_present": false,
+    "outlined_version_created": "logo-tests/*.outlined.svg (QA only; originals unchanged)",
+    "outline_fidelity": "Text widths match browser to ±1px for Fraunces/Manrope/DM Sans/IBM Plex Mono after instancing wght + opsz=font-size.",
+    "font_dependence_proof": "Blocking webfonts changes logo text widths up to 16.5% (e.g. marketplace-option-03 Nojin -16.5%), proving font dependence.",
+    "small_size_32px_render": "darkRatio 0.010–0.079; all render legibly but thin serif options (option-03s) are lightest.",
+    "recommendation": "Owner must choose. No logo selected. Text-to-path feasible (see logo-tests)."
+  },
+  "font_audit": {
+    "families": {
+      "Vazirmatn": {"files": 3, "weights_declared": [300,400,500,600,700,800], "variable": true, "note": "weights come from one variable font; no synthesis issue"},
+      "Estedad": {"files": 4, "weights_declared": [300,400,500,600,700,800], "variable": true},
+      "Fraunces": {"files": 3, "weights_declared": [400,500,600,700], "variable": true, "axes": ["opsz","wght"]},
+      "Manrope": {"files": 6, "weights_declared": [400,500,600,700,800], "variable": true, "note": "all files share family 'Manrope ExtraLight' internally"},
+      "DM Sans": {"files": 2, "weights_declared": [400,500,600,700,800], "variable": true, "note": "family 'DM Sans 9pt'"},
+      "IBM Plex Mono": {"files": 18, "weights_declared": [400,500,600], "variable": false, "note": "static; Regular/Medium/SemiBold split across unicode-range subsets"}
+    },
+    "all_faces_load": true,
+    "force_load_112_faces_errors": 0,
+    "inter_referenced_but_absent": true,
+    "jetbrains_mono_referenced_but_absent": true,
+    "fallbacks": {
+      "font-fa": "Vazirmatn, Segoe UI, Tahoma, sans-serif",
+      "font-en": "Inter (NOT bundled), Segoe UI, system-ui, sans-serif",
+      "font-mono": "JetBrains Mono (NOT bundled), Consolas, monospace"
+    },
+    "source_serif_4_ibm_plex_sans": "NOT referenced in CSS/HTML; docs-only. Confirmed.",
+    "license_commercial_limits": "All six are SIL Open Font License 1.1 (OFL) — free for commercial use, may not be sold alone. No per-seat commercial license required."
+  },
+  "responsive": {
+    "tested_widths": [375, 480, 768, 1024, 1440, 1920],
+    "bonus_320": true,
+    "document_horizontal_overflow_after_fix": 0,
+    "sections_tested": ["overview","brands","colors","type","components","science","market","i18n","a11y"],
+    "before_fix": "375px: components (table) + a11y (alert) overflowed; 320px: brands/components/a11y overflowed",
+    "after_fix": "0 overflow at 320/375/480/768/1024/1440/1920 in fa & en",
+    "screenshots": "screenshots/responsive/overview-{375,480,768,1024,1440,1920}.png + components-375, science-375, market-375"
+  },
+  "contrast": {
+    "standard": "WCAG 2.2 AA (normal 4.5:1, large 3:1)",
+    "samples_measured": 400,
+    "before_fix_fails": 104,
+    "after_fix_fails": 2,
+    "residual_fails_explanation": "2 residual = the reference danger-red swatch label (#D64545, 4.38:1). This is a palette REFERENCE chip, not UI. Main label is large text (1.25rem/700) → passes 3:1; hex chip on white is 17:1. Palette value intentionally unchanged.",
+    "fixes_applied": [
+      "badge/status/accent fills -> darker text-safe variants (new tokens, palette preserved)",
+      "alert text -> darker semantic text tokens",
+      "gold text (اکو نوژین) -> --brand-secondary-text",
+      "product price unit تومان -> neutral ink",
+      "inline info-overlay -> info-text token",
+      "hero demo-badge -> brand-primary-dark"
+    ],
+    "contrast_matrix_file": "reports/accessibility-test.md"
+  },
+  "keyboard": {
+    "focus_order": "skip-link -> theme buttons -> nav links -> theme-bar buttons -> locale buttons; hidden panels no longer tabbable",
+    "focus_visible": true,
+    "skip_link": true,
+    "keyboard_trap": "none",
+    "arrow_keys_tabs": "demo tablist supports Left/Right/Up/Down/Home/End",
+    "landmarks": {"header": 1, "nav": 1, "main": 1, "footer": 1, "h1": 1},
+    "unlabeled_inputs_before": 6,
+    "unlabeled_inputs_after": 0,
+    "svg_alt_text": "all 9 logos have descriptive alt"
+  },
+  "screen_reader": {
+    "status": "NOT_TESTED",
+    "reason": "No screen reader (NVDA/JAWS/VoiceOver) available in this environment. ARIA structure reviewed statically only; this is NOT equivalent to a screen-reader test.",
+    "aria_static_review": {"tablist": 1, "tab": 2, "nav_label": true, "form_labels": "all inputs labeled", "aria_invalid": "email field"}
+  },
+  "rtl_ltr": {
+    "locales": {"fa": "rtl", "en": "ltr", "ar": "rtl"},
+    "direction_switching": "html[dir] + lang update correctly",
+    "overflow_after_fix": "0 in all three locales at all widths",
+    "font_switch": "fa/ar -> Vazirmatn; en -> Inter (falls back to Segoe UI/system-ui since Inter not bundled)",
+    "logical_properties": "margin-inline/padding-inline/inset-inline used throughout",
+    "note": "Only 3 locales implemented; full 15-language claim is NOT made."
+  },
+  "theme": {
+    "A_tokens": "Territory Teal (#0B5563) header, white surfaces",
+    "B_tokens": "Royal Deep Blue (#173B63) header, warm ivory surfaces (#FBF7F0)",
+    "switches_all_dependent_tokens": true,
+    "persists_on_reload": true,
+    "persistence_key": "localStorage 'en-theme'",
+    "component_coverage": "header, cards, kpi, buttons, badges, inputs, table, product-card, scientific-card all theme-aware",
+    "rtl_not_broken_by_theme": true
+  },
+  "scientific_ui": {
+    "four_concepts_kept_distinct": ["Calibration", "Validation", "Input Data Quality", "Reproducibility"],
+    "no_default_VALIDATED": true,
+    "demo_data_labeled": "Marketplace products marked (DEMO)",
+    "provenance_fields": ["model_id","model_version","code_hash","input_dataset_hash","executed_at","validation_ref","uncertainty"],
+    "provenance_missing_marked": "NOT_AVAILABLE / NOT_GENERATED used for unknown values; no fake hashes",
+    "mrv_boundary_note": "present and correct"
+  },
+  "functional_tests": {
+    "console_errors": 0,
+    "page_errors": 0,
+    "failed_requests": 0,
+    "theme_switch": "PASS",
+    "locale_switch": "PASS",
+    "nav_section_switch": "PASS",
+    "demo_tab_keyboard": "PASS"
+  },
+  "overall_status": "QA_ACCEPTED_WITH_CORRECTIONS",
+  "overall_note": "QA_ACCEPTED_WITH_CORRECTIONS means the technical build is sound after fixes. It is NOT visual-identity approval. Overall design-system status remains DRAFT — NOT APPROVED."
+}

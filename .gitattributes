@@ -1,0 +1,57 @@
+# ---- Eco Nojin repository attributes ----
+# Normalise text to LF so Windows/Linux contributors produce identical diffs.
+
+* text=auto eol=lf
+
+# Windows-only scripts keep CRLF
+*.ps1   text eol=crlf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Structured/text formats: explicit, reviewable diffs
+*.md        text eol=lf
+*.mdx       text eol=lf
+*.json      text eol=lf
+*.jsonc     text eol=lf
+*.yaml      text eol=lf
+*.yml       text eol=lf
+*.toml      text eol=lf
+*.csv       text eol=lf
+*.tsv       text eol=lf
+*.geojson   text eol=lf
+*.svg       text eol=lf
+
+# Binary assets: never diff, never EOL-convert
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.avif      binary
+*.ico       binary
+*.pdf       binary
+*.zip       binary
+*.gz        binary
+*.tgz       binary
+*.7z        binary
+*.woff      binary
+*.woff2     binary
+*.ttf       binary
+*.otf       binary
+*.eot       binary
+*.mp3       binary
+*.mp4       binary
+*.webm      binary
+*.docx      binary
+*.xlsx      binary
+*.pptx      binary
+*.tif       binary
+*.tiff      binary
+*.nc        binary
+*.parquet   binary
+*.gpkg      binary
+
+# Generated files: exclude from language statistics and review noise
+package-lock.json   linguist-generated=true
+pnpm-lock.yaml      linguist-generated=true
+bun.lock            linguist-generated=true

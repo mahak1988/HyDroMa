@@ -1,0 +1,22 @@
+/* Eco Nojin Design System — Responsive */
+@media (max-width: 480px) {
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .t-display{font-size:1.75rem}
+  .t-h1{font-size:1.5rem}
+  .t-h2{font-size:1.25rem}
+  .card{padding:16px}
+  .app-header .nav{display:none}
+}
+@media (max-width: 768px) {
+  .grid-3,.grid-4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+  .container{padding:0 16px}
+}
+@media (min-width: 1024px) {
+  .app-main{padding:32px}
+}
+@media (min-width: 1440px) {
+  .container{max-width:1280px}
+}
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}

@@ -1,0 +1,20 @@
+/* Eco Nojin — base reset (minimal, non-opinionated).
+   Loaded before tokens/theme/typography so component styles win. */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html,
+body { margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+img { max-width: 100%; height: auto; }
+
+button,
+input,
+select,
+textarea { font: inherit; color: inherit; }
+
+[hidden] { display: none !important; }

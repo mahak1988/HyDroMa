@@ -1,0 +1,3122 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#F5F7F5">
+<meta name="description" content="Eco Nojin Brand and Design System — Draft">
+
+<title>Eco Nojin | Brand & Design System</title>
+
+<style>
+
+/* =========================================================
+   ECO NOJIN — BRAND & DESIGN SYSTEM
+   VERSION: 2.0
+   STATUS: DRAFT — NOT APPROVED
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   01. DESIGN TOKENS
+   --------------------------------------------------------- */
+
+:root {
+
+  /* Brand */
+
+  --brand-primary: #0B5563;
+  --brand-primary-dark: #0A3F49;
+  --brand-primary-light: #0E7C8C;
+
+  --brand-secondary: #C9A227;
+  --brand-accent: #35C4D7;
+
+  /* Sub-brands */
+
+  --brand-hydroma: #2E3A87;
+  --brand-marketplace: #E76F51;
+
+  /* Neutral */
+
+  --ink: #0F1E24;
+  --slate: #5A6B72;
+  --muted: #829096;
+
+  --line: #D5DDE0;
+  --cloud: #F5F7F8;
+  --white: #FFFFFF;
+
+  /* Semantic */
+
+  --success: #237A49;
+  --warning: #96600C;
+  --danger: #B52F35;
+  --info: #245CB5;
+
+  /* Scientific */
+
+  --science-validated: #237A49;
+  --science-calibrated: #96600C;
+  --science-uncalibrated: #68777D;
+  --science-rejected: #B52F35;
+
+  /* Typography */
+
+  --font-fa: "Vazirmatn", "Segoe UI", Tahoma, sans-serif;
+  --font-en: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+
+  /* Spacing */
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radius */
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+
+  --shadow-sm: 0 2px 8px rgba(15,30,36,.045);
+  --shadow-md: 0 8px 24px rgba(15,30,36,.065);
+  --shadow-lg: 0 16px 42px rgba(15,30,36,.09);
+
+  /* Layout */
+
+  --container: 1240px;
+}
+
+
+/* ---------------------------------------------------------
+   02. RESET
+   --------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-fa);
+  color: var(--ink);
+  background: var(--cloud);
+  line-height: 1.75;
+  font-size: 14px;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-fa);
+}
+
+[dir="ltr"] body,
+[dir="ltr"] button,
+[dir="ltr"] input,
+[dir="ltr"] select,
+[dir="ltr"] textarea {
+  font-family: var(--font-en);
+}
+
+button {
+  cursor: pointer;
+}
+
+button,
+input {
+  font-size: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--brand-accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--brand-primary);
+  color: white;
+}
+
+
+/* ---------------------------------------------------------
+   03. GLOBAL LAYOUT
+   --------------------------------------------------------- */
+
+.container {
+  width: min(var(--container), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.top-line {
+  height: 4px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--brand-primary),
+      var(--brand-accent),
+      var(--brand-secondary),
+      var(--brand-marketplace)
+    );
+}
+
+
+/* ---------------------------------------------------------
+   04. HEADER
+   --------------------------------------------------------- */
+
+.header {
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px);
+}
+
+.header-inner {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand-identity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.wordmark-main {
+  font-family: var(--font-en);
+  font-weight: 800;
+  letter-spacing: -1.4px;
+  font-size: 25px;
+  color: var(--brand-primary-dark);
+}
+
+.wordmark-sub {
+  font-size: 10px;
+  color: var(--slate);
+  letter-spacing: 1.7px;
+  margin-top: 5px;
+}
+
+.header-divider {
+  width: 1px;
+  height: 38px;
+  background: var(--line);
+}
+
+.header-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-description strong {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.header-description span {
+  font-size: 11px;
+  color: var(--slate);
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.draft-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  background: #FFF7E6;
+  color: #76540B;
+  border: 1px solid #EAD49A;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+.draft-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--brand-secondary);
+  border-radius: 50%;
+}
+
+
+/* ---------------------------------------------------------
+   05. NAVIGATION
+   --------------------------------------------------------- */
+
+.navigation {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-block: 12px;
+}
+
+.nav-tab {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--slate);
+  padding: 9px 17px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  transition: .2s ease;
+}
+
+.nav-tab:hover {
+  background: var(--cloud);
+  color: var(--brand-primary);
+}
+
+.nav-tab[aria-selected="true"] {
+  background: var(--brand-primary);
+  color: white;
+  border-color: var(--brand-primary);
+}
+
+.nav-tab:focus-visible {
+  outline-offset: 2px;
+}
+
+
+/* ---------------------------------------------------------
+   06. MAIN
+   --------------------------------------------------------- */
+
+main {
+  padding-block: 40px 70px;
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeIn .3s ease;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-heading {
+  margin-bottom: 28px;
+}
+
+.section-eyebrow {
+  font-family: var(--font-en);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--brand-primary-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-heading h1 {
+  font-size: clamp(25px, 4vw, 35px);
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 800;
+  color: var(--brand-primary-dark);
+}
+
+.section-heading p {
+  color: var(--slate);
+  font-size: 13px;
+  max-width: 720px;
+  margin-top: 9px;
+}
+
+
+/* ---------------------------------------------------------
+   07. CARDS
+   --------------------------------------------------------- */
+
+.card {
+  background: var(--white);
+  border: 1px solid rgba(213,221,224,.85);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--brand-primary-dark);
+  margin: 0;
+}
+
+.card-description {
+  font-size: 12px;
+  color: var(--slate);
+  margin-top: 4px;
+}
+
+.card-tag {
+  background: var(--cloud);
+  color: var(--slate);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 5px 10px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+
+/* ---------------------------------------------------------
+   08. GRID
+   --------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.col-3 {
+  grid-column: span 3;
+}
+
+.col-4 {
+  grid-column: span 4;
+}
+
+.col-6 {
+  grid-column: span 6;
+}
+
+.col-8 {
+  grid-column: span 8;
+}
+
+.col-12 {
+  grid-column: span 12;
+}
+
+
+/* ---------------------------------------------------------
+   09. BRAND ARCHITECTURE
+   --------------------------------------------------------- */
+
+.brand-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.brand-unit {
+  position: relative;
+  min-height: 190px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: white;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: .25s ease;
+}
+
+.brand-unit:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.brand-unit::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border: 1px solid currentColor;
+  opacity: .09;
+  border-radius: 50%;
+  inset-inline-end: -35px;
+  bottom: -35px;
+}
+
+.brand-unit.eco {
+  border-top: 4px solid var(--brand-primary);
+}
+
+.brand-unit.hydroma {
+  border-top: 4px solid var(--brand-hydroma);
+}
+
+.brand-unit.market {
+  border-top: 4px solid var(--brand-marketplace);
+}
+
+.brand-unit.eco .brand-unit-name {
+  color: var(--brand-primary);
+}
+
+.brand-unit.hydroma .brand-unit-name {
+  color: var(--brand-hydroma);
+}
+
+.brand-unit.market .brand-unit-name {
+  color: var(--brand-marketplace);
+}
+
+.brand-unit-name {
+  font-family: var(--font-en);
+  font-weight: 800;
+  font-size: clamp(20px, 2vw, 25px);
+  letter-spacing: -1px;
+}
+
+.brand-unit-name span {
+  display: block;
+  font-family: var(--font-fa);
+  font-size: 12px;
+  letter-spacing: 0;
+  font-weight: 500;
+  margin-top: 9px;
+  color: var(--slate);
+}
+
+.brand-unit-type {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+
+/* ---------------------------------------------------------
+   10. BRAND PILLARS
+   --------------------------------------------------------- */
+
+.pillar {
+  background: var(--cloud);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  min-height: 120px;
+}
+
+.pillar-number {
+  font-family: var(--font-en);
+  font-size: 10px;
+  color: var(--brand-secondary);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.pillar h3 {
+  margin: 8px 0 4px;
+  font-size: 15px;
+  color: var(--brand-primary-dark);
+}
+
+.pillar p {
+  margin: 0;
+  color: var(--slate);
+  font-size: 11px;
+}
+
+
+/* ---------------------------------------------------------
+   11. COLOR SYSTEM
+   --------------------------------------------------------- */
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.color-card {
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.color-preview {
+  height: 110px;
+  position: relative;
+}
+
+.color-preview::after {
+  content: "";
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 50%;
+  inset-inline-end: 20px;
+  top: 20px;
+}
+
+.color-info {
+  padding: 13px;
+}
+
+.color-name {
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.color-value {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--slate);
+  margin-top: 4px;
+  direction: ltr;
+  text-align: start;
+}
+
+.color-role {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 7px;
+}
+
+
+/* ---------------------------------------------------------
+   12. TYPOGRAPHY
+   --------------------------------------------------------- */
+
+.type-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.type-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.type-meta strong {
+  font-family: var(--font-en);
+  font-size: 11px;
+}
+
+.type-meta span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  direction: ltr;
+  text-align: start;
+}
+
+.type-display {
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.type-h1 {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.type-h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.type-h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.type-body {
+  font-size: 16px;
+}
+
+.type-small {
+  font-size: 13px;
+}
+
+.type-caption {
+  font-size: 11px;
+  color: var(--slate);
+}
+
+
+/* ---------------------------------------------------------
+   13. COMPONENTS
+   --------------------------------------------------------- */
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 700;
+  transition: .2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--brand-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--brand-primary-dark);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--slate);
+  border-color: var(--line);
+}
+
+.btn-accent {
+  background: var(--brand-accent);
+  color: var(--brand-primary-dark);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* ---------------------------------------------------------
+   14. FORMS
+   --------------------------------------------------------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: white;
+  color: var(--ink);
+  transition: .2s ease;
+}
+
+.input:hover {
+  border-color: var(--brand-primary-light);
+}
+
+.input:focus {
+  border-color: var(--brand-primary);
+  outline: 3px solid rgba(53,196,215,.2);
+}
+
+.input::placeholder {
+  color: #89969B;
+}
+
+
+/* ---------------------------------------------------------
+   15. STATUS BADGES
+   --------------------------------------------------------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.badge-success {
+  background: #E5F3EA;
+  color: var(--success);
+}
+
+.badge-warning {
+  background: #FFF3DA;
+  color: var(--warning);
+}
+
+.badge-danger {
+  background: #FBE8E8;
+  color: var(--danger);
+}
+
+.badge-neutral {
+  background: #EDF0F1;
+  color: #5B6A70;
+}
+
+.badge-info {
+  background: #E8EFFC;
+  color: var(--info);
+}
+
+.badge-hydroma {
+  background: #ECEEFA;
+  color: var(--brand-hydroma);
+}
+
+.badge-market {
+  background: #FCECE7;
+  color: #A9472E;
+}
+
+
+/* ---------------------------------------------------------
+   16. TABLE
+   --------------------------------------------------------- */
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.table caption {
+  text-align: start;
+  padding: 12px;
+  color: var(--slate);
+  font-size: 11px;
+}
+
+.table th,
+.table td {
+  padding: 14px 16px;
+  text-align: start;
+  border-bottom: 1px solid var(--line);
+}
+
+.table th {
+  background: var(--cloud);
+  color: var(--slate);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: #FAFCFC;
+}
+
+
+/* ---------------------------------------------------------
+   17. SCIENTIFIC STATUS
+   --------------------------------------------------------- */
+
+.science-note {
+  background: #F0F4FA;
+  border: 1px solid #D5DEEF;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  color: #344C75;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.science-model {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  background: white;
+}
+
+.science-model h3 {
+  margin-top: 0;
+  color: var(--brand-primary-dark);
+}
+
+.science-dimensions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.science-dimension {
+  background: var(--cloud);
+  border-radius: var(--radius-md);
+  padding: 15px;
+}
+
+.science-dimension strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.science-dimension p {
+  font-size: 11px;
+  color: var(--slate);
+  margin: 0;
+}
+
+
+/* ---------------------------------------------------------
+   18. PROVENANCE
+   --------------------------------------------------------- */
+
+.provenance {
+  background: #FAFBFC;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px;
+}
+
+.provenance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.provenance-header strong {
+  font-size: 13px;
+}
+
+.provenance-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.provenance-item {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 9px;
+}
+
+.provenance-item span {
+  display: block;
+  font-size: 10px;
+  color: var(--slate);
+  margin-bottom: 5px;
+}
+
+.provenance-item code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--brand-primary);
+  overflow-wrap: anywhere;
+  direction: ltr;
+  display: block;
+}
+
+
+/* ---------------------------------------------------------
+   19. RTL / LTR
+   --------------------------------------------------------- */
+
+.direction-preview {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 25px;
+  margin-top: 18px;
+  transition: .2s ease;
+}
+
+.direction-preview p {
+  color: var(--slate);
+  font-size: 12px;
+}
+
+.direction-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+/* ---------------------------------------------------------
+   20. NOTES
+   --------------------------------------------------------- */
+
+.demo-note {
+  background: #FFF8E9;
+  border: 1px solid #EAD49A;
+  border-inline-start: 4px solid var(--brand-secondary);
+  border-radius: var(--radius-md);
+  padding: 15px 18px;
+  color: #76540B;
+  font-size: 11px;
+  margin-top: 18px;
+}
+
+.info-note {
+  background: #EAF4F5;
+  border: 1px solid #C9E1E4;
+  border-inline-start: 4px solid var(--brand-primary);
+  border-radius: var(--radius-md);
+  padding: 15px 18px;
+  color: var(--brand-primary-dark);
+  font-size: 11px;
+  margin-top: 18px;
+}
+
+
+/* ---------------------------------------------------------
+   21. FOOTER
+   --------------------------------------------------------- */
+
+.footer {
+  background: white;
+  border-top: 1px solid var(--line);
+  padding: 26px 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-brand {
+  font-family: var(--font-en);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--brand-primary);
+}
+
+.footer-meta {
+  font-size: 10px;
+  color: var(--slate);
+}
+
+
+/* ---------------------------------------------------------
+   22. RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .col-3,
+  .col-4 {
+    grid-column: span 6;
+  }
+
+  .col-8 {
+    grid-column: span 12;
+  }
+
+  .brand-showcase {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .container {
+    width: calc(100% - 28px);
+  }
+
+  .header-inner {
+    min-height: 72px;
+  }
+
+  .header-description,
+  .header-divider {
+    display: none;
+  }
+
+  .wordmark-main {
+    font-size: 21px;
+  }
+
+  .draft-label {
+    font-size: 9px;
+  }
+
+  main {
+    padding-block: 28px 45px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .col-3,
+  .col-4,
+  .col-6,
+  .col-8,
+  .col-12 {
+    grid-column: span 2;
+  }
+
+  .brand-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .science-dimensions {
+    grid-template-columns: 1fr;
+  }
+
+  .provenance-list {
+    grid-template-columns: 1fr;
+  }
+
+  .type-row {
+    grid-template-columns: 85px 1fr;
+    gap: 10px;
+  }
+
+  .type-display {
+    font-size: 26px;
+  }
+
+  .type-h1 {
+    font-size: 23px;
+  }
+
+  .type-h2 {
+    font-size: 20px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="page-shell">
+
+<div class="top-line"></div>
+
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header class="header">
+
+  <div class="container header-inner">
+
+    <div class="brand-identity">
+
+      <div class="wordmark">
+
+        <div class="wordmark-main">
+          ECO NOJIN
+        </div>
+
+        <div class="wordmark-sub">
+          LIVING TERRITORIES ECOSYSTEM
+        </div>
+
+      </div>
+
+      <div class="header-divider"></div>
+
+      <div class="header-description">
+
+        <strong>نظام هویت بصری و طراحی</strong>
+
+        <span>Brand Identity & Design System</span>
+
+      </div>
+
+    </div>
+
+
+    <div class="header-meta">
+
+      <span class="draft-label">
+        <span class="draft-dot"></span>
+        DRAFT — NOT APPROVED
+      </span>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =======================================================
+     NAVIGATION
+======================================================= -->
+
+<nav class="navigation" aria-label="بخش‌های نظام طراحی">
+
+  <div class="container nav-inner" role="tablist" aria-label="Design system sections">
+
+    <button
+      class="nav-tab"
+      id="tab-button-brand"
+      role="tab"
+      aria-selected="true"
+      aria-controls="panel-brand"
+      tabindex="0"
+      data-tab="brand">
+      هویت برند
+    </button>
+
+    <button
+      class="nav-tab"
+      id="tab-button-colors"
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-colors"
+      tabindex="-1"
+      data-tab="colors">
+      رنگ‌ها
+    </button>
+
+    <button
+      class="nav-tab"
+      id="tab-button-type"
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-type"
+      tabindex="-1"
+      data-tab="type">
+      تایپوگرافی
+    </button>
+
+    <button
+      class="nav-tab"
+      id="tab-button-components"
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-components"
+      tabindex="-1"
+      data-tab="components">
+      اجزای رابط
+    </button>
+
+    <button
+      class="nav-tab"
+      id="tab-button-science"
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-science"
+      tabindex="-1"
+      data-tab="science">
+      نظام علمی
+    </button>
+
+    <button
+      class="nav-tab"
+      id="tab-button-direction"
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-direction"
+      tabindex="-1"
+      data-tab="direction">
+      RTL / LTR
+    </button>
+
+  </div>
+
+</nav>
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main class="container">
+
+
+<!-- =======================================================
+     TAB 01 — BRAND
+======================================================= -->
+
+<section
+  class="tab-panel active"
+  id="panel-brand"
+  role="tabpanel"
+  aria-labelledby="tab-button-brand"
+  tabindex="0">
+
+  <div class="section-heading">
+
+    <div class="section-eyebrow">
+      BRAND ARCHITECTURE
+    </div>
+
+    <h1>یک اکوسیستم، سه هویت مکمل</h1>
+
+    <p>
+      Eco Nojin یک اکوسیستم یکپارچه برای هوشمندسازی،
+      احیا و توسعه سرزمین‌های زنده است.
+      موتور علمی، بازارگاه و خدمات اقتصادی در قالب
+      یک معماری برند منسجم فعالیت می‌کنند.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2 class="card-title">معماری برند</h2>
+        <div class="card-description">
+          Brand Hierarchy
+        </div>
+      </div>
+
+      <span class="card-tag">DRAFT STRUCTURE</span>
+
+    </div>
+
+
+    <div class="brand-showcase">
+
+      <article class="brand-unit eco">
+
+        <div class="brand-unit-type">
+          MASTER BRAND
+        </div>
+
+        <div class="brand-unit-name">
+
+          ECO NOJIN
+
+          <span>اکو نوژین</span>
+
+        </div>
+
+        <div class="brand-unit-type">
+          LIVING TERRITORIES ECOSYSTEM
+        </div>
+
+      </article>
+
+
+      <article class="brand-unit hydroma">
+
+        <div class="brand-unit-type">
+          SCIENTIFIC ENGINE
+        </div>
+
+        <div class="brand-unit-name">
+
+          HyDroMA
+
+          <span>موتور هوشمند علمی</span>
+
+        </div>
+
+        <div class="brand-unit-type">
+          SCIENCE · MODELING · SIMULATION
+        </div>
+
+      </article>
+
+
+      <article class="brand-unit market">
+
+        <div class="brand-unit-type">
+          COMMERCE PLATFORM
+        </div>
+
+        <div class="brand-unit-name">
+
+          NOJIN MARKETPLACE
+
+          <span>بازارگاه نوژین</span>
+
+        </div>
+
+        <div class="brand-unit-type">
+          MARKET · LIVELIHOOD · TRADE
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div class="info-note">
+
+      این نمایش صرفاً پیشنهاد ساختار تایپوگرافیک برندها است.
+      شکل نوشتاری، فونت و نسبت‌های نهایی هنوز تأیید نشده‌اند.
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2 class="card-title">ستون‌های هویتی اکوسیستم</h2>
+        <div class="card-description">
+          Brand Pillars
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="col-3 pillar">
+
+        <div class="pillar-number">01 / TERRITORY</div>
+
+        <h3>سرزمین‌های زنده</h3>
+
+        <p>
+          Living Territories
+        </p>
+
+      </div>
+
+
+      <div class="col-3 pillar">
+
+        <div class="pillar-number">02 / SCIENCE</div>
+
+        <h3>هوشمندی علمی</h3>
+
+        <p>
+          Scientific Intelligence
+        </p>
+
+      </div>
+
+
+      <div class="col-3 pillar">
+
+        <div class="pillar-number">03 / RESTORATION</div>
+
+        <h3>احیا و تاب‌آوری</h3>
+
+        <p>
+          Restoration & Resilience
+        </p>
+
+      </div>
+
+
+      <div class="col-3 pillar">
+
+        <div class="pillar-number">04 / LIVELIHOOD</div>
+
+        <h3>معیشت پایدار</h3>
+
+        <p>
+          Sustainable Livelihoods
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="card-title">جایگاه راهبردی برند</h2>
+
+    <p style="color:var(--slate);font-size:13px;">
+
+      Eco Nojin صرفاً یک نرم‌افزار کشاورزی یا بازارگاه محصولات
+      نیست. این اکوسیستم باید پیوند میان علم، مدیریت منابع طبیعی،
+      اقتصاد محلی، فناوری و احیای سرزمین را برقرار کند.
+
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     TAB 02 — COLORS
+======================================================= -->
+
+<section
+  class="tab-panel"
+  id="panel-colors"
+  role="tabpanel"
+  aria-labelledby="tab-button-colors"
+  tabindex="0"
+  hidden>
+
+  <div class="section-heading">
+
+    <div class="section-eyebrow">
+      COLOR LANGUAGE
+    </div>
+
+    <h1>زبان رنگی اکوسیستم</h1>
+
+    <p>
+      پالت رنگی پیشنهادی برای ایجاد تمایز میان برند مادر،
+      موتور علمی، بازارگاه و اجزای رابط کاربری.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2 class="card-title">رنگ‌های اصلی برند</h2>
+        <div class="card-description">
+          Primary Brand Palette
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="color-grid">
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#0B5563;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Territory Teal
+          </div>
+
+          <div class="color-value">
+            #0B5563
+          </div>
+
+          <div class="color-role">
+            رنگ اصلی برند
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#C9A227;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Living Sand
+          </div>
+
+          <div class="color-value">
+            #C9A227
+          </div>
+
+          <div class="color-role">
+            رنگ مکمل و تأکیدی
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#35C4D7;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Water Cyan
+          </div>
+
+          <div class="color-value">
+            #35C4D7
+          </div>
+
+          <div class="color-role">
+            آب و داده‌های محیطی
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#2E3A87;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Science Indigo
+          </div>
+
+          <div class="color-value">
+            #2E3A87
+          </div>
+
+          <div class="color-role">
+            هویت علمی HyDroMA
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#E76F51;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Market Coral
+          </div>
+
+          <div class="color-value">
+            #E76F51
+          </div>
+
+          <div class="color-role">
+            هویت بازارگاه
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#0F1E24;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Ink
+          </div>
+
+          <div class="color-value">
+            #0F1E24
+          </div>
+
+          <div class="color-role">
+            متن اصلی
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#5A6B72;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Slate
+          </div>
+
+          <div class="color-value">
+            #5A6B72
+          </div>
+
+          <div class="color-role">
+            متن ثانویه
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#F5F7F8;border-bottom:1px solid #D5DDE0;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">
+            Cloud
+          </div>
+
+          <div class="color-value">
+            #F5F7F8
+          </div>
+
+          <div class="color-role">
+            پس‌زمینه عمومی
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="card-title">رنگ‌های معنایی</h2>
+
+    <p class="card-description">
+      Semantic Colors — مستقل از رنگ‌های هویتی برند
+    </p>
+
+
+    <div class="color-grid">
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#237A49;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">Success</div>
+
+          <div class="color-value">#237A49</div>
+
+          <div class="color-role">موفقیت و وضعیت مطلوب</div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#96600C;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">Warning</div>
+
+          <div class="color-value">#96600C</div>
+
+          <div class="color-role">هشدار و نیازمند بررسی</div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#B52F35;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">Danger</div>
+
+          <div class="color-value">#B52F35</div>
+
+          <div class="color-role">خطا و وضعیت بحرانی</div>
+
+        </div>
+
+      </div>
+
+
+      <div class="color-card">
+
+        <div class="color-preview"
+             style="background:#245CB5;"></div>
+
+        <div class="color-info">
+
+          <div class="color-name">Information</div>
+
+          <div class="color-value">#245CB5</div>
+
+          <div class="color-role">اطلاع‌رسانی</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="demo-note">
+
+      رنگ‌های معنایی نباید با رنگ‌های اصلی برند اشتباه گرفته شوند.
+      برای مثال، سبز نشان‌دهنده وضعیت موفقیت است و رنگ اصلی هویت Eco Nojin نیست.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     TAB 03 — TYPOGRAPHY
+======================================================= -->
+
+<section
+  class="tab-panel"
+  id="panel-type"
+  role="tabpanel"
+  aria-labelledby="tab-button-type"
+  tabindex="0"
+  hidden>
+
+  <div class="section-heading">
+
+    <div class="section-eyebrow">
+      TYPOGRAPHY SYSTEM
+    </div>
+
+    <h1>زبان نوشتاری برند</h1>
+
+    <p>
+      تایپوگرافی باید در زبان فارسی، انگلیسی و سایر زبان‌های
+      پشتیبانی‌شده، خوانایی و انسجام بصری یکسانی ایجاد کند.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="card-title">مقیاس تایپوگرافی</h2>
+
+
+    <div class="type-row">
+
+      <div class="type-meta">
+
+        <strong>Display</strong>
+
+        <span>40px</span>
+
+      </div>
+
+      <div class="type-display">
+        سرزمین‌های زنده
+      </div>
+
+    </div>
+
+
+    <div class="type-row">
+
+      <div class="type-meta">
+
+        <strong>Heading 1</strong>
+
+        <span>30px</span>
+
+      </div>
+
+      <div class="type-h1">
+        هوشمندی برای احیای سرزمین
+      </div>
+
+    </div>
+
+
+    <div class="type-row">
+
+      <div class="type-meta">
+
+        <strong>Heading 2</strong>
+
+        <span>24px</span>
+
+      </div>
+
+      <div class="type-h2">
+        موتور علمی HyDroMA
+      </div>
+
+    </div>
+
+
+    <div class="type-row">
+
+      <div class="type-meta">
+
+        <strong>Heading 3</strong>
+
+        <span>20px</span>
+
+      </div>
+
+      <div class="type-h3">
+        مدیریت هوشمند منابع آب و خاک
+      </div>
+
+    </div>
+
+
+    <div class="type-row">
+
+      <div class="type-meta">
+
+        <strong>Body</strong>
+
+        <span>16px</span>
+
+      </div>
+
+      <div class="type-body">
+        علم، فناوری و معیشت در خدمت توسعه پایدار سرزمین.
+      </div>
+
+    </div>
+
+
+    <div class="type-row">
+
+      <div class="type-meta">
+
+        <strong>Small</strong>
+
+        <span>13px</span>
+
+      </div>
+
+      <div class="type-small">
+        اطلاعات تکمیلی و توضیحات اجزای رابط کاربری.
+      </div>
+
+    </div>
+
+
+    <div class="type-row">
+
+      <div class="type-meta">
+
+        <strong>Caption</strong>
+
+        <span>11px</span>
+
+      </div>
+
+      <div class="type-caption">
+        توضیحات فرعی، برچسب‌ها و متادیتا
+      </div>
+
+    </div>
+
+
+    <div class="info-note">
+
+      فونت‌های پیشنهادی:
+
+      Vazirmatn برای فارسی،
+      Inter برای لاتین و
+      JetBrains Mono برای داده‌های فنی.
+
+      فایل فونت باید در نسخه اجرایی به‌صورت محلی بارگذاری شود.
+      در این نمونه، فونت‌ها به سیستم کاربر وابسته‌اند.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     TAB 04 — COMPONENTS
+======================================================= -->
+
+<section
+  class="tab-panel"
+  id="panel-components"
+  role="tabpanel"
+  aria-labelledby="tab-button-components"
+  tabindex="0"
+  hidden>
+
+  <div class="section-heading">
+
+    <div class="section-eyebrow">
+      UI COMPONENT LIBRARY
+    </div>
+
+    <h1>کتابخانه اجزای رابط کاربری</h1>
+
+    <p>
+      اجزای پایه برای استفاده مشترک در داشبوردها،
+      بازارگاه، موتور علمی و پنل‌های مدیریتی.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2 class="card-title">دکمه‌ها</h2>
+        <div class="card-description">
+          Button Variants
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="button-group">
+
+      <button class="btn btn-primary">
+        Primary Action
+      </button>
+
+      <button class="btn btn-secondary">
+        Secondary
+      </button>
+
+      <button class="btn btn-ghost">
+        Ghost
+      </button>
+
+      <button class="btn btn-accent">
+        Accent
+      </button>
+
+      <button class="btn btn-danger">
+        Delete
+      </button>
+
+      <button class="btn btn-primary" disabled>
+        Disabled
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2 class="card-title">فرم‌ها</h2>
+        <div class="card-description">
+          Form Elements
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <div class="form-field">
+
+        <label for="sample-name">
+          نام کاربر
+        </label>
+
+        <input
+          class="input"
+          id="sample-name"
+          type="text"
+          placeholder="نام و نام خانوادگی">
+
+      </div>
+
+
+      <div class="form-field">
+
+        <label for="sample-email">
+          ایمیل
+        </label>
+
+        <input
+          class="input"
+          id="sample-email"
+          type="email"
+          placeholder="name@example.com"
+          dir="ltr">
+
+      </div>
+
+
+      <div class="form-field">
+
+        <label for="sample-country">
+          کشور
+        </label>
+
+        <select class="input" id="sample-country">
+
+          <option>انتخاب کشور</option>
+
+          <option>ایران</option>
+
+          <option>آلمان</option>
+
+          <option>ترکیه</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-field">
+
+        <label for="sample-unit">
+          واحد اندازه‌گیری
+        </label>
+
+        <select class="input" id="sample-unit">
+
+          <option>متر مکعب</option>
+
+          <option>هکتار</option>
+
+          <option>میلی‌متر</option>
+
+          <option>کیلوگرم</option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2 class="card-title">نشانگرهای وضعیت</h2>
+        <div class="card-description">
+          Status Badges
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="button-group">
+
+      <span class="badge badge-success">
+        ACTIVE
+      </span>
+
+      <span class="badge badge-warning">
+        PENDING
+      </span>
+
+      <span class="badge badge-danger">
+        ERROR
+      </span>
+
+      <span class="badge badge-neutral">
+        INACTIVE
+      </span>
+
+      <span class="badge badge-info">
+        INFORMATION
+      </span>
+
+      <span class="badge badge-hydroma">
+        HyDroMA
+      </span>
+
+      <span class="badge badge-market">
+        MARKETPLACE
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2 class="card-title">جدول داده</h2>
+        <div class="card-description">
+          Data Table
+        </div>
+      </div>
+
+      <span class="card-tag">ILLUSTRATIVE DATA</span>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table class="table">
+
+        <caption>
+          نمونه نمایشی ساختار جدول ماژول‌های اکوسیستم
+        </caption>
+
+        <thead>
+
+          <tr>
+
+            <th>ماژول</th>
+
+            <th>حوزه فعالیت</th>
+
+            <th>وضعیت نمونه</th>
+
+            <th>لایه</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr>
+
+            <td>HyDroMA Engine</td>
+
+            <td>مدل‌سازی علمی</td>
+
+            <td>
+              <span class="badge badge-neutral">
+                DEMO
+              </span>
+            </td>
+
+            <td>L5</td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>Accounting</td>
+
+            <td>حسابداری</td>
+
+            <td>
+              <span class="badge badge-neutral">
+                DEMO
+              </span>
+            </td>
+
+            <td>L9</td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>Marketplace</td>
+
+            <td>تجارت و بازارگاه</td>
+
+            <td>
+              <span class="badge badge-neutral">
+                DEMO
+              </span>
+            </td>
+
+            <td>L8</td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <div class="demo-note">
+
+      داده‌های جدول صرفاً برای نمایش اجزای رابط هستند.
+      این اطلاعات تأییدکننده وضعیت پیاده‌سازی یا آمادگی عملیاتی ماژول‌ها نیستند.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     TAB 05 — SCIENTIFIC
+======================================================= -->
+
+<section
+  class="tab-panel"
+  id="panel-science"
+  role="tabpanel"
+  aria-labelledby="tab-button-science"
+  tabindex="0"
+  hidden>
+
+  <div class="section-heading">
+
+    <div class="section-eyebrow">
+      SCIENTIFIC DATA GOVERNANCE
+    </div>
+
+    <h1>نظام نمایش و اعتبار علمی داده‌ها</h1>
+
+    <p>
+      در HyDroMA، هر خروجی علمی باید همراه با منشأ داده،
+      نسخه مدل، تنظیمات اجرا، کیفیت ورودی و شواهد ارزیابی
+      قابل ردیابی باشد.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+
+        <h2 class="card-title">
+          ابعاد مستقل ارزیابی علمی
+        </h2>
+
+        <div class="card-description">
+          Scientific Assessment Dimensions
+        </div>
+
+      </div>
+
+      <span class="card-tag">
+        CONCEPTUAL MODEL
+      </span>
+
+    </div>
+
+
+    <div class="science-model">
+
+      <h3>وضعیت یک نتیجه علمی</h3>
+
+      <div class="science-dimensions">
+
+        <div class="science-dimension">
+
+          <strong>Calibration</strong>
+
+          <span class="badge badge-warning">
+            CALIBRATED
+          </span>
+
+          <p>
+            بررسی و تنظیم پارامترهای مدل بر اساس داده‌های
+            مشاهده‌ای و معیارهای کالیبراسیون.
+          </p>
+
+        </div>
+
+
+        <div class="science-dimension">
+
+          <strong>Validation</strong>
+
+          <span class="badge badge-success">
+            VALIDATED
+          </span>
+
+          <p>
+            ارزیابی مستقل عملکرد مدل یا نتیجه در برابر
+            داده‌ها و معیارهای اعتبارسنجی مشخص.
+          </p>
+
+        </div>
+
+
+        <div class="science-dimension">
+
+          <strong>Input Quality</strong>
+
+          <span class="badge badge-info">
+            QUALITY ASSESSMENT
+          </span>
+
+          <p>
+            ارزیابی کامل بودن، دقت، سازگاری و کیفیت
+            داده‌های ورودی.
+          </p>
+
+        </div>
+
+
+        <div class="science-dimension">
+
+          <strong>Reproducibility</strong>
+
+          <span class="badge badge-neutral">
+            REPRODUCIBILITY
+          </span>
+
+          <p>
+            امکان بازتولید نتیجه با نسخه مدل،
+            ورودی‌ها و تنظیمات ثبت‌شده.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="science-note">
+
+      کالیبراسیون و اعتبارسنجی دو مفهوم مستقل هستند.
+      کالیبره‌شدن یک مدل به‌تنهایی اثبات‌کننده اعتبار علمی آن نیست.
+      وضعیت هرکدام باید با شواهد و معیارهای مربوط به همان ارزیابی ثبت شود.
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+
+        <h2 class="card-title">
+          وضعیت‌های نمایشی نتایج علمی
+        </h2>
+
+        <div class="card-description">
+          Scientific Result Indicators
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="button-group">
+
+      <span class="badge badge-neutral">
+        UNCALIBRATED
+      </span>
+
+      <span class="badge badge-warning">
+        CALIBRATED
+      </span>
+
+      <span class="badge badge-success">
+        VALIDATED
+      </span>
+
+      <span class="badge badge-danger">
+        NOT VALIDATED
+      </span>
+
+    </div>
+
+
+    <div class="demo-note">
+
+      این وضعیت‌ها یک زنجیره اجباری و خطی نیستند.
+      هر نتیجه باید متناسب با روش ارزیابی، داده مرجع،
+      محدوده اعتبار و شواهد موجود طبقه‌بندی شود.
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+
+        <h2 class="card-title">
+          منشأ و قابلیت ردیابی داده‌ها
+        </h2>
+
+        <div class="card-description">
+          Data Provenance
+        </div>
+
+      </div>
+
+      <span class="badge badge-warning">
+        ILLUSTRATIVE
+      </span>
+
+    </div>
+
+
+    <div class="provenance">
+
+      <div class="provenance-header">
+
+        <strong>
+          Model Execution Record
+        </strong>
+
+        <span class="badge badge-neutral">
+          DEMO DATA
+        </span>
+
+      </div>
+
+
+      <div class="provenance-list">
+
+        <div class="provenance-item">
+
+          <span>Model Name</span>
+
+          <code>example-model</code>
+
+        </div>
+
+
+        <div class="provenance-item">
+
+          <span>Model Version</span>
+
+          <code>0.0.0-demo</code>
+
+        </div>
+
+
+        <div class="provenance-item">
+
+          <span>Input Dataset Hash</span>
+
+          <code>NOT_GENERATED</code>
+
+        </div>
+
+
+        <div class="provenance-item">
+
+          <span>Code Hash</span>
+
+          <code>NOT_GENERATED</code>
+
+        </div>
+
+
+        <div class="provenance-item">
+
+          <span>Execution Timestamp</span>
+
+          <code>NOT_GENERATED</code>
+
+        </div>
+
+
+        <div class="provenance-item">
+
+          <span>Validation Record</span>
+
+          <code>NOT_AVAILABLE</code>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="info-note">
+
+      این نمونه یک رکورد واقعی اجرای مدل نیست.
+      در نسخه عملیاتی، اطلاعات باید از سوابق واقعی اجرای موتور علمی
+      استخراج شوند و امکان جعل یا تغییر بدون ثبت رویداد وجود نداشته باشد.
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="card-title">
+      ارتباط با MRV و اعتبار کربن
+    </h2>
+
+    <p style="font-size:13px;color:var(--slate);">
+
+      نتایج علمی HyDroMA می‌توانند در سامانه‌های پایش،
+      گزارش‌دهی و راستی‌آزمایی (MRV) مورد استفاده قرار گیرند؛
+      اما استفاده از یک نتیجه برای محاسبه یا صدور اعتبار کربن
+      نیازمند بررسی روش‌شناسی، محدوده پروژه، خط مبنا،
+      عدم‌قطعیت، الزامات استاندارد مربوط و تأیید مرجع ذی‌صلاح است.
+
+    </p>
+
+    <div class="demo-note">
+
+      برچسب VALIDATED در HyDroMA به‌تنهایی معادل
+      تأیید رسمی اعتبار کربن یا ثبت اعتبار در یک رجیستری نیست.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     TAB 06 — RTL / LTR
+======================================================= -->
+
+<section
+  class="tab-panel"
+  id="panel-direction"
+  role="tabpanel"
+  aria-labelledby="tab-button-direction"
+  tabindex="0"
+  hidden>
+
+  <div class="section-heading">
+
+    <div class="section-eyebrow">
+      INTERNATIONALIZATION
+    </div>
+
+    <h1>معماری چندزبانه و چندجهته</h1>
+
+    <p>
+      Eco Nojin باید از زبان‌های راست‌به‌چپ و
+      چپ‌به‌راست پشتیبانی کند.
+      جهت نوشتار تنها بخشی از معماری چندزبانه است.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="card-title">
+      پیش‌نمایش جهت نوشتار
+    </h2>
+
+    <p class="card-description">
+
+      این ابزار صرفاً جهت نمایش را تغییر می‌دهد؛
+      ترجمه واقعی محتوا در این نسخه پیاده‌سازی نشده است.
+
+    </p>
+
+
+    <div class="direction-controls">
+
+      <button
+        class="btn btn-primary"
+        id="set-rtl"
+        type="button">
+
+        نمایش RTL
+
+      </button>
+
+
+      <button
+        class="btn btn-secondary"
+        id="set-ltr"
+        type="button">
+
+        نمایش LTR
+
+      </button>
+
+    </div>
+
+
+    <div class="direction-preview" id="direction-preview">
+
+      <h3 id="preview-title">
+        سرزمین‌های زنده
+      </h3>
+
+      <p id="preview-description">
+
+        هوشمندی علمی برای مدیریت منابع آب،
+        خاک، پوشش گیاهی و توسعه پایدار.
+
+      </p>
+
+      <strong id="preview-label">
+        پیش‌نمایش فارسی
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="card-title">
+      الزامات معماری بین‌المللی
+    </h2>
+
+
+    <div class="grid">
+
+      <div class="col-6 pillar">
+
+        <div class="pillar-number">01</div>
+
+        <h3>Language Support</h3>
+
+        <p>
+          ترجمه واقعی تمام محتوای رابط و پیام‌ها
+        </p>
+
+      </div>
+
+
+      <div class="col-6 pillar">
+
+        <div class="pillar-number">02</div>
+
+        <h3>RTL / LTR</h3>
+
+        <p>
+          پشتیبانی از جهت نوشتار و چیدمان
+        </p>
+
+      </div>
+
+
+      <div class="col-6 pillar">
+
+        <div class="pillar-number">03</div>
+
+        <h3>Locale Formatting</h3>
+
+        <p>
+          قالب تاریخ، عدد، ارز و واحدهای اندازه‌گیری
+        </p>
+
+      </div>
+
+
+      <div class="col-6 pillar">
+
+        <div class="pillar-number">04</div>
+
+        <h3>Typography</h3>
+
+        <p>
+          فونت مناسب برای زبان‌های مختلف
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="info-note">
+
+      تغییر lang و dir در HTML به‌تنهایی به معنی
+      پشتیبانی چندزبانه نیست. ترجمه، قالب‌بندی منطقه‌ای،
+      مدیریت متن‌های پویا و آزمون زبان‌های مختلف
+      باید در معماری نرم‌افزار پیاده‌سازی شوند.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+  <div class="container footer-inner">
+
+    <div class="footer-brand">
+      ECO NOJIN
+    </div>
+
+    <div class="footer-meta">
+
+      Eco Nojin · HyDroMA · Nojin Marketplace
+
+      <br>
+
+      Brand & Design System · Version 2.0 · DRAFT — NOT APPROVED
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+</div>
+
+
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
+
+<script>
+
+/* ---------------------------------------------------------
+   ACCESSIBLE TAB SYSTEM
+   --------------------------------------------------------- */
+
+const tabButtons = [...document.querySelectorAll('[role="tab"]')];
+
+const tabPanels = [...document.querySelectorAll('[role="tabpanel"]')];
+
+
+function activateTab(button, moveFocus = false) {
+
+  const targetId = button.getAttribute('aria-controls');
+
+  tabButtons.forEach(tab => {
+
+    const selected = tab === button;
+
+    tab.setAttribute(
+      'aria-selected',
+      String(selected)
+    );
+
+    tab.tabIndex = selected ? 0 : -1;
+
+  });
+
+
+  tabPanels.forEach(panel => {
+
+    const active = panel.id === targetId;
+
+    panel.classList.toggle('active', active);
+
+    panel.hidden = !active;
+
+  });
+
+
+  if (moveFocus) {
+    button.focus();
+  }
+
+}
+
+
+tabButtons.forEach((button, index) => {
+
+  button.addEventListener('click', () => {
+
+    activateTab(button);
+
+  });
+
+
+  button.addEventListener('keydown', event => {
+
+    let nextIndex = index;
+
+    if (event.key === 'ArrowLeft') {
+
+      nextIndex = (index + 1) % tabButtons.length;
+
+    } else if (event.key === 'ArrowRight') {
+
+      nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+
+    } else if (event.key === 'Home') {
+
+      nextIndex = 0;
+
+    } else if (event.key === 'End') {
+
+      nextIndex = tabButtons.length - 1;
+
+    } else {
+
+      return;
+
+    }
+
+    event.preventDefault();
+
+    activateTab(tabButtons[nextIndex], true);
+
+  });
+
+});
+
+
+/* ---------------------------------------------------------
+   RTL / LTR PREVIEW
+   --------------------------------------------------------- */
+
+const html = document.documentElement;
+
+const preview = document.getElementById('direction-preview');
+
+const title = document.getElementById('preview-title');
+
+const description = document.getElementById('preview-description');
+
+const label = document.getElementById('preview-label');
+
+
+function setDirection(direction) {
+
+  if (direction === 'ltr') {
+
+    html.dir = 'ltr';
+
+    preview.dir = 'ltr';
+
+    title.textContent = 'Living Territories';
+
+    description.textContent =
+      'Scientific intelligence for water, soil, vegetation and sustainable development.';
+
+    label.textContent = 'English layout preview';
+
+  } else {
+
+    html.dir = 'rtl';
+
+    preview.dir = 'rtl';
+
+    title.textContent = 'سرزمین‌های زنده';
+
+    description.textContent =
+      'هوشمندی علمی برای مدیریت منابع آب، خاک، پوشش گیاهی و توسعه پایدار.';
+
+    label.textContent = 'پیش‌نمایش فارسی';
+
+  }
+
+}
+
+
+document.getElementById('set-rtl').addEventListener(
+  'click',
+  () => setDirection('rtl')
+);
+
+
+document.getElementById('set-ltr').addEventListener(
+  'click',
+  () => setDirection('ltr')
+);
+
+</script>
+
+</body>
+</html>

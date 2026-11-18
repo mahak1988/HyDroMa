@@ -1,0 +1,55 @@
+project,domain,primary_capability,architecture_layer,decision,target_capability,overlap_or_alternative,key_dependencies,license_constraint,client_or_server,ops_complexity,upgrade_risk,notes
+geolibre,Visualization,Full GIS workbench,Layer 6 Geospatial & L1 Presentation,UPSTREAM_CUSTOMIZE,Geospatial Dashboard; Scientific Dashboard,Overlaps maplibre+cesium+deck.gl (replaceable by them),Cesium+deck.gl+DuckDB-WASM,MIT low risk,Client (WebGL),High,Low,Heavy; customize UI to Design System
+giro3d,Visualization,3D rendering engine,Layer 6 Geospatial,INTEGRATE,3D Terrain; 3D Globe,Overlaps cesium (3D),three.js,MIT low risk,Client (WebGL),Medium,Low,Clean library for 3D
+wflow-jl,Hydrology,Distributed hydrological model,Layer 5 HyDroMA,UPSTREAM_ADOPT,Hydrology; Surface Water,No direct alternative,Julia runtime,MIT low risk,Server,Medium,Low,Scientific core candidate
+hydromt-wflow,Hydrology,HydroMT workflow,Layer 5 HyDroMA,DEFER,Hydrology; Scenario Simulation,Overlaps wflow-jl workflow layer,Python,GPL-3.0 high risk,Server,Medium,High,Copyleft; defer until legal review
+modflow6,Hydrology,Groundwater model,Layer 5 HyDroMA,UPSTREAM_ADOPT,Groundwater,No direct alternative,Fortran,CC0-1.0 low risk,Server,Medium,Low,Public domain; strong candidate
+landlab,Science,Geomorph modeling,Layer 5 HyDroMA,DEFER,Land Degradation; Soil Erosion,No direct alternative,Python,MIT low risk,Server,Low,Low,Optional scientific lib
+aquacrop-ospy,Science,Crop model,Layer 5 HyDroMA,INTEGRATE,Crop Simulation; Agricultural Modeling,Overlaps pcse (crop),Python,Apache-2.0 (MIT conflict) low risk,Server,Low,Medium,Verify license conflict
+xclim,Science,Climate indices,Layer 5 HyDroMA,UPSTREAM_ADOPT,Climate and Meteorology; Drought Analysis,Overlaps climate-indices,Python,Apache-2.0 low risk,Server,Low,Low,Strong candidate
+climate-indices,Science,Climate indices,Layer 5 HyDroMA,DEFER,Climate and Meteorology,Overlaps xclim,Python/Rust,BSD-3-Clause low risk,Server,Low,Low,Choose xclim OR climate-indices
+swatplus,Hydrology,SWAT+ watershed,Layer 5 HyDroMA,INTEGRATE,Hydrology; Watershed Management,No direct alternative,Fortran,LGPL-2.1 medium risk,Server,Medium,Medium,Weak copyleft
+cesium,Visualization,3D globe,Layer 6 Geospatial,INTEGRATE,3D Globe; Terrain Visualization,Overlaps giro3d (3D),Cesium,Apache-2.0 low risk,Client (WebGL),High,Low,Optional ion service
+deck-gl,Visualization,WebGL layers,Layer 6 Geospatial,INTEGRATE,2D/3D Visualization; Data Layers,Overlaps maplibre layers,deck.gl,MIT low risk,Client (WebGL),Medium,Low,GPU layer rendering
+maplibre-gl-js,Visualization,2D maps,Layer 6 Geospatial,UPSTREAM_ADOPT,Interactive Maps; 2D Geospatial,No direct alternative,MapLibre,BSD-3-Clause low risk,Client (WebGL),Medium,Low,Core 2D map engine
+titiler,Geospatial Data,Tile server,Layer 6 Geospatial,UPSTREAM_ADOPT,Raster Serving; COG tiles,No direct alternative,FastAPI+GDAL,MIT low risk,Server,Low,Low,Strong candidate for raster tiles
+pgstac,Geospatial Data,STAC catalog DB,Layer 6 Geospatial,UPSTREAM_ADOPT,STAC Catalog; Geospatial Search,Overlaps odc-stac/pystac (complementary),PostgreSQL+PostGIS,MIT low risk,Server,Medium,Low,Strong candidate for catalog
+odc-stac,Geospatial Data,STAC to ODC bridge,Layer 5 HyDroMA/Layer 6,DEFER,Geospatial Analysis,Overlaps pystac/pygeoprocessing,Postgres,Apache-2.0 low risk,Server,Low,Low,Only if ODC adopted
+pystac,Geospatial Data,STAC client,Layer 6 Geospatial,UPSTREAM_ADOPT,STAC Catalog; Geospatial Search,No direct alternative,Python,Apache-2.0 low risk,Server/Client,Low,Low,Core STAC lib
+erpnext,Business,Full ERP,Layer 9 Finance,DEFER,Accounting and Finance,Overlaps dolibarr (ERP),MariaDB/Postgres,GPL-3.0 high risk,Server,High,High,Copyleft; legal review required
+dolibarr,Business,ERP and CRM,Layer 9 Finance,DEFER,Accounting and Finance,Overlaps erpnext (ERP),MySQL,GPL-3.0 high risk,Server,High,High,Copyleft; legal review required
+medusa,Business,Headless commerce,Layer 8 Marketplace,DEFER,Marketplace and Commerce,Overlaps spree (commerce),PostgreSQL,MIT+EE medium risk,Server,High,Medium,EE commercial boundary
+directus,CMS,Headless CMS,Layer 3 Core/Layer 13,REJECT,Content Administration; Knowledge Base,Overlaps custom content,SQL,MSCL-1.0-GPL high risk,Server,High,High,Source-available; not open source
+opentripplanner,Routing,Journey planner,Layer 6 Geospatial/Tourism,DEFER,Route Planning; Tourism,No direct alternative,Java,LGPL-3.0 medium risk,Server,High,Medium,Only if routing is core
+keycloak,Identity,IAM,Layer 2 Identity,UPSTREAM_ADOPT,Authentication; Authorization; Multi-tenancy,No direct alternative,Java,Apache-2.0 low risk,Server,High,Low,Strong IAM candidate
+temporal,Workflow,Durable workflows,Layer 11 Workflow,INTEGRATE,Workflow and Automation,Overlaps kestra (workflow),Go,MIT low risk,Server,High,Low,Strong workflow candidate
+kestra,Workflow,Declarative orchestration,Layer 11 Workflow,DEFER,Workflow and Automation,Overlaps temporal (workflow),Java,Apache-2.0 low risk,Server,High,Low,Choose temporal OR kestra
+node-red,Workflow,Low-code flows,Layer 11 Workflow,REJECT,Workflow and Automation,Overlaps temporal/kestra,Node.js,Apache-2.0 low risk,Server,Low,High,Insecure by default; prototyping only
+langgraph,AI,Agent orchestration,Layer 10 AI,INTEGRATE,AI Agents,Overlaps agno (agents),Python,MIT low risk,Server,Low,Low,Strong agent candidate
+agno,AI,Multi-agent framework,Layer 10 AI,DEFER,AI Agents,Overlaps langgraph (agents),Python,Apache-2.0 low risk,Server,Low,Low,Choose langgraph OR agno
+flowise,AI,Low-code LLM builder,Layer 10 AI,DEFER,AI Agents,Overlaps langgraph/agno,Node.js,Apache-2.0+EE medium risk,Server,Medium,Medium,EE commercial boundary
+openzeppelin-contracts,Blockchain,Smart contracts,Layer 9 Digital Economy,DEFER,Digital Economy; Tokenization,No direct alternative,Solidity,MIT low risk,Build only,Low,High,Only if blockchain owner-decided
+farmos,Agriculture,Farm management,Layer 4 Territory,DEFER,Farm Management,Overlaps custom territory,PHP,GPL-2.0-or-later high risk,Server,High,High,Copyleft; legal review
+openforis-arena,Environment,Survey platform,Layer 6 Geospatial/Layer 4,DEFER,Field Data Integration; Community Participation,Overlaps collect (survey),PostgreSQL+PostGIS,MIT low risk,Server,High,Low,Optional field survey
+collect-earth,Environment,Visual interpretation,Layer 6 Geospatial,DEFER,Land Cover Analysis; Vegetation Indices,Overlaps collect-earth-online,Java,MIT low risk,Desktop,High,Low,Desktop tool; optional
+sepal,Environment,Cloud raster analysis,Layer 6 Geospatial,DEFER,Raster Processing; Remote Sensing,Overlaps pygeoprocessing,PostgreSQL+PostGIS,MIT/ISC low risk,Server,Very High,Medium,Heavy cloud platform
+qloapps,Tourism,Hotel booking,Layer 8 Tourism,REJECT,Tourism and Booking,Overlaps custom tourism,PHP,OSL-3.0 high risk,Server,High,High,Copyleft; not recommended
+spree,Commerce,Headless commerce,Layer 8 Marketplace,UPSTREAM_CUSTOMIZE,Marketplace and Commerce,Overlaps medusa (commerce),Postgres/MySQL; Stripe optional,BSD-3-Clause low risk,Server,High,Low,Strong marketplace candidate; multi-vendor out-of-box
+novu,Notifications,Notifications,Layer 3 Core,DEFER,Notification Preferences; Notifications,No direct alternative,PostgreSQL; Email/SMS,MIT+EE medium risk,Server,High,Medium,EE approval required
+collect-earth-online,Environment,CEO web app,Layer 6 Geospatial,DEFER,Land Cover Analysis; Visual Interpretation,Overlaps collect-earth (desktop),Clojure; PostgreSQL; GEE,MIT low risk,Server,High,Low,Optional CEO web
+collect-mobile,Environment,Mobile survey,Layer 1 Presentation,DEFER,Field Data Integration,Overlaps openforis-arena,Android,MIT low risk,Client (Android),Medium,Low,Optional mobile client
+collect,Environment,Survey designer,Layer 6 Geospatial/Layer 4,DEFER,Community Participation; Field Data,Overlaps openforis-arena,Java,MIT low risk,Server,Medium,Low,Optional survey designer
+mapserver,Geospatial Data,OGC map server,Layer 6 Geospatial,DEFER,OGC Services; WMS/WFS,Overlaps titiler+maplibre,C/C++,MIT low risk,Server,Medium,Low,Optional classic OGC
+wps,Meteorology,WRF pre-processing,Layer 5 HyDroMA,DEFER,Climate and Meteorology,No direct alternative,Fortran/C,NOT FOUND review,Server,High,High,License unconfirmed; not usable yet
+rhem-engine-singlestorm,Hydrology,RHEM erosion,Layer 5 HyDroMA,INTEGRATE,Soil Erosion,Overlaps rhem-engine-cligen,Fortran,MIT low risk,Server,Low,Low,Erosion model
+rhem-engine-cligen,Hydrology,RHEM erosion,Layer 5 HyDroMA,INTEGRATE,Soil Erosion,Overlaps rhem-engine-singlestorm,Fortran,MIT low risk,Server,Low,Low,Erosion model (CLIGEN)
+pcse,Science,Crop simulation,Layer 5 HyDroMA,DEFER,Crop Simulation,Overlaps aquacrop-ospy,Python,EUPL-1.1 high risk,Server,Low,High,Copyleft; legal review
+grafana,Observability,Dashboards,Layer 14 Infra,DEFER,System Monitoring; Observability,Overlaps superset (BI),Go/TS; SQL metadata,AGPL-3.0-only high risk,Server,High,High,AGPL network disclosure; use unmodified
+opentelemetry-collector,Observability,Telemetry,Layer 14 Infra,UPSTREAM_ADOPT,Observability; System Monitoring,No direct alternative,Go,Apache-2.0 low risk,Server,Medium,Low,Strong observability candidate
+prometheus,Observability,Metrics,Layer 14 Infra,UPSTREAM_ADOPT,System Monitoring; Observability,Overlaps grafana (dashboards),Go; TSDB,Apache-2.0 low risk,Server,Medium,Low,Strong metrics candidate
+superset,BI,BI dashboards,Layer 14 Infra/Layer 9,DEFER,Financial Reporting; Analytics,Overlaps grafana (dashboards),Python/TS; SQL metadata,Apache-2.0 low risk,Server,High,Low,Optional BI
+opensearch,Search,Search engine,Layer 7 Data,DEFER,Geospatial Search; Knowledge Search,Overlaps custom search,Java; search engine,Apache-2.0 low risk,Server,High,Low,Optional search
+seaweedfs,Storage,Object store,Layer 7 Data,DEFER,Document Management; Object Storage,Overlaps MinIO/S3,Go; object store,Apache-2.0 low risk,Server,Medium,Low,Optional object store
+pygeoprocessing,Geospatial Data,Raster routines,Layer 5 HyDroMA/Layer 6,UPSTREAM_ADOPT,Raster Processing; Watershed Delineation,Overlaps odc-stac,Python,BSD-3-Clause low risk,Server,Low,Low,Strong raster lib
+invest,Science,Ecosystem services,Layer 5 HyDroMA,DEFER,Ecosystem Restoration; Environmental Indicators,No direct alternative,Python,Apache-2.0 low risk,Server,Medium,Low,Optional ecosystem models
+flopy,Hydrology,MODFLOW I/O,Layer 5 HyDroMA,UPSTREAM_ADOPT,Groundwater; Hydrology,Overlaps modflow6 (complementary),Python,USGS public domain low risk,Server,Low,Low,Strong MODFLOW tooling

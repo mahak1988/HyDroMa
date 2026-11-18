@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 150" width="680" height="150" role="img" aria-labelledby="title desc">
+  <title id="title">Eco Nojin — Option 01</title>
+  <desc id="desc">Typographic wordmark. Fraunces serif. Eco in deep blue, Nojin in burnt orange, champagne gold rule and dot.</desc>
+  <rect width="680" height="150" fill="#FBF7F0"/>
+  <text x="24" y="92" font-family="Fraunces, Georgia, serif" font-size="78" font-weight="600" letter-spacing="-3" fill="#173B63">Eco</text>
+  <text x="188" y="92" font-family="Fraunces, Georgia, serif" font-size="78" font-weight="500" letter-spacing="-2.5" fill="#D9682B">Nojin</text>
+  <line x1="27" y1="113" x2="410" y2="113" stroke="#C9A34A" stroke-width="1.4"/>
+  <circle cx="410" cy="113" r="3.2" fill="#C9A34A"/>
+  <text x="28" y="138" font-family="Manrope, Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="4.2" fill="#8A765E">LIVING TERRITORIES</text>
+</svg>

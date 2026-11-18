@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 150" width="680" height="150" role="img" aria-labelledby="title desc">
+  <title id="title">HyDroMA — Option 03</title>
+  <desc id="desc">Typographic wordmark. Manrope. Hy and MA bold deep blue, Dro aqua lighter weight. Weight contrast for emphasis.</desc>
+  <rect width="680" height="150" fill="#F3F8F7"/>
+  <text x="24" y="94" font-family="Manrope, Arial, sans-serif" font-size="80" font-weight="800" letter-spacing="-4" fill="#173B63">Hy</text>
+  <text x="118" y="94" font-family="Manrope, Arial, sans-serif" font-size="80" font-weight="400" letter-spacing="-3" fill="#75C8C0">Dro</text>
+  <text x="288" y="94" font-family="Manrope, Arial, sans-serif" font-size="80" font-weight="800" letter-spacing="-4" fill="#173B63">MA</text>
+  <line x1="27" y1="113" x2="420" y2="113" stroke="#C9A34A" stroke-width="1.2"/>
+  <text x="28" y="138" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" letter-spacing="3.5" fill="#5A7A78">SCIENTIFIC ENGINE · HyDroMA</text>
+</svg>

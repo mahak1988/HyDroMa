@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 150" width="680" height="150" role="img" aria-labelledby="title desc">
+  <title id="title">HyDroMA — Option 02</title>
+  <desc id="desc">Typographic wordmark. DM Sans. HyDroMA all deep blue with aqua underline and gold dot. Modern, clean.</desc>
+  <rect width="680" height="150" fill="#FFFDFC"/>
+  <text x="24" y="92" font-family="DM Sans, Arial, sans-serif" font-size="74" font-weight="700" letter-spacing="-2.5" fill="#173B63">HyDroMA</text>
+  <line x1="26" y1="110" x2="360" y2="110" stroke="#75C8C0" stroke-width="3"/>
+  <circle cx="360" cy="110" r="4" fill="#C9A34A"/>
+  <text x="28" y="136" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="500" letter-spacing="3.5" fill="#5A7A78">SCIENTIFIC ENGINE</text>
+</svg>

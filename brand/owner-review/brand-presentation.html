@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eco Nojin | Brand Identity Playground</title>
+
+<link rel="stylesheet" href="./fonts/fonts.css">
+
+<style>
+:root {
+  --blue: #173B63;
+  --blue-soft: #EAF2F8;
+
+  --orange: #D9682B;
+  --orange-light: #F2B58F;
+
+  --gold: #C9A34A;
+  --gold-dark: #A77D2B;
+
+  --peach: #F2B7A0;
+  --coral: #E9957D;
+
+  --mint: #A9D9BB;
+  --aqua: #75C8C0;
+
+  --ivory: #FBF7F0;
+  --white: #FFFDFC;
+  --cream: #F4EBDD;
+
+  --text: #173B63;
+  --muted: #718091;
+  --border: #E9E1D5;
+
+  --font-fa: "Vazirmatn", sans-serif;
+  --font-fa-display: "Estedad", sans-serif;
+  --font-en: "Manrope", sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-market: "DM Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --radius: 18px;
+  --shadow: 0 12px 35px rgba(23,59,99,.07);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--text);
+  font-family: var(--font-fa);
+  line-height: 1.9;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.container {
+  width: min(1180px, calc(100% - 40px));
+  margin: auto;
+}
+
+/* HEADER */
+
+.topbar {
+  background: rgba(255,253,252,.94);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(12px);
+}
+
+.topbar-inner {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand-mini {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--blue);
+  direction: ltr;
+}
+
+.brand-mini span {
+  color: var(--orange);
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 13px;
+  color: var(--muted);
+  transition: .2s;
+}
+
+.nav a:hover {
+  color: var(--orange);
+}
+
+.version {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gold-dark);
+  border: 1px solid #E8D7AC;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+/* HERO */
+
+.hero {
+  padding: 95px 0 75px;
+  background:
+    radial-gradient(circle at 13% 22%, rgba(242,183,160,.28), transparent 24%),
+    radial-gradient(circle at 86% 80%, rgba(201,163,74,.13), transparent 25%),
+    var(--ivory);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 1px;
+  background: var(--gold);
+  top: 65px;
+  left: 8%;
+  transform: rotate(-28deg);
+  opacity: .65;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  top: 105px;
+  left: 28%;
+  box-shadow:
+    70px 35px 0 -2px var(--gold),
+    130px -22px 0 -1px var(--gold);
+}
+
+.eyebrow {
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  font-family: var(--font-fa-display);
+  font-size: clamp(35px, 5vw, 62px);
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 15px 0;
+  max-width: 850px;
+}
+
+.hero h1 span {
+  color: var(--orange);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 680px;
+  margin: 15px 0 28px;
+}
+
+.hero-en {
+  direction: ltr;
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 4vw, 44px);
+  color: var(--blue);
+  font-weight: 500;
+  letter-spacing: -1px;
+  margin-top: 35px;
+}
+
+.hero-en span {
+  color: var(--orange);
+}
+
+.gold-rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold),
+    transparent
+  );
+  margin: 0;
+}
+
+/* SECTIONS */
+
+section {
+  padding: 75px 0;
+}
+
+.section-head {
+  margin-bottom: 35px;
+}
+
+.section-head h2 {
+  font-family: var(--font-fa-display);
+  font-size: 29px;
+  margin: 0 0 8px;
+}
+
+.section-head p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.section-number {
+  display: inline-block;
+  direction: ltr;
+  font-family: var(--font-mono);
+  color: var(--gold-dark);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+/* LOGO CARDS */
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.logo-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+
+.logo-card.wide {
+  grid-column: 1 / -1;
+}
+
+.logo-card h3 {
+  margin: 0 0 5px;
+  font-size: 18px;
+}
+
+.logo-card .subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 20px;
+}
+
+.logo-preview {
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ivory);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 160px;
+  padding: 12px;
+}
+
+.logo-preview img {
+  display: block;
+  width: 100%;
+  max-width: 680px;
+  height: auto;
+}
+
+.logo-card.wide .logo-preview img {
+  max-width: 760px;
+}
+
+.logo-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.logo-meta span:last-child {
+  color: var(--gold-dark);
+}
+
+/* BRAND CHARACTER */
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.character {
+  border-radius: var(--radius);
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.character::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+  bottom: 20px;
+  left: 20px;
+}
+
+.character h3 {
+  font-family: var(--font-serif);
+  direction: ltr;
+  text-align: left;
+  font-size: 25px;
+  margin: 0 0 12px;
+}
+
+.character p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.character .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 6px;
+}
+
+/* COLOR PALETTE */
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.color-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  overflow: hidden;
+}
+
+.color-swatch {
+  height: 110px;
+}
+
+.color-info {
+  padding: 12px;
+}
+
+.color-info strong {
+  display: block;
+  font-size: 12px;
+}
+
+.color-info code {
+  display: block;
+  direction: ltr;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* TYPOGRAPHY */
+
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.type-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 25px;
+  border-radius: var(--radius);
+}
+
+.type-label {
+  color: var(--gold-dark);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  direction: ltr;
+  text-align: left;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.type-sample-fa {
+  font-family: var(--font-fa-display);
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.type-sample-en {
+  font-family: var(--font-serif);
+  direction: ltr;
+  text-align: left;
+  font-size: 31px;
+  line-height: 1.4;
+}
+
+.type-card p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+/* VISUAL LANGUAGE */
+
+.visual-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+
+.visual-stage {
+  min-height: 260px;
+  background:
+    radial-gradient(circle at 75% 30%, rgba(242,183,160,.25), transparent 20%),
+    linear-gradient(135deg, #FFFDFC, #F8F1E6);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  padding: 35px;
+}
+
+.visual-title {
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 5vw, 54px);
+  direction: ltr;
+  color: var(--blue);
+  position: relative;
+  z-index: 2;
+}
+
+.visual-title span {
+  color: var(--orange);
+}
+
+.visual-caption {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  max-width: 400px;
+}
+
+.visual-line {
+  position: absolute;
+  height: 1px;
+  background: var(--gold);
+  opacity: .8;
+  transform-origin: left;
+}
+
+.line-one {
+  width: 300px;
+  top: 55px;
+  right: -20px;
+  transform: rotate(-25deg);
+}
+
+.line-two {
+  width: 230px;
+  bottom: 55px;
+  right: 30px;
+  transform: rotate(20deg);
+}
+
+.visual-dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.dot-one {
+  top: 60px;
+  right: 27%;
+}
+
+.dot-two {
+  top: 130px;
+  right: 47%;
+  width: 5px;
+  height: 5px;
+}
+
+.dot-three {
+  bottom: 45px;
+  right: 18%;
+  width: 9px;
+  height: 9px;
+}
+
+.visual-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+/* UI COMPONENTS */
+
+.ui-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.ui-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 23px;
+}
+
+.ui-card h3 {
+  font-size: 15px;
+  margin: 0 0 17px;
+}
+
+.demo-button {
+  border: 0;
+  background: var(--blue);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.demo-button.orange {
+  background: var(--orange);
+}
+
+.demo-button.peach {
+  background: var(--peach);
+  color: #173B63;
+}
+
+.demo-tag {
+  display: inline-block;
+  background: var(--blue-soft);
+  color: var(--blue);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11px;
+}
+
+.demo-tag.gold {
+  background: #F7EED9;
+  color: #765B25;
+}
+
+.demo-tag.peach {
+  background: #FCE8E0;
+  color: #9A513B;
+}
+
+.ui-line {
+  height: 1px;
+  background: linear-gradient(
+    to left,
+    var(--gold),
+    transparent
+  );
+  margin: 20px 0;
+}
+
+.stat-number {
+  font-family: var(--font-en);
+  font-size: 35px;
+  font-weight: 800;
+  color: var(--blue);
+  direction: ltr;
+  text-align: left;
+}
+
+.stat-number span {
+  color: var(--orange);
+}
+
+/* FOOTER */
+
+footer {
+  background: #F3EBDD;
+  padding: 35px 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.footer-title {
+  font-family: var(--font-serif);
+  direction: ltr;
+  color: var(--blue);
+  font-size: 23px;
+}
+
+.footer-title span {
+  color: var(--orange);
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+  .character-grid,
+  .ui-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .nav {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .topbar-inner {
+    padding: 12px 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nav {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+
+  .hero {
+    padding: 65px 0 50px;
+  }
+
+  section {
+    padding: 50px 0;
+  }
+
+  .logo-grid,
+  .character-grid,
+  .type-grid,
+  .ui-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-card.wide {
+    grid-column: auto;
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .visual-stage {
+    padding: 24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+
+    <a href="#" class="brand-mini">
+      Eco <span>Nojin</span>
+    </a>
+
+    <nav class="nav">
+      <a href="#logos">لوگوها</a>
+      <a href="#colors">رنگ‌ها</a>
+      <a href="#typography">تایپوگرافی</a>
+      <a href="#visual">زبان تصویر</a>
+      <a href="#components">کامپوننت‌ها</a>
+    </nav>
+
+    <span class="version">VISUAL IDENTITY / DRAFT 01</span>
+
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="container">
+
+    <div class="eyebrow">BRAND IDENTITY · VISUAL LANGUAGE</div>
+
+    <h1>
+      هویت بصری جدید
+      <span>اکوسیستم نوژین</span>
+    </h1>
+
+    <p>
+      ترکیبی از علم، طبیعت، فناوری و اقتصاد سرزمینی؛
+      با زبانی گرم، روشن، معاصر و بین‌المللی.
+      این نسخه برای ارزیابی بصری و انتخاب جهت طراحی تهیه شده است.
+    </p>
+
+    <div class="hero-en">
+      Warm Intelligence.
+      <span>Living Territories.</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="gold-rule"></div>
+
+<!-- LOGOS -->
+
+<section id="logos">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-number">01 / WORDMARKS</span>
+      <h2>سه هویت تایپوگرافیک</h2>
+      <p>
+        نام برند به‌عنوان عنصر اصلی هویت؛ بدون نماد تصویری مستقل.
+      </p>
+    </div>
+
+    <div class="logo-grid">
+
+      <article class="logo-card">
+        <h3>Eco Nojin</h3>
+        <p class="subtitle">Territory · Nature · Living Systems</p>
+
+        <div class="logo-preview">
+          <img src="assets/eco-nojin-logo.svg"
+               alt="Eco Nojin wordmark">
+        </div>
+
+        <div class="logo-meta">
+          <span>Editorial Serif</span>
+          <span>Terracotta · Deep Blue · Gold</span>
+        </div>
+      </article>
+
+      <article class="logo-card">
+        <h3>HyDroMA</h3>
+        <p class="subtitle">Science · Modelling · Intelligence</p>
+
+        <div class="logo-preview">
+          <img src="assets/hydroma-logo.svg"
+               alt="HyDroMA wordmark">
+        </div>
+
+        <div class="logo-meta">
+          <span>Geometric Sans</span>
+          <span>Deep Blue · Aqua · Gold</span>
+        </div>
+      </article>
+
+      <article class="logo-card wide">
+        <h3>Nojin Marketplace</h3>
+        <p class="subtitle">Trade · Local Products · Global Connections</p>
+
+        <div class="logo-preview">
+          <img src="assets/nojin-marketplace-logo.svg"
+               alt="Nojin Marketplace wordmark">
+        </div>
+
+        <div class="logo-meta">
+          <span>Contemporary Sans</span>
+          <span>Orange · Peach · Deep Blue</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- BRAND CHARACTER -->
+
+<section>
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-number">02 / BRAND PERSONALITY</span>
+      <h2>شخصیت سه برند</h2>
+      <p>
+        سه شخصیت مستقل در یک خانواده بصری مشترک.
+      </p>
+    </div>
+
+    <div class="character-grid">
+
+      <article class="character">
+        <h3>Eco Nojin</h3>
+        <p>
+          <span class="dot" style="background:#D9682B"></span>
+          اصیل، طبیعی، بین‌المللی و سرزمین‌محور.
+          رنگ‌های گرم در کنار آبی سیر و طلایی.
+        </p>
+      </article>
+
+      <article class="character">
+        <h3>HyDroMA</h3>
+        <p>
+          <span class="dot" style="background:#3FA9A1"></span>
+          علمی، دقیق، مهندسی و آینده‌نگر.
+          رنگ‌های آبی و فیروزه‌ای با جزئیات طلایی.
+        </p>
+      </article>
+
+      <article class="character">
+        <h3>Nojin Marketplace</h3>
+        <p>
+          <span class="dot" style="background:#E9957D"></span>
+          زنده، اجتماعی، تجاری و صمیمی.
+          نارنجی و گلبهی در کنار آبی سیر.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- COLORS -->
+
+<section id="colors">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-number">03 / COLOR SYSTEM</span>
+      <h2>سیستم رنگی</h2>
+      <p>
+        رنگ‌های اصلی، مکمل و تأکیدی در زمینه‌های روشن.
+      </p>
+    </div>
+
+    <div class="palette-grid">
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#173B63"></div>
+        <div class="color-info">
+          <strong>Royal Deep Blue</strong>
+          <code>#173B63</code>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#D9682B"></div>
+        <div class="color-info">
+          <strong>Burnt Orange</strong>
+          <code>#D9682B</code>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#C9A34A"></div>
+        <div class="color-info">
+          <strong>Champagne Gold</strong>
+          <code>#C9A34A</code>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#F2B7A0"></div>
+        <div class="color-info">
+          <strong>Soft Peach</strong>
+          <code>#F2B7A0</code>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#E9957D"></div>
+        <div class="color-info">
+          <strong>Coral Peach</strong>
+          <code>#E9957D</code>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#75C8C0"></div>
+        <div class="color-info">
+          <strong>Aqua Life</strong>
+          <code>#75C8C0</code>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#EAF2F8"></div>
+        <div class="color-info">
+          <strong>Pale Blue</strong>
+          <code>#EAF2F8</code>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background:#FBF7F0"></div>
+        <div class="color-info">
+          <strong>Warm Ivory</strong>
+          <code>#FBF7F0</code>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- TYPOGRAPHY -->
+
+<section id="typography">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-number">04 / TYPOGRAPHY</span>
+      <h2>سیستم تایپوگرافی چندفونتی</h2>
+      <p>
+        انتخاب فونت بر اساس شخصیت، خوانایی و کاربرد.
+      </p>
+    </div>
+
+    <div class="type-grid">
+
+      <article class="type-card">
+        <span class="type-label">FRAUNCES / DISPLAY SERIF</span>
+        <div class="type-sample-en">
+          Living Territories
+        </div>
+        <p>
+          برای تیترهای شاخص و هویت Editorial برند Eco Nojin.
+        </p>
+      </article>
+
+      <article class="type-card">
+        <span class="type-label">MANROPE / GEOMETRIC SANS</span>
+        <div class="type-sample-en"
+             style="font-family:Manrope">
+          Scientific Intelligence
+        </div>
+        <p>
+          برای HyDroMA، تیترها و ساختارهای رابط کاربری.
+        </p>
+      </article>
+
+      <article class="type-card">
+        <span class="type-label">DM SANS / CONTEMPORARY</span>
+        <div class="type-sample-en"
+             style="font-family:'DM Sans'">
+          Nojin Marketplace
+        </div>
+        <p>
+          برای تجربه تجاری، بازارگاه و ارتباط با کاربران.
+        </p>
+      </article>
+
+      <article class="type-card">
+        <span class="type-label">ESTEDAD / PERSIAN DISPLAY</span>
+        <div class="type-sample-fa">
+          سرزمین‌های زنده، آینده‌ای پایدار
+        </div>
+        <p>
+          برای تیترهای فارسی و بخش‌های شاخص.
+        </p>
+      </article>
+
+      <article class="type-card">
+        <span class="type-label">VAZIRMATN / PERSIAN UI</span>
+        <div class="type-sample-fa"
+             style="font-family:Vazirmatn;font-weight:500">
+          از علم تا سرزمین، از داده تا تصمیم
+        </div>
+        <p>
+          برای متن عمومی، فرم‌ها و رابط کاربری فارسی.
+        </p>
+      </article>
+
+      <article class="type-card">
+        <span class="type-label">IBM PLEX MONO / DATA</span>
+        <div class="type-sample-en"
+             style="font-family:'IBM Plex Mono';font-size:25px">
+          35.6892 / 51.3890
+        </div>
+        <p>
+          برای داده‌ها، شناسه‌ها، کدها و اطلاعات فنی.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- VISUAL LANGUAGE -->
+
+<section id="visual">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-number">05 / VISUAL LANGUAGE</span>
+      <h2>زبان تصویر و امضای بصری</h2>
+      <p>
+        خطوط ظریف، نقاط طلایی، ریتم هندسی و فضای خالی.
+      </p>
+    </div>
+
+    <div class="visual-panel">
+
+      <div class="visual-stage">
+
+        <div class="visual-title">
+          Eco <span>Nojin</span>
+        </div>
+
+        <div class="visual-caption">
+          A living system connecting science, land,
+          communities and sustainable livelihoods.
+        </div>
+
+        <div class="visual-line line-one"></div>
+        <div class="visual-line line-two"></div>
+
+        <div class="visual-dot dot-one"></div>
+        <div class="visual-dot dot-two"></div>
+        <div class="visual-dot dot-three"></div>
+
+      </div>
+
+      <p class="visual-note">
+        خطوط و نقاط طلایی باید در نقش عناصر هدایت‌کننده و تأکیدی
+        استفاده شوند؛ نه تزئینات پراکنده و بی‌هدف.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- UI COMPONENTS -->
+
+<section id="components">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-number">06 / UI LANGUAGE</span>
+      <h2>نمونه اجزای رابط کاربری</h2>
+      <p>
+        بررسی کاربرد رنگ و کنتراست در اجزای واقعی محصول.
+      </p>
+    </div>
+
+    <div class="ui-grid">
+
+      <article class="ui-card">
+        <h3>Primary Actions</h3>
+
+        <button class="demo-button">مشاهده بیشتر</button>
+
+        <div style="height:12px"></div>
+
+        <button class="demo-button orange">شروع فعالیت</button>
+
+        <div style="height:12px"></div>
+
+        <button class="demo-button peach">اطلاعات بیشتر</button>
+      </article>
+
+      <article class="ui-card">
+        <h3>Labels & Categories</h3>
+
+        <span class="demo-tag">Scientific</span>
+        <span class="demo-tag gold">Verified Demo</span>
+        <span class="demo-tag peach">Marketplace</span>
+
+        <div class="ui-line"></div>
+
+        <p style="font-size:12px;color:var(--muted)">
+          برچسب‌ها برای دسته‌بندی، وضعیت و معرفی ویژگی‌ها.
+        </p>
+      </article>
+
+      <article class="ui-card">
+        <h3>Data Presentation</h3>
+
+        <div class="stat-number">
+          24.8 <span>%</span>
+        </div>
+
+        <p style="font-size:12px;color:var(--muted)">
+          نمونه نمایشی شاخص؛ فاقد داده عملیاتی واقعی.
+        </p>
+
+        <div class="ui-line"></div>
+
+        <span class="demo-tag gold">DEMO DATA</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+
+    <div class="footer-title">
+      Eco <span>Nojin</span>
+    </div>
+
+    <div class="footer-note">
+      Brand Identity Playground · Draft 01 · Owner Review
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

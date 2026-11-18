@@ -1,0 +1,4 @@
+# Data payloads stay out of version control.
+*
+!.gitignore
+!README.md

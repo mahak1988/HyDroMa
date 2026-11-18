@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-owner-theme="A">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Owner Visual Decision Studio — Eco Nojin v1</title>
+<link rel="stylesheet" href="./assets/fonts/fonts.css" />
+<link rel="stylesheet" href="./assets/studio.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brandline"><span class="dot"></span> Owner Review Studio</div>
+    <span class="draft-badge">DRAFT — NOT APPROVED</span>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#overview" class="active">Overview</a>
+      <a href="#logos">Logo Gallery</a>
+      <a href="#family">Brand Family</a>
+      <a href="#colors">Color Comparison</a>
+      <a href="#type">Typography</a>
+      <a href="#preview">Real UI Preview</a>
+      <a href="#decisions">Decision Register</a>
+      <a href="#tech">Technical Open Items</a>
+    </nav>
+    <div class="dir-toggle" role="group" aria-label="Direction">
+      <button data-dir="rtl" class="active" type="button">RTL</button>
+      <button data-dir="ltr" type="button">LTR</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ===================== 1. OVERVIEW ===================== -->
+  <section id="overview">
+    <div class="sec-head"><span class="num">1</span><h2>Overview — تصمیم‌گیری بصری مالک</h2><p>این محیط فقط برای تصمیم‌گیری است؛ هیچ گزینه‌ای انتخاب‌شده نیست.</p></div>
+    <div class="card">
+      <p class="ov-lead">
+        این استودیو شما را قادر می‌سازد بدون بررسی کد، تمام گزینه‌های واقعی هویت بصری را در کاربرد واقعی ببینید و تصمیم بگیرید.
+        تمام تصمیم‌ها در وضعیت <strong>OPEN</strong> باقی می‌مانند و هیچ انتخابی به‌صورت خودکار اعمال نمی‌شود.
+      </p>
+      <div class="ov-stats">
+        <div class="stat"><div class="v">9</div><div class="l">لوگوتایپ (۳ برند × ۳ گزینه)</div></div>
+        <div class="stat"><div class="v">2</div><div class="l">مسیر رنگی مستقل (A / B)</div></div>
+        <div class="stat"><div class="v">6</div><div class="l">خانواده فونت موجود</div></div>
+        <div class="stat"><div class="v">0</div><div class="l">تصمیم نهایی‌سازی‌شده</div></div>
+      </div>
+      <div class="storage-note">
+        وضعیت کلی: <strong>DRAFT — NOT APPROVED</strong>. انتخاب‌های شما فقط در همین مرورگر (localStorage) ذخیره می‌شوند و Design System اصلی را تغییر نمی‌دهند.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 2. LOGO GALLERY ===================== -->
+  <section id="logos">
+    <div class="sec-head"><span class="num">2</span><h2>Logo Gallery — ۹ لوگوتایپ</h2><p>هر لوگو در ۸ کاربرد واقعی + مقایسه Original/Outlined</p></div>
+    <div id="logo-mount"></div>
+  </section>
+
+  <!-- ===================== 3. BRAND FAMILY ===================== -->
+  <section id="family">
+    <div class="sec-head"><span class="num">3</span><h2>Brand Family — معماری هویت سه برند</h2><p>شخصیت مستقل + انسجام خانواده</p></div>
+    <div class="family-grid">
+      <div class="family-card">
+        <div class="fc-stage"><img src="./assets/images/eco-nojin-option-02.svg" alt="Eco Nojin" style="height:60px;width:auto"></div>
+        <div class="fc-body">
+          <h4>Eco Nojin</h4>
+          <div class="fc-role">برند مادر</div>
+          <div class="fc-desc">علمی، بین‌المللی، سرزمینی و اقتصادی. شخصیت: معتبر،大叔ular و الهام‌بخش.</div>
+          <div class="fc-opts">
+            <img src="./assets/images/eco-nojin-option-01.svg" alt="opt1" title="Option 01">
+            <img src="./assets/images/eco-nojin-option-02.svg" alt="opt2" title="Option 02">
+            <img src="./assets/images/eco-nojin-option-03.svg" alt="opt3" title="Option 03">
+          </div>
+        </div>
+      </div>
+      <div class="family-card">
+        <div class="fc-stage"><img src="./assets/images/hydroma-option-02.svg" alt="HyDroMA" style="height:60px;width:auto"></div>
+        <div class="fc-body">
+          <h4>HyDroMA</h4>
+          <div class="fc-role">موتور علمی</div>
+          <div class="fc-desc">تخصصی، فناورانه و محاسباتی. شخصیت: دقیق، مدرن و قابل‌اعتماد.</div>
+          <div class="fc-opts">
+            <img src="./assets/images/hydroma-option-01.svg" alt="opt1" title="Option 01">
+            <img src="./assets/images/hydroma-option-02.svg" alt="opt2" title="Option 02">
+            <img src="./assets/images/hydroma-option-03.svg" alt="opt3" title="Option 03">
+          </div>
+        </div>
+      </div>
+      <div class="family-card">
+        <div class="fc-stage"><img src="./assets/images/marketplace-option-02.svg" alt="Marketplace" style="height:60px;width:auto"></div>
+        <div class="fc-body">
+          <h4>Nojin Marketplace</h4>
+          <div class="fc-role">بازارگاه</div>
+          <div class="fc-desc">تجاری، انسانی و مرتبط با معیشت. شخصیت: گرم، دسترس‌پذیر و محلی.</div>
+          <div class="fc-opts">
+            <img src="./assets/images/marketplace-option-01.svg" alt="opt1" title="Option 01">
+            <img src="./assets/images/marketplace-option-02.svg" alt="opt2" title="Option 02">
+            <img src="./assets/images/marketplace-option-03.svg" alt="opt3" title="Option 03">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card harmony" style="margin-top:18px">
+      <h3 style="margin:0 0 12px;font-size:1.1rem">هماهنگی خانواده برند</h3>
+      <ul>
+        <li><span class="k">وزن فونت</span><span>هر سه برند از وزن‌های سنگین (Bold/ExtraBold) برای نام برند استفاده می‌کنند؛ تایپوگرافی خالص بدون نماد تصویری.</span></li>
+        <li><span class="k">تناسب حروف</span><span>Tracking منفی ملایم در نام برندها؛ فاصله‌گذاری در تگ‌لاین‌ها بازتر است.</span></li>
+        <li><span class="k">ارتفاع بصری</span><span>ارتفاع的统一 در لوگوی افقی؛ چیدمان Stacked فقط در Eco Nojin (option 03) دیده می‌شود.</span></li>
+        <li><span class="k">شخصیت متمایز</span><span>Eco Nojin از Fraunces جدی؛ HyDroMA از Manrope/DM Sans فناورانه؛ Marketplace از Fraunces/DM Sans گرم‌تر.</span></li>
+        <li><span class="k">انسجام</span><span>همه لوگوها تگ‌لاین انگلیسی + گاهی فارسی دارند و از پالت طلایی/سرزمینی مشترک استفاده می‌کنند.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 4. COLOR COMPARISON ===================== -->
+  <section id="colors">
+    <div class="sec-head"><span class="num">4</span><h2>Color Comparison — دو مسیر مستقل</h2><p>فقط Theme عوض می‌شود؛ محتوا یکسان است</p></div>
+    <div class="theme-compare">
+      <div class="theme-frame theme-A">
+        <div class="tf-head"><span>مسیر A — Territory Teal</span><span class="contrast-tag pass">بر پایه #0B5563</span></div>
+        <div class="tf-body">
+          <div class="swatch-grid">
+            <div class="swatch" style="background:#0B5563">Territory Teal<small>#0B5563</small></div>
+            <div class="swatch" style="background:#C9A227;color:#0F1E24">Living Sand<small>#C9A227</small></div>
+            <div class="swatch" style="background:#35C4D7;color:#0A3F49">Water Cyan<small>#35C4D7</small></div>
+            <div class="swatch" style="background:#2E3A87">Science Indigo<small>#2E3A87</small></div>
+            <div class="swatch" style="background:#E76F51;color:#0F1E24">Market Coral<small>#E76F51</small></div>
+            <div class="swatch" style="background:#0F1E24">Ink<small>#0F1E24</small></div>
+            <div class="swatch" style="background:#5A6B72">Slate<small>#5A6B72</small></div>
+            <div class="swatch" style="background:#F5F7F8;color:#0F1E24;border:1px solid #D5DDE0">Cloud<small>#F5F7F8</small></div>
+          </div>
+          <div class="palette-note">شخصیت: علمی، سرزمینی، خنثی و قابل‌اعتماد. حس طبیعت و آب + دقت علمی.</div>
+        </div>
+      </div>
+      <div class="theme-frame theme-B">
+        <div class="tf-head"><span>مسیر B — Warm / Royal Deep Blue</span><span class="contrast-tag ref">بر پایه #173B63</span></div>
+        <div class="tf-body">
+          <div class="swatch-grid">
+            <div class="swatch" style="background:#173B63">Royal Deep Blue<small>#173B63</small></div>
+            <div class="swatch" style="background:#D9682B;color:#0F1E24">Burnt Orange<small>#D9682B</small></div>
+            <div class="swatch" style="background:#C9A34A;color:#0F1E24">Champagne Gold<small>#C9A34A</small></div>
+            <div class="swatch" style="background:#B8892F;color:#0F1E24">Warm Gold<small>#B8892F</small></div>
+            <div class="swatch" style="background:#F2B7A0;color:#173B63">Soft Peach<small>#F2B7A0</small></div>
+            <div class="swatch" style="background:#E9957D;color:#173B63">Coral Peach<small>#E9957D</small></div>
+            <div class="swatch" style="background:#75C8C0;color:#173B63">Aqua<small>#75C8C0</small></div>
+            <div class="swatch" style="background:#FBF7F0;color:#1F2933;border:1px solid #E2D9CB">Warm Ivory<small>#FBF7F0</small></div>
+          </div>
+          <div class="palette-note">شخصیت: گرم، پاییزی، اقتصادی و انسانی. حس معیشت و تجارت + اصالت.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="storage-note" style="background:#FBF6E8;border-color:#EADFB8;color:#6b5200">
+        توکن‌های اصلاح‌شده کنتراست (مثل <code>--brand-secondary-text</code>) از مقادیر مرجع قابل تشخیص‌اند و فقط برای متن/دکمه استفاده شده‌اند؛ پالت مرجع تغییر نکرده است.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 5. TYPOGRAPHY LAB ===================== -->
+  <section id="type">
+    <div class="sec-head"><span class="num">5</span><h2>Typography Lab — ۶ خانواده موجود</h2><p>نمونه‌های یکسان برای مقایسه</p></div>
+    <div id="type-mount"></div>
+  </section>
+
+  <!-- ===================== 6. REAL UI PREVIEW ===================== -->
+  <section id="preview">
+    <div class="sec-head"><span class="num">6</span><h2>Real UI Preview — محتوای یکسان، دو Theme</h2><p>تعویض فوری Theme روی یک نمونه کامل</p></div>
+    <div class="ui-preview">
+      <div class="up-top">
+        <strong style="font-size:.85rem">Theme Preview:</strong>
+        <div class="seg" role="group" aria-label="Theme switch">
+          <button class="active" data-kit-theme="A" type="button">A — Territory Teal</button>
+          <button data-kit-theme="B" type="button">B — Warm</button>
+        </div>
+        <span id="kit-theme-note" class="contrast-tag pass" style="margin-inline-start:auto">نمایش: مسیر A</span>
+      </div>
+      <div id="kit-mount"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 7. DECISION REGISTER ===================== -->
+  <section id="decisions">
+    <div class="sec-head"><span class="num">7</span><h2>Decision Register — ثبت انتخاب مالک</h2><p>تمام موارد OPEN؛ انتخاب نهایی با تأیید صریح شما</p></div>
+    <div class="card">
+      <table class="decision-table" id="decision-table">
+        <thead><tr><th>شناسه</th><th>موضوع</th><th>وضعیت</th><th>انتخاب شما (اختیاری)</th></tr></thead>
+        <tbody id="decision-body"></tbody>
+      </table>
+      <div class="decision-actions">
+        <button class="btn primary" id="save-decisions" type="button">ذخیره انتخاب‌ها در این مرورگر</button>
+        <button class="btn ghost" id="clear-decisions" type="button">پاک‌کردن انتخاب‌ها</button>
+        <span class="decision-note" id="decision-msg"></span>
+      </div>
+      <div class="storage-note">
+        انتخاب‌ها فقط در <code>localStorage</code> همین مرورگر ذخیره می‌شوند (کلید <code>eco-owner-decisions-v1</code>). این انتخاب‌ها Design System اصلی را تغییر نمی‌دهند و به سرور ارسال نمی‌شوند.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. TECHNICAL OPEN ITEMS ===================== -->
+  <section id="tech">
+    <div class="sec-head"><span class="num">8</span><h2>Technical Open Items — موارد فنی باز</h2><p>این موارد تصمیم هویت بصری نیستند</p></div>
+    <div class="tech-list">
+      <div class="tech-item">
+        <div class="ti-head"><span class="ti-id">T-01</span><span class="ti-title">Font Licensing</span><span class="ti-status status-open">OPEN</span></div>
+        <p>صفر فایل مجوز (<code>License</code>) در مخزن گزارش شده است. شش خانواده فونت همگی SIL OFL 1.1 هستند (بر اساس فراداده داخلی)، اما متن مجوز در مخزن موجود نیست.</p>
+        <ul>
+          <li>تا زمان افزودن و بررسی فایل‌های License، وضعیت مجوزها <strong>تأییدنشده</strong> است.</li>
+          <li>توصیه: افزودن متن OFL 1.1 و/یا فایل مجوز هر فونت کنار <code>assets/fonts/</code>.</li>
+        </ul>
+      </div>
+      <div class="tech-item">
+        <div class="ti-head"><span class="ti-id">T-02</span><span class="ti-title">Inter / JetBrains Mono</span><span class="ti-status status-open">NEEDS DECISION</span></div>
+        <p>این دو فونت در CSS ارجاع شده‌اند (<code>--font-en</code> و <code>--font-mono</code>) اما در بسته فونت محلی موجود نیستند. در حال حاضر با fallback (Segoe UI / system-ui و Consolas / monospace) نمایش داده می‌شوند.</p>
+        <ul>
+          <li>گزینه‌ها: افزودن فایل‌های Inter/JetBrains Mono با مجوز مناسب، یا تغییر توکن‌ها به خانواده‌های موجود.</li>
+          <li>این موارد فقط نیازمند تصمیم‌اند؛ هیچ فونتی دانلود یا تثبیت نشده است.</li>
+        </ul>
+      </div>
+      <div class="tech-item">
+        <div class="ti-head"><span class="ti-id">T-03</span><span class="ti-title">Screen Reader</span><span class="ti-status status-open">NOT_TESTED</span></div>
+        <p>آزمون واقعی Screen Reader (NVDA/JAWS/VoiceOver) هنوز انجام نشده است. بررسی ARIA به‌صورت ایستا انجام شده اما معادل آزمون Screen Reader نیست.</p>
+      </div>
+      <div class="tech-item">
+        <div class="ti-head"><span class="ti-id">T-04</span><span class="ti-title">Scientific Provenance</span><span class="ti-status status-open">GAP</span></div>
+        <p>موارد زیر در رکورد provenance نمایش داده نشده‌اند و باید تکمیل شوند:</p>
+        <ul>
+          <li>Dataset ID</li>
+          <li>Parameter Set</li>
+          <li>Spatial Extent</li>
+          <li>Temporal Extent</li>
+          <li>Unit System</li>
+        </ul>
+        <p style="margin-top:6px">این شکاف فنی است، نه مسئله هویت بصری.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <span>Eco Nojin · HyDroMA · Nojin Marketplace — Owner Visual Decision Studio v1</span>
+  <span>DRAFT — NOT APPROVED · 2026-11-17 · انتخاب‌ها فقط محلی و در وضعیت OPEN</span>
+</footer>
+
+<script src="./assets/studio.js"></script>
+</body>
+</html>

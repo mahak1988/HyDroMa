@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-18T04:45:00Z",
+  "generatedBy": "mission: frontend-foundations + root architecture baseline",
+  "batch": "batch-16-frontend-foundations",
+  "archivesDir": "upstream-archives/batch-16-frontend-foundations",
+  "registryDir": "upstream-registry/frontend-foundations",
+  "logsDir": "upstream-registry/frontend-foundations/_logs",
+  "evidenceDir": "experiments/frontend-foundations-run",
+  "environment": {
+    "os": "Windows",
+    "node": "26.13.0",
+    "npm": "11.20.0",
+    "pnpm": "12.18.0",
+    "git": "2.49.0.windows.1",
+    "browserForScreenshots": "Chrome (headless=new), Playwright 1.61.1 via channel=chrome",
+    "network": "github.com and registry.npmjs.org reachable; one external image CDN (images.unsplash.com) timed out during one page load"
+  },
+  "repositories": [
+    {
+      "project": "nellavio",
+      "repository": "https://github.com/nellavio/nellavio",
+      "verifiedVia": "GitHub REST API + git ls-remote",
+      "ref": "tag:2.0.1",
+      "branch": "main",
+      "commit": "522f2cfc78567c7b64f94e8c1f7da65ea4e02551",
+      "version": "2.0.1",
+      "releasePublishedAt": "2026-04-12T02:54:09Z",
+      "archive": {
+        "file": "upstream-archives/batch-16-frontend-foundations/nellavio-522f2cf.zip",
+        "bytes": 2814505,
+        "sha256": "0DEBE975061886E815B0B674D9FDD139295828B1851AF870AE01B62E3C474255",
+        "downloadedAt": "2026-11-18T07:12:17+03:30",
+        "source": "codeload.github.com at exact commit"
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "license",
+        "copyright": "Copyright (c) 2023 Mateusz Wyrębek",
+        "noticeFile": null,
+        "commercialUse": "permitted",
+        "rebrand": "permitted"
+      },
+      "extractionPath": "upstream-registry/frontend-foundations/nellavio",
+      "extractionMethod": "zip via tar",
+      "stack": {
+        "framework": "Next.js 16.1.6 (Turbopack)",
+        "react": "19.2.4",
+        "typescript": "5.9.3",
+        "styling": "Tailwind CSS 4.2.1",
+        "i18n": "next-intl 4.8.3 (en, pl)",
+        "auth": "better-auth 1.5.5 (self-hosted server expected)",
+        "data": "Apollo Client 4.1.6 (GraphQL)",
+        "state": "Zustand 5",
+        "test": "Vitest 4 + Storybook 10"
+      },
+      "routes": 19,
+      "externalServices": [
+        "GraphQL API at GRAPHQL_URL (absent)",
+        "better-auth server at NEXT_PUBLIC_AUTH_URL (absent)"
+      ],
+      "mockData": "public/backendBackup.json used when no backend URL is configured",
+      "rtl": false,
+      "i18nLocales": ["en", "pl"],
+      "install": { "command": "npm ci --ignore-scripts", "ok": true, "packages": 890, "seconds": 237.7 },
+      "typecheck": { "command": "npx tsc --noEmit", "ok": true, "seconds": 21.1 },
+      "build": {
+        "command": "npm run build",
+        "ok": false,
+        "seconds": 75.6,
+        "failure": "Error [InvariantError]: Invariant: Expected workUnitAsyncStorage to have a store (prerender of /pl/customers)"
+      },
+      "run": {
+        "command": "npx next dev -p 3101",
+        "ok": true,
+        "pagesTested": ["/en", "/pl", "/en/login", "/en/customers", "/en/user-management", "/en/analytics"],
+        "httpStatuses": [200, 200, 200, 200, 200, 200],
+        "consoleErrors": 0,
+        "pageErrors": 0,
+        "brokenImages": 0,
+        "themeToggle": "works",
+        "screenshots": "experiments/frontend-foundations-run/screenshots/nellavio/"
+      },
+      "status": "EVALUATED / DEV-RUNNABLE / BUILD-BLOCKED (upstream Next 16.1 prerender defect)",
+      "adopted": false
+    },
+    {
+      "project": "kiranism-dashboard",
+      "repository": "https://github.com/Kiranism/next-shadcn-dashboard-starter",
+      "verifiedVia": "GitHub REST API + git ls-remote",
+      "ref": "tag:v2.0.0",
+      "branch": "main",
+      "commit": "06e83c0b0e937f98184b343b92756ae0cadd7c92",
+      "version": "2.0.0 (package.json reports 1.0.0)",
+      "releasePublishedAt": "2026-07-18T12:17:47Z",
+      "archive": {
+        "file": "upstream-archives/batch-16-frontend-foundations/kiranism-dashboard-06e83c0.zip",
+        "bytes": 3246912,
+        "sha256": "496D7C78AD669BFFA917C687A1870AE8050ABE08501BA080B4D026B83AF0B710",
+        "downloadedAt": "2026-11-18T07:12:21+03:30",
+        "source": "codeload.github.com at exact commit"
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "LICENSE",
+        "copyright": "Copyright (c) 2023 Kiranism",
+        "noticeFile": null,
+        "commercialUse": "permitted",
+        "rebrand": "permitted"
+      },
+      "extractionPath": "upstream-registry/frontend-foundations/kiranism-dashboard",
+      "extractionMethod": "git clone --depth 1 --branch v2.0.0 (zip extract failed on .claude/skills entries under Windows tar); HEAD verified equal to commit",
+      "stack": {
+        "framework": "Next.js 16.2.6",
+        "react": "19.2.4",
+        "typescript": "5.7.2",
+        "styling": "Tailwind CSS 4.2.2",
+        "ui": "shadcn/ui on Base UI 1.6",
+        "i18n": null,
+        "auth": "Clerk 7.3.5 (SaaS, required)",
+        "data": "TanStack Query 5, nuqs 2, Zod 4",
+        "test": "none (oxlint/oxfmt only)"
+      },
+      "routes": 32,
+      "externalServices": ["Clerk (SaaS) — publishable + secret keys required", "Sentry (optional DSN)"],
+      "mockData": "demo API layer inside src/features with faker-generated data",
+      "rtl": false,
+      "i18nLocales": [],
+      "install": { "command": "npm install --ignore-scripts", "ok": true, "packages": 393, "seconds": 480.2, "note": "no npm lockfile in repo (bun.lock); resolved versions may drift" },
+      "typecheck": { "command": "next build (TypeScript phase)", "ok": true, "note": "TypeScript compiled successfully before prerender failure" },
+      "build": {
+        "command": "npm run build",
+        "ok": false,
+        "seconds": 89.8,
+        "failure": "Error [InvariantError]: Invariant: Expected workStore to be initialized (prerender of /dashboard/kanban)"
+      },
+      "run": {
+        "command": "npx next dev -p 3102",
+        "ok": false,
+        "pagesTested": ["/", "/auth/sign-in", "/dashboard/overview", "/dashboard/users", "/dashboard/product", "/dashboard/kanban"],
+        "httpStatuses": [500, 500, 500, 500, 500, 500],
+        "failure": "@clerk/nextjs: Clerk keys are missing from your environment; proxy.ts throws for every route. With a syntactically valid placeholder key: 'Missing secretKey'.",
+        "screenshots": "experiments/frontend-foundations-run/screenshots/kiranism-dashboard/ (error pages only)"
+      },
+      "status": "EVALUATED / BLOCKED BY EXTERNAL SAAS (Clerk) / BUILD-BLOCKED (upstream Next 16.2 prerender defect)",
+      "adopted": false
+    },
+    {
+      "project": "velora-ui",
+      "repository": "https://github.com/ColorlibHQ/velora-ui",
+      "verifiedVia": "GitHub REST API + git ls-remote",
+      "ref": "tag:v0.11.0",
+      "branch": "main",
+      "commit": "27b75c8604ccfdcc47fb7f5dcb016b73bc11dca1",
+      "version": "0.11.0",
+      "releasePublishedAt": "2026-11-02T09:41:17Z",
+      "archive": {
+        "file": "upstream-archives/batch-16-frontend-foundations/velora-ui-27b75c8.zip",
+        "bytes": 2905370,
+        "sha256": "BA04E37A58B7CD6E9B2527F582FDFAEE71344CA7BE70A0FA5104B86689844DEE",
+        "downloadedAt": "2026-11-18T07:12:27+03:30",
+        "source": "codeload.github.com at exact commit"
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "LICENSE",
+        "copyright": "Copyright (c) 2026 Aigars Silkalns",
+        "noticeFile": null,
+        "commercialUse": "permitted",
+        "rebrand": "permitted",
+        "proBoundary": "no pro/ directory in repo; registry.json contains 0 pro-only items; Pro exists only in marketing content"
+      },
+      "extractionPath": "upstream-registry/frontend-foundations/velora-ui",
+      "extractionMethod": "zip via tar",
+      "stack": {
+        "framework": "Next.js 16.3.7",
+        "react": "19.3.0",
+        "typescript": "aliases to @typescript/typescript6 6.0.2 and typescript 7.0.2",
+        "styling": "Tailwind CSS 4.3.3",
+        "animation": "motion 13.4.6",
+        "i18n": null,
+        "auth": null,
+        "data": "static content + MDX",
+        "registry": "shadcn registry (registry.json)"
+      },
+      "routes": 22,
+      "routeInstancesPrerendered": "121+",
+      "components": { "registryComponents": 101, "freeBlocks": 31 },
+      "externalServices": ["optional Cloudflare Pages function functions/api/waitlist.js", "images.unsplash.com (hotlinked landing image)"],
+      "mockData": "static content modules under src/content",
+      "rtl": false,
+      "i18nLocales": [],
+      "install": { "command": "pnpm install --frozen-lockfile --ignore-scripts", "ok": true, "seconds": 356.1 },
+      "typecheck": { "command": "next build (TypeScript phase)", "ok": true },
+      "build": { "command": "npm run build", "ok": true, "seconds": 78.9, "notes": "prebuild docs generation ran; 121+ static paths generated" },
+      "run": {
+        "command": "npx next dev -p 3103",
+        "ok": true,
+        "pagesTested": ["/", "/components", "/components/aurora-background", "/blocks", "/pricing", "/login", "/templates/saas"],
+        "httpStatuses": [200, 200, 200, 200, 200, 200, 200],
+        "consoleErrors": 2,
+        "pageErrors": 0,
+        "brokenImages": 1,
+        "brokenImageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+        "themeToggle": "works",
+        "screenshots": "experiments/frontend-foundations-run/screenshots/velora-ui/"
+      },
+      "status": "EVALUATED / DEV-RUNNABLE / BUILD-PASS",
+      "adopted": false
+    },
+    {
+      "project": "orbynadmin",
+      "repository": "https://github.com/masondevx/orbynadmin",
+      "verifiedVia": "GitHub search API (single repository with this name) + repository metadata",
+      "ref": "branch:main",
+      "branch": "main",
+      "commit": "6c2796f7baf7330ca9f4e8260a92af59cb97070d",
+      "version": "0.1.0",
+      "releasePublishedAt": null,
+      "archive": {
+        "file": "upstream-archives/batch-16-frontend-foundations/orbynadmin-6c2796f.zip",
+        "bytes": 4145424,
+        "sha256": "BEDFB5CA8AEF9D64D99CCCB3392C060F4133AEF24E8BA6F51A23BE377EF8D483",
+        "downloadedAt": "2026-11-18T07:12:33+03:30",
+        "source": "codeload.github.com at exact commit"
+      },
+      "license": {
+        "spdx": "MIT",
+        "file": "LICENSE",
+        "copyright": "Copyright (c) 2026 OrbynAdmin",
+        "noticeFile": null,
+        "commercialUse": "permitted",
+        "rebrand": "permitted"
+      },
+      "extractionPath": "upstream-registry/frontend-foundations/orbynadmin",
+      "extractionMethod": "zip via tar",
+      "provenanceConfidence": "LOW — created 2026-07-16, 19 stars, single author, no releases, licence holder is the project name",
+      "stack": {
+        "framework": "Next.js 16.2.10",
+        "react": "19.2.4",
+        "typescript": "5.x",
+        "styling": "Tailwind CSS 4",
+        "ui": "shadcn/ui on radix-ui 1.6",
+        "i18n": null,
+        "auth": "none (static auth screens)",
+        "data": "local mock modules",
+        "charts": "Recharts 3"
+      },
+      "routes": 79,
+      "externalServices": [],
+      "mockData": "all data is local mock modules; no API layer",
+      "rtl": false,
+      "i18nLocales": [],
+      "install": { "command": "npm ci --ignore-scripts", "ok": true, "packages": 703, "seconds": 231.7 },
+      "typecheck": { "command": "npx tsc --noEmit", "ok": true, "seconds": 20.1 },
+      "build": {
+        "command": "npm run build",
+        "ok": false,
+        "seconds": 75.2,
+        "failure": "Error [InvariantError]: Invariant: Expected workStore to be initialized (prerender of /orders/[id], /customers/[id], /products/[id], /support/[id], /invoices/[id])"
+      },
+      "run": {
+        "command": "npx next dev -p 3104",
+        "ok": true,
+        "pagesTested": ["/", "/dashboard", "/dashboard/analytics", "/orders", "/customers/CUS-1087", "/login", "/settings"],
+        "httpStatuses": [200, 200, 200, 200, 200, 200, 200],
+        "consoleErrors": 0,
+        "pageErrors": 0,
+        "brokenImages": 0,
+        "themeToggle": "works",
+        "screenshots": "experiments/frontend-foundations-run/screenshots/orbynadmin/"
+      },
+      "status": "EVALUATED (low provenance confidence) / DEV-RUNNABLE / BUILD-BLOCKED (upstream Next 16.2 prerender defect)",
+      "adopted": false
+    }
+  ],
+  "excluded": [
+    {
+      "project": "Basalt UI",
+      "status": "UNVERIFIED — NOT DOWNLOADED",
+      "reason": "Two distinct public projects share the name; no verifiable official repository.",
+      "candidates": [
+        {
+          "repository": "https://github.com/nocoo/basalt",
+          "homepage": "https://basaltui.com",
+          "license": "MIT",
+          "stars": 4,
+          "createdAt": "2026-02-11",
+          "pushedAt": "2026-11-17",
+          "description": "Matte-dark design system engineered for high-density SaaS interfaces"
+        },
+        {
+          "repository": "https://github.com/jkrumm/basalt-ui",
+          "homepage": "https://basalt-ui.com",
+          "license": "Apache-2.0",
+          "stars": 0,
+          "createdAt": "2025-12-04",
+          "pushedAt": "2026-11-18",
+          "description": "Design system for the modern stack (Tailwind theme)"
+        }
+      ],
+      "otherProbes": ["https://basalt.dev — timed out", "https://basalt-ui.dev — DNS not resolved"],
+      "decision": "No substitute repository was chosen. Registered as unverified."
+    }
+  ],
+  "totals": {
+    "verifiedAndDownloaded": 4,
+    "unverifiedNotDownloaded": 1,
+    "downloadBytes": 13112211,
+    "buildPass": 1,
+    "buildFail": 3,
+    "devRunPass": 3,
+    "devRunBlockedExternalService": 1,
+    "rtlCapable": 0,
+    "i18nCapable": 1,
+    "productionReady": 1
+  },
+  "globalFindings": [
+    "No evaluated project declares html[dir]; computed direction is ltr everywhere.",
+    "Three of four fail production prerender with the same Next.js internal invariant; the fourth (Next 16.3.7) builds, so the defect is version-bounded, not codebase-specific.",
+    "Only nellavio has i18n routing, and only for en/pl.",
+    "kiranism-dashboard is unusable without an external Clerk application.",
+    "No project was rebranded, merged, or copied into apps/."
+  ]
+}

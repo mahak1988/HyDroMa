@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eco Nojin — Identity V2 Playground</title>
+<link rel="stylesheet" href="./assets/fonts/fonts.css" />
+<link rel="stylesheet" href="./components/components.css" />
+<style>
+  .hero{background:linear-gradient(135deg,#173B63 0%,#1F4A78 100%);color:#fff;padding:40px 32px}
+  .hero-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .hero h1{margin:0;font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:600}
+  .hero p{margin:6px 0 0;opacity:.9}
+  .hero .badge{margin-top:8px}
+  nav{position:sticky;top:0;z-index:100;background:#FFFDFC;border-bottom:1px solid #E2D9CB;padding:10px 32px;display:flex;gap:6px;flex-wrap:wrap}
+  nav button{border:1px solid #E2D9CB;background:#FFFDFC;color:#1F2933;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;font-family:inherit;font-weight:600}
+  nav button.active{background:#173B63;color:#fff;border-color:#173B63}
+  main{max-width:1280px;margin:0 auto;padding:28px 32px 60px}
+  section{display:none}
+  section.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .grid{display:grid;gap:16px}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .logo-option{background:#fff;border:1px solid #E2D9CB;border-radius:12px;padding:16px;margin-bottom:16px}
+  .logo-option .label{font-size:.8rem;color:#5A6B72;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+  .logo-option img{width:100%;height:auto;display:block}
+  .logo-variants{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;align-items:center}
+  .logo-variants .variant{text-align:center}
+  .logo-variants .variant img{display:block}
+  .logo-variants .variant span{font-size:.7rem;color:#5A6B72;display:block;margin-top:4px}
+  .mono{filter:grayscale(1)}
+  .small-logo img{width:180px}
+  .dark-bg{background:#173B63;border-radius:8px;padding:8px;display:inline-block}
+  .swatch{border-radius:8px;padding:14px;color:#fff;font-weight:700;min-height:76px;display:flex;flex-direction:column;justify-content:flex-end;font-size:.9rem}
+  .swatch small{opacity:.85;font-weight:400;font-family:'IBM Plex Mono',monospace;font-size:.72rem}
+  .type-row{border-bottom:1px solid #E2D9CB;padding:8px 0}
+  .note{background:#FFF7E6;border:1px solid #C9A34A;border-radius:8px;padding:12px 16px;font-size:.85rem;color:#7A5A00;margin-top:16px}
+  .gold-line{height:1px;background:#C9A34A;position:relative;flex:1}
+  .gold-line::after{content:"";position:absolute;inset-inline-end:0;top:-2.5px;width:6px;height:6px;border-radius:50%;background:#C9A34A}
+  .gold-dots{display:flex;gap:6px}
+  .gold-dots span{width:6px;height:6px;border-radius:50%;background:#C9A34A}
+  .demo-landing{background:#fff;border-radius:16px;border:1px solid #E2D9CB;overflow:hidden}
+  .demo-landing .dheader{background:#173B63;color:#fff;padding:16px 24px;display:flex;align-items:center;gap:14px}
+  .demo-landing .dheader img{height:34px}
+  .demo-landing .dnav{display:flex;gap:16px;margin-inline-start:auto;font-size:.85rem;opacity:.9}
+  .demo-landing .dbody{padding:32px}
+  .demo-landing .dhero{font-family:'Fraunces',Georgia,serif;font-size:2rem;color:#173B63;font-weight:600;margin:0 0 8px}
+  .demo-landing .dtext{color:#5A6B72;max-width:600px;margin:0 0 20px}
+  .demo-science{background:#F3F8F7;border-radius:16px;border:1px solid #E2D9CB;padding:24px}
+  .demo-science h3{font-family:'Manrope',sans-serif;color:#173B63;margin:0 0 16px;font-weight:800}
+  .demo-market{background:#FFF8F2;border-radius:16px;border:1px solid #E2D9CB;padding:24px}
+  .demo-market h3{color:#D9682B;margin:0 0 16px}
+  .product{background:#fff;border:1px solid #E2D9CB;border-radius:12px;overflow:hidden}
+  .product .ph{height:110px;background:linear-gradient(135deg,#D9682B,#C9553A)}
+  .product .pb{padding:14px}
+  .price{font-size:1.2rem;font-weight:800;color:#D9682B}
+  .chart{background:linear-gradient(180deg,#fff,#F7F3EC);border:1px solid #E2D9CB;border-radius:8px;overflow:hidden}
+  .chart svg{width:100%;height:100%;display:block}
+  .tabs-compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .compare-card{background:#fff;border:1px solid #E2D9CB;border-radius:12px;padding:20px}
+  .compare-card h3{margin:0 0 10px;display:flex;align-items:center;gap:10px}
+  .compare-card img{width:140px;height:auto}
+  .compare-card ul{margin:8px 0;padding-inline-start:18px;font-size:.85rem;color:#5A6B72}
+  .compare-card li{margin:3px 0}
+  .dir-toggle{display:flex;gap:8px;margin-top:12px}
+  footer{text-align:center;padding:24px;color:#5A6B72;font-size:.8rem}
+  @media(max-width:768px){.hero h1{font-size:1.4rem}main{padding:18px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Eco Nojin — Identity V2 Playground</h1>
+      <p>سیستم هویت بصری و تایپوگرافیک · سه برند، ۹ گزینه لوگو، پالت رنگ، Design Tokens و کامپوننت‌ها</p>
+      <span class="badge" style="background:#C9A34A;color:#173B63">DRAFT — NOT APPROVED</span>
+    </div>
+  </div>
+</div>
+<nav>
+  <button class="active" data-tab="logos">لوگوها</button>
+  <button data-tab="colors">رنگ‌ها</button>
+  <button data-tab="type">تایپوگرافی</button>
+  <button data-tab="visual">زبان تصویری</button>
+  <button data-tab="components">کامپوننت‌ها</button>
+  <button data-tab="showcase">نمایش محصول</button>
+  <button data-tab="compare">مقایسه</button>
+</nav>
+<main>
+
+<!-- LOGOS -->
+<section class="active" id="tab-logos">
+  <div class="card">
+    <h2 class="card-title">۹ گزینه لوگو — ۳ گزینه برای هر برند</h2>
+    <p class="muted" style="color:#5A6B72">تمام لوگوها تایپوگرافیک خالص · بدون نماد تصویری · زمینه روشن</p>
+  </div>
+
+  <div class="card">
+    <h3 style="color:#173B63">Eco Nojin</h3>
+    <div class="grid grid-3">
+      <div class="logo-option">
+        <div class="label">Option 01 — Fraunces Editorial</div>
+        <img src="assets/logos/eco-nojin-option-01.svg" alt="Eco Nojin Option 01" />
+        <div class="logo-variants">
+          <div class="variant"><img class="mono small-logo" src="assets/logos/eco-nojin-option-01.svg" style="width:180px" /><span>تک‌رنگ</span></div>
+        </div>
+      </div>
+      <div class="logo-option">
+        <div class="label">Option 02 — Manrope Modern</div>
+        <img src="assets/logos/eco-nojin-option-02.svg" alt="Eco Nojin Option 02" />
+        <div class="logo-variants">
+          <div class="variant"><img class="mono small-logo" src="assets/logos/eco-nojin-option-02.svg" style="width:180px" /><span>تک‌رنگ</span></div>
+        </div>
+      </div>
+      <div class="logo-option">
+        <div class="label">Option 03 — Fraunces Stacked</div>
+        <img src="assets/logos/eco-nojin-option-03.svg" alt="Eco Nojin Option 03" />
+        <div class="logo-variants">
+          <div class="variant"><img class="mono small-logo" src="assets/logos/eco-nojin-option-03.svg" style="width:180px" /><span>تک‌رنگ</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:#173B63">HyDroMA</h3>
+    <div class="grid grid-3">
+      <div class="logo-option">
+        <div class="label">Option 01 — Manrope Tight</div>
+        <img src="assets/logos/hydroma-option-01.svg" alt="HyDroMA Option 01" />
+      </div>
+      <div class="logo-option">
+        <div class="label">Option 02 — DM Sans Clean</div>
+        <img src="assets/logos/hydroma-option-02.svg" alt="HyDroMA Option 02" />
+      </div>
+      <div class="logo-option">
+        <div class="label">Option 03 — Manrope Weight Contrast</div>
+        <img src="assets/logos/hydroma-option-03.svg" alt="HyDroMA Option 03" />
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:#D9682B">Nojin Marketplace</h3>
+    <div class="grid grid-3">
+      <div class="logo-option">
+        <div class="label">Option 01 — DM Sans Mixed</div>
+        <img src="assets/logos/marketplace-option-01.svg" alt="Marketplace Option 01" />
+      </div>
+      <div class="logo-option">
+        <div class="label">Option 02 — Manrope Friendly</div>
+        <img src="assets/logos/marketplace-option-02.svg" alt="Marketplace Option 02" />
+      </div>
+      <div class="logo-option">
+        <div class="label">Option 03 — Fraunces Mixed</div>
+        <img src="assets/logos/marketplace-option-03.svg" alt="Marketplace Option 03" />
+      </div>
+    </div>
+  </div>
+
+  <div class="note">نسخه نهایی لوگو باید متن را به مسیر برداری تبدیل کند تا به فونت نصب‌شده وابسته نباشد. این نسخه‌ها فعلاً با فونت متنی (قابل ویرایش) هستند.</div>
+</section>
+
+<!-- COLORS -->
+<section id="tab-colors">
+  <div class="card">
+    <h2 class="card-title">پالت رنگی — ۳ ترکیب برای هر برند</h2>
+  </div>
+  <div class="card">
+    <h3>Eco Nojin — Palette A (اصلی)</h3>
+    <div class="grid grid-4">
+      <div class="swatch" style="background:#173B63">Royal Deep Blue<small>#173B63</small></div>
+      <div class="swatch" style="background:#D9682B">Burnt Orange<small>#D9682B</small></div>
+      <div class="swatch" style="background:#C9A34A">Champagne Gold<small>#C9A34A</small></div>
+      <div class="swatch" style="background:#FBF7F0;color:#1F2933;border:1px solid #E2D9CB">Warm Ivory<small>#FBF7F0</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Eco Nojin — Palette B (آبی‌محور)</h3>
+    <div class="grid grid-4">
+      <div class="swatch" style="background:#173B63">Royal Deep Blue<small>#173B63</small></div>
+      <div class="swatch" style="background:#EAF2F8;color:#173B63">Pale Blue<small>#EAF2F8</small></div>
+      <div class="swatch" style="background:#B8892F">Warm Gold<small>#B8892F</small></div>
+      <div class="swatch" style="background:#FFFDFC;color:#1F2933;border:1px solid #E2D9CB">White<small>#FFFDFC</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Eco Nojin — Palette C (نارنجی‌محور)</h3>
+    <div class="grid grid-4">
+      <div class="swatch" style="background:#D9682B">Burnt Orange<small>#D9682B</small></div>
+      <div class="swatch" style="background:#F2B7A0;color:#173B63">Soft Peach<small>#F2B7A0</small></div>
+      <div class="swatch" style="background:#173B63">Royal Deep Blue<small>#173B63</small></div>
+      <div class="swatch" style="background:#C9A34A">Champagne Gold<small>#C9A34A</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>HyDroMA — Palette</h3>
+    <div class="grid grid-4">
+      <div class="swatch" style="background:#173B63">Royal Deep Blue<small>#173B63</small></div>
+      <div class="swatch" style="background:#75C8C0;color:#173B63">Aqua<small>#75C8C0</small></div>
+      <div class="swatch" style="background:#C9A34A">Gold<small>#C9A34A</small></div>
+      <div class="swatch" style="background:#F3F8F7;color:#1F2933;border:1px solid #E2D9CB">Pale Aqua<small>#F3F8F7</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Nojin Marketplace — Palette</h3>
+    <div class="grid grid-4">
+      <div class="swatch" style="background:#D9682B">Burnt Orange<small>#D9682B</small></div>
+      <div class="swatch" style="background:#F2B7A0;color:#173B63">Soft Peach<small>#F2B7A0</small></div>
+      <div class="swatch" style="background:#E9957D;color:#173B63">Coral Peach<small>#E9957D</small></div>
+      <div class="swatch" style="background:#173B63">Royal Deep Blue<small>#173B63</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>رنگ‌های معنایی (مستقل از برند)</h3>
+    <div class="grid grid-4">
+      <div class="swatch" style="background:#2E9E5B">Success<small>#2E9E5B</small></div>
+      <div class="swatch" style="background:#D98A1F">Warning<small>#D98A1F</small></div>
+      <div class="swatch" style="background:#D64545">Error<small>#D64545</small></div>
+      <div class="swatch" style="background:#2E6FD6">Info<small>#2E6FD6</small></div>
+    </div>
+    <div class="note">طلایی (#C9A34A) برای خطوط، نقاط، جداکننده‌ها و جزئیات ظریف است؛ نه متن‌های کوچک (کنتراست ناکافی روی زمینه روشن).</div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section id="tab-type">
+  <div class="card">
+    <h2 class="card-title">سیستم تایپوگرافی</h2>
+    <div class="type-row" style="font-family:'Fraunces',serif;font-size:2.5rem;font-weight:700;color:#173B63">Fraunces — Display</div>
+    <div class="type-row" style="font-family:'Fraunces',serif;font-size:1.75rem;font-weight:600;color:#173B63">Fraunces — Heading</div>
+    <div class="type-row" style="font-family:'Manrope',sans-serif;font-size:1.25rem;font-weight:700;color:#173B63">Manrope — Subheading</div>
+    <div class="type-row" style="font-family:'Manrope',sans-serif;font-size:1rem;color:#1F2933">Manrope — Body</div>
+    <div class="type-row" style="font-family:'DM Sans',sans-serif;font-size:.95rem;color:#1F2933">DM Sans — UI</div>
+    <div class="type-row" style="font-family:'IBM Plex Mono',monospace;font-size:.9rem;color:#173B63">IBM Plex Mono — 0x0B5563 · data/code</div>
+    <div class="type-row" style="font-family:'Estedad',sans-serif;font-size:1rem;color:#1F2933">Estedad — متن فارسی</div>
+    <div class="type-row" style="font-family:'Vazirmatn',sans-serif;font-size:1rem;color:#1F2933">Vazirmatn — متن فارسی</div>
+    <p style="color:#5A6B72;font-size:.85rem;margin-top:12px">Farsi: Estedad / Vazirmatn · Latin: Fraunces / Manrope / DM Sans / IBM Plex Mono</p>
+  </div>
+  <div class="card">
+    <h3>نمایش فارسی و انگلیسی کنار هم</h3>
+    <div class="grid grid-2">
+      <div style="text-align:right">
+        <div style="font-family:'Fraunces',serif;font-size:1.5rem;color:#173B63">Eco Nojin</div>
+        <div style="font-family:'Estedad',sans-serif;font-size:1.5rem;color:#D9682B">اکو نوژین</div>
+      </div>
+      <div style="text-align:left">
+        <div style="font-family:'Fraunces',serif;font-size:1.5rem;color:#173B63">Eco Nojin</div>
+        <div style="font-family:'Estedad',sans-serif;font-size:1.5rem;color:#D9682B">اکو نوژین</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL LANGUAGE -->
+<section id="tab-visual">
+  <div class="card">
+    <h2 class="card-title">زبان تصویری — خطوط و نقاط طلایی</h2>
+    <div class="card" style="background:#FBF7F0;border:1px solid #E2D9CB">
+      <h3 style="margin-top:0">خط طلایی + نقطه</h3>
+      <div style="display:flex;align-items:center;gap:12px;margin:12px 0">
+        <div class="gold-line" style="max-width:300px"></div>
+        <span class="gold-dot"></span>
+      </div>
+      <div style="display:flex;gap:6px;margin:12px 0">
+        <span class="gold-dot"></span><span class="gold-dot"></span><span class="gold-dot"></span>
+      </div>
+    </div>
+    <div class="card" style="background:#F3F8F7;border:1px solid #E2D9CB">
+      <h3 style="margin-top:0">الگوی خطوط و نقاط (علمی)</h3>
+      <div style="display:flex;align-items:center;gap:8px;margin:12px 0">
+        <span class="gold-dot"></span><div class="gold-line" style="max-width:200px"></div><span class="gold-dot"></span><div class="gold-line" style="max-width:120px"></div><span class="gold-dot"></span>
+      </div>
+    </div>
+    <div class="card" style="background:#FFF8F2;border:1px solid #E2D9CB">
+      <h3 style="margin-top:0">الگوی تجاری</h3>
+      <div style="display:flex;align-items:center;gap:8px;margin:12px 0">
+        <span class="gold-dot"></span><div class="gold-line" style="max-width:250px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section id="tab-components">
+  <div class="card">
+    <h2 class="card-title">کامپوننت‌های پایه</h2>
+  </div>
+  <div class="card">
+    <h3>Buttons</h3>
+    <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-accent">Accent</button>
+    <button class="btn btn-secondary">Secondary</button>
+    <button class="btn btn-ghost">Ghost</button>
+    <button class="btn btn-primary btn-sm">Small</button>
+    <button class="btn btn-primary" disabled>Disabled</button>
+  </div>
+  <div class="card">
+    <h3>Badges</h3>
+    <span class="badge badge-blue">Blue</span>
+    <span class="badge badge-orange">Orange</span>
+    <span class="badge badge-gold">Gold</span>
+    <span class="badge badge-success">Success</span>
+    <span class="badge badge-warning">Warning</span>
+    <span class="badge badge-error">Error</span>
+    <span class="badge badge-aqua">Aqua</span>
+  </div>
+  <div class="card">
+    <h3>Forms</h3>
+    <div class="grid grid-2">
+      <div>
+        <div class="form-group"><label class="form-label">نام</label><input class="input" placeholder="ورودی نمونه" /></div>
+        <div class="form-group"><label class="form-label">ایمیل</label><input class="input" type="email" placeholder="name@example.com" /></div>
+      </div>
+      <div>
+        <div class="form-group"><label class="form-label">توضیحات</label><textarea class="input" rows="3" placeholder="متن نمونه"></textarea></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Alerts</h3>
+    <div class="alert alert-info">اطلاع‌رسانی — این یک پیام نمونه است.</div>
+    <div class="alert alert-success">موفقیت — عملیات با موفقیت انجام شد.</div>
+    <div class="alert alert-warning">هشدار — توجه به این مورد لازم است.</div>
+    <div class="alert alert-error">خطا — عملیات شکست خورد.</div>
+  </div>
+  <div class="card">
+    <h3>Table</h3>
+    <table class="table">
+      <thead><tr><th>ماژول</th><th>وضعیت</th><th>لایه</th></tr></thead>
+      <tbody>
+        <tr><td>HyDroMA Engine</td><td><span class="badge badge-success">VALIDATED</span></td><td>L5</td></tr>
+        <tr><td>Accounting</td><td><span class="badge badge-warning">CALIBRATED</span></td><td>L9</td></tr>
+        <tr><td>Marketplace</td><td><span class="badge badge-orange">COMMERCE</span></td><td>L8</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Data Metric</h3>
+    <div class="grid grid-3">
+      <div class="metric"><div class="metric-label">Water</div><div class="metric-value">1.24 <span class="metric-unit">m³/s</span></div><div class="metric-meta">ایستگاه A · ۱۴۰۴/۰۹/۱۲</div><div class="metric-badge"><span class="badge badge-success">VALIDATED</span></div></div>
+      <div class="metric"><div class="metric-label">Soil</div><div class="metric-value">2.8 <span class="metric-unit">% SOC</span></div><div class="metric-meta">پلات ۱ · ±۰٫۳</div><div class="metric-badge"><span class="badge badge-warning">CALIBRATED</span></div></div>
+      <div class="metric"><div class="metric-label">Climate</div><div class="metric-value">32 <span class="metric-unit">mm</span></div><div class="metric-meta">بارش ماهانه</div><div class="metric-badge"><span class="badge badge-neutral">UNCALIBRATED</span></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Navigation</h3>
+    <div class="nav">
+      <a href="#" class="active">نمای کلی</a>
+      <a href="#">HyDroMA</a>
+      <a href="#">سرزمین‌ها</a>
+      <a href="#">بازارگاه</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="tab-showcase">
+  <div class="card">
+    <h2 class="card-title">نمونه صفحات محصول</h2>
+  </div>
+  <div class="card">
+    <h3>Eco Nojin — صفحه معرفی</h3>
+    <div class="demo-landing">
+      <div class="dheader">
+        <img src="assets/logos/eco-nojin-option-01.svg" alt="Eco Nojin" />
+        <div class="dnav"><span>خانه</span><span>علم</span><span>سرزمین‌ها</span><span>بازارگاه</span></div>
+      </div>
+      <div class="dbody">
+        <div class="dhero">Living Territories, Intelligently Managed.</div>
+        <div class="dtext">اکوسیستم یکپارچه علم، سرزمین، آب، معیشت، تجارت و اقتصاد پایدار — برای احیا و مدیریت پایدار سرزمین‌های زنده در سراسر جهان.</div>
+        <button class="btn btn-primary">شروع کنید</button>
+        <button class="btn btn-secondary">بیشتر بدانید</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>HyDroMA — داشبورد علمی روشن</h3>
+    <div class="demo-science">
+      <h3>HyDroMA — Scientific Dashboard</h3>
+      <div class="grid grid-3">
+        <div class="metric"><div class="metric-label">Hydrology</div><div class="metric-value">1.24 <span class="metric-unit">m³/s</span></div><div class="metric-badge"><span class="badge badge-success">VALIDATED</span></div></div>
+        <div class="metric"><div class="metric-label">Soil</div><div class="metric-value">2.8 <span class="metric-unit">% SOC</span></div><div class="metric-badge"><span class="badge badge-warning">CALIBRATED</span></div></div>
+        <div class="metric"><div class="metric-label">Climate</div><div class="metric-value">32 <span class="metric-unit">mm</span></div><div class="metric-badge"><span class="badge badge-neutral">UNCALIBRATED</span></div></div>
+      </div>
+      <div class="chart" style="height:180px;margin-top:16px">
+        <svg viewBox="0 0 600 180" preserveAspectRatio="none">
+          <line x1="0" y1="150" x2="600" y2="150" stroke="#E2D9CB"/>
+          <line x1="0" y1="90" x2="600" y2="90" stroke="#E2D9CB" stroke-dasharray="4 4"/>
+          <polyline points="0,140 60,120 120,130 180,90 240,100 300,60 360,70 420,30 480,40 540,10 600,20" fill="none" stroke="#173B63" stroke-width="3"/>
+          <polyline points="0,150 60,140 120,145 180,110 240,115 300,80 360,85 420,50 480,55 540,25 600,30" fill="none" stroke="#75C8C0" stroke-width="2" stroke-dasharray="5 3"/>
+          <circle cx="540" cy="10" r="4" fill="#C9A34A"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Nojin Marketplace — نمونه بازارگاه</h3>
+    <div class="demo-market">
+      <h3>Nojin Marketplace — Local Trade</h3>
+      <div class="grid grid-3">
+        <div class="product">
+          <div class="ph" style="background:linear-gradient(135deg,#D9682B,#C9553A)"></div>
+          <div class="pb">
+            <h4 style="margin:0 0 4px;font-size:1rem">عسل کوهی (DEMO)</h4>
+            <p style="color:#5A6B72;font-size:.8rem">محصول روستایی</p>
+            <div class="price">۲۴۵,۰۰۰ <span style="font-size:.8rem">تومان</div>
+            <div style="margin-top:8px"><span class="badge badge-success">موجود</span></div>
+          </div>
+        </div>
+        <div class="product">
+          <div class="ph" style="background:linear-gradient(135deg,#2E9E5B,#1F7A45)"></div>
+          <div class="pb">
+            <h4 style="margin:0 0 4px;font-size:1rem">زعفران ممتاز (DEMO)</h4>
+            <p style="color:#5A6B72;font-size:.8rem">محصول محلی</p>
+            <div class="price">۱,۸۰۰,۰۰۰ <span style="font-size:.8rem">تومان</div>
+            <div style="margin-top:8px"><span class="badge badge-warning">موجود محدود</span></div>
+          </div>
+        </div>
+        <div class="product">
+          <div class="ph" style="background:linear-gradient(135deg,#2E3A87,#1B2360)"></div>
+          <div class="pb">
+            <h4 style="margin:0 0 4px;font-size:1rem">خدمات مشاوره احیا (DEMO)</h4>
+            <p style="color:#5A6B72;font-size:.8rem">خدمت محلی</p>
+            <div class="price">توافقی</div>
+            <div style="margin-top:8px"><span class="badge badge-aqua">نوبت‌دهی</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>RTL / LTR</h3>
+    <button class="btn btn-primary" id="toggle-dir">تغییر به LTR</button>
+    <p style="color:#5A6B72;margin-top:10px">CSS Logical Properties: <code>margin-inline-start</code>، <code>padding-inline</code>، <code>inset-inline</code></p>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="tab-compare">
+  <div class="card">
+    <h2 class="card-title">مقایسه سه برند</h2>
+    <div class="tabs-compare">
+      <div class="compare-card">
+        <h3><img src="assets/logos/eco-nojin-option-01.svg" alt="Eco Nojin" /> Eco Nojin</h3>
+        <ul>
+          <li><strong>کاربرد:</strong> برند مادر، وب‌سایت عمومی، داشبوردها</li>
+          <li><strong>رنگ اصلی:</strong> #173B63</li>
+          <li><strong>رنگ مکمل:</strong> #D9682B · #C9A34A</li>
+          <li><strong>فونت:</strong> Fraunces / Manrope</li>
+          <li><strong>شخصیت:</strong> اصیل، ممتاز، Editorial</li>
+          <li><strong>نقاط قوت:</strong> گرم، انسانی، بین‌المللی</li>
+          <li><strong>محدودیت:</strong> نیاز به آموزش برند</li>
+        </ul>
+      </div>
+      <div class="compare-card">
+        <h3><img src="assets/logos/hydroma-option-01.svg" alt="HyDroMA" /> HyDroMA</h3>
+        <ul>
+          <li><strong>کاربرد:</strong> داشبورد علمی، مدل‌سازی، شبیه‌سازی</li>
+          <li><strong>رنگ اصلی:</strong> #173B63</li>
+          <li><strong>رنگ مکمل:</strong> #75C8C0 · #C9A34A</li>
+          <li><strong>فونت:</strong> Manrope / DM Sans / IBM Plex Mono</li>
+          <li><strong>شخصیت:</strong> علمی، مهندسی، آینده‌نگر</li>
+          <li><strong>نقاط قوت:</strong> دقت، داده‌محور، مدرن</li>
+          <li><strong>محدودیت:</strong> فقط زمینه علمی</li>
+        </ul>
+      </div>
+      <div class="compare-card">
+        <h3><img src="assets/logos/marketplace-option-01.svg" alt="Marketplace" /> Nojin Marketplace</h3>
+        <ul>
+          <li><strong>کاربرد:</strong> تجارت، محصولات روستایی، فروشگاه</li>
+          <li><strong>رنگ اصلی:</strong> #D9682B</li>
+          <li><strong>رنگ مکمل:</strong> #F2B7A0 · #173B63 · #C9A34A</li>
+          <li><strong>فونت:</strong> DM Sans / Manrope / Fraunces</li>
+          <li><strong>شخصیت:</strong> تجاری، پویا، دوستانه</li>
+          <li><strong>نقاط قوت:</strong> گرم، معاصر، بین‌المللی</li>
+          <li><strong>محدودیت:</strong> فقط زمینه تجاری</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note" style="background:#EAF2FC;border-color:#2E6FD6;color:#1A4A80">
+      <strong>تصمیم مالک:</strong> انتخاب نهایی لوگو، پالت، تایپوگرافی و نام محصولات. این صفحه هیچ گزینه‌ای را تأیید نمی‌کند.
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  Eco Nojin · HyDroMA · Nojin Marketplace — Identity V2 · DRAFT — NOT APPROVED · 2026-11-17
+</footer>
+<script>
+document.querySelectorAll('nav button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+const td=document.getElementById('toggle-dir');
+if(td){td.addEventListener('click',()=>{
+  const h=document.documentElement;
+  if(h.dir==='rtl'){h.dir='ltr';h.lang='en';td.textContent='تغییر به RTL';}
+  else{h.dir='rtl';h.lang='fa';td.textContent='تغییر به LTR';}
+});}
+</script>
+</body>
+</html>

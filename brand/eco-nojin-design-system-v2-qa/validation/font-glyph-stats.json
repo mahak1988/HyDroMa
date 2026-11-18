@@ -1,0 +1,122 @@
+{
+  "Vazirmatn": {
+    "fa": {
+      "font": "'Vazirmatn', monospace",
+      "darkRatio": 0.0258,
+      "width": 282.3,
+      "hasInk": true
+    },
+    "en": {
+      "font": "'Vazirmatn', monospace",
+      "darkRatio": 0.0337,
+      "width": 339.2,
+      "hasInk": true
+    },
+    "digits": {
+      "font": "'Vazirmatn', monospace",
+      "darkRatio": 0.0482,
+      "width": 449.6,
+      "hasInk": true
+    }
+  },
+  "Estedad": {
+    "fa": {
+      "font": "'Estedad', monospace",
+      "darkRatio": 0.0174,
+      "width": 281.4,
+      "hasInk": true
+    },
+    "en": {
+      "font": "'Estedad', monospace",
+      "darkRatio": 0.0296,
+      "width": 329.8,
+      "hasInk": true
+    },
+    "digits": {
+      "font": "'Estedad', monospace",
+      "darkRatio": 0.0461,
+      "width": 448.4,
+      "hasInk": true
+    }
+  },
+  "Fraunces": {
+    "fa": {
+      "font": "'Fraunces', monospace",
+      "darkRatio": 0.0173,
+      "width": 252.1,
+      "hasInk": true
+    },
+    "en": {
+      "font": "'Fraunces', monospace",
+      "darkRatio": 0.0255,
+      "width": 317.2,
+      "hasInk": true
+    },
+    "digits": {
+      "font": "'Fraunces', monospace",
+      "darkRatio": 0.0407,
+      "width": 420.2,
+      "hasInk": true
+    }
+  },
+  "Manrope": {
+    "fa": {
+      "font": "'Manrope', monospace",
+      "darkRatio": 0.0174,
+      "width": 281.4,
+      "hasInk": true
+    },
+    "en": {
+      "font": "'Manrope', monospace",
+      "darkRatio": 0.0304,
+      "width": 340.3,
+      "hasInk": true
+    },
+    "digits": {
+      "font": "'Manrope', monospace",
+      "darkRatio": 0.0447,
+      "width": 449.1,
+      "hasInk": true
+    }
+  },
+  "DM Sans": {
+    "fa": {
+      "font": "'DM Sans', monospace",
+      "darkRatio": 0.0174,
+      "width": 281.4,
+      "hasInk": true
+    },
+    "en": {
+      "font": "'DM Sans', monospace",
+      "darkRatio": 0.0319,
+      "width": 347,
+      "hasInk": true
+    },
+    "digits": {
+      "font": "'DM Sans', monospace",
+      "darkRatio": 0.0487,
+      "width": 456.5,
+      "hasInk": true
+    }
+  },
+  "IBM Plex Mono": {
+    "fa": {
+      "font": "'IBM Plex Mono', monospace",
+      "darkRatio": 0.0174,
+      "width": 281.4,
+      "hasInk": true
+    },
+    "en": {
+      "font": "'IBM Plex Mono', monospace",
+      "darkRatio": 0.0337,
+      "width": 432,
+      "hasInk": true
+    },
+    "digits": {
+      "font": "'IBM Plex Mono', monospace",
+      "darkRatio": 0.0475,
+      "width": 480,
+      "hasInk": true
+    }
+  }
+}

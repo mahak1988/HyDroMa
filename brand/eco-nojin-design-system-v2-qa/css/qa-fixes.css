@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Eco Nojin Design System v2 — QA CORRECTIONS (accessibility & responsive)
+   --------------------------------------------------------------------------
+   This file contains ONLY measured defect fixes from the independent QA audit.
+   It does NOT change the reference palette, logo options, or brand identity.
+   Every rule maps to a recorded WCAG / responsive / keyboard / RTL failure.
+
+   Palette tokens are untouched. Text-safe variants are introduced as NEW
+   tokens (e.g. --brand-secondary-text) so the original palette values remain
+   available for fills/swatches. Reference values are preserved verbatim.
+   ========================================================================== */
+
+/* ---- Contrast-safe text variants (derived, not replacements) --------------
+   Reference fills keep their original hex values everywhere.
+   These darker tokens are used ONLY where text sits on light surfaces or where
+   white text on a semantic fill must reach 4.5:1.                                   */
+:root {
+  --brand-secondary-text: #7A5E00;   /* A: on white 6.12:1, on page-bg 5.70:1 */
+  --brand-accent-text:    #0E7C8C;   /* A: on white 4.91:1                   */
+  --semantic-success-text: #1E7A45;   /* white-on 5.35:1                       */
+  --semantic-warning-text: #8A5A00;   /* white-on 5.93:1                       */
+  --semantic-danger-text:  #C62828;   /* white-on 5.62:1                       */
+  --semantic-info-text:    #1D5BBF;   /* white-on 6.36:1, on light 5.9:1       */
+  --sci-uncalibrated-text: #5A6B72;   /* white-on 5.55:1                       */
+}
+[data-theme="B"] {
+  --brand-secondary-text: #B34A1E;   /* B: on white 5.36:1                    */
+  --brand-accent-text:    #8A5A00;   /* B accent as text                      */
+}
+
+/* ---- Badges: use text-safe fills so white label reaches 4.5:1 ------------ */
+.badge-orange,
+.badge-gold       { background: var(--brand-secondary-text); color: #fff; }
+.badge-success    { background: var(--semantic-success-text); color: #fff; }
+.badge-warning    { background: var(--semantic-warning-text); color: #fff; }
+.badge-error      { background: var(--semantic-danger-text); color: #fff; }
+.badge-info       { background: var(--semantic-info-text); color: #fff; }
+.badge-neutral    { background: var(--neutral-cloud); color: var(--neutral-ink); }
+.badge-aqua       { background: var(--brand-accent); color: var(--brand-primary-dark); }
+
+/* ---- Scientific status chips: text-safe fills --------------------------- */
+.status-validated    { background: var(--semantic-success-text); color: #fff; }
+.status-calibrated   { background: var(--semantic-warning-text); color: #fff; }
+.status-uncalibrated { background: var(--sci-uncalibrated-text); color: #fff; }
+.status-notvalidated { background: var(--semantic-danger-text); color: #fff; }
+
+/* ---- Accent button: text-safe fill ------------------------------------ */
+.btn-accent { background: var(--brand-secondary-text); color: #fff; }
+.btn-accent:hover:not(:disabled) { background: var(--brand-primary-dark); }
+
+/* ---- Danger button: reference #D64545 is 4.38:1 with white (just under 4.5).
+   Use the darker text-safe danger token for the fill (palette ref preserved). */
+.btn-danger { background: var(--semantic-danger-text); color: #fff; }
+.btn-danger:hover:not(:disabled) { background: #A61F1F; }
+
+/* ---- Alerts: darker semantic text on tinted background (4.5:1) --------- */
+.alert { flex-wrap: wrap; overflow-wrap: anywhere; }
+.alert-info    { color: var(--semantic-info-text); }
+.alert-success { color: var(--semantic-success-text); }
+.alert-warning { color: var(--semantic-warning-text); }
+.alert-error   { color: var(--semantic-danger-text); }
+
+/* ---- Form error text -------------------------------------------------- */
+.form-error { color: var(--semantic-danger-text); }
+
+/* ---- Inline info overlays (brands / science) -------------------------- */
+.info-overlay { color: var(--semantic-info-text) !important; }
+
+/* ---- Price unit (تومان) inherits neutral ink, not brand coral --------- */
+.product-card .product-price span { color: var(--neutral-ink); }
+
+/* ---- Non-header demo nav: theme-aware text on light surface ----------- */
+.demo-section .nav a { color: var(--neutral-slate); }
+.demo-section .nav a.active { background: var(--brand-primary); color: #fff; }
+
+/* ---- Focus visibility for dark-header links (WCAG 2.2) ---------------- */
+.app-header .nav a:focus-visible,
+.app-header .brand .wordmark:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
+}
+
+/* ---- Responsive: prevent horizontal overflow at narrow widths ---------
+   The data table and long unbreakable strings overflowed at 375px/320px. */
+.table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table thead, .table tbody, .table tr { display: table; width: 100%; }
+.table th, .table td { white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .app-header .nav { display: none; }              /* already hidden; keep */
+  .container { padding: 0 12px; }
+  .app-main { padding: 12px; }
+  .hero { padding: 20px 16px; }
+  .logo-grid { grid-template-columns: 1fr; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .table { font-size: .82rem; }
+}
+
+@media (max-width: 375px) {
+  .theme-btn, .locale-btn { font-size: .72rem; padding: 4px 8px; }
+}

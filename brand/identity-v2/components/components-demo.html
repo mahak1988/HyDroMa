@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FBF8F2">
+<title>Eco Nojin | Design Showcase</title>
+
+<style>
+@font-face {
+  font-family: Vazirmatn;
+  src: url("../assets/fonts/Vazirmatn.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("../assets/fonts/Manrope.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: Fraunces;
+  src: url("../assets/fonts/Fraunces.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --blue: #173B63;
+  --blue-light: #EAF1F7;
+  --orange: #D9682B;
+  --orange-light: #F9E8DE;
+  --gold: #C9A34A;
+  --gold-light: #F4EBD5;
+  --peach: #F2B7A0;
+  --aqua: #75C8C0;
+  --green: #39865D;
+  --red: #BD514B;
+  --ink: #253D50;
+  --muted: #78858A;
+  --paper: #FBF8F2;
+  --white: #FFFFFF;
+  --border: #EAE2D7;
+  --shadow: 0 14px 45px rgba(23,59,99,.07);
+  --radius: 20px;
+  --fa: "Vazirmatn", Tahoma, sans-serif;
+  --latin: "Manrope", Arial, sans-serif;
+  --display: "Fraunces", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--fa);
+  line-height: 1.8;
+  transition: background .25s;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.container {
+  width: min(1160px, calc(100% - 44px));
+  margin: auto;
+}
+
+.top-line {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--blue) 0 45%,
+    var(--orange) 45% 75%,
+    var(--gold) 75%
+  );
+}
+
+/* HEADER */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251,248,242,.94);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-symbol {
+  width: 37px;
+  height: 37px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.brand-symbol::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+}
+
+.brand-symbol::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+}
+
+.brand-name {
+  font-family: var(--display);
+  font-size: 25px;
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  color: var(--blue);
+}
+
+.brand-name span { color: var(--orange); }
+
+.brand-caption {
+  display: block;
+  font-family: var(--latin);
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: .15em;
+  margin-top: 4px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  transition: color .2s;
+}
+
+nav a:hover { color: var(--orange); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang-button {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 9px 15px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.lang-menu {
+  position: absolute;
+  top: 62px;
+  inset-inline-end: 0;
+  width: 260px;
+  max-height: 340px;
+  overflow: auto;
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 9px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.lang-menu.open { display: grid; }
+
+.lang-option {
+  border: 0;
+  background: transparent;
+  padding: 9px;
+  text-align: start;
+  border-radius: 8px;
+  color: var(--blue);
+  font-size: 11px;
+}
+
+.lang-option:hover,
+.lang-option.active {
+  background: var(--blue-light);
+}
+
+.language-selector { position: relative; }
+
+/* BUTTONS */
+
+.btn {
+  border: 0;
+  border-radius: 30px;
+  padding: 11px 20px;
+  font-size: 11px;
+  font-weight: 800;
+  transition: .2s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary {
+  background: var(--blue);
+  color: white;
+  box-shadow: 0 6px 17px rgba(23,59,99,.15);
+}
+
+.btn-accent {
+  background: var(--orange);
+  color: white;
+}
+
+.btn-secondary {
+  background: var(--gold-light);
+  color: #74571C;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--blue);
+  border: 1px solid var(--border);
+}
+
+.btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-sm { padding: 7px 14px; }
+
+/* HERO */
+
+.hero {
+  padding: 75px 0 65px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  align-items: center;
+  gap: 55px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  color: var(--blue);
+  font-size: clamp(40px,5vw,65px);
+  line-height: 1.35;
+  margin: 20px 0;
+  letter-spacing: -.04em;
+}
+
+.hero h1 em {
+  color: var(--orange);
+  font-style: normal;
+}
+
+.hero-description {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 530px;
+  line-height: 2.2;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 27px;
+}
+
+/* LANDSCAPE VISUAL */
+
+.landscape-card {
+  background: linear-gradient(145deg,#FFFFFF,#F5EDDF);
+  border: 1px solid #E7DCC8;
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.landscape {
+  height: 225px;
+  margin-top: 17px;
+  border-radius: 17px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #EAF1F1 0%,
+    #F7E8D5 75%,
+    #E8D4B8 100%
+  );
+}
+
+.sun {
+  position: absolute;
+  top: 30px;
+  inset-inline-end: 65px;
+  width: 62px;
+  height: 62px;
+  background: #EDBC76;
+  border-radius: 50%;
+  box-shadow: 0 0 0 17px rgba(237,188,118,.15);
+}
+
+.hill {
+  position: absolute;
+  bottom: -35px;
+  inset-inline-start: -5%;
+  width: 110%;
+  height: 145px;
+  background: #A4B49B;
+  clip-path: polygon(
+    0 55%, 20% 20%, 35% 48%,
+    52% 8%, 70% 45%, 85% 20%,
+    100% 48%, 100% 100%, 0 100%
+  );
+}
+
+.hill.second {
+  height: 105px;
+  background: #6F8B76;
+  opacity: .9;
+}
+
+.landscape-caption {
+  position: absolute;
+  bottom: 12px;
+  inset-inline-start: 12px;
+  background: white;
+  padding: 5px 11px;
+  border-radius: 8px;
+  color: var(--blue);
+  font-size: 9px;
+}
+
+.landscape-stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  margin-top: 15px;
+}
+
+.landscape-stat {
+  padding: 8px 12px;
+  border-inline-start: 1px solid var(--border);
+}
+
+.landscape-stat:last-child { border: 0; }
+
+.landscape-stat strong {
+  font-family: var(--display);
+  font-size: 23px;
+  display: block;
+  color: var(--blue);
+}
+
+.landscape-stat span {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+/* SECTIONS */
+
+section.content-section {
+  padding: 65px 0;
+}
+
+.section-white {
+  background: white;
+  border-block: 1px solid var(--border);
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  margin-bottom: 27px;
+}
+
+.section-heading h2 {
+  color: var(--blue);
+  font-size: 29px;
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+.section-heading p {
+  max-width: 450px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+}
+
+/* BRAND CARDS */
+
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+}
+
+.brand-card {
+  min-height: 145px;
+  padding: 25px;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-card.main {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+
+.brand-card h3 {
+  font-family: var(--display);
+  font-size: 28px;
+  margin: 0;
+  letter-spacing: -.04em;
+}
+
+.brand-card h3 span { color: var(--orange); }
+
+.brand-card.main h3 span { color: #F2A17A; }
+
+.brand-card p {
+  color: var(--muted);
+  font-family: var(--latin);
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+
+.brand-card.main p { color: #CBD8E2; }
+
+.brand-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  inset-inline: 20px;
+  height: 2px;
+  background: linear-gradient(90deg,var(--gold),transparent);
+}
+
+/* COLOR PALETTE */
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 12px;
+}
+
+.color-card {
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  overflow: hidden;
+  background: white;
+}
+
+.color-sample { height: 82px; }
+
+.color-details { padding: 11px; }
+
+.color-details strong {
+  display: block;
+  font-size: 10px;
+}
+
+.color-details code {
+  font-family: var(--latin);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* TYPOGRAPHY */
+
+.typography-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.type-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 25px;
+}
+
+.type-card small {
+  color: var(--muted);
+  font-family: var(--latin);
+  letter-spacing: .12em;
+}
+
+.type-fa {
+  font-size: 30px;
+  color: var(--blue);
+  margin: 20px 0 8px;
+}
+
+.type-en {
+  font-family: var(--display);
+  font-size: 38px;
+  color: var(--blue);
+  line-height: 1.2;
+  margin: 20px 0 8px;
+}
+
+.type-card p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* COMPONENTS */
+
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 15px;
+}
+
+.component-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 23px;
+  transition: .25s;
+}
+
+.component-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+
+.component-title {
+  font-size: 13px;
+  color: var(--blue);
+  margin: 0 0 5px;
+}
+
+.component-description {
+  font-size: 9px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.button-group,.badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 30px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.badge-blue { background: var(--blue-light); color: var(--blue); }
+.badge-orange { background: var(--orange-light); color: #A7461E; }
+.badge-gold { background: var(--gold-light); color: #74571C; }
+.badge-green { background: #E8F3EC; color: var(--green); }
+.badge-red { background: #F9ECEA; color: var(--red); }
+.badge-aqua { background: #E8F5F2; color: #286F68; }
+
+/* METRIC */
+
+.metric-box {
+  background: linear-gradient(145deg,#fff,#FCFAF6);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 17px;
+}
+
+.metric-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric-value {
+  font-family: var(--display);
+  font-size: 34px;
+  color: var(--blue);
+  margin-top: 12px;
+}
+
+.metric-unit {
+  font-family: var(--latin);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.metric-trend {
+  color: var(--green);
+  font-size: 10px;
+}
+
+/* FORMS */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  margin-bottom: 7px;
+}
+
+.input {
+  width: 100%;
+  height: 43px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  padding: 0 12px;
+  outline: none;
+  color: var(--blue);
+  font-size: 11px;
+}
+
+.input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(23,59,99,.1);
+}
+
+/* ALERTS */
+
+.alert {
+  padding: 11px 14px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+
+.alert.info { background: var(--blue-light); color: var(--blue); }
+.alert.success { background: #E8F3EC; color: var(--green); }
+.alert.warning { background: #FBF1DE; color: #95610E; }
+.alert.error { background: #F9ECEA; color: var(--red); }
+
+/* TABLE */
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 390px;
+  font-size: 10px;
+}
+
+th,td {
+  padding: 12px;
+  text-align: start;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #F8F5EF;
+  color: var(--muted);
+}
+
+tr:last-child td { border: 0; }
+
+/* LANGUAGE SECTION */
+
+.language-panel {
+  background: var(--blue);
+  color: white;
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.language-panel::after {
+  content: "";
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  border: 1px solid rgba(201,163,74,.4);
+  border-radius: 50%;
+  inset-inline-end: -120px;
+  top: -180px;
+  box-shadow:
+    0 0 0 25px rgba(201,163,74,.04),
+    0 0 0 55px rgba(201,163,74,.03);
+}
+
+.language-panel h2 {
+  font-size: 28px;
+  margin: 8px 0;
+}
+
+.language-panel p {
+  color: #CBD8E2;
+  font-size: 11px;
+  max-width: 650px;
+}
+
+.language-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.language-chip {
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.07);
+  color: white;
+  border-radius: 30px;
+  padding: 7px 12px;
+  font-size: 10px;
+}
+
+.language-chip:hover,
+.language-chip.active {
+  background: var(--gold);
+  color: var(--blue);
+}
+
+.language-preview {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px;
+  padding: 17px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+}
+
+.language-preview strong {
+  display: block;
+  font-size: 16px;
+}
+
+.language-preview span {
+  color: #CBD8E2;
+  font-size: 10px;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 27px 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.footer-inner {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(217,104,43,.7);
+  outline-offset: 3px;
+}
+
+@media(max-width:900px) {
+  nav { display:none; }
+  .hero-grid { grid-template-columns:1fr; }
+  .brand-grid { grid-template-columns:1fr 1fr; }
+  .brand-card.main { grid-column:span 2; }
+}
+
+@media(max-width:620px) {
+  .container { width:calc(100% - 28px); }
+  .hero { padding:45px 0; }
+  .hero h1 { font-size:39px; }
+  .section-heading { display:block; }
+  .section-heading h2 { font-size:24px; }
+  .brand-grid,.typography-grid,.component-grid { grid-template-columns:1fr; }
+  .brand-card.main { grid-column:auto; }
+  .palette { grid-template-columns:repeat(2,1fr); }
+  .form-grid { grid-template-columns:1fr; }
+  .language-panel { padding:22px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior:auto!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="top-line"></div>
+
+<header>
+  <div class="container header-inner">
+
+    <a class="brand" href="#top">
+      <span class="brand-symbol"></span>
+      <span>
+        <span class="brand-name">Eco <span>Nojin</span></span>
+        <span class="brand-caption">LIVING TERRITORIES · GLOBAL ECOSYSTEM</span>
+      </span>
+    </a>
+
+    <nav>
+      <a href="#identity" data-key="nav1">هویت برند</a>
+      <a href="#typography" data-key="nav2">تایپوگرافی</a>
+      <a href="#components" data-key="nav3">کامپوننت‌ها</a>
+      <a href="#languages" data-key="nav4">زبان‌ها</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="language-selector">
+        <button class="lang-button" id="langButton">
+          <span id="selectedLang">فارسی</span> ⌄
+        </button>
+        <div class="lang-menu" id="langMenu"></div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div>
+      <span class="eyebrow" data-key="eyebrow">A considered design language</span>
+
+      <h1 data-key="heroTitle">
+        یک جهان زنده،<br>
+        <em>با زبانی یکپارچه</em>
+      </h1>
+
+      <p class="hero-description" data-key="heroText">
+        اکو نوژین پیوندی میان دانش سرزمین، فناوری هوشمند و اقتصاد محلی است.
+        این نمونه زبان بصری پیشنهادی را در قالبی روشن، ظریف و چندزبانه نمایش می‌دهد.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="#identity" data-key="heroButton">کاوش هویت بصری</a>
+        <a class="btn btn-ghost" href="#languages" data-key="heroSecond">۱۵ زبان، یک تجربه</a>
+      </div>
+    </div>
+
+    <div class="landscape-card">
+      <span class="eyebrow">LANDSCAPE INTELLIGENCE</span>
+
+      <div class="landscape">
+        <div class="sun"></div>
+        <div class="hill"></div>
+        <div class="hill second"></div>
+        <span class="landscape-caption">LIVING TERRITORIES · SAMPLE</span>
+      </div>
+
+      <div class="landscape-stats">
+        <div class="landscape-stat">
+          <strong>68.4%</strong>
+          <span>Vegetation Cover</span>
+        </div>
+        <div class="landscape-stat">
+          <strong>1.24</strong>
+          <span>Water Index</span>
+        </div>
+        <div class="landscape-stat">
+          <strong>+12.8</strong>
+          <span>Annual Change</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="content-section section-white" id="identity">
+  <div class="container">
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">ONE ECOSYSTEM · THREE EXPRESSIONS</span>
+        <h2 data-key="identityTitle">یک هویت مادر، سه شخصیت متمایز</h2>
+      </div>
+      <p data-key="identityText">
+        سه برند باید زبان بصری مشترکی داشته باشند، اما شخصیت و کارکرد مستقل خود را حفظ کنند.
+      </p>
+    </div>
+
+    <div class="brand-grid">
+      <article class="brand-card main">
+        <h3>Eco <span>Nojin</span></h3>
+        <p>LIVING TERRITORIES</p>
+      </article>
+
+      <article class="brand-card">
+        <h3 style="font-family:Manrope">HyDro<span style="color:#75C8C0">MA</span></h3>
+        <p>SCIENCE · MODELLING · INTELLIGENCE</p>
+      </article>
+
+      <article class="brand-card">
+        <h3 style="font-family:Manrope;font-size:23px">Nojin <span>Market</span></h3>
+        <p>LOCAL PRODUCTS · GLOBAL CONNECTIONS</p>
+      </article>
+    </div>
+
+    <div style="height:38px"></div>
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">COLOR LANGUAGE</span>
+        <h2 data-key="paletteTitle">پالت رنگی برند</h2>
+      </div>
+    </div>
+
+    <div class="palette">
+      <div class="color-card">
+        <div class="color-sample" style="background:#173B63"></div>
+        <div class="color-details"><strong>Deep Blue</strong><code>#173B63</code></div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-sample" style="background:#D9682B"></div>
+        <div class="color-details"><strong>Terracotta</strong><code>#D9682B</code></div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-sample" style="background:#C9A34A"></div>
+        <div class="color-details"><strong>Champagne Gold</strong><code>#C9A34A</code></div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-sample" style="background:#F2B7A0"></div>
+        <div class="color-details"><strong>Soft Peach</strong><code>#F2B7A0</code></div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-sample" style="background:#75C8C0"></div>
+        <div class="color-details"><strong>Soft Aqua</strong><code>#75C8C0</code></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="content-section" id="typography">
+  <div class="container">
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">TYPOGRAPHY</span>
+        <h2 data-key="typeTitle">تایپوگرافی؛ شخصیت برند</h2>
+      </div>
+    </div>
+
+    <div class="typography-grid">
+
+      <article class="type-card">
+        <small>FARSI · RTL</small>
+        <div class="type-fa">سرزمین، دانش و آینده</div>
+        <p>پیوندی هوشمند میان منابع طبیعی، جوامع محلی و فناوری‌های نوین.</p>
+      </article>
+
+      <article class="type-card">
+        <small>LATIN · LTR</small>
+        <div class="type-en">Living<br>territories.</div>
+        <p style="font-family:Manrope">
+          Science, stewardship and shared prosperity — thoughtfully connected.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-white" id="components">
+  <div class="container">
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">INTERFACE COMPONENTS</span>
+        <h2 data-key="componentsTitle">کامپوننت‌های رابط کاربری</h2>
+      </div>
+      <p data-key="componentsText">
+        اجزای اصلی رابط با هویت بصری یکپارچه، فاصله‌گذاری دقیق و کنتراست کنترل‌شده.
+      </p>
+    </div>
+
+    <div class="component-grid">
+
+      <article class="component-card">
+        <h3 class="component-title">Buttons</h3>
+        <p class="component-description">Primary · Accent · Secondary · Ghost</p>
+        <div class="button-group">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-accent">Accent</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+        </div>
+      </article>
+
+      <article class="component-card">
+        <h3 class="component-title">Badges</h3>
+        <p class="component-description">Semantic status indicators</p>
+        <div class="badge-group">
+          <span class="badge badge-blue">SCIENTIFIC</span>
+          <span class="badge badge-orange">IN REVIEW</span>
+          <span class="badge badge-gold">DRAFT</span>
+          <span class="badge badge-green">READY</span>
+          <span class="badge badge-red">ERROR</span>
+          <span class="badge badge-aqua">AQUA</span>
+        </div>
+      </article>
+
+      <article class="component-card">
+        <h3 class="component-title">Scientific Metric</h3>
+        <p class="component-description">Environmental data · Sample only</p>
+
+        <div class="metric-box">
+          <div class="metric-top">
+            <strong>Soil Moisture Index</strong>
+            <span class="badge badge-aqua">SAMPLE</span>
+          </div>
+
+          <div class="metric-value">24.8 <span class="metric-unit">%</span></div>
+          <div class="metric-trend">↗ 3.2% vs previous period</div>
+        </div>
+      </article>
+
+      <article class="component-card">
+        <h3 class="component-title">Forms</h3>
+        <p class="component-description">Labels · Inputs · Focus states</p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="sample-name">نام</label>
+            <input id="sample-name" class="input" placeholder="نام خود را وارد کنید">
+          </div>
+
+          <div class="form-group">
+            <label for="sample-email">Email</label>
+            <input id="sample-email" class="input" type="email" dir="ltr" placeholder="name@example.com">
+          </div>
+        </div>
+      </article>
+
+      <article class="component-card">
+        <h3 class="component-title">Alerts</h3>
+        <p class="component-description">Contextual messages</p>
+
+        <div class="alert info">اطلاع‌رسانی و راهنمایی کاربر</div>
+        <div class="alert success">عملیات با موفقیت انجام شد</div>
+        <div class="alert warning">این داده نیازمند بررسی است</div>
+        <div class="alert error">خطا در پردازش درخواست</div>
+      </article>
+
+      <article class="component-card">
+        <h3 class="component-title">Data Table</h3>
+        <p class="component-description">Readable data presentation</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Module</th>
+                <th>Status</th>
+                <th>Layer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>HyDroMA</td>
+                <td><span class="badge badge-gold">SAMPLE</span></td>
+                <td>L5</td>
+              </tr>
+              <tr>
+                <td>Finance</td>
+                <td><span class="badge badge-blue">DEMO</span></td>
+                <td>L9</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="languages">
+  <div class="container">
+
+    <div class="language-panel">
+      <span class="eyebrow" style="color:#E8C77E">GLOBAL · MULTILINGUAL</span>
+
+      <h2 data-key="languageTitle">۱۵ زبان، یک تجربه یکپارچه</h2>
+
+      <p data-key="languageText">
+        زبان، جهت نوشتار و نمایش متن باید در تمام صفحات به‌درستی مدیریت شوند.
+        فهرست زبان‌ها در این نمونه پیشنهادی است.
+      </p>
+
+      <div class="language-chips" id="languageChips"></div>
+
+      <div class="language-preview" id="languagePreview">
+        <strong>دانش سرزمین، آینده‌ای پایدار</strong>
+        <span>یک پلتفرم، از علم تا معیشت</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© Eco Nojin · Visual Design Prototype</span>
+    <span>OWNER REVIEW REQUIRED · DRAFT</span>
+  </div>
+</footer>
+
+<script>
+const languages = [
+  {code:"fa",name:"فارسی",dir:"rtl"},
+  {code:"en",name:"English",dir:"ltr"},
+  {code:"ar",name:"العربية",dir:"rtl"},
+  {code:"fr",name:"Français",dir:"ltr"},
+  {code:"es",name:"Español",dir:"ltr"},
+  {code:"de",name:"Deutsch",dir:"ltr"},
+  {code:"pt",name:"Português",dir:"ltr"},
+  {code:"ru",name:"Русский",dir:"ltr"},
+  {code:"zh",name:"中文",dir:"ltr"},
+  {code:"ja",name:"日本語",dir:"ltr"},
+  {code:"ko",name:"한국어",dir:"ltr"},
+  {code:"tr",name:"Türkçe",dir:"ltr"},
+  {code:"hi",name:"हिन्दी",dir:"ltr"},
+  {code:"id",name:"Bahasa Indonesia",dir:"ltr"},
+  {code:"it",name:"Italiano",dir:"ltr"}
+];
+
+const translations = {
+fa: {
+heroTitle:"یک جهان زنده،<br><em>با زبانی یکپارچه</em>",
+heroText:"اکو نوژین پیوندی میان دانش سرزمین، فناوری هوشمند و اقتصاد محلی است.",
+identityTitle:"یک هویت مادر، سه شخصیت متمایز",
+identityText:"سه برند باید زبان بصری مشترکی داشته باشند، اما شخصیت مستقل خود را حفظ کنند.",
+paletteTitle:"پالت رنگی برند",
+typeTitle:"تایپوگرافی؛ شخصیت برند",
+componentsTitle:"کامپوننت‌های رابط کاربری",
+componentsText:"اجزای اصلی رابط با هویت بصری یکپارچه.",
+languageTitle:"۱۵ زبان، یک تجربه یکپارچه",
+languageText:"زبان و جهت نوشتار باید در تمام صفحات به‌درستی مدیریت شوند."
+},
+en: {
+heroTitle:"A living world,<br><em>one coherent language</em>",
+heroText:"Eco Nojin connects land science, intelligent technology and local economies.",
+identityTitle:"One parent identity, three distinct personalities",
+identityText:"Three brands share a visual language while retaining their own identity.",
+paletteTitle:"The brand colour palette",
+typeTitle:"Typography is brand personality",
+componentsTitle:"Interface components",
+componentsText:"Core interface elements with a coherent visual identity.",
+languageTitle:"15 languages, one coherent experience",
+languageText:"Language and writing direction must work consistently across every page."
+},
+ar: {
+heroTitle:"عالم حيّ،<br><em>بلغة موحّدة</em>",
+heroText:"تربط إيكو نوجين بين علوم الأراضي والتقنيات الذكية والاقتصادات المحلية.",
+identityTitle:"هوية رئيسية واحدة وثلاث شخصيات متميزة",
+identityText:"تتشارك العلامات الثلاث لغة بصرية مع الحفاظ على هويتها الخاصة.",
+paletteTitle:"لوحة ألوان العلامة",
+typeTitle:"الخط جزء من شخصية العلامة",
+componentsTitle:"مكونات الواجهة",
+componentsText:"عناصر واجهة أساسية بهوية بصرية متناسقة.",
+languageTitle:"١٥ لغة، تجربة متناسقة",
+languageText:"يجب إدارة اللغة واتجاه الكتابة بشكل صحيح في جميع الصفحات."
+}
+};
+
+const previews = {
+fa:["دانش سرزمین، آینده‌ای پایدار","یک پلتفرم، از علم تا معیشت"],
+en:["Land knowledge. A resilient future.","One platform, from science to livelihoods"],
+ar:["معرفة الأرض، مستقبل أكثر استدامة","منصة واحدة، من العلم إلى سبل العيش"],
+fr:["La connaissance des territoires","Une plateforme, de la science aux moyens de subsistance"],
+es:["Conocimiento del territorio","Una plataforma, de la ciencia a los medios de vida"],
+de:["Wissen über Landschaften","Eine Plattform – von Wissenschaft bis Lebensgrundlage"],
+pt:["Conhecimento do território","Uma plataforma, da ciência aos meios de vida"],
+ru:["Знание о земле","Одна платформа — от науки до средств к жизни"],
+zh:["土地知识，韧性未来","一个平台，连接科学与生计"],
+ja:["大地の知恵、しなやかな未来","科学から暮らしまでをつなぐ"],
+ko:["토지의 지식, 회복력 있는 미래","과학에서 생계까지 연결하는 플랫폼"],
+tr:["Arazi bilgisi, dirençli gelecek","Bilimden geçim kaynaklarına tek platform"],
+hi:["भूमि का ज्ञान, टिकाऊ भविष्य","विज्ञान से आजीविका तक एक मंच"],
+id:["Pengetahuan lahan, masa depan tangguh","Satu platform, dari sains hingga penghidupan"],
+it:["Conoscenza del territorio","Una piattaforma, dalla scienza ai mezzi di sussistenza"]
+};
+
+const menu = document.getElementById("langMenu");
+const chips = document.getElementById("languageChips");
+
+languages.forEach(language => {
+  const option = document.createElement("button");
+  option.className = "lang-option";
+  option.type = "button";
+  option.textContent = language.name;
+  option.addEventListener("click", () => setLanguage(language.code));
+  menu.appendChild(option);
+
+  const chip = document.createElement("button");
+  chip.className = "language-chip";
+  chip.type = "button";
+  chip.textContent = language.name;
+  chip.addEventListener("click", () => setLanguage(language.code));
+  chips.appendChild(chip);
+});
+
+function setLanguage(code) {
+  const language = languages.find(item => item.code === code);
+  if (!language) return;
+
+  document.documentElement.lang = code;
+  document.documentElement.dir = language.dir;
+
+  const font = ["fa","ar","hi","zh","ja","ko"].includes(code)
+    ? 'var(--fa)'
+    : 'var(--latin)';
+
+  document.body.style.fontFamily = font;
+
+  document.getElementById("selectedLang").textContent = language.name;
+
+  document.querySelectorAll(".lang-option").forEach((button,index) => {
+    button.classList.toggle("active", languages[index].code === code);
+  });
+
+  document.querySelectorAll(".language-chip").forEach((button,index) => {
+    button.classList.toggle("active", languages[index].code === code);
+  });
+
+  const translation = translations[code] || translations.en;
+
+  document.querySelectorAll("[data-key]").forEach(element => {
+    const value = translation[element.dataset.key];
+    if (value) element.innerHTML = value;
+  });
+
+  const preview = previews[code] || previews.en;
+  const previewElement = document.getElementById("languagePreview");
+
+  previewElement.dir = language.dir;
+  previewElement.lang = code;
+  previewElement.querySelector("strong").textContent = preview[0];
+  previewElement.querySelector("span").textContent = preview[1];
+
+  menu.classList.remove("open");
+}
+
+document.getElementById("langButton").addEventListener("click", () => {
+  menu.classList.toggle("open");
+});
+
+document.addEventListener("click", event => {
+  if (!event.target.closest(".language-selector")) {
+    menu.classList.remove("open");
+  }
+});
+
+setLanguage("fa");
+</script>
+</body>
+</html>

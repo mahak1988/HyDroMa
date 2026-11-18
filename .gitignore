@@ -1,0 +1,68 @@
+# ---- Eco Nojin root ignore rules (proposal; repository not yet initialised) ----
+# Decision owner: see ARCHITECTURE-DECISIONS-OPEN.md (D-GIT-01)
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.turbo/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Logs
+*.log
+logs/
+
+# Large upstream archives (kept on disk, out of version control)
+upstream-archives/**/*.zip
+upstream-archives/**/*.tar.gz
+upstream-archives/**/*.tgz
+
+# Extracted third-party sources: evidence, not part of the product tree
+upstream-registry/**/node_modules/
+upstream-registry/**/.next/
+upstream-registry/**/dist/
+
+# Data payloads (see data/.gitignore)
+data/**/*.tif
+data/**/*.tiff
+data/**/*.nc
+data/**/*.hdf
+data/**/*.grib
+data/**/*.parquet
+data/**/*.csv
+data/**/*.zip
+
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- Baseline exclusions (added 2026-11-18, owner-authorised baseline commit) ----
+# Local tooling/session state: not project source
+/.kilo/
+/.vscode/
+
+# Upstream evidence kept on disk as read-only witnesses (see UPSTREAM-FRONTEND-MANIFEST.json
+# for the recorded SHA256 values). Committing them would add ~7 GB and 246k files.
+/upstream-registry/
+/upstream-archives/
+
+# Isolated experiment workspaces (RTL proof copies, build reproducer, Node runtime)
+/experiments/

@@ -1,0 +1,479 @@
+{
+  "$meta": {
+    "name": "Eco Nojin Design System",
+    "version": "3.0.0-draft",
+    "status": "DRAFT — NOT APPROVED",
+    "date": "2026-11-17",
+    "owner": "Dasht Omid Narvan Agricultural and Industrial Company",
+    "note": "Unified design token architecture for Eco Nojin, HyDroMA and Nojin Marketplace. All tokens require owner approval.",
+    "principles": [
+      "Shared design foundation",
+      "Distinct brand identities",
+      "Internationalization first",
+      "RTL and LTR support",
+      "Accessibility by design",
+      "Light editorial visual language",
+      "Scientific data integrity"
+    ]
+  },
+
+  "colors": {
+    "brand": {
+      "ecoNojin": {
+        "primary": "#173B63",
+        "accent": "#D9682B",
+        "detail": "#C9A34A",
+        "background": "#FBF7F0",
+        "surface": "#FFFDFC",
+        "surfaceSecondary": "#F7F3EC"
+      },
+      "hydroma": {
+        "primary": "#173B63",
+        "accent": "#75C8C0",
+        "detail": "#C9A34A",
+        "background": "#F3F8F7",
+        "surface": "#FFFFFF",
+        "surfaceSecondary": "#EAF4F2"
+      },
+      "marketplace": {
+        "primary": "#D9682B",
+        "accent": "#F2B7A0",
+        "detail": "#C9A34A",
+        "secondary": "#173B63",
+        "background": "#FFF8F2",
+        "surface": "#FFFFFF",
+        "surfaceSecondary": "#FDF0EA"
+      }
+    },
+
+    "shared": {
+      "blue": {
+        "900": "#102D4B",
+        "800": "#173B63",
+        "700": "#1F4A78",
+        "600": "#315C83",
+        "100": "#EAF2F8"
+      },
+      "orange": {
+        "900": "#A9471B",
+        "800": "#B94F1C",
+        "700": "#C25A22",
+        "600": "#D9682B",
+        "100": "#FDF0EA"
+      },
+      "gold": {
+        "900": "#725317",
+        "800": "#987326",
+        "600": "#B8892F",
+        "500": "#C9A34A",
+        "100": "#F4EAD1"
+      },
+      "peach": {
+        "500": "#F2B7A0",
+        "400": "#E9957D",
+        "100": "#FDF0EA"
+      },
+      "aqua": {
+        "700": "#318E85",
+        "500": "#75C8C0",
+        "100": "#EFF8F6"
+      },
+      "neutral": {
+        "900": "#1F2933",
+        "800": "#34434D",
+        "700": "#46535A",
+        "600": "#5A6B72",
+        "500": "#75838A",
+        "300": "#C8BBA7",
+        "200": "#E2D9CB",
+        "100": "#EEE7DC",
+        "50": "#F7F3EC",
+        "white": "#FFFDFC"
+      }
+    },
+
+    "semantic": {
+      "success": {
+        "main": "#247A48",
+        "background": "#EAF7EF",
+        "border": "#BFE3CD",
+        "text": "#1F6B41"
+      },
+      "warning": {
+        "main": "#8A5A0F",
+        "background": "#FDF3E3",
+        "border": "#EBD5A8",
+        "text": "#80520C"
+      },
+      "error": {
+        "main": "#B52F35",
+        "background": "#FBEAEA",
+        "border": "#EDC4C4",
+        "text": "#8A2A2A"
+      },
+      "info": {
+        "main": "#245C9B",
+        "background": "#EAF2FC",
+        "border": "#BFD3EA",
+        "text": "#1A4A80"
+      }
+    },
+
+    "scientificStates": {
+      "uncalibrated": {
+        "main": "#75838A",
+        "background": "#F1F3F4",
+        "label": "Uncalibrated"
+      },
+      "calibrated": {
+        "main": "#B8892F",
+        "background": "#F4EAD1",
+        "label": "Calibrated"
+      },
+      "validated": {
+        "main": "#247A48",
+        "background": "#EAF7EF",
+        "label": "Validated"
+      },
+      "notValidated": {
+        "main": "#B52F35",
+        "background": "#FBEAEA",
+        "label": "Not Validated"
+      },
+      "underReview": {
+        "main": "#245C9B",
+        "background": "#EAF2FC",
+        "label": "Under Review"
+      },
+      "deprecated": {
+        "main": "#5A6B72",
+        "background": "#EEE7DC",
+        "label": "Deprecated"
+      }
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "logo": "Fraunces, Georgia, serif",
+      "display": "Fraunces, Georgia, serif",
+      "heading": "Manrope, Arial, sans-serif",
+      "body": "Manrope, Arial, sans-serif",
+      "bodyFa": "Estedad, Vazirmatn, Tahoma, sans-serif",
+      "bodyArabic": "IBM Plex Sans Arabic, Tahoma, sans-serif",
+      "ui": "DM Sans, Arial, sans-serif",
+      "data": "IBM Plex Mono, Consolas, monospace"
+    },
+
+    "scale": {
+      "display": {
+        "size": "2.75rem",
+        "lineHeight": 1.1,
+        "weight": 700,
+        "letterSpacing": "-0.02em"
+      },
+      "h1": {
+        "size": "2.25rem",
+        "lineHeight": 1.2,
+        "weight": 700
+      },
+      "h2": {
+        "size": "1.75rem",
+        "lineHeight": 1.25,
+        "weight": 700
+      },
+      "h3": {
+        "size": "1.375rem",
+        "lineHeight": 1.3,
+        "weight": 600
+      },
+      "h4": {
+        "size": "1.125rem",
+        "lineHeight": 1.4,
+        "weight": 600
+      },
+      "body": {
+        "size": "1rem",
+        "lineHeight": 1.7,
+        "weight": 400
+      },
+      "bodySmall": {
+        "size": "0.875rem",
+        "lineHeight": 1.6,
+        "weight": 400
+      },
+      "caption": {
+        "size": "0.75rem",
+        "lineHeight": 1.5,
+        "weight": 500
+      },
+      "data": {
+        "size": "0.9rem",
+        "lineHeight": 1.5,
+        "weight": 500,
+        "fontFamily": "IBM Plex Mono"
+      }
+    },
+
+    "international": {
+      "fa": {
+        "fontFamily": "Estedad, Vazirmatn, Tahoma, sans-serif",
+        "direction": "rtl",
+        "lineHeightMultiplier": 1.15
+      },
+      "ar": {
+        "fontFamily": "IBM Plex Sans Arabic, Tahoma, sans-serif",
+        "direction": "rtl",
+        "lineHeightMultiplier": 1.15
+      },
+      "en": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "fr": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "es": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "de": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "pt": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "ru": {
+        "fontFamily": "Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "zh": {
+        "fontFamily": "Noto Sans SC, sans-serif",
+        "direction": "ltr"
+      },
+      "ja": {
+        "fontFamily": "Noto Sans JP, sans-serif",
+        "direction": "ltr"
+      },
+      "ko": {
+        "fontFamily": "Noto Sans KR, sans-serif",
+        "direction": "ltr"
+      },
+      "tr": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "hi": {
+        "fontFamily": "Noto Sans Devanagari, sans-serif",
+        "direction": "ltr"
+      },
+      "id": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      },
+      "it": {
+        "fontFamily": "Manrope, Arial, sans-serif",
+        "direction": "ltr"
+      }
+    }
+  },
+
+  "spacing": {
+    "unit": "4px",
+    "scale": {
+      "0": "0",
+      "1": "4px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "5": "24px",
+      "6": "32px",
+      "7": "48px",
+      "8": "64px",
+      "9": "96px"
+    }
+  },
+
+  "layout": {
+    "container": {
+      "wide": "1440px",
+      "content": "1180px",
+      "reading": "760px"
+    },
+    "breakpoints": {
+      "mobile": "480px",
+      "tablet": "768px",
+      "desktop": "1024px",
+      "wide": "1440px"
+    },
+    "grid": {
+      "gap": "24px",
+      "columns": 12
+    }
+  },
+
+  "borderRadius": {
+    "none": "0",
+    "sm": "5px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "18px",
+    "2xl": "24px",
+    "pill": "9999px"
+  },
+
+  "borders": {
+    "width": {
+      "thin": "1px",
+      "medium": "2px",
+      "thick": "3px"
+    },
+    "color": {
+      "subtle": "#EEE7DC",
+      "default": "#E2D9CB",
+      "strong": "#C8BBA7",
+      "accent": "#C9A34A"
+    }
+  },
+
+  "shadows": {
+    "xs": "0 1px 2px rgba(31,41,51,0.04)",
+    "sm": "0 2px 6px rgba(31,41,51,0.06)",
+    "md": "0 5px 16px rgba(31,41,51,0.09)",
+    "lg": "0 12px 32px rgba(31,41,51,0.12)"
+  },
+
+  "motion": {
+    "duration": {
+      "fast": "150ms",
+      "normal": "220ms",
+      "slow": "350ms"
+    },
+    "easing": {
+      "standard": "ease",
+      "emphasized": "cubic-bezier(0.2, 0.8, 0.2, 1)"
+    },
+    "reducedMotion": true
+  },
+
+  "zIndex": {
+    "base": 1,
+    "dropdown": 100,
+    "sticky": 200,
+    "overlay": 500,
+    "modal": 600,
+    "notification": 700,
+    "tooltip": 800
+  },
+
+  "visualLanguage": {
+    "direction": "Editorial Premium",
+    "backgroundPreference": "Light surfaces",
+    "goldLines": {
+      "color": "#C9A34A",
+      "width": "1px",
+      "usage": [
+        "section dividers",
+        "editorial rules",
+        "selected accents"
+      ]
+    },
+    "goldDots": {
+      "color": "#C9A34A",
+      "size": "6px",
+      "usage": [
+        "line endpoints",
+        "data markers",
+        "controlled decorative details"
+      ]
+    },
+    "composition": {
+      "serifSansContrast": true,
+      "generousWhitespace": true,
+      "controlledRepetition": true,
+      "avoidExcessiveDecoration": true
+    },
+    "restrictions": [
+      "No generic leaf logo",
+      "No generic water drop logo",
+      "No generic globe logo",
+      "No unnecessary hexagon patterns",
+      "No dark backgrounds as default page surfaces",
+      "No uncontrolled decorative gold elements"
+    ]
+  },
+
+  "componentTokens": {
+    "button": {
+      "heightXs": "30px",
+      "heightSm": "36px",
+      "heightMd": "42px",
+      "heightLg": "50px",
+      "heightXl": "56px",
+      "radius": "8px",
+      "horizontalPadding": "20px"
+    },
+    "card": {
+      "radius": "12px",
+      "padding": "24px",
+      "shadow": "xs",
+      "border": "1px solid #E2D9CB"
+    },
+    "input": {
+      "height": "44px",
+      "radius": "8px",
+      "borderColor": "#E2D9CB",
+      "focusColor": "#173B63",
+      "focusRing": "rgba(23,59,99,0.12)"
+    },
+    "badge": {
+      "radius": "5px",
+      "padding": "3px 10px",
+      "fontSize": "0.75rem"
+    },
+    "table": {
+      "headerBg": "#F7F3EC",
+      "borderColor": "#EEE7DC",
+      "rowHover": "#EAF2F8",
+      "cellPadding": "13px 16px"
+    },
+    "alert": {
+      "radius": "8px",
+      "padding": "14px 16px"
+    },
+    "metric": {
+      "radius": "12px",
+      "padding": "20px",
+      "valueSize": "2rem"
+    }
+  },
+
+  "accessibility": {
+    "standard": "WCAG 2.2 AA",
+    "minimumContrast": {
+      "normalText": "4.5:1",
+      "largeText": "3:1",
+      "uiComponents": "3:1"
+    },
+    "focusVisible": true,
+    "keyboardNavigation": true,
+    "reducedMotionSupport": true,
+    "colorNotOnlyIndicator": true,
+    "minimumTouchTarget": "24px",
+    "recommendedTouchTarget": "44px"
+  },
+
+  "dataPresentation": {
+    "numericFont": "IBM Plex Mono",
+    "tabularNumbers": true,
+    "numericDirection": "ltr",
+    "preserveUnitMetadata": true,
+    "preserveMeasurementPrecision": true,
+    "showDataProvenance": true,
+    "showValidationStatus": true,
+    "showModelVersion": true
+  }
+}

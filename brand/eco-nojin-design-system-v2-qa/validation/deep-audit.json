@@ -1,0 +1,1326 @@
+{
+  "sections": {
+    "overview": {
+      "A": {
+        "total": 16,
+        "fails": []
+      },
+      "B": {
+        "total": 16,
+        "fails": []
+      }
+    },
+    "brands": {
+      "A": {
+        "total": 14,
+        "fails": []
+      },
+      "B": {
+        "total": 14,
+        "fails": []
+      }
+    },
+    "colors": {
+      "A": {
+        "total": 55,
+        "fails": [
+          {
+            "text": "#D64545",
+            "sel": "small",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "bg": [
+              214,
+              69,
+              69
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 700,
+            "large": false,
+            "need": 4.5,
+            "ratio": 4.38,
+            "pass": false
+          }
+        ]
+      },
+      "B": {
+        "total": 55,
+        "fails": [
+          {
+            "text": "#D64545",
+            "sel": "small",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "bg": [
+              214,
+              69,
+              69
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 700,
+            "large": false,
+            "need": 4.5,
+            "ratio": 4.38,
+            "pass": false
+          }
+        ]
+      }
+    },
+    "type": {
+      "A": {
+        "total": 17,
+        "fails": []
+      },
+      "B": {
+        "total": 17,
+        "fails": []
+      }
+    },
+    "components": {
+      "A": {
+        "total": 76,
+        "fails": []
+      },
+      "B": {
+        "total": 76,
+        "fails": []
+      }
+    },
+    "science": {
+      "A": {
+        "total": 49,
+        "fails": []
+      },
+      "B": {
+        "total": 49,
+        "fails": []
+      }
+    },
+    "market": {
+      "A": {
+        "total": 17,
+        "fails": []
+      },
+      "B": {
+        "total": 17,
+        "fails": []
+      }
+    },
+    "i18n": {
+      "A": {
+        "total": 10,
+        "fails": []
+      },
+      "B": {
+        "total": 10,
+        "fails": []
+      }
+    },
+    "a11y": {
+      "A": {
+        "total": 12,
+        "fails": []
+      },
+      "B": {
+        "total": 12,
+        "fails": []
+      }
+    }
+  },
+  "keyboard": {
+    "focusOrder": [
+      {
+        "tag": "a",
+        "text": "Skip to main content",
+        "cls": "skip-link",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": false
+      },
+      {
+        "tag": "button",
+        "text": "A — Territory Teal",
+        "cls": "theme-btn active",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "B — Warm",
+        "cls": "theme-btn",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Overview",
+        "cls": "active",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Brands",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Colors",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Typography",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Components",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Scientific",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Marketplace",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "i18n",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "A — Territory Teal / Scientific",
+        "cls": "theme-btn active",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "B — Warm / Autumn",
+        "cls": "theme-btn",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "فارسی",
+        "cls": "locale-btn active",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "English",
+        "cls": "locale-btn",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "العربية",
+        "cls": "locale-btn",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "body",
+        "text": "Skip to main content\nEco Nojin — Design ",
+        "cls": "",
+        "outline": "none 3px rgb(15, 30, 36)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": false
+      },
+      {
+        "tag": "a",
+        "text": "Skip to main content",
+        "cls": "skip-link",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": false
+      },
+      {
+        "tag": "button",
+        "text": "A — Territory Teal",
+        "cls": "theme-btn active",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "B — Warm",
+        "cls": "theme-btn",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Overview",
+        "cls": "active",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Brands",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Colors",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Typography",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Components",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Scientific",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "Marketplace",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "a",
+        "text": "i18n",
+        "cls": "",
+        "outline": "solid 2px rgb(53, 196, 215)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "A — Territory Teal / Scientific",
+        "cls": "theme-btn active",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "tag": "button",
+        "text": "B — Warm / Autumn",
+        "cls": "theme-btn",
+        "outline": "auto 1px rgb(16, 16, 16)",
+        "boxShadow": "none",
+        "visible": true,
+        "inViewport": true
+      }
+    ],
+    "shiftTab": {
+      "tag": "button",
+      "text": "A — Territory Teal / Scientific"
+    },
+    "escapeNoCrash": true,
+    "skipLink": true,
+    "landmarks": {
+      "header": 1,
+      "nav": 1,
+      "main": 1,
+      "footer": 1,
+      "h1": 1
+    },
+    "headings": [
+      "H1:Eco Nojin — Design System Studio",
+      "H2:Overview — نظام طراحی یکپارچه",
+      "H3:اصول طراحی",
+      "H2:Brand Architecture — سه هویت تایپوگرافیک",
+      "H3:Eco Nojin — برند مادر",
+      "H3:HyDroMA — موتور علمی",
+      "H3:Nojin Marketplace — بازارگاه",
+      "H2:Color Systems — دو مسیر مستقل",
+      "H3:مسیر A — Territory Teal / Scientific",
+      "H3:مسیر B — Warm / Autumn & Summer",
+      "H3:Semantic Colors (مستقل از برند)",
+      "H3:مقایسه زنده دو Theme",
+      "H2:Typography — تایپوگرافی",
+      "H3:فارسی و لاتین کنار هم",
+      "H2:Components — کامپوننت‌ها",
+      "H3:Buttons",
+      "H3:Badges & Status",
+      "H3:Forms",
+      "H3:Alerts",
+      "H3:Table",
+      "H3:Data Display — KPI + Progress + Skeleton",
+      "H3:Navigation + Breadcrumb + Tabs",
+      "H2:Scientific Design Language — HyDroMA",
+      "H3:Scientific Metric Card",
+      "H3:Provenance Record",
+      "H3:Scientific Status Model — ۴ مفهوم مستقل",
+      "H3:Scientific Chart",
+      "H2:Marketplace Design Language",
+      "H3:Product Card",
+      "H2:Internationalization — RTL / LTR",
+      "H2:Accessibility — WCAG 2.2 AA (هدف)"
+    ],
+    "aria": {
+      "roleAttrs": 3,
+      "ariaLabel": 3,
+      "ariaLabelledby": 0,
+      "ariaLive": 0,
+      "tablist": 1,
+      "tab": 2,
+      "tabpanel": 0
+    },
+    "unlabeledInputs": [],
+    "svgA11y": [
+      {
+        "src": "./assets/images/eco-nojin-option-01.svg",
+        "alt": "Eco Nojin 01"
+      },
+      {
+        "src": "./assets/images/eco-nojin-option-02.svg",
+        "alt": "Eco Nojin 02"
+      },
+      {
+        "src": "./assets/images/eco-nojin-option-03.svg",
+        "alt": "Eco Nojin 03"
+      },
+      {
+        "src": "./assets/images/hydroma-option-01.svg",
+        "alt": "HyDroMA 01"
+      },
+      {
+        "src": "./assets/images/hydroma-option-02.svg",
+        "alt": "HyDroMA 02"
+      },
+      {
+        "src": "./assets/images/hydroma-option-03.svg",
+        "alt": "HyDroMA 03"
+      },
+      {
+        "src": "./assets/images/marketplace-option-01.svg",
+        "alt": "Marketplace 01"
+      },
+      {
+        "src": "./assets/images/marketplace-option-02.svg",
+        "alt": "Marketplace 02"
+      },
+      {
+        "src": "./assets/images/marketplace-option-03.svg",
+        "alt": "Marketplace 03"
+      }
+    ]
+  },
+  "rtl": {
+    "fa": {
+      "htmlDir": "rtl",
+      "htmlLang": "fa",
+      "bodyDirection": "rtl",
+      "bodyFont": "Vazirmatn, \"Segoe UI\", Tahoma, sans-serif",
+      "overflowX": false,
+      "navMarginInlineStart": "534.609px",
+      "navFloat": "none",
+      "localeActive": [
+        "fa",
+        "fa",
+        "fa"
+      ]
+    },
+    "en": {
+      "htmlDir": "ltr",
+      "htmlLang": "en",
+      "bodyDirection": "ltr",
+      "bodyFont": "Inter, \"Segoe UI\", system-ui, sans-serif",
+      "overflowX": false,
+      "navMarginInlineStart": "534.562px",
+      "navFloat": "none",
+      "localeActive": [
+        "en",
+        "en",
+        "en"
+      ]
+    },
+    "ar": {
+      "htmlDir": "rtl",
+      "htmlLang": "ar",
+      "bodyDirection": "rtl",
+      "bodyFont": "Vazirmatn, \"Segoe UI\", Tahoma, sans-serif",
+      "overflowX": false,
+      "navMarginInlineStart": "534.609px",
+      "navFloat": "none",
+      "localeActive": [
+        "ar",
+        "ar",
+        "ar"
+      ]
+    }
+  },
+  "theme": {
+    "A": {
+      "--brand-primary": "#0B5563",
+      "--brand-secondary": "#C9A227",
+      "--brand-accent": "#35C4D7",
+      "--product-hydroma": "#2E3A87",
+      "--product-marketplace": "#E76F51",
+      "--neutral-ink": "#0F1E24",
+      "--neutral-slate": "#5A6B72",
+      "--neutral-line": "#D5DDE0",
+      "--neutral-cloud": "#F5F7F8",
+      "--page-bg": "#F5F7F8",
+      "--surface": "#FFFFFF",
+      "--header-bg": "#0B5563",
+      "--header-text": "#FFFFFF",
+      "bodyFont": "Vazirmatn, \"Segoe UI\", Tahoma, sans-serif",
+      "btnPrimaryBg": "rgb(11, 85, 99)",
+      "btnPrimaryColor": "rgb(255, 255, 255)",
+      "cardBg": "rgb(255, 255, 255)",
+      "headerBg": "rgb(11, 85, 99)",
+      "statusValBg": "rgb(30, 122, 69)"
+    },
+    "B": {
+      "--brand-primary": "#173B63",
+      "--brand-secondary": "#D9682B",
+      "--brand-accent": "#C9A34A",
+      "--product-hydroma": "#173B63",
+      "--product-marketplace": "#D9682B",
+      "--neutral-ink": "#1F2933",
+      "--neutral-slate": "#5A6B72",
+      "--neutral-line": "#E2D9CB",
+      "--neutral-cloud": "#F7F3EC",
+      "--page-bg": "#FBF7F0",
+      "--surface": "#FFFDFC",
+      "--header-bg": "#173B63",
+      "--header-text": "#FFFFFF",
+      "bodyFont": "Estedad, Vazirmatn, Tahoma, sans-serif",
+      "btnPrimaryBg": "rgb(23, 59, 99)",
+      "btnPrimaryColor": "rgb(255, 255, 255)",
+      "cardBg": "rgb(255, 253, 252)",
+      "headerBg": "rgb(23, 59, 99)",
+      "statusValBg": "rgb(30, 122, 69)"
+    },
+    "persisted": "B",
+    "afterReload": "B",
+    "components": {
+      ".card": {
+        "bg": "rgb(255, 253, 252)",
+        "color": "rgb(31, 41, 51)",
+        "border": "rgb(226, 217, 203)"
+      },
+      ".kpi": {
+        "bg": "rgb(255, 253, 252)",
+        "color": "rgb(31, 41, 51)",
+        "border": "rgb(226, 217, 203)"
+      },
+      ".demo-section": {
+        "bg": "rgb(255, 253, 252)",
+        "color": "rgb(31, 41, 51)",
+        "border": "rgb(226, 217, 203)"
+      },
+      ".theme-btn": {
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(15, 30, 36)",
+        "border": "rgb(213, 221, 224)"
+      },
+      ".badge-blue": {
+        "bg": "rgb(23, 59, 99)",
+        "color": "rgb(255, 255, 255)",
+        "border": "rgb(255, 255, 255)"
+      },
+      ".btn-primary": {
+        "bg": "rgb(23, 59, 99)",
+        "color": "rgb(255, 255, 255)",
+        "border": "rgba(0, 0, 0, 0)"
+      },
+      ".app-header": {
+        "bg": "rgb(23, 59, 99)",
+        "color": "rgb(255, 255, 255)",
+        "border": "rgb(255, 255, 255)"
+      },
+      "footer": {
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(90, 107, 114)",
+        "border": "rgb(90, 107, 114)"
+      },
+      ".product-card": {
+        "bg": "rgb(255, 253, 252)",
+        "color": "rgb(31, 41, 51)",
+        "border": "rgb(226, 217, 203)"
+      },
+      ".scientific-card": {
+        "bg": "rgb(255, 253, 252)",
+        "color": "rgb(31, 41, 51)",
+        "border": "rgb(226, 217, 203) rgb(23, 59, 99) rgb(226, 217, 203) rgb(226, 217, 203)"
+      },
+      ".alert-info": {
+        "bg": "rgba(46, 111, 214, 0.08)",
+        "color": "rgb(29, 91, 191)",
+        "border": "rgb(46, 111, 214)"
+      },
+      ".table": {
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(31, 41, 51)",
+        "border": "rgb(31, 41, 51)"
+      },
+      ".input": {
+        "bg": "rgb(255, 253, 252)",
+        "color": "rgb(31, 41, 51)",
+        "border": "rgb(226, 217, 203)"
+      }
+    }
+  },
+  "overflowBySize": {
+    "375": {
+      "fa": {
+        "overview": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": [
+            {
+              "tag": "tbody",
+              "cls": "",
+              "right": 334,
+              "left": -53
+            },
+            {
+              "tag": "tr",
+              "cls": "",
+              "right": 334,
+              "left": -53
+            },
+            {
+              "tag": "td",
+              "cls": "num",
+              "right": 54,
+              "left": -53
+            },
+            {
+              "tag": "tr",
+              "cls": "",
+              "right": 334,
+              "left": -53
+            },
+            {
+              "tag": "td",
+              "cls": "num",
+              "right": 31,
+              "left": -53
+            },
+            {
+              "tag": "tr",
+              "cls": "",
+              "right": 334,
+              "left": -53
+            },
+            {
+              "tag": "td",
+              "cls": "num",
+              "right": 61,
+              "left": -53
+            }
+          ]
+        },
+        "science": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        }
+      },
+      "en": {
+        "overview": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": [
+            {
+              "tag": "tbody",
+              "cls": "",
+              "right": 430,
+              "left": 41
+            },
+            {
+              "tag": "tr",
+              "cls": "",
+              "right": 430,
+              "left": 41
+            },
+            {
+              "tag": "td",
+              "cls": "num",
+              "right": 430,
+              "left": 323
+            },
+            {
+              "tag": "tr",
+              "cls": "",
+              "right": 430,
+              "left": 41
+            },
+            {
+              "tag": "td",
+              "cls": "num",
+              "right": 430,
+              "left": 345
+            },
+            {
+              "tag": "tr",
+              "cls": "",
+              "right": 430,
+              "left": 41
+            },
+            {
+              "tag": "td",
+              "cls": "num",
+              "right": 430,
+              "left": 315
+            }
+          ]
+        },
+        "science": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 375,
+          "overflowX": false,
+          "wide": []
+        }
+      }
+    },
+    "480": {
+      "fa": {
+        "overview": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        }
+      },
+      "en": {
+        "overview": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 480,
+          "overflowX": false,
+          "wide": []
+        }
+      }
+    },
+    "768": {
+      "fa": {
+        "overview": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        }
+      },
+      "en": {
+        "overview": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 768,
+          "overflowX": false,
+          "wide": []
+        }
+      }
+    },
+    "1024": {
+      "fa": {
+        "overview": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        }
+      },
+      "en": {
+        "overview": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 1024,
+          "overflowX": false,
+          "wide": []
+        }
+      }
+    },
+    "1440": {
+      "fa": {
+        "overview": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        }
+      },
+      "en": {
+        "overview": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 1440,
+          "overflowX": false,
+          "wide": []
+        }
+      }
+    },
+    "1920": {
+      "fa": {
+        "overview": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        }
+      },
+      "en": {
+        "overview": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "brands": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "colors": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "type": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "components": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "science": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "market": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "i18n": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        },
+        "a11y": {
+          "scrollW": 1920,
+          "overflowX": false,
+          "wide": []
+        }
+      }
+    }
+  },
+  "focusSamples": {}
+}

@@ -1,0 +1,30 @@
+/* Eco Nojin Design System — Layout */
+.app-header{background:var(--header-bg);color:var(--header-text);padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+.app-header .brand{display:flex;align-items:center;gap:10px}
+.app-header .brand .wordmark{font-size:1.4rem}
+.app-header .nav{margin-inline-start:auto}
+.app-header .nav a{color:var(--header-text);opacity:.85}
+.app-header .nav a:hover{opacity:1;background:rgba(255,255,255,.1)}
+.app-header .nav a.active{background:rgba(255,255,255,.15);color:#fff}
+
+.app-main{padding:24px;min-height:calc(100vh - 120px)}
+.app-footer{background:var(--surface);border-top:1px solid var(--neutral-line);padding:20px 24px;color:var(--neutral-slate);font-size:.85rem}
+
+.section{margin-bottom:40px}
+.section-header{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--neutral-line);padding-bottom:12px;margin-bottom:20px}
+.section-header h2{font-size:1.5rem;font-weight:700;color:var(--brand-primary);margin:0}
+.section-header .gold-dot{width:6px;height:6px;border-radius:50%;background:var(--brand-secondary)}
+
+.theme-switcher{display:flex;gap:8px;align-items:center}
+.theme-btn{padding:6px 14px;border:1px solid var(--neutral-line);background:var(--surface);color:var(--neutral-ink);border-radius:var(--radius-md);cursor:pointer;font-size:.85rem;font-weight:600}
+.theme-btn.active{background:var(--brand-primary);color:#fff;border-color:var(--brand-primary)}
+
+.sidebar{width:240px;background:var(--surface);border-inline-end:1px solid var(--neutral-line);padding:16px;min-height:100%}
+.sidebar .nav{flex-direction:column;gap:2px}
+.sidebar .nav a{padding:8px 12px}
+
+@media(max-width:768px){
+  .app-header{padding:10px 16px}
+  .app-main{padding:16px}
+  .sidebar{width:100%;border-inline-end:none;border-bottom:1px solid var(--neutral-line)}
+}

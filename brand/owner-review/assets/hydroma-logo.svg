@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="150" viewBox="0 0 680 150" role="img" aria-labelledby="title desc">
+  <title id="title">HyDroMA</title>
+  <desc id="desc">Typographic wordmark for the HyDroMA scientific engine.</desc>
+
+  <rect width="680" height="150" fill="#F3F8F7"></rect>
+
+  <text x="24" y="94" font-family="Manrope, Arial, sans-serif" font-size="82" font-weight="750" letter-spacing="-5" fill="#173B63">Hy</text>
+
+  <text x="127" y="94" font-family="Manrope, Arial, sans-serif" font-size="82" font-weight="750" letter-spacing="-5" fill="#3FA9A1">Dro</text>
+
+  <text x="290" y="94" font-family="Manrope, Arial, sans-serif" font-size="82" font-weight="750" letter-spacing="-5" fill="#173B63">MA</text>
+
+  <line x1="28" y1="112" x2="370" y2="112" stroke="#C9A34A" stroke-width="1.4"></line>
+
+  <circle cx="370" cy="112" r="3.2" fill="#C9A34A"></circle>
+
+  <text x="29" y="137" font-family="Manrope, Arial, sans-serif" font-size="10" font-weight="650" letter-spacing="3.4" fill="#54747B">SCIENCE • MODELLING • INTELLIGENCE</text>
+</svg>

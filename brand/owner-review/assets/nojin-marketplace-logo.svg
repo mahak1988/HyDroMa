@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="150" viewBox="0 0 760 150" role="img" aria-labelledby="title desc">
+  <title id="title">Nojin Marketplace</title>
+  <desc id="desc">Typographic wordmark for Nojin Marketplace.</desc>
+
+  <rect width="760" height="150" fill="#FFF8F2"></rect>
+
+  <text x="24" y="88" font-family="DM Sans, Arial, sans-serif" font-size="69" font-weight="750" letter-spacing="-3.5" fill="#D9682B">Nojin</text>
+
+  <text x="213" y="88" font-family="DM Sans, Arial, sans-serif" font-size="48" font-weight="500" letter-spacing="-2" fill="#173B63">Marketplace</text>
+
+  <line x1="27" y1="111" x2="511" y2="111" stroke="#C9A34A" stroke-width="1.4"></line>
+
+  <circle cx="511" cy="111" r="3.2" fill="#C9A34A"></circle>
+
+  <text x="29" y="136" font-family="Manrope, Arial, sans-serif" font-size="10" font-weight="650" letter-spacing="3.2" fill="#A16D5C">LOCAL PRODUCTS • GLOBAL CONNECTIONS</text>
+</svg>

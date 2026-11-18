@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 150" width="760" height="150" role="img" aria-labelledby="title desc">
+  <title id="title">Nojin Marketplace — Option 03</title>
+  <desc id="desc">Mixed typographic wordmark. Fraunces serif Nojin in burnt orange, DM Sans Marketplace in deep blue. Editorial contrast.</desc>
+  <rect width="760" height="150" fill="#FFF8F2"/>
+  <text x="24" y="92" font-family="Fraunces, Georgia, serif" font-size="72" font-weight="600" letter-spacing="-3" fill="#D9682B">Nojin</text>
+  <text x="210" y="88" font-family="DM Sans, Arial, sans-serif" font-size="46" font-weight="500" letter-spacing="-1.5" fill="#173B63">Marketplace</text>
+  <line x1="27" y1="111" x2="500" y2="111" stroke="#C9A34A" stroke-width="1.4"/>
+  <circle cx="500" cy="111" r="3" fill="#C9A34A"/>
+  <text x="28" y="136" font-family="Manrope, Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="4" fill="#8A765E">LOCAL TRADE · تجارت محلی</text>
+</svg>

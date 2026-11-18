@@ -1,0 +1,16 @@
+token,source_file,location,occurrences,category,maps_to_existing_roles,new_role_needed,rbac_abac_impact,recommendation
+authenticated,ECO-NOJIN-FRONTEND-SITEMAP.csv,AUTH-06;AUTH-07;AUTH-11;AUTH-12;DASH-01..09;...,28,IDENTITY_STATE,ANY_AUTHENTICATED_ROLE,no,None - use as a state flag not a role,Replace with authenticated-state check; no new role
+authenticated with AI access,ECO-NOJIN-FRONTEND-SITEMAP.csv,AI-01,1,IDENTITY_STATE+PERMISSION_CAPABILITY,AI_AGENT_OPERATOR;SCIENTIST;ORG_OWNER;...,no,ABAC capability flag ai_access,Use as ABAC attribute; no new role
+authenticated with geo scope,ECO-NOJIN-FRONTEND-SITEMAP.csv,GIS-01..08,8,IDENTITY_STATE+PERMISSION_CAPABILITY,GIS_ANALYST;SCIENTIST;WATERSHED_MANAGER;...,no,ABAC geo_scope attribute,Use as ABAC attribute; no new role
+authenticated with wallet access,ECO-NOJIN-FRONTEND-SITEMAP.csv,WAL-01,1,IDENTITY_STATE+PERMISSION_CAPABILITY,DECO wallet-enabled roles (owner-gated),no,ABAC wallet_access flag,Use as ABAC attribute; owner-gated
+AI_AGENT_OPERATOR or user,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-21,1,WORKFLOW_ACTOR,AI_AGENT_OPERATOR + any authenticated user,no,Split compound actor,Split into AI_AGENT_OPERATOR or AUTHENTICATED state
+any requester,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-20,1,PERMISSION_CAPABILITY,ANY_AUTHENTICATED_ROLE,no,Generic capability token,Replace with AUTHENTICATED state or specific role
+Authenticated user,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-02,1,IDENTITY_STATE,ANY_AUTHENTICATED_ROLE,no,Identity state,Replace with AUTHENTICATED state
+COMMUNITY_MEMBER or manager,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-19,1,WORKFLOW_ACTOR,COMMUNITY_MEMBER + VILLAGE_MANAGER + NOMAD_MANAGER + RANGELAND_MANAGER,no,Split compound actor,Split into constituent roles
+domain manager,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-04,1,DOMAIN_ROLE,VILLAGE_MANAGER + RANGELAND_MANAGER + FARM_MANAGER + WATERSHED_MANAGER,no,Domain-scoped role selection,Replace with the specific domain role for the target territory
+GIS_ANALYST or scheduler,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-07,1,WORKFLOW_ACTOR,GIS_ANALYST + SYSTEM (scheduler),yes,Needs a SYSTEM role for scheduled execution,Define a SYSTEM service role for scheduler; GIS_ANALYST already exists
+Guest,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-01,1,IDENTITY_STATE,ANONYMOUS (unauthenticated),no,Identity state,Replace with ANONYMOUS state
+project owner,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-05,1,DOMAIN_ROLE,ORG_OWNER (or project-scoped owner),no,Map to ORG_OWNER or add project_owner ABAC attribute,Use ORG_OWNER or add a project_owner scope attribute
+SCIENTIST then ENVIRONMENTAL_EXPERT,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-09,1,WORKFLOW_ACTOR,SCIENTIST + ENVIRONMENTAL_EXPERT (sequential),no,Split sequential actor,Split into SCIENTIST then ENVIRONMENTAL_EXPERT
+Vendor or MARKETPLACE_ADMIN,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-11,1,WORKFLOW_ACTOR,VENDOR + MARKETPLACE_ADMIN,no,Split compound actor,Split into VENDOR or MARKETPLACE_ADMIN
+VILLAGE_MANAGER or NOMAD_MANAGER,ECO-NOJIN-WORKFLOW-CATALOG.csv,WF-03,1,WORKFLOW_ACTOR,VILLAGE_MANAGER + NOMAD_MANAGER,no,Split compound actor,Split into VILLAGE_MANAGER or NOMAD_MANAGER

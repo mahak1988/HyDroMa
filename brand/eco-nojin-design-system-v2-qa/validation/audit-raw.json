@@ -1,0 +1,7624 @@
+{
+  "generatedAt": "2026-11-17T15:26:35.803Z",
+  "baseUrl": "file:///D:/Nojin/brand/eco-nojin-design-system-v2-qa/index.html",
+  "viewports": {
+    "375": {
+      "label": "w375",
+      "vw": 375,
+      "vh": 900,
+      "dir": "rtl",
+      "lang": "fa",
+      "theme": "A",
+      "docScrollW": 375,
+      "bodyScrollW": 359,
+      "overflowX": false,
+      "overflowEls": [],
+      "clipped": [],
+      "focusables": [
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal / Scientific",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm / Autumn",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "فارسی",
+          "cls": "locale-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "English",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "العربية",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        }
+      ],
+      "errors": [],
+      "fonts": {
+        "faces": [
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          }
+        ],
+        "loadedCount": 9,
+        "loaded": [
+          "Fraunces 600",
+          "Vazirmatn 400",
+          "Vazirmatn 600",
+          "Vazirmatn 700",
+          "Vazirmatn 800"
+        ]
+      }
+    },
+    "480": {
+      "label": "w480",
+      "vw": 480,
+      "vh": 900,
+      "dir": "rtl",
+      "lang": "fa",
+      "theme": "A",
+      "docScrollW": 480,
+      "bodyScrollW": 464,
+      "overflowX": false,
+      "overflowEls": [],
+      "clipped": [],
+      "focusables": [
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal / Scientific",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm / Autumn",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "فارسی",
+          "cls": "locale-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "English",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "العربية",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        }
+      ],
+      "errors": [],
+      "fonts": {
+        "faces": [
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          }
+        ],
+        "loadedCount": 9,
+        "loaded": [
+          "Fraunces 600",
+          "Vazirmatn 400",
+          "Vazirmatn 600",
+          "Vazirmatn 700",
+          "Vazirmatn 800"
+        ]
+      }
+    },
+    "768": {
+      "label": "w768",
+      "vw": 768,
+      "vh": 900,
+      "dir": "rtl",
+      "lang": "fa",
+      "theme": "A",
+      "docScrollW": 768,
+      "bodyScrollW": 752,
+      "overflowX": false,
+      "overflowEls": [],
+      "clipped": [],
+      "focusables": [
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Overview",
+          "cls": "active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Brands",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Colors",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Typography",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Components",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Scientific",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Marketplace",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "i18n",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal / Scientific",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm / Autumn",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "فارسی",
+          "cls": "locale-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "English",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "العربية",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        }
+      ],
+      "errors": [],
+      "fonts": {
+        "faces": [
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          }
+        ],
+        "loadedCount": 9,
+        "loaded": [
+          "Fraunces 600",
+          "Vazirmatn 400",
+          "Vazirmatn 600",
+          "Vazirmatn 700",
+          "Vazirmatn 800"
+        ]
+      }
+    },
+    "1024": {
+      "label": "w1024",
+      "vw": 1024,
+      "vh": 900,
+      "dir": "rtl",
+      "lang": "fa",
+      "theme": "A",
+      "docScrollW": 1024,
+      "bodyScrollW": 1008,
+      "overflowX": false,
+      "overflowEls": [],
+      "clipped": [],
+      "focusables": [
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Overview",
+          "cls": "active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Brands",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Colors",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Typography",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Components",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Scientific",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Marketplace",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "i18n",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal / Scientific",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm / Autumn",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "فارسی",
+          "cls": "locale-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "English",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "العربية",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        }
+      ],
+      "errors": [],
+      "fonts": {
+        "faces": [
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          }
+        ],
+        "loadedCount": 9,
+        "loaded": [
+          "Fraunces 600",
+          "Vazirmatn 400",
+          "Vazirmatn 600",
+          "Vazirmatn 700",
+          "Vazirmatn 800"
+        ]
+      }
+    },
+    "1440": {
+      "label": "w1440",
+      "vw": 1440,
+      "vh": 900,
+      "dir": "rtl",
+      "lang": "fa",
+      "theme": "A",
+      "docScrollW": 1440,
+      "bodyScrollW": 1424,
+      "overflowX": false,
+      "overflowEls": [],
+      "clipped": [],
+      "focusables": [
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Overview",
+          "cls": "active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Brands",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Colors",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Typography",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Components",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Scientific",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Marketplace",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "i18n",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal / Scientific",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm / Autumn",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "فارسی",
+          "cls": "locale-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "English",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "العربية",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        }
+      ],
+      "errors": [],
+      "fonts": {
+        "faces": [
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          }
+        ],
+        "loadedCount": 9,
+        "loaded": [
+          "Fraunces 600",
+          "Vazirmatn 400",
+          "Vazirmatn 600",
+          "Vazirmatn 700",
+          "Vazirmatn 800"
+        ]
+      }
+    },
+    "1920": {
+      "label": "w1920",
+      "vw": 1920,
+      "vh": 900,
+      "dir": "rtl",
+      "lang": "fa",
+      "theme": "A",
+      "docScrollW": 1920,
+      "bodyScrollW": 1904,
+      "overflowX": false,
+      "overflowEls": [],
+      "clipped": [],
+      "focusables": [
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Overview",
+          "cls": "active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Brands",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Colors",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Typography",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Components",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Scientific",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "Marketplace",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "a",
+          "type": "",
+          "text": "i18n",
+          "cls": "",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "A — Territory Teal / Scientific",
+          "cls": "theme-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "B — Warm / Autumn",
+          "cls": "theme-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "فارسی",
+          "cls": "locale-btn active",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "English",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "text": "العربية",
+          "cls": "locale-btn",
+          "hasLabel": false,
+          "tabIndex": 0,
+          "disabled": false
+        }
+      ],
+      "errors": [],
+      "fonts": {
+        "faces": [
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "DM Sans",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Estedad",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Fraunces",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "IBM Plex Mono",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Manrope",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "300",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "400",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "500",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "600",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "700",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "unloaded",
+            "style": "normal"
+          },
+          {
+            "family": "Vazirmatn",
+            "weight": "800",
+            "status": "loaded",
+            "style": "normal"
+          }
+        ],
+        "loadedCount": 9,
+        "loaded": [
+          "Fraunces 600",
+          "Vazirmatn 400",
+          "Vazirmatn 600",
+          "Vazirmatn 700",
+          "Vazirmatn 800"
+        ]
+      }
+    }
+  },
+  "themes": {
+    "375": {
+      "A": {
+        "contrast": [
+          {
+            "text": "Eco Nojin — Design System Studio",
+            "sel": "h1",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 28.8,
+            "fontWeight": 600,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "Design System v2 · دو مسیر رنگی مستقل · تایپوگرافی",
+            "sel": "p",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 16,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "DRAFT — NOT APPROVED",
+            "sel": "span.demo-badge",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              201,
+              162,
+              39
+            ],
+            "fontSize": 11.2,
+            "fontWeight": 800,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgba(255, 255, 255, 0.8)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin",
+            "sel": "span.wordmark",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 22.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal / Scientific",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm / Autumn",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Locale:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "فارسی",
+            "sel": "button.locale-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "English",
+            "sel": "button.locale-btn",
+            "fg": [
+              15,
+              30,
+              36
+            ],
+            "fgRaw": "rgb(15, 30, 36)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "العربية",
+            "sel": "button.locale-btn",
+            "fg": [
+              15,
+              30,
+              36
+            ],
+            "fgRaw": "rgb(15, 30, 36)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Overview — نظام طراحی یکپارچه",
+            "sel": "h2",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 24,
+            "fontWeight": 700,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "3",
+            "sel": "div.v",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "برند (Eco Nojin · HyDroMA · Marketplace)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "2",
+            "sel": "div.v",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "مسیر رنگی مستقل (A / B)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "50+",
+            "sel": "div.v",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "کامپوننت پایه",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "اصول طراحی",
+            "sel": "h3",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16.8,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Modular Monolith",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "معماری ماژولار با مرزهای روشن — نه microservices پ",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "API-first",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "هر قابلیت از طریق API نسخه‌دار.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "RTL/LTR",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "CSS Logical Properties از ابتدا.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Scientific Integrity",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "وضعیت علمی ۴-حالتی + provenance.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin · HyDroMA · Nojin Marketplace — Design S",
+            "sel": "footer",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          }
+        ],
+        "tokens": {
+          "--brand-primary": "#0B5563",
+          "--brand-secondary": "#C9A227",
+          "--brand-accent": "#35C4D7",
+          "--page-bg": "#F5F7F8",
+          "--surface": "#FFFFFF",
+          "--header-bg": "#0B5563",
+          "--header-text": "#FFFFFF",
+          "--neutral-ink": "#0F1E24",
+          "--neutral-slate": "#5A6B72",
+          "--neutral-line": "#D5DDE0",
+          "--neutral-cloud": "#F5F7F8",
+          "--product-hydroma": "#2E3A87",
+          "--product-marketplace": "#E76F51",
+          "bodyFont": "Vazirmatn, \"Segoe UI\", Tahoma, sans-serif",
+          "bodyColor": "rgb(15, 30, 36)"
+        }
+      },
+      "B": {
+        "contrast": [
+          {
+            "text": "Eco Nojin — Design System Studio",
+            "sel": "h1",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 28.8,
+            "fontWeight": 600,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "Design System v2 · دو مسیر رنگی مستقل · تایپوگرافی",
+            "sel": "p",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 16,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "DRAFT — NOT APPROVED",
+            "sel": "span.demo-badge",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              217,
+              104,
+              43
+            ],
+            "fontSize": 11.2,
+            "fontWeight": 800,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgba(255, 255, 255, 0.8)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin",
+            "sel": "span.wordmark",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 22.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal / Scientific",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm / Autumn",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Locale:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "فارسی",
+            "sel": "button.locale-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "English",
+            "sel": "button.locale-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "العربية",
+            "sel": "button.locale-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Overview — نظام طراحی یکپارچه",
+            "sel": "h2",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 24,
+            "fontWeight": 700,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "3",
+            "sel": "div.v",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "برند (Eco Nojin · HyDroMA · Marketplace)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "2",
+            "sel": "div.v",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "مسیر رنگی مستقل (A / B)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "50+",
+            "sel": "div.v",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "کامپوننت پایه",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "اصول طراحی",
+            "sel": "h3",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16.8,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Modular Monolith",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "معماری ماژولار با مرزهای روشن — نه microservices پ",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "API-first",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "هر قابلیت از طریق API نسخه‌دار.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "RTL/LTR",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "CSS Logical Properties از ابتدا.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Scientific Integrity",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "وضعیت علمی ۴-حالتی + provenance.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin · HyDroMA · Nojin Marketplace — Design S",
+            "sel": "footer",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          }
+        ],
+        "tokens": {
+          "--brand-primary": "#173B63",
+          "--brand-secondary": "#D9682B",
+          "--brand-accent": "#C9A34A",
+          "--page-bg": "#FBF7F0",
+          "--surface": "#FFFDFC",
+          "--header-bg": "#173B63",
+          "--header-text": "#FFFFFF",
+          "--neutral-ink": "#1F2933",
+          "--neutral-slate": "#5A6B72",
+          "--neutral-line": "#E2D9CB",
+          "--neutral-cloud": "#F7F3EC",
+          "--product-hydroma": "#173B63",
+          "--product-marketplace": "#D9682B",
+          "bodyFont": "Estedad, Vazirmatn, Tahoma, sans-serif",
+          "bodyColor": "rgb(31, 41, 51)"
+        }
+      }
+    },
+    "1440": {
+      "A": {
+        "contrast": [
+          {
+            "text": "Eco Nojin — Design System Studio",
+            "sel": "h1",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 28.8,
+            "fontWeight": 600,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "Design System v2 · دو مسیر رنگی مستقل · تایپوگرافی",
+            "sel": "p",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 16,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "DRAFT — NOT APPROVED",
+            "sel": "span.demo-badge",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              201,
+              162,
+              39
+            ],
+            "fontSize": 11.2,
+            "fontWeight": 800,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgba(255, 255, 255, 0.8)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin",
+            "sel": "span.wordmark",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 22.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Overview",
+            "sel": "a.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              48,
+              111,
+              122
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Brands",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Colors",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Typography",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Components",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Scientific",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Marketplace",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "i18n",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal / Scientific",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm / Autumn",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Locale:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "فارسی",
+            "sel": "button.locale-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "English",
+            "sel": "button.locale-btn",
+            "fg": [
+              15,
+              30,
+              36
+            ],
+            "fgRaw": "rgb(15, 30, 36)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "العربية",
+            "sel": "button.locale-btn",
+            "fg": [
+              15,
+              30,
+              36
+            ],
+            "fgRaw": "rgb(15, 30, 36)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Overview — نظام طراحی یکپارچه",
+            "sel": "h2",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 24,
+            "fontWeight": 700,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "3",
+            "sel": "div.v",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "برند (Eco Nojin · HyDroMA · Marketplace)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "2",
+            "sel": "div.v",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "مسیر رنگی مستقل (A / B)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "50+",
+            "sel": "div.v",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "کامپوننت پایه",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "اصول طراحی",
+            "sel": "h3",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16.8,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Modular Monolith",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "معماری ماژولار با مرزهای روشن — نه microservices پ",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "API-first",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "هر قابلیت از طریق API نسخه‌دار.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "RTL/LTR",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "CSS Logical Properties از ابتدا.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Scientific Integrity",
+            "sel": "div.card-title",
+            "fg": [
+              11,
+              85,
+              99
+            ],
+            "fgRaw": "rgb(11, 85, 99)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "وضعیت علمی ۴-حالتی + provenance.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              255,
+              255
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin · HyDroMA · Nojin Marketplace — Design S",
+            "sel": "footer",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              245,
+              247,
+              248
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          }
+        ],
+        "tokens": {
+          "--brand-primary": "#0B5563",
+          "--brand-secondary": "#C9A227",
+          "--brand-accent": "#35C4D7",
+          "--page-bg": "#F5F7F8",
+          "--surface": "#FFFFFF",
+          "--header-bg": "#0B5563",
+          "--header-text": "#FFFFFF",
+          "--neutral-ink": "#0F1E24",
+          "--neutral-slate": "#5A6B72",
+          "--neutral-line": "#D5DDE0",
+          "--neutral-cloud": "#F5F7F8",
+          "--product-hydroma": "#2E3A87",
+          "--product-marketplace": "#E76F51",
+          "bodyFont": "Vazirmatn, \"Segoe UI\", Tahoma, sans-serif",
+          "bodyColor": "rgb(15, 30, 36)"
+        }
+      },
+      "B": {
+        "contrast": [
+          {
+            "text": "Eco Nojin — Design System Studio",
+            "sel": "h1",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 28.8,
+            "fontWeight": 600,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "Design System v2 · دو مسیر رنگی مستقل · تایپوگرافی",
+            "sel": "p",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 16,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "DRAFT — NOT APPROVED",
+            "sel": "span.demo-badge",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              217,
+              104,
+              43
+            ],
+            "fontSize": 11.2,
+            "fontWeight": 800,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgba(255, 255, 255, 0.8)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin",
+            "sel": "span.wordmark",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 22.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Overview",
+            "sel": "a.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              58,
+              88,
+              122
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Brands",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Colors",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Typography",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Components",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Scientific",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Marketplace",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "i18n",
+            "sel": "a",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 14.4,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Theme:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "A — Territory Teal / Scientific",
+            "sel": "button.theme-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              11,
+              85,
+              99
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "B — Warm / Autumn",
+            "sel": "button.theme-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Locale:",
+            "sel": "span.label",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 13.6,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "فارسی",
+            "sel": "button.locale-btn.active",
+            "fg": [
+              255,
+              255,
+              255
+            ],
+            "fgRaw": "rgb(255, 255, 255)",
+            "bg": [
+              23,
+              59,
+              99
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "English",
+            "sel": "button.locale-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "العربية",
+            "sel": "button.locale-btn",
+            "fg": [
+              31,
+              41,
+              51
+            ],
+            "fgRaw": "rgb(31, 41, 51)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 600,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Overview — نظام طراحی یکپارچه",
+            "sel": "h2",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 24,
+            "fontWeight": 700,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "3",
+            "sel": "div.v",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "برند (Eco Nojin · HyDroMA · Marketplace)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "2",
+            "sel": "div.v",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "مسیر رنگی مستقل (A / B)",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "50+",
+            "sel": "div.v",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 25.6,
+            "fontWeight": 800,
+            "large": true,
+            "visible": true
+          },
+          {
+            "text": "کامپوننت پایه",
+            "sel": "div.l",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 12,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "اصول طراحی",
+            "sel": "h3",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16.8,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Modular Monolith",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "معماری ماژولار با مرزهای روشن — نه microservices پ",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "API-first",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "هر قابلیت از طریق API نسخه‌دار.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "RTL/LTR",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "CSS Logical Properties از ابتدا.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Scientific Integrity",
+            "sel": "div.card-title",
+            "fg": [
+              23,
+              59,
+              99
+            ],
+            "fgRaw": "rgb(23, 59, 99)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 16,
+            "fontWeight": 700,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "وضعیت علمی ۴-حالتی + provenance.",
+            "sel": "div.card-body.muted",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              255,
+              253,
+              252
+            ],
+            "fontSize": 14.08,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          },
+          {
+            "text": "Eco Nojin · HyDroMA · Nojin Marketplace — Design S",
+            "sel": "footer",
+            "fg": [
+              90,
+              107,
+              114
+            ],
+            "fgRaw": "rgb(90, 107, 114)",
+            "bg": [
+              251,
+              247,
+              240
+            ],
+            "fontSize": 12.8,
+            "fontWeight": 400,
+            "large": false,
+            "visible": true
+          }
+        ],
+        "tokens": {
+          "--brand-primary": "#173B63",
+          "--brand-secondary": "#D9682B",
+          "--brand-accent": "#C9A34A",
+          "--page-bg": "#FBF7F0",
+          "--surface": "#FFFDFC",
+          "--header-bg": "#173B63",
+          "--header-text": "#FFFFFF",
+          "--neutral-ink": "#1F2933",
+          "--neutral-slate": "#5A6B72",
+          "--neutral-line": "#E2D9CB",
+          "--neutral-cloud": "#F7F3EC",
+          "--product-hydroma": "#173B63",
+          "--product-marketplace": "#D9682B",
+          "bodyFont": "Estedad, Vazirmatn, Tahoma, sans-serif",
+          "bodyColor": "rgb(31, 41, 51)"
+        }
+      }
+    }
+  },
+  "fonts": null,
+  "errors": {}
+}
