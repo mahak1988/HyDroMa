@@ -66,3 +66,11 @@ desktop.ini
 
 # Isolated experiment workspaces (RTL proof copies, build reproducer, Node runtime)
 /experiments/
+
+# ---- Phase 1 checkpoint (2026-11-18): generated evidence stays out of history ----
+# Per-app artifacts (screenshots, contact sheets, play-test output)
+apps/*/artifacts/
+test-results/
+playwright-report/
+# Literal reviewer folder that was created in the repository root
+/%TEMP%/

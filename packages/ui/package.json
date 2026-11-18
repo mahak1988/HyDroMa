@@ -1,0 +1,9 @@
+{
+  "name": "@eco-nojin/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin accessible UI primitives. Token-driven, direction-aware, framework-agnostic styling.",
+  "exports": { ".": "./src/index.ts" },
+  "peerDependencies": { "react": "^19.0.0", "react-dom": "^19.0.0" }
+}

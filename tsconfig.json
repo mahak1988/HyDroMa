@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": ["vite/client", "vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["apps/console/src/*"],
+      "@eco-nojin/design-system/*": ["packages/design-system/*"],
+      "@eco-nojin/ui": ["packages/ui/src/index.ts"],
+      "@eco-nojin/i18n": ["packages/i18n/src/index.ts"],
+      "@eco-nojin/frontend-core": ["packages/frontend-core/src/index.ts"]
+    }
+  },
+  "include": ["apps/console/src", "apps/console/tests", "packages/ui/src", "packages/i18n/src", "packages/frontend-core/src", "packages/ui/tests", "packages/i18n/tests", "vitest.setup.ts"]
+}

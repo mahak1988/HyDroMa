@@ -1,0 +1,9 @@
+{
+  "name": "@eco-nojin/i18n",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin localization foundation: data-driven locale registry, catalogs, direction and formatters.",
+  "exports": { ".": "./src/index.ts" },
+  "peerDependencies": { "react": "^19.0.0" }
+}

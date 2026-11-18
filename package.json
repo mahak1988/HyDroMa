@@ -1,0 +1,48 @@
+{
+  "name": "eco-nojin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin frontend monorepo — Phase 1 shared foundation and reference console shell.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "workspaces": [
+    "apps/console",
+    "packages/design-system",
+    "packages/ui",
+    "packages/i18n",
+    "packages/frontend-core"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @eco-nojin/console",
+    "build": "npm run build --workspace @eco-nojin/console",
+    "preview": "npm run preview --workspace @eco-nojin/console",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "oxlint apps/console/src packages/ui/src packages/i18n/src packages/frontend-core/src",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:a11y": "playwright test a11y.spec.ts",
+    "test:e2e:list": "playwright test --list",
+    "verify": "npm run typecheck && npm run lint && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "@tailwindcss/vite": "4.3.5",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.12",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "axe-core": "4.14.1",
+    "jsdom": "31.0.1",
+    "oxlint": "1.75.0",
+    "tailwindcss": "4.3.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.8",
+    "vitest": "5.1.1"
+  }
+}

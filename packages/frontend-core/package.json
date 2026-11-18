@@ -1,0 +1,16 @@
+{
+  "name": "@eco-nojin/frontend-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Application bootstrap for Eco Nojin apps: theme engine, providers, error boundary and the permission-gate contract.",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@tanstack/react-query": "5.108.0"
+  },
+  "peerDependencies": {
+    "@eco-nojin/i18n": "0.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

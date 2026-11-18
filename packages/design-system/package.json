@@ -1,0 +1,12 @@
+{
+  "name": "@eco-nojin/design-system",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin design tokens: colour, typography, spacing, elevation, motion and themes.",
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    "./base.css": "./src/base.css"
+  },
+  "files": ["src"]
+}
