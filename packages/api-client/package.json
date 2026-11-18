@@ -1,0 +1,12 @@
+{
+  "name": "@eco-nojin/api-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Typed HTTP client for Eco Nojin contracts: envelope errors, retry policy, cancellation and pagination.",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@eco-nojin/domain-types": "0.1.0",
+    "@eco-nojin/validation": "0.1.0"
+  }
+}

@@ -82,8 +82,8 @@ export const listQuerySchema = z.object({
 
 export type UserCreateInput = z.infer<typeof userCreateSchema>;
 export type UserUpdateInput = z.infer<typeof userUpdateSchema>;
-export type OrganizationCreateInput = z.infer<typeof organizationCreateSchema>;
-export type OrganizationUpdateInput = z.infer<typeof organizationUpdateSchema>;
+export type OrganizationCreateInput = z.input<typeof organizationCreateSchema>;
+export type OrganizationUpdateInput = z.input<typeof organizationUpdateSchema>;
 export type InvitationCreateInput = z.infer<typeof invitationCreateSchema>;
 export type MembershipRoleInput = z.infer<typeof membershipRoleSchema>;
 export type ListQueryInput = z.infer<typeof listQuerySchema>;
