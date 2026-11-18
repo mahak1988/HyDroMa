@@ -9,6 +9,7 @@
   },
   "workspaces": [
     "apps/console",
+    "apps/portal",
     "packages/design-system",
     "packages/ui",
     "packages/i18n",
@@ -19,14 +20,19 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace @eco-nojin/console",
+    "dev:portal": "npm run dev --workspace @eco-nojin/portal",
     "build": "npm run build --workspace @eco-nojin/console",
+    "build:portal": "npm run build --workspace @eco-nojin/portal",
+    "build:portal:static": "npm run build:static --workspace @eco-nojin/portal",
     "preview": "npm run preview --workspace @eco-nojin/console",
+    "preview:portal": "npm run preview --workspace @eco-nojin/portal",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "oxlint apps/console/src packages/ui/src packages/i18n/src packages/frontend-core/src packages/domain-types/src packages/validation/src packages/api-client/src",
+    "lint": "oxlint apps/console/src apps/portal/src packages/ui/src packages/i18n/src packages/frontend-core/src packages/domain-types/src packages/validation/src packages/api-client/src",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test a11y.spec.ts",
+    "test:portal": "npm run test:e2e --workspace @eco-nojin/portal",
     "test:e2e:list": "playwright test --list",
     "verify": "npm run typecheck && npm run lint && npm run check:boundaries && npm run test && npm run build"
   },

@@ -6,6 +6,7 @@
   "description": "Eco Nojin design tokens: colour, typography, spacing, elevation, motion and themes.",
   "exports": {
     "./tokens.css": "./src/tokens.css",
+    "./tailwind.css": "./src/tailwind.css",
     "./base.css": "./src/base.css"
   },
   "files": ["src"]

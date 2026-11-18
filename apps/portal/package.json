@@ -1,0 +1,26 @@
+{
+  "name": "@eco-nojin/portal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin public portal — static-first international website.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit -p ../../tsconfig.json && vite build",
+    "prerender": "node scripts/prerender.mjs",
+    "build:static": "npm run build && npm run prerender",
+    "preview": "vite preview --port 4181 --strictPort",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@eco-nojin/design-system": "0.1.0",
+    "@eco-nojin/i18n": "0.1.0",
+    "@eco-nojin/ui": "0.1.0",
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource-variable/vazirmatn": "5.3.0",
+    "lucide-react": "1.75.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router-dom": "7.18.5"
+  }
+}

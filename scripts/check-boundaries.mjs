@@ -12,6 +12,7 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const UNITS = [
   "apps/console",
+  "apps/portal",
   "packages/design-system",
   "packages/ui",
   "packages/i18n",

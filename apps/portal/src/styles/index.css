@@ -1,0 +1,66 @@
+@import "@eco-nojin/design-system/tailwind.css";
+
+@layer base {
+  .skip-link {
+    position: absolute;
+    inset-inline-start: 0.75rem;
+    inset-block-start: -3rem;
+    z-index: var(--z-tooltip);
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: var(--primary-fg);
+    padding: 0.5rem 0.75rem;
+    font-size: var(--text-sm);
+  }
+
+  .skip-link:focus {
+    inset-block-start: 0.75rem;
+  }
+}
+
+@layer components {
+  /* Soft mesh backdrop — CSS only, no images, no motion cost. */
+  .portal-mesh {
+    background:
+      radial-gradient(60rem 32rem at 8% -8%, var(--primary-soft) 0%, transparent 60%),
+      radial-gradient(48rem 26rem at 100% 0%, var(--info-soft) 0%, transparent 55%),
+      radial-gradient(40rem 24rem at 50% 110%, var(--success-soft) 0%, transparent 60%);
+  }
+
+  .portal-rule {
+    background-image: linear-gradient(to right, var(--border) 1px, transparent 1px);
+    background-size: 4rem 100%;
+  }
+
+  .display {
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.08;
+    font-weight: 650;
+  }
+
+  .lead {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    color: var(--fg-muted);
+    max-width: 46rem;
+  }
+
+  .card-lift {
+    transition:
+      transform var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out);
+  }
+
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-e2);
+    border-color: var(--border-strong);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-lift:hover {
+      transform: none;
+    }
+  }
+}

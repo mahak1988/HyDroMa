@@ -4,7 +4,12 @@
   "private": true,
   "type": "module",
   "description": "Application bootstrap for Eco Nojin apps: theme engine, providers, error boundary and the permission-gate contract.",
-  "exports": { ".": "./src/index.ts" },
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme": "./src/theme.tsx",
+    "./error-boundary": "./src/error-boundary.tsx",
+    "./permission": "./src/permission.tsx"
+  },
   "dependencies": {
     "@tanstack/react-query": "5.108.0"
   },
