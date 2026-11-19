@@ -14,6 +14,7 @@ const UNITS = [
   "apps/console",
   "apps/portal",
   "apps/scientific-workspace",
+  "apps/marketplace",
   "packages/design-system",
   "packages/ui",
   "packages/i18n",

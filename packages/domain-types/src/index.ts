@@ -25,3 +25,17 @@ export {
   type PermissionKey,
   type RoleDefinition,
 } from "./permissions";
+
+export type {
+  CartLine,
+  CategoryNode,
+  Money,
+  OrderStatus,
+  Product,
+  ProductUnit,
+  Seller,
+  SellerKind,
+  SellerOrder,
+  StockMovement,
+  VerificationStatus,
+} from "./commerce";
