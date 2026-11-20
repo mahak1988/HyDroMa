@@ -24,3 +24,4 @@ Read, in this order:
 | `LANDSCAPE-AND-HYDROMA-INTEGRATION.md` | analysis request/result contract, provenance, quality gating |
 | `LANDSCAPE-API-CONTRACTS.md` | proposed i18n/landscape/village/nomadic endpoints and authz |
 | `I18N-AND-LANDSCAPE-DECISIONS.md` | 16 open decisions (A/B/C/D) for these two domains |
+| `HYDROMA-SCIENTIFIC-ENGINE-PHASE1-IMPL-CONTRACT.md` | Phase 1 implementation contract: model interface, registry, data/spatial/simulation contracts, API/DB/worker/visualization architecture, risks and open decisions |

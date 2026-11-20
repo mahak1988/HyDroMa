@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import { routerBasename } from "@eco-nojin/configuration";
 import { PortalLayout } from "./PortalLayout";
 import { NotFoundPage, PageView } from "./PageView";
 
@@ -22,4 +23,4 @@ export const router = createBrowserRouter([
       { path: "*", element: <NotFoundPage /> },
     ],
   },
-]);
+], { basename: routerBasename(import.meta.env.BASE_URL) });

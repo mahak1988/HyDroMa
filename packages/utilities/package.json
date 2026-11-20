@@ -1,0 +1,8 @@
+{
+  "name": "@eco-nojin/utilities",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Framework-free helpers: localised text, numbers, dates and accessibility-aware motion.",
+  "exports": { ".": "./src/index.ts" }
+}

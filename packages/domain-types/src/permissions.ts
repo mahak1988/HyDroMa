@@ -97,3 +97,87 @@ export const ROLE_PERMISSIONS: Readonly<Record<OrganizationRole, readonly Permis
 export function hasPermission(role: OrganizationRole, permission: PermissionKey): boolean {
   return ROLE_PERMISSIONS[role]?.includes(permission) ?? false;
 }
+
+/* -------------------------------------------------------------------------- */
+/* resource:operation algebra                                                  */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A permission string is `resource:operation` (for example `catalog:read`).
+ * `*` is the universal grant; `<resource>:*` grants every known operation on
+ * that resource. This mirrors the server model so the UI can pre-filter menus
+ * and route guards without pretending to enforce anything.
+ */
+export const PERMISSION_WILDCARD = "*";
+
+export type ParsedPermission = {
+  resource: string;
+  operation: string;
+};
+
+/** Operations implied by a broader grant (e.g. `manage` implies `delete`). */
+const OPERATION_IMPLICATIONS: Readonly<Record<string, readonly string[]>> = {
+  [PERMISSION_WILDCARD]: ["read", "create", "update", "delete"],
+  manage: ["read", "create", "update", "delete"],
+  write: ["read", "create", "update"],
+};
+
+export function parsePermission(permission: string): ParsedPermission | null {
+  const separator = permission.indexOf(":");
+  if (separator <= 0 || separator === permission.length - 1) return null;
+  return { resource: permission.slice(0, separator), operation: permission.slice(separator + 1) };
+}
+
+export function buildPermission(resource: string, operation: string): string {
+  return `${resource}:${operation}`;
+}
+
+/** Expand a single grant into the concrete permissions it implies. */
+export function expandPermission(permission: string): string[] {
+  if (permission === PERMISSION_WILDCARD) return [PERMISSION_WILDCARD];
+  const parsed = parsePermission(permission);
+  if (!parsed) return [permission];
+  const implied = OPERATION_IMPLICATIONS[parsed.operation];
+  if (!implied) return [permission];
+  return implied.map((operation) => buildPermission(parsed.resource, operation));
+}
+
+export function isPermissionGranted(granted: readonly string[], required: string): boolean {
+  if (granted.includes(PERMISSION_WILDCARD)) return true;
+  const target = expandPermission(required);
+  return granted.some((permission) => {
+    if (permission === PERMISSION_WILDCARD) return true;
+    const expanded = expandPermission(permission);
+    return target.every((item) => expanded.includes(item) || expanded.includes(PERMISSION_WILDCARD));
+  });
+}
+
+/** `requireAll` (default) mirrors the server: every required permission must hold. */
+export function checkPermissions(
+  granted: readonly string[],
+  required: readonly string[],
+  requireAll = true,
+): boolean {
+  if (required.length === 0) return true;
+  const results = required.map((permission) => isPermissionGranted(granted, permission));
+  return requireAll ? results.every(Boolean) : results.some(Boolean);
+}
+
+/** Grants for a role, expressed as `resource:operation` strings. */
+export function permissionsForRole(role: OrganizationRole): string[] {
+  return [...(ROLE_PERMISSIONS[role] ?? [])];
+}
+
+export type RouteRequirement = {
+  permissions?: string | string[];
+  requireAll?: boolean;
+  redirectTo?: string;
+  /** Fixture/demo mode may bypass gating; it never grants server-side access. */
+  bypass?: boolean;
+  labelKey?: string;
+};
+
+export function requirementList(requirement: RouteRequirement | undefined): string[] {
+  if (!requirement?.permissions) return [];
+  return Array.isArray(requirement.permissions) ? requirement.permissions : [requirement.permissions];
+}

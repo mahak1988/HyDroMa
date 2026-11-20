@@ -76,6 +76,37 @@
     cursor: not-allowed;
   }
 
+
+  /*
+   * Skip link: the first focusable element on every page. It must be taken out
+   * of the grid/flex flow, otherwise it becomes a layout cell (this happened in
+   * the platform shell) and shows as a stray line above the header.
+   */
+  .skip-link {
+    position: fixed;
+    inset-inline-start: 0.75rem;
+    inset-block-start: -4rem;
+    z-index: var(--z-tooltip);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: var(--primary-fg);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: inset-block-start var(--duration-fast) var(--ease-standard);
+  }
+
+  /* Focus is information: 2px brand outline ≥ 3:1 on both themes. */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: inherit;
+  }
+
+  .skip-link:focus {
+    inset-block-start: 0.75rem;
+  }
+
   a {
     color: inherit;
     text-decoration: none;

@@ -1,30 +1,38 @@
 import { StrictMode } from "react";
+import { AppSwitcher } from "@eco-nojin/ui";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import "@fontsource-variable/inter";
+import "@fontsource-variable/nunito-sans";
 import "@fontsource-variable/vazirmatn";
 import "@eco-nojin/design-system/tokens.css";
 import "@eco-nojin/design-system/base.css";
 import "./styles/index.css";
-import { ThemeProvider } from "@eco-nojin/frontend-core/theme";
-import { I18nProvider } from "@eco-nojin/i18n";
+import { AppProviders, createQueryClient } from "@eco-nojin/frontend-core";
 import { ToastProvider } from "@eco-nojin/ui";
 import { CartProvider } from "./store/cart";
+import { MarketSessionProvider } from "./session/MarketSession";
 import { router } from "./app/router";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Root container missing");
 
+/**
+ * Composition root. `AppProviders` gives theme, i18n and the query cache — the
+ * catalog is now read through TanStack Query, so the provider is required.
+ */
 createRoot(container).render(
   <StrictMode>
-    <ThemeProvider>
-      <I18nProvider>
-        <ToastProvider>
+    <AppProviders queryClient={createQueryClient()}>
+      <ToastProvider>
+        <MarketSessionProvider>
           <CartProvider>
-            <RouterProvider router={router} />
+            <>
+              <RouterProvider router={router} />
+              <AppSwitcher current="marketplace" />
+            </>
           </CartProvider>
-        </ToastProvider>
-      </I18nProvider>
-    </ThemeProvider>
+        </MarketSessionProvider>
+      </ToastProvider>
+    </AppProviders>
   </StrictMode>,
 );

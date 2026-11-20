@@ -3,6 +3,7 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
   testMatch: "**/*.spec.ts",
+  testIgnore: ["**/node_modules/**", "**/upstream-registry/**", "**/upstream-archives/**", "**/experiments/**"],
   fullyParallel: false,
   workers: 1,
   timeout: 60_000,

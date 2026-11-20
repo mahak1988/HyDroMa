@@ -36,6 +36,8 @@ for (const locale of ["fa", "en"]) {
         (options) => {
           window.localStorage.setItem("eco.locale", options.locale);
           window.localStorage.setItem("eco.theme", "light");
+          // /seller is gated; sign in as the demo seller so the dashboard renders.
+          window.localStorage.setItem("eco.market.role", "seller");
           if (options.seed) {
             window.localStorage.setItem(
               "eco.market.cart",

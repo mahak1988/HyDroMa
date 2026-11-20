@@ -29,6 +29,8 @@ export type Seller = {
   country: string;
   region: string;
   summary: string;
+  /** Optional translations; `summary` stays the English fallback. */
+  summaryI18n?: { fa: string; ar: string };
   locale: string;
   verification: VerificationStatus;
   landscapeRef: string | null;

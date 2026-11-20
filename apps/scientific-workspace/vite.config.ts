@@ -1,30 +1,17 @@
-import { copyFileSync, mkdirSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { createRequire } from "node:module";
 import { fileURLToPath, URL } from "node:url";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vitest/config";
 
-/** MapLibre resolves its worker at runtime; publish it as a static asset (same approach as the POC). */
-function maplibreWorkerAsset() {
-  return {
-    name: "maplibre-worker-asset",
-    buildStart() {
-      const requireFromApp = createRequire(import.meta.url);
-      const source = join(dirname(requireFromApp.resolve("maplibre-gl/package.json")), "dist/maplibre-gl-worker.mjs");
-      const targetDir = fileURLToPath(new URL("./public", import.meta.url));
-      mkdirSync(targetDir, { recursive: true });
-      copyFileSync(source, `${targetDir}/maplibre-gl-worker.mjs`);
-    },
-  };
-}
-
 export default defineConfig({
-  plugins: [react(), tailwindcss(), maplibreWorkerAsset()],
+  base: process.env.APP_BASE ?? "/",
+  plugins: [react(), tailwindcss()],
   resolve: {
     dedupe: ["react", "react-dom"],
-    alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@eco-nojin/spatial": fileURLToPath(new URL("../../packages/spatial/src/index.ts", import.meta.url)),
+    },
   },
   optimizeDeps: {
     include: [

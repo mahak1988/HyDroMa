@@ -6,14 +6,14 @@ export function BrandMark({ size = 34 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
       <defs>
         <linearGradient id="eco-mark" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--primary)" />
-          <stop offset="100%" stopColor="var(--success)" />
+          <stop offset="0%" stopColor="var(--brand-primary)" />
+          <stop offset="100%" stopColor="var(--brand-accent)" />
         </linearGradient>
       </defs>
       <rect width="40" height="40" rx="10" fill="url(#eco-mark)" />
       <path d="M10 29c7 0 12-4 14-12 1-4 3-6 6-7" stroke="white" strokeWidth="2.4" fill="none" strokeLinecap="round" />
       <circle cx="10" cy="29" r="2.6" fill="white" />
-      <circle cx="26" cy="17" r="2.6" fill="white" opacity="0.9" />
+      <circle cx="26" cy="17" r="2.6" fill="var(--brand-champagne)" />
     </svg>
   );
 }

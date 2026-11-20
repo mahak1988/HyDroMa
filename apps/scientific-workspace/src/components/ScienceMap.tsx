@@ -1,50 +1,36 @@
-import { useEffect, useRef } from "react";
-import * as maplibregl from "maplibre-gl";
+import { useEffect, useMemo, useRef } from "react";
+import { useI18n } from "@eco-nojin/i18n";
 import { MapboxOverlay } from "@deck.gl/mapbox";
 import type { Layer } from "@deck.gl/core";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import { HexagonLayer } from "@deck.gl/aggregation-layers";
-import "maplibre-gl/dist/maplibre-gl.css";
-import type { FeatureCollection } from "geojson";
+import {
+  AreaPriorityLimiter,
+  addBbox,
+  addGraticule,
+  buildLegendItems,
+  createLayerRegistry,
+  createBaseStyle,
+  legendSwatchStyle,
+  mountSpatialMap,
+  resolveMapColors,
+  sampleGridPoints,
+  type IControl,
+  type LayerDescriptor,
+  type SpatialMap,
+} from "@eco-nojin/spatial";
 import type { StudyArea } from "../data/indicators";
 
 export type MapLayers = { stations: boolean; vegetation: boolean; boundary: boolean };
 export type SelectedFeature = { kind: "station" | "vegetation"; label: string; value: string } | null;
 
-function cssTokens() {
-  const styles = getComputedStyle(document.documentElement);
-  return {
-    background: styles.getPropertyValue("--canvas").trim() || "#f6f8f6",
-    grid: styles.getPropertyValue("--border-strong").trim() || "#c7d4cc",
-    area: styles.getPropertyValue("--primary").trim() || "#0f6b4f",
-  };
-}
-
-function graticule(bbox: [number, number, number, number]): FeatureCollection {
-  const [minX, minY, maxX, maxY] = bbox;
-  const features = [];
-  for (let i = 0; i <= 6; i += 1) {
-    const x = minX + ((maxX - minX) * i) / 6;
-    features.push({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [[x, minY], [x, maxY]] } });
-    const y = minY + ((maxY - minY) * i) / 6;
-    features.push({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [[minX, y], [maxX, y]] } });
-  }
-  return { type: "FeatureCollection", features } as FeatureCollection;
-}
-
-function areaPolygon(bbox: [number, number, number, number]): FeatureCollection {
-  const [minX, minY, maxX, maxY] = bbox;
-  return {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: { kind: "study-area" },
-        geometry: { type: "Polygon", coordinates: [[[minX, minY], [maxX, minY], [maxX, maxY], [minX, maxY], [minX, minY]]] },
-      },
-    ],
-  } as FeatureCollection;
-}
+/**
+ * Layer descriptors are the contract between the UI and the map. Declaring them
+ * (instead of building layers inline) means the legend, the toggles and the
+ * provenance panel all read the same list — they cannot disagree with the map.
+ */
+const VEGETATION_COLOR = "var(--success)";
+const STATION_COLOR = "var(--service-hydroma)";
 
 function stations(area: StudyArea) {
   const [minX, minY, maxX, maxY] = area.bbox;
@@ -60,14 +46,43 @@ function stations(area: StudyArea) {
 
 function vegetationPoints(area: StudyArea) {
   const [minX, minY, maxX, maxY] = area.bbox;
-  return Array.from({ length: 260 }, (_, index) => {
-    const fx = ((index * 47) % 997) / 997;
-    const fy = ((index * 83) % 991) / 991;
-    return { position: [minX + (maxX - minX) * fx, minY + (maxY - minY) * fy] as [number, number] };
-  });
+  return sampleGridPoints([minX, minY, maxX, maxY], 260).map((position) => ({ position }));
 }
 
-let workerConfigured = false;
+function describeLayers(): LayerDescriptor[] {
+  return [
+    {
+      id: "vegetation-density",
+      label: "Vegetation density",
+      kind: "hexagon",
+      visible: true,
+      opacity: 0.55,
+      legend: { label: "Vegetation density (NDVI)", color: VEGETATION_COLOR, shape: "fill" },
+      provenance: {
+        source: "demo-indicator-grid",
+        sourceKind: "synthetic",
+        license: "demo-data",
+        model: { id: "ndvi-hex", version: "0.1.0" },
+        caveat: "Synthetic demonstration grid. Not a measurement.",
+      },
+      owner: "scientific-workspace",
+    },
+    {
+      id: "monitoring-stations",
+      label: "Monitoring stations",
+      kind: "scatter",
+      visible: true,
+      legend: { label: "Monitoring station", color: STATION_COLOR, shape: "circle" },
+      provenance: {
+        source: "demo-station-registry",
+        sourceKind: "synthetic",
+        license: "demo-data",
+        model: { id: "station-registry", version: "0.1.0" },
+      },
+      owner: "scientific-workspace",
+    },
+  ];
+}
 
 export function ScienceMap({
   area,
@@ -81,53 +96,59 @@ export function ScienceMap({
   className?: string;
 }) {
   const container = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
+  const mapRef = useRef<SpatialMap | null>(null);
+  const { locale, t } = useI18n();
+
+  // Registry drives both the map and the legend; `onLayerChange` is where the
+  // engine would be touched (MapLibre source/visibility), never in the UI.
+  const registry = useMemo(() => createLayerRegistry(), []);
+
+  const descriptors = useMemo(() => {
+    const all = describeLayers();
+    registry.registerAll(all);
+    return all;
+  }, [registry]);
+
+  useEffect(() => {
+    registry.setVisible("vegetation-density", layers.vegetation);
+    registry.setVisible("monitoring-stations", layers.stations);
+  }, [layers.boundary, layers.stations, layers.vegetation, registry]);
+
+  const legend = useMemo(() => buildLegendItems(descriptors), [descriptors]);
 
   useEffect(() => {
     if (!container.current) return;
-    if (!workerConfigured) {
-      maplibregl.setWorkerUrl("/maplibre-gl-worker.mjs");
-      workerConfigured = true;
-    }
-    const colors = cssTokens();
-    const map = new maplibregl.Map({
+
+    const colors = resolveMapColors();
+    const style = createBaseStyle(colors);
+    addGraticule(style, area.bbox, colors, "grid");
+    if (layers.boundary) addBbox(style, area.bbox, colors, "area");
+
+    const controller = mountSpatialMap({
       container: container.current,
-      style: {
-        version: 8,
-        sources: {
-          grid: { type: "geojson", data: graticule(area.bbox) },
-          area: { type: "geojson", data: areaPolygon(area.bbox) },
-        },
-        layers: [
-          { id: "bg", type: "background", paint: { "background-color": colors.background } },
-          { id: "grid", type: "line", source: "grid", paint: { "line-color": colors.grid, "line-width": 0.8, "line-opacity": 0.55 } },
-          {
-            id: "area",
-            type: "fill",
-            source: "area",
-            paint: { "fill-color": colors.area, "fill-opacity": 0.07 },
-          },
-          {
-            id: "area-outline",
-            type: "line",
-            source: "area",
-            paint: { "line-color": colors.area, "line-width": 1.8, "line-opacity": 0.9 },
-          },
-        ],
-      },
+      style,
       center: area.center,
       zoom: 9.4,
-      attributionControl: false,
+      ariaLabel: "Landscape map",
     });
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
-    map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
+    const map = controller.map;
+
+    // Viewport limiter: dense grids are capped by area so pan/zoom stays smooth,
+    // and the cap is reported rather than hidden.
+    const limiter = new AreaPriorityLimiter(1_200);
 
     const deckLayers: Layer[] = [];
     if (layers.vegetation) {
+      const capped = limiter.limit(
+        vegetationPoints(area),
+        area.bbox,
+        () => 1,
+        () => area.bbox,
+      );
       deckLayers.push(
         new HexagonLayer({
           id: "vegetation-density",
-          data: vegetationPoints(area),
+          data: capped.features,
           getPosition: (point: { position: [number, number] }) => point.position,
           radius: 1400,
           coverage: 0.8,
@@ -175,14 +196,34 @@ export function ScienceMap({
     }
 
     const overlay = new MapboxOverlay({ interleaved: false, layers: deckLayers });
-    map.addControl(overlay as unknown as maplibregl.IControl);
+    map.addControl(overlay as unknown as IControl);
     mapRef.current = map;
 
     return () => {
-      map.remove();
+      controller.destroy();
       mapRef.current = null;
     };
-  }, [area, layers, onSelect]);
+  }, [area, layers.boundary, layers.stations, layers.vegetation, onSelect]);
 
-  return <div ref={container} className={className ?? "h-[420px] w-full"} role="application" aria-label="Landscape map" />;
+  // Keep direction in sync when the active locale changes, without remounting.
+  useEffect(() => {
+    const dir = document.documentElement.dir === "rtl" ? "rtl" : "ltr";
+    container.current?.setAttribute("dir", dir);
+    const canvas = mapRef.current?.getCanvas();
+    canvas?.setAttribute("dir", dir);
+  }, [locale]);
+
+  return (
+    <div className={className ?? "h-[420px] w-full"}>
+      <div ref={container} className="h-full w-full" role="application" aria-label="Landscape map" />
+      <ul className="mt-2 flex flex-wrap items-center gap-3 text-2xs text-fg-muted" aria-label={t("hydro.map.legend")}>
+        {legend.map((entry) => (
+          <li key={entry.id} className="inline-flex items-center gap-1.5">
+            <span aria-hidden="true" style={legendSwatchStyle(entry)} />
+            {entry.label}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }

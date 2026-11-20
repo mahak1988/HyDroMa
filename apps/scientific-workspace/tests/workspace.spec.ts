@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
+﻿import { expect, test } from "@playwright/test";
 
-const ROUTES = ["/", "/water", "/soil", "/climate", "/vegetation", "/remote-sensing", "/map", "/simulation", "/projects"];
+const ROUTES = ["/", "/water", "/soil", "/climate", "/vegetation", "/remote-sensing", "/map", "/simulation", "/scenarios", "/projects"];
 
 test.use({ viewport: { width: 1440, height: 1000 } });
 
@@ -117,6 +117,19 @@ test.describe("simulation", () => {
     await page.getByRole("button", { name: "Load demonstration scenario" }).click();
     await expect(page.getByRole("table")).toBeVisible();
     await expect(page.getByText("DEMO").first()).toBeVisible();
+  });
+});
+
+test.describe("scenarios", () => {
+  test("compares two demo scenarios and never presents a real model run", async ({ page }) => {
+    await page.goto("/scenarios");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByText("DEMO").first()).toBeVisible();
+    await expect(page.getByRole("table")).toBeVisible();
+
+    await page.getByLabel("Outputs").selectOption("erosion");
+    await expect(page.getByText("Erosion susceptibility").first()).toBeVisible();
+    await expect(page.getByText("Model engine not connected")).toBeVisible();
   });
 });
 

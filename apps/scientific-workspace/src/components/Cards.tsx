@@ -1,7 +1,6 @@
-import { Badge, Card, CardBody } from "@eco-nojin/ui";
+import { Badge, Card, CardBody, Sparkline } from "@eco-nojin/ui";
 import { useI18n } from "@eco-nojin/i18n";
 import type { TranslationKey } from "@eco-nojin/i18n";
-import { Sparkline } from "./Charts";
 import type { Indicator } from "../data/indicators";
 
 const qualityTone = { good: "success", medium: "warning", low: "danger" } as const;

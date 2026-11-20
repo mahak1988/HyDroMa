@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import { routerBasename } from "@eco-nojin/configuration";
 import { ScienceLayout } from "./ScienceLayout";
 
 /** Every page is lazy: MapLibre/deck.gl stay out of the initial bundle. */
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
         lazy: async () => ({ Component: (await import("../pages/SimulationPage")).SimulationPage }),
       },
       {
+        path: "scenarios",
+        lazy: async () => ({ Component: (await import("../pages/ScenariosPage")).ScenariosPage }),
+      },
+      {
         path: "projects",
         lazy: async () => ({ Component: (await import("../pages/ProjectsPage")).ProjectsPage }),
       },
@@ -49,4 +54,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+], { basename: routerBasename(import.meta.env.BASE_URL) });

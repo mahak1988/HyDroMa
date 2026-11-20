@@ -8,6 +8,9 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     // Locale only: each Playwright test already gets a fresh context/storage.
     window.localStorage.setItem("eco.locale", "en");
+    // The seller workspace is gated; sign in as the demo seller so the route
+    // renders the dashboard instead of the sign-in page.
+    window.localStorage.setItem("eco.market.role", "seller");
   });
 });
 
@@ -43,6 +46,21 @@ test.describe("catalog", () => {
   test("shows an empty state for impossible filters", async ({ page }) => {
     await page.goto("/catalog?q=zzzz-nothing");
     await expect(page.getByText("No products match these filters")).toBeVisible();
+  });
+
+  test("sorts the list view by price and cycles asc → desc → none", async ({ page }) => {
+    await page.goto("/catalog?view=list");
+    const priceHeader = page.getByRole("button", { name: /Price/ });
+
+    await priceHeader.click();
+    await expect(page).toHaveURL(/sort=price-asc/);
+    await expect(page.locator("tbody tr")).not.toHaveCount(0);
+
+    await priceHeader.click();
+    await expect(page).toHaveURL(/sort=price-desc/);
+
+    await priceHeader.click();
+    await expect(page).not.toHaveURL(/sort=/);
   });
 });
 
@@ -93,6 +111,14 @@ test.describe("seller workspace", () => {
     await page.getByRole("button", { name: /Intake \+ / }).first().click();
     await expect(stockCell).toHaveText(String(before + 1));
     await expect(page.getByText("NOT_CONNECTED").first()).toBeVisible();
+  });
+
+  test("is gated: a guest is sent to the sign-in page", async ({ page }) => {
+    // Override the demo-seller seed from beforeEach to exercise the guard.
+    await page.addInitScript(() => window.localStorage.removeItem("eco.market.role"));
+    await page.goto("/seller");
+    await expect(page).toHaveURL(/\/seller\/signin$/);
+    await expect(page.getByRole("heading", { name: "Seller sign-in" })).toBeVisible();
   });
 });
 

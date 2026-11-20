@@ -1,63 +1,131 @@
 /*
- * Eco Nojin design tokens — values only.
- * Semantic aliases live in the theme blocks below; components consume semantic
- * tokens (bg-surface, text-fg-muted, …), never the primitives directly.
- * Brand overrides are expected through [data-brand="…"] on <html>.
+ * Eco Nojin — design tokens.
+ *
+ * Source of truth: "Eco Nojin Visual Identity, Experience & Design System v1.1".
+ * The identity is warm and editorial: Royal Aubergine is the brand colour, Burnt
+ * Terracotta the warm accent, Antique Champagne the premium detail. Green is no
+ * longer a brand colour — it survives only as a *semantic* success/scientific
+ * colour, exactly as the specification requires.
+ *
+ * Layers:
+ *   1. primitives (never used directly by components)
+ *   2. semantic aliases (what components consume)
+ *   3. themes (light is the default; dark is a separately tuned set)
+ *   4. legacy aliases kept so older surfaces keep working while they migrate
+ *
+ * Rule: no component may hard-code a colour. Everything below is a token.
  */
 
 :root {
-  /* ---------- palette primitives ---------- */
-  --green-900: #06301f;
-  --green-800: #0b4a34;
-  --green-700: #0f6b4f;
-  --green-600: #16805f;
-  --green-500: #1f9a73;
-  --green-300: #6fd3ae;
-  --green-100: #d9efe6;
-  --green-50: #eaf6f1;
+  /* ------------------------------ brand identity ------------------------------ */
+  --brand-primary: #5a3d50; /* Royal Aubergine */
+  --brand-primary-dark: #462e3e;
+  --brand-primary-light: #7a5570;
+  --brand-secondary: #8a6937; /* Antique Champagne */
+  --brand-accent: #9c4f3b; /* Burnt Terracotta */
+  --brand-gold: #8a6937;
+  --brand-champagne: #d7bc8a;
+  --brand-espresso: #2d2523;
+  --brand-ivory: #f7f2e9;
+  --brand-porcelain: #fffcf7;
+  --brand-taupe: #665b55;
+  --brand-slate: #465365;
+  --brand-rose: #87575b;
 
-  --slate-950: #080d0b;
-  --slate-900: #0e1512;
-  --slate-850: #131c18;
-  --slate-800: #1a2620;
-  --slate-700: #22302a;
-  --slate-600: #31443b;
-  --slate-500: #55665e;
-  --slate-400: #7a8a82;
-  --slate-300: #9db0a6;
-  --slate-200: #dce5df;
-  --slate-100: #eef3ef;
-  --slate-50: #f6f8f6;
+  /* --------------------------- warm neutral ramp ----------------------------- */
+  --slate-950: #1b1618;
+  --slate-900: #211d22; /* dark canvas */
+  --slate-850: #262128;
+  --slate-800: #2c262d; /* dark surface */
+  --slate-700: #382f38; /* dark elevated */
+  --slate-600: #514650; /* dark border */
+  --slate-500: #665b55; /* warm taupe — secondary text */
+  --slate-400: #8a7f77;
+  --slate-300: #a59b92; /* disabled */
+  --slate-200: #ded5c9; /* light border */
+  --slate-100: #f1e9dc;
+  --slate-50: #f7f2e9; /* light canvas */
 
-  --red-700: #b42318;
-  --red-100: #fee4e2;
-  --amber-700: #b54708;
-  --amber-100: #fef0c7;
-  --blue-700: #175cd3;
-  --blue-100: #dbe9fe;
+  /* --------------------------- scientific green ramp -------------------------- */
+  /* Kept for vegetation/restoration semantics, never as the brand colour. */
+  --green-900: #12331f;
+  --green-800: #17452c;
+  --green-700: #236b4a;
+  --green-600: #2e7f5a;
+  --green-500: #43956f;
+  --green-300: #8fc7ac;
+  --green-100: #dcede4;
+  --green-50: #edf6f1;
 
-  /* ---------- typography ---------- */
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
-  --font-fa: "Vazirmatn Variable", "Vazirmatn", var(--font-sans);
+  /* ------------------------------ functional hues ---------------------------- */
+  --red-700: #a83232;
+  --red-100: #f8e3e1;
+  --amber-700: #8a5a12;
+  --amber-100: #f6ebd8;
+  --blue-700: #315f83;
+  --blue-100: #e3edf5;
 
-  --text-2xs: 0.6875rem;
-  --text-xs: 0.75rem;
-  --text-sm: 0.8125rem;
-  --text-md: 0.875rem;
-  --text-lg: 1rem;
-  --text-xl: 1.125rem;
-  --text-2xl: 1.375rem;
-  --text-3xl: 1.75rem;
-  --text-4xl: 2.25rem;
+  /* --------------------------- service-specific hues ------------------------- */
+  /* Identification only: a service colour marks a section, it does not paint it. */
+  --service-portal: #5a3d50;
+  --service-hydroma: #465365;
+  --service-landscape: #9c4f3b;
+  --service-agriculture: #8a5a12;
+  --service-mrv: #5a3d50;
+  --service-projects: #315f83;
+  --service-marketplace: #9c4f3b;
+  --service-tourism: #87575b;
+  --service-daneshyar: #5a3d50;
+  --service-tasmimyar: #465365;
+  --service-finance: #2d2523;
+  --service-console: #352b38;
+  --service-community: #87575b;
 
-  --leading-tight: 1.25;
-  --leading-normal: 1.5;
+  /* ------------------------------ data visualisation ------------------------- */
+  /* Sequential (single phenomenon), diverging (change), categorical (series). */
+  --viz-seq-1: #f0e4ea;
+  --viz-seq-2: #d3b3c1;
+  --viz-seq-3: #ab7f92;
+  --viz-seq-4: #7f5568;
+  --viz-seq-5: #5a3d50;
+  --viz-div-negative: #a83232;
+  --viz-div-neutral: #f1e9dc;
+  --viz-div-positive: #315f83;
+  --chart-1: #5a3d50;
+  --chart-2: #9c4f3b;
+  --chart-3: #465365;
+  --chart-4: #8a6937;
+  --chart-5: #87575b;
+
+  /* -------------------------------- typography ------------------------------- */
+  --font-sans: "Manrope Variable", "Vazirmatn Variable", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-fa: "Vazirmatn Variable", "Vazirmatn", "Manrope Variable", system-ui, sans-serif;
+  /* Brand titles: serif Latin over a Persian face that reads as editorial. */
+  --font-display: "Lora Variable", "Vazirmatn Variable", ui-serif, Georgia, serif;
+  --font-commerce: "Nunito Sans Variable", "Vazirmatn Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-report: "Source Serif 4 Variable", "Vazirmatn Variable", ui-serif, Georgia, serif;
+  --font-en: "Manrope Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+
+  --text-2xs: 0.75rem; /* 12 — caption */
+  --text-xs: 0.8125rem; /* 13 — caption / table */
+  --text-sm: 0.875rem; /* 14 — body */
+  --text-md: 0.9375rem; /* 15 — body default */
+  --text-lg: 1.0625rem; /* 17 — body large */
+  --text-xl: 1.125rem; /* 18 — card title */
+  --text-2xl: 1.375rem; /* 22 — card title / section */
+  --text-3xl: 1.75rem; /* 28 — section title */
+  --text-4xl: 2.25rem; /* 36 — page title */
+  --text-5xl: 2.75rem; /* 44 — page title (large) */
+  --text-hero: clamp(3.25rem, 2.2rem + 3.4vw, 4rem); /* 52–64 — hero */
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.55;
   --leading-relaxed: 1.75;
-
   --tracking-tight: -0.01em;
   --tracking-normal: 0;
 
-  /* ---------- spacing (4 pt base) ---------- */
+  /* --------------------------------- spacing --------------------------------- */
   --space-0: 0;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -71,34 +139,38 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* ---------- radius ---------- */
+  /* ---------------------------------- radius --------------------------------- */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-pill: 999px;
 
-  /* ---------- elevation ---------- */
-  --shadow-e1: 0 1px 2px rgb(8 13 11 / 0.06), 0 1px 1px rgb(8 13 11 / 0.04);
-  --shadow-e2: 0 2px 4px rgb(8 13 11 / 0.07), 0 4px 12px rgb(8 13 11 / 0.05);
-  --shadow-e3: 0 8px 24px rgb(8 13 11 / 0.1), 0 2px 6px rgb(8 13 11 / 0.06);
-  --shadow-e4: 0 24px 64px rgb(8 13 11 / 0.18), 0 8px 20px rgb(8 13 11 / 0.08);
+  /* --------------------------------- shadows --------------------------------- */
+  /* Warm shadows: tinted with espresso rather than black. */
+  --shadow-e1: 0 1px 2px rgb(45 37 35 / 0.06), 0 1px 1px rgb(45 37 35 / 0.04);
+  --shadow-e2: 0 2px 4px rgb(45 37 35 / 0.07), 0 4px 12px rgb(45 37 35 / 0.06);
+  --shadow-e3: 0 8px 24px rgb(45 37 35 / 0.1), 0 2px 6px rgb(45 37 35 / 0.06);
+  --shadow-e4: 0 24px 64px rgb(45 37 35 / 0.18), 0 8px 20px rgb(45 37 35 / 0.08);
+  --shadow-sm: var(--shadow-e1);
 
-  /* ---------- layout ---------- */
+  /* ---------------------------------- layout --------------------------------- */
   --container-max: 1600px;
   --container-narrow: 46rem;
   --sidebar-width: 264px;
   --sidebar-collapsed: 76px;
   --header-height: 60px;
 
-  /* ---------- motion ---------- */
-  --duration-fast: 120ms;
-  --duration-base: 180ms;
-  --duration-slow: 280ms;
+  /* ---------------------------------- motion --------------------------------- */
+  /* Durations follow the specification: hover 150–200, card 200–300, page 250–350. */
+  --duration-fast: 180ms; /* hover, focus */
+  --duration-base: 250ms; /* card / control */
+  --duration-slow: 320ms; /* page transition */
+  --duration-data: 450ms; /* data animation */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* ---------- z-index ---------- */
+  /* --------------------------------- z-index --------------------------------- */
   --z-base: 0;
   --z-sticky: 10;
   --z-header: 30;
@@ -107,124 +179,167 @@
   --z-toast: 60;
   --z-tooltip: 70;
 
-  /* ---------- charts ---------- */
-  --chart-1: var(--green-600);
-  --chart-2: #0e7490;
-  --chart-3: #6941c6;
-  --chart-4: #b54708;
-  --chart-5: #475467;
+  /* ------------------------- legacy aliases (migration) ---------------------- */
+  --neutral-ink: #2d2523;
+  --neutral-slate: #665b55;
+  --neutral-line: #ded5c9;
+  --neutral-cloud: #f1e9dc;
+  --neutral-white: #fffcf7;
+  --semantic-success: #236b4a;
+  --semantic-warning: #8a5a12;
+  --semantic-danger: #a83232;
+  --semantic-info: #315f83;
+  --sci-validated: #236b4a;
+  --sci-calibrated: #8a5a12;
+  --sci-uncalibrated: #a59b92;
+  --sci-notvalidated: #a83232;
+  --product-hydroma: #465365;
+  --product-marketplace: #9c4f3b;
+  --grid-container: 1280px;
+  --grid-gutter: 16px;
 }
 
-/* ============================ light theme ============================ */
+/* ================================ light theme ============================== */
+/* Warm Ivory canvas, Porcelain surfaces, Espresso text. */
 :root,
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --canvas: var(--slate-50);
-  --surface: #ffffff;
-  --surface-2: var(--slate-100);
-  --surface-3: #e4ece7;
-  --surface-inverse: var(--slate-900);
+  --canvas: #f7f2e9;
+  --surface: #fffcf7;
+  --surface-2: #f1e9dc;
+  --surface-3: #e8decf;
+  --surface-inverse: #2d2523;
 
-  --fg: #0e1a15;
-  --fg-muted: var(--slate-500);
-  --fg-subtle: #5a6a62;
+  --fg: #2d2523;
+  --fg-muted: #665b55;
+  --fg-subtle: #6e6259;
   --fg-on-primary: #ffffff;
 
-  --border: var(--slate-200);
-  --border-strong: #c7d4cc;
+  --border: #ded5c9;
+  --border-strong: #c9bdad;
 
-  --primary: var(--green-700);
-  --primary-hover: var(--green-800);
+  --primary: #5a3d50;
+  --primary-hover: #462e3e;
   --primary-fg: #ffffff;
-  --primary-soft: var(--green-50);
-  --primary-soft-fg: var(--green-800);
+  --primary-soft: #f0e4ea;
+  --primary-soft-fg: #462e3e;
 
-  --danger: var(--red-700);
+  --accent: #9c4f3b;
+  --accent-hover: #85412f;
+  --accent-fg: #ffffff;
+
+  --gold: #8a6937;
+  --gold-soft: #d7bc8a;
+
+  --danger: #a83232;
   --danger-fg: #ffffff;
-  --danger-soft: var(--red-100);
-  --danger-soft-fg: #7a1a12;
+  --danger-soft: #f8e3e1;
+  --danger-soft-fg: #7f2525;
 
-  --success: #067647;
+  --success: #236b4a;
   --success-fg: #ffffff;
-  --success-soft: #dcfae6;
-  --success-soft-fg: #05502f;
+  --success-soft: #dcede4;
+  --success-soft-fg: #17452c;
 
-  --warning: var(--amber-700);
+  --warning: #8a5a12;
   --warning-fg: #ffffff;
-  --warning-soft: var(--amber-100);
-  --warning-soft-fg: #7a2e0e;
+  --warning-soft: #f6ebd8;
+  --warning-soft-fg: #6b4610;
 
-  --info: var(--blue-700);
+  --info: #315f83;
   --info-fg: #ffffff;
-  --info-soft: var(--blue-100);
-  --info-soft-fg: #12409c;
+  --info-soft: #e3edf5;
+  --info-soft-fg: #264a66;
 
-  --sidebar: var(--slate-900);
-  --sidebar-fg: #e8f0ea;
-  --sidebar-muted: #a9bcb1;
-  --sidebar-border: var(--slate-700);
-  --sidebar-active: rgb(255 255 255 / 0.08);
+  --disabled: #a59b92;
+  --ring: 0 0 0 3px rgb(90 61 80 / 0.28);
 
-  --ring: var(--green-600);
-  --overlay: rgb(8 13 11 / 0.48);
+  /* Legacy layout aliases */
+  --page-bg: var(--canvas);
+  --header-bg: var(--surface);
+  --header-text: var(--fg);
+  --sidebar: var(--surface);
+  --sidebar-fg: var(--fg);
+  --sidebar-muted: var(--fg-muted);
+  --sidebar-active: var(--primary-soft);
+  --sidebar-border: var(--border);
 }
 
-/* ============================= dark theme ============================= */
+/* ================================= dark theme ============================== */
+/* Separately tuned (never an inversion): aubergine lightens, ivory becomes ink. */
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --canvas: var(--slate-950);
-  --surface: var(--slate-900);
-  --surface-2: var(--slate-850);
-  --surface-3: var(--slate-800);
-  --surface-inverse: var(--slate-100);
+  --canvas: #211d22;
+  --surface: #2c262d;
+  --surface-2: #332b33;
+  --surface-3: #3b3240;
+  --surface-inverse: #f6f0e8;
 
-  --fg: #eef4f0;
-  --fg-muted: #b9c9c0;
-  --fg-subtle: #84968c;
-  --fg-on-primary: #04150f;
+  --fg: #f6f0e8;
+  --fg-muted: #c4b8b1;
+  --fg-subtle: #a99c96;
+  --fg-on-primary: #2a1e26;
 
-  --border: var(--slate-700);
-  --border-strong: var(--slate-600);
+  --border: #514650;
+  --border-strong: #6a5d68;
 
-  --primary: #23a37c;
-  --primary-hover: var(--green-300);
-  --primary-fg: #04150f;
-  --primary-soft: #0b2b20;
-  --primary-soft-fg: #8fe3c4;
+  --primary: #c59aae;
+  --primary-hover: #d2aec0;
+  --primary-fg: #2a1e26;
+  --primary-soft: #3a2c36;
+  --primary-soft-fg: #e4c6d3;
 
-  --danger: #f97066;
-  --danger-fg: #1a0503;
-  --danger-soft: #3b1210;
-  --danger-soft-fg: #fecdc9;
+  --accent: #d28b72;
+  --accent-hover: #dfa089;
+  --accent-fg: #2a1a14;
 
-  --success: #47d095;
-  --success-fg: #04150f;
-  --success-soft: var(--green-900);
-  --success-soft-fg: #a6f3cd;
+  --gold: #d7bc8a;
+  --gold-soft: #4a3a22;
 
-  --warning: #fdb022;
-  --warning-fg: #1a1003;
-  --warning-soft: #3a2405;
-  --warning-soft-fg: #fde68a;
+  --danger: #e08a85;
+  --danger-fg: #2a1a1a;
+  --danger-soft: #3a2326;
+  --danger-soft-fg: #f3c6c4;
 
-  --info: #84adff;
-  --info-fg: #061127;
-  --info-soft: #0b1b3a;
-  --info-soft-fg: #cfe0ff;
+  --success: #6fbf95;
+  --success-fg: #12251b;
+  --success-soft: #22372c;
+  --success-soft-fg: #bde4cd;
 
-  --sidebar: #0b110e;
-  --sidebar-fg: #e8f0ea;
-  --sidebar-muted: #9fb2a7;
-  --sidebar-border: #1c2822;
-  --sidebar-active: rgb(255 255 255 / 0.07);
+  --warning: #d9a45b;
+  --warning-fg: #2a2013;
+  --warning-soft: #3a2e1d;
+  --warning-soft-fg: #eed3a8;
 
-  --ring: #4ecfa6;
-  --overlay: rgb(0 0 0 / 0.62);
+  --info: #8fb6d6;
+  --info-fg: #16232c;
+  --info-soft: #222f3a;
+  --info-soft-fg: #c3d9ea;
 
-  --shadow-e1: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-e2: 0 2px 6px rgb(0 0 0 / 0.45);
-  --shadow-e3: 0 10px 28px rgb(0 0 0 / 0.55);
-  --shadow-e4: 0 24px 64px rgb(0 0 0 / 0.65);
+  --disabled: #6a5d68;
+  --ring: 0 0 0 3px rgb(197 154 174 / 0.4);
+
+  /* Charts must stay legible on the dark canvas. */
+  --chart-1: #c59aae;
+  --chart-2: #d28b72;
+  --chart-3: #8fb6d6;
+  --chart-4: #d7bc8a;
+  --chart-5: #c9a0a3;
+  --viz-seq-1: #3a2c36;
+  --viz-seq-2: #5c4553;
+  --viz-seq-3: #8a6478;
+  --viz-seq-4: #b1859a;
+  --viz-seq-5: #d5adc0;
+  --viz-div-neutral: #3b3240;
+
+  --page-bg: var(--canvas);
+  --header-bg: var(--surface);
+  --header-text: var(--fg);
+  --sidebar: var(--surface);
+  --sidebar-fg: var(--fg);
+  --sidebar-muted: var(--fg-muted);
+  --sidebar-active: var(--primary-soft);
+  --sidebar-border: var(--border);
 }

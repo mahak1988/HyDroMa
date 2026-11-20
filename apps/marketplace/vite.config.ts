@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  base: process.env.APP_BASE ?? "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     dedupe: ["react", "react-dom"],

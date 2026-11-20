@@ -64,3 +64,8 @@
     }
   }
 }
+/* Identity v1.1: public headlines use the editorial display face. */
+main h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}

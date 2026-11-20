@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { AlertTriangle, ArrowRight, MapPin } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
 import type { TranslationKey } from "@eco-nojin/i18n";
-import { Badge, Card, CardBody, CardHeader } from "@eco-nojin/ui";
+import { Badge, Card, CardBody, CardHeader, Panel } from "@eco-nojin/ui";
 import { IndicatorCard, PageLead } from "../components/Cards";
-import { Panel } from "../components/Charts";
+
 import { MiniMap } from "../components/MiniMap";
 import { useWorkspace } from "../app/WorkspaceContext";
 import { ALERTS, INDICATORS, indicatorById } from "../data/indicators";

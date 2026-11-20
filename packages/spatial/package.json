@@ -1,0 +1,15 @@
+{
+  "name": "@eco-nojin/spatial",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared spatial infrastructure: MapLibre runtime, offline basemap helpers, design-token colours, worker lifecycle and RTL/LTR handling.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@eco-nojin/domain-types": "0.1.0",
+    "@types/geojson": "7946.0.16",
+    "maplibre-gl": "6.19.0"
+  }
+}

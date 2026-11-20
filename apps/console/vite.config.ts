@@ -9,6 +9,7 @@ import { defineConfig } from "vitest/config";
  * Dedupe plus an explicit optimizer include keeps one copy of React and ReactDOM.
  */
 export default defineConfig({
+  base: process.env.APP_BASE ?? "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     dedupe: ["react", "react-dom"],

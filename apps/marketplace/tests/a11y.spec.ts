@@ -11,6 +11,8 @@ for (const locale of ["fa", "en"]) {
           (options: { locale: string; theme: string }) => {
             window.localStorage.setItem("eco.locale", options.locale);
             window.localStorage.setItem("eco.theme", options.theme);
+            // The seller workspace is gated; sign in as the demo seller.
+            window.localStorage.setItem("eco.market.role", "seller");
           },
           { locale, theme },
         );

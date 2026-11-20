@@ -1,8 +1,9 @@
 import { useI18n } from "@eco-nojin/i18n";
 import type { TranslationKey } from "@eco-nojin/i18n";
-import { Badge, Card, CardBody } from "@eco-nojin/ui";
+import { Badge, BarChart, Card, CardBody, LineChart, Panel } from "@eco-nojin/ui";
 import { PageLead, IndicatorCard } from "../components/Cards";
-import { BarChart, LineChart, Panel } from "../components/Charts";
+import { WaterBalanceCard } from "../components/WaterBalanceCard";
+
 import { useWorkspace } from "../app/WorkspaceContext";
 import { byDomain, type Domain } from "../data/indicators";
 
@@ -70,6 +71,7 @@ export function DomainPage({ domain }: { domain: Domain }) {
           {t("hydro.disclaimerBody")}
         </CardBody>
       </Card>
+      {domain === "water" ? <WaterBalanceCard /> : null}
     </div>
   );
 }

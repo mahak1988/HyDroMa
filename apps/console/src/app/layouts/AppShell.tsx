@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell,
   Building2,
@@ -35,6 +35,7 @@ import {
   type MenuItem,
 } from "@eco-nojin/ui";
 import { NAV_GROUPS, ROUTE_BREADCRUMBS } from "../config/navigation";
+import { RoutePermissionGuard } from "@eco-nojin/auth-client";
 import { DemoFixtures } from "../../permissions/fixture";
 import { useSession } from "../../session/DemoSession";
 
@@ -242,6 +243,7 @@ function UserMenu() {
   const { t } = useI18n();
   const { push } = useToast();
   const { user } = useSession();
+  const navigate = useNavigate();
   const userName = user.name;
   const items: MenuItem[] = [
     {
@@ -255,7 +257,7 @@ function UserMenu() {
       label: t("common.settings"),
       icon: <Settings className="size-4" aria-hidden="true" />,
       onSelect: () => {
-        window.location.assign("/settings");
+        navigate("/settings");
       },
     },
   ];
@@ -417,7 +419,7 @@ export function AppShell() {
 
           <main id="main" className="mx-auto w-full max-w-[var(--container-max)] flex-1 px-4 py-5 lg:px-6 lg:py-6">
             <Breadcrumbs />
-            <Outlet />
+            <RoutePermissionGuard />
           </main>
 
           <footer className="border-t border-border px-4 py-3 text-2xs text-fg-subtle lg:px-6">

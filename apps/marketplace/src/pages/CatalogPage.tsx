@@ -3,10 +3,24 @@ import { Link, useSearchParams } from "react-router-dom";
 import { LayoutGrid, Rows3 } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
 import type { TranslationKey } from "@eco-nojin/i18n";
-import { Badge, Button, Card, CardBody, EmptyState, Field, Input, Select } from "@eco-nojin/ui";
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  DataTable,
+  EmptyState,
+  Field,
+  Input,
+  Pagination,
+  Select,
+  type DataTableColumn,
+} from "@eco-nojin/ui";
+import type { Product } from "@eco-nojin/domain-types";
 import { PriceTag, ProductCard, StockBadge } from "../components/ProductCard";
 import { COUNTRIES, LEAF_CATEGORIES, PRODUCTS, SELLERS } from "../data/catalog";
 import { filterProducts, type CatalogFilters } from "../lib/filter";
+import { marketKeys } from "../hooks/api/catalog";
 
 function num(value: string | null): number | undefined {
   if (!value) return undefined;
@@ -14,10 +28,20 @@ function num(value: string | null): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
+const PAGE_SIZE = 12;
+
+/** Sort keys are URL values; unknown values fall back to the default order. */
+const SORT_KEYS: Record<string, CatalogFilters["sort"]> = {
+  "price-asc": "price-asc",
+  "price-desc": "price-desc",
+};
+
 export function CatalogPage() {
   const { t } = useI18n();
   const [params, setParams] = useSearchParams();
   const view = params.get("view") === "list" ? "list" : "grid";
+  const page = Math.max(1, Number(params.get("page") ?? "1") || 1);
+  const sortParam = params.get("sort") ?? "";
 
   const filters: CatalogFilters = {
     q: params.get("q") ?? undefined,
@@ -28,17 +52,57 @@ export function CatalogPage() {
     min: num(params.get("min")),
     max: num(params.get("max")),
     inStock: params.get("inStock") === "1",
-    sort: (params.get("sort") as CatalogFilters["sort"]) ?? "default",
+    sort: SORT_KEYS[sortParam] ?? "default",
   };
 
-  const results = useMemo(() => filterProducts(PRODUCTS, filters), [params]);
+  // Keyed by the same query the API layer will use, so a future server round-trip
+  // is a swap of the data source and nothing else.
+  const cacheKey = marketKeys.products.list(filters);
+  const results = useMemo(() => filterProducts(PRODUCTS, filters), [cacheKey]);
+  const pageCount = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const paged = results.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const update = (key: string, value: string) => {
     const next = new URLSearchParams(params);
     if (value) next.set(key, value);
     else next.delete(key);
+    if (key !== "page") next.delete("page");
     setParams(next, { replace: true });
   };
+
+  const columns: DataTableColumn<Product>[] = [
+    {
+      id: "name",
+      header: t("fields.name"),
+      cell: (product) => (
+        <div className="min-w-0">
+          <Link to={`/p/${product.slug}`} className="font-medium text-fg hover:underline">
+            {product.name}
+          </Link>
+          <p className="text-2xs text-fg-muted">{product.summary}</p>
+        </div>
+      ),
+    },
+    {
+      id: "unit",
+      header: t("fields.unit"),
+      hideBelow: "sm",
+      cell: (product) => <Badge tone="neutral">{product.unit}</Badge>,
+    },
+    {
+      id: "price",
+      sortKey: "price",
+      header: t("fields.price"),
+      cell: (product) => <PriceTag product={product} />,
+    },
+    {
+      id: "stock",
+      header: t("fields.stock"),
+      hideBelow: "md",
+      cell: (product) => <StockBadge product={product} />,
+    },
+  ];
 
   return (
     <div>
@@ -157,32 +221,43 @@ export function CatalogPage() {
         <EmptyState title={t("market.empty")} body={t("market.emptyBody")} />
       ) : view === "grid" ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {results.map((product) => (
+          {paged.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
-        <ul className="space-y-3">
-          {results.map((product) => (
-            <li key={product.id}>
-              <Card>
-                <CardBody className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <Link to={`/p/${product.slug}`} className="text-sm font-semibold text-fg hover:underline">
-                      {product.name}
-                    </Link>
-                    <p className="text-2xs text-fg-muted">{product.summary}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge tone="neutral">{product.unit}</Badge>
-                    <PriceTag product={product} />
-                    <StockBadge product={product} />
-                  </div>
-                </CardBody>
-              </Card>
-            </li>
-          ))}
-        </ul>
+        <DataTable
+          columns={columns}
+          rows={paged}
+          getRowId={(product) => product.id}
+          caption={t("market.catalogTitle")}
+          sort={
+            sortParam === "price-asc"
+              ? { key: "price", direction: "asc" }
+              : sortParam === "price-desc"
+                ? { key: "price", direction: "desc" }
+                : null
+          }
+          onSortChange={() =>
+            update("sort", sortParam === "" ? "price-asc" : sortParam === "price-asc" ? "price-desc" : "")
+          }
+          rowHref={(product) => `/p/${product.slug}`}
+          footer={
+            <Pagination
+              page={currentPage}
+              pageCount={pageCount}
+              total={results.length}
+              pageSize={PAGE_SIZE}
+              onPageChange={(next) => update("page", next > 1 ? String(next) : "")}
+              labels={{
+                previous: t("common.previous"),
+                next: t("common.next" as TranslationKey),
+                page: "Page",
+                of: "of",
+              }}
+            />
+          }
+        />
       )}
     </div>
   );

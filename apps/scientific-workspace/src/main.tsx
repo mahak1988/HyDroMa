@@ -1,8 +1,10 @@
 import { StrictMode } from "react";
+import { AppSwitcher } from "@eco-nojin/ui";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import "@fontsource-variable/inter";
+import "@fontsource-variable/manrope";
 import "@fontsource-variable/vazirmatn";
+import "@fontsource-variable/source-serif-4";
 import "@eco-nojin/design-system/tokens.css";
 import "@eco-nojin/design-system/base.css";
 import "./styles/index.css";
@@ -21,7 +23,10 @@ createRoot(container).render(
       <I18nProvider>
         <ToastProvider>
           <WorkspaceProvider>
-            <RouterProvider router={router} />
+            <>
+              <RouterProvider router={router} />
+              <AppSwitcher current="scientific-workspace" />
+            </>
           </WorkspaceProvider>
         </ToastProvider>
       </I18nProvider>

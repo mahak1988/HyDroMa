@@ -65,6 +65,34 @@ export function HomePage() {
       </div>
 
       <Card className="mt-4">
+        <CardHeader title={t("common.workspace")} subtitle={t("common.demoNote")} />
+        <CardBody className="space-y-3">
+          {[
+            { label: t("nav.organizations"), value: 78 },
+            { label: t("nav.users"), value: 64 },
+            { label: t("nav.components"), value: 42 },
+          ].map((item) => (
+            <div key={item.label} className="space-y-1">
+              <div className="flex items-center justify-between text-2xs">
+                <span className="text-fg-muted">{item.label}</span>
+                <span className="numeric text-fg">{item.value}%</span>
+              </div>
+              <div
+                className="h-1.5 overflow-hidden rounded-pill bg-surface-3"
+                role="progressbar"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={item.value}
+                aria-label={item.label}
+              >
+                <div className="h-full rounded-pill bg-primary" style={{ width: `${item.value}%` }} />
+              </div>
+            </div>
+          ))}
+        </CardBody>
+      </Card>
+
+      <Card className="mt-4">
         <CardHeader
           title={t("common.notifications")}
           subtitle={t("notifications.subtitle")}

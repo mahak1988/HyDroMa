@@ -11,7 +11,9 @@ const { chromium } = requireFromHere("playwright-core");
 
 const DIST = resolve(process.cwd(), "dist");
 const PORT = 4177;
-const SITE_URL = process.env.VITE_SITE_URL ?? "https://eco-nojin.example";
+// Built for the unified host, the portal lives under a prefix (/portal/).
+const BASE = (process.env.APP_BASE ?? "/").replace(/\/+$/u, "");
+const SITE_URL = (process.env.VITE_SITE_URL ?? "https://eco-nojin.example").replace(/\/+$/u, "");
 
 const ROUTES = [
   "/",
@@ -41,7 +43,9 @@ const MIME = {
 
 const server = createServer((request, response) => {
   const url = new URL(request.url ?? "/", `http://127.0.0.1:${PORT}`);
-  let file = join(DIST, decodeURIComponent(url.pathname));
+  let pathname = decodeURIComponent(url.pathname);
+  if (BASE && pathname.startsWith(BASE)) pathname = pathname.slice(BASE.length) || "/";
+  let file = join(DIST, pathname);
   try {
     if (!existsSync(file) || statSync(file).isDirectory()) {
       const index = join(file, "index.html");
@@ -63,7 +67,7 @@ const page = await context.newPage();
 const results = [];
 
 for (const route of ROUTES) {
-  await page.goto(`http://127.0.0.1:${PORT}${route}`, { waitUntil: "networkidle" });
+  await page.goto(`http://127.0.0.1:${PORT}${BASE}${route}`, { waitUntil: "networkidle" });
   await page.locator("h1").first().waitFor({ state: "visible", timeout: 30_000 });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(150);
@@ -77,13 +81,13 @@ for (const route of ROUTES) {
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${ROUTES.map((route) => `  <url><loc>${SITE_URL}${route}</loc></url>`).join("\n")}
+${ROUTES.map((route) => `  <url><loc>${SITE_URL}${BASE}${route}</loc></url>`).join("\n")}
 </urlset>
 `;
 writeFileSync(join(DIST, "sitemap.xml"), sitemap, "utf8");
 writeFileSync(
   join(DIST, "robots.txt"),
-  `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}${BASE}/sitemap.xml\n`,
   "utf8",
 );
 

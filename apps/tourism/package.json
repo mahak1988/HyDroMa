@@ -1,0 +1,28 @@
+{
+  "name": "@eco-nojin/tourism",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin Tourism — rural, nomadic and nature tourism workspace (frontend, demo data).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit -p ../../tsconfig.json && vite build",
+    "preview": "vite preview --port 4184 --strictPort",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@eco-nojin/design-system": "0.1.0",
+    "@eco-nojin/domain-types": "0.1.0",
+    "@eco-nojin/frontend-core": "0.1.0",
+    "@eco-nojin/i18n": "0.1.0",
+    "@eco-nojin/spatial": "0.1.0",
+    "@eco-nojin/ui": "0.1.0",
+    "@fontsource-variable/lora": "5.3.0",
+    "@fontsource-variable/nunito-sans": "5.3.0",
+    "@fontsource-variable/vazirmatn": "5.3.0",
+    "lucide-react": "1.75.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router-dom": "7.18.5"
+  }
+}

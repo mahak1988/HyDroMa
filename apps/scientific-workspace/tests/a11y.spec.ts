@@ -1,7 +1,7 @@
-import AxeBuilder from "@axe-core/playwright";
+﻿import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const ROUTES = ["/", "/water", "/soil", "/climate", "/vegetation", "/remote-sensing", "/map", "/simulation", "/projects"];
+const ROUTES = ["/", "/water", "/soil", "/climate", "/vegetation", "/remote-sensing", "/map", "/simulation", "/scenarios", "/projects"];
 
 for (const locale of ["fa", "en"]) {
   for (const theme of ["light", "dark"]) {
@@ -27,7 +27,7 @@ for (const locale of ["fa", "en"]) {
         const violations = results.violations;
         expect(
           violations,
-          violations.map((v) => `${v.id} (${v.impact}): ${v.help} — nodes ${v.nodes.length}`).join("\n"),
+          violations.map((v) => `${v.id} (${v.impact}): ${v.help} â€” nodes ${v.nodes.length}`).join("\n"),
         ).toEqual([]);
       });
     }

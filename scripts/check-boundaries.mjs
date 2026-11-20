@@ -11,19 +11,29 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const UNITS = [
+  "apps/home",
   "apps/console",
   "apps/portal",
   "apps/scientific-workspace",
   "apps/marketplace",
+  "apps/tourism",
+  "apps/brand",
+  "apps/platform",
   "packages/design-system",
   "packages/ui",
+  "packages/icons",
   "packages/i18n",
   "packages/frontend-core",
   "packages/domain-types",
+  "packages/spatial",
   "packages/validation",
   "packages/api-client",
+  "packages/auth-client",
+  "packages/configuration",
+  "packages/utilities",
+  "packages/scientific",
 ];
-const APP_NAMES = ["console", "portal", "marketplace", "tourism", "scientific-workspace"];
+const APP_NAMES = ["home", "console", "portal", "marketplace", "tourism", "scientific-workspace", "brand", "platform"];
 const LAYER_RE = /^(engines|services|contracts|upstream-registry|upstream-archives|experiments|app)\//;
 
 const violations = [];

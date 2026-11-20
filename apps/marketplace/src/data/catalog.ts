@@ -2,11 +2,11 @@ import type { CategoryNode, Product, Seller } from "@eco-nojin/domain-types";
 
 /** Roots + leaves; the catalog filter treats leaves as selectable categories. */
 export const CATEGORIES: CategoryNode[] = [
-  { id: "products", labelKey: "market.categories.cat1", parentId: null },
-  { id: "supplies", labelKey: "market.categories.cat7", parentId: null },
-  { id: "services", labelKey: "market.categories.cat9", parentId: null },
-  { id: "tourism", labelKey: "market.categories.cat12", parentId: null },
-  { id: "partnership", labelKey: "market.categories.cat15", parentId: null },
+  { id: "products", labelKey: "market.roots.products", parentId: null },
+  { id: "supplies", labelKey: "market.roots.supplies", parentId: null },
+  { id: "services", labelKey: "market.roots.services", parentId: null },
+  { id: "tourism", labelKey: "market.roots.tourism", parentId: null },
+  { id: "partnership", labelKey: "market.roots.partnership", parentId: null },
 
   { id: "produce", labelKey: "market.categories.cat1", parentId: "products" },
   { id: "livestock", labelKey: "market.categories.cat2", parentId: "products" },
@@ -32,7 +32,7 @@ export const CATEGORIES: CategoryNode[] = [
 /** Leaf categories only (what the filter lists). */
 export const LEAF_CATEGORIES = CATEGORIES.filter((item) => item.parentId !== null);
 
-export const SELLERS: Seller[] = [
+const BASE_SELLERS: Seller[] = [
   {
     id: "sel-kondor",
     slug: "kondor-village",
@@ -133,6 +133,46 @@ export const SELLERS: Seller[] = [
 
 const claims = (items: Array<[string, "verified" | "pending" | "unverified"]>) =>
   items.map(([label, status]) => ({ label, status }));
+/** Persian and Arabic seller summaries (the English text stays the fallback). */
+const SUMMARY_I18N: Record<string, { fa: string; ar: string }> = {
+  "sel-kondor": {
+    fa: "مجموعهٔ روستایی با تولید فصلی، لبنیات و غذاهای نگه‌داری‌شده.",
+    ar: "مجموعة قروية تبيع المنتجات الموسمية والألبان والأطعمة المحفوظة.",
+  },
+  "sel-taleghan": {
+    fa: "خانواده‌های عشایری با لبنیات، صنایع پشمی و اقامت فصلی.",
+    ar: "أسر رعوية تقدم الألبان والحرف الصوفية والإقامة الموسمية.",
+  },
+  "sel-karaj": {
+    fa: "تعاونی آبخیز که تولید خرده‌بهره‌برداران را تجمیع می‌کند.",
+    ar: "تعاونية حوض تجمع إنتاج صغار المزارعين.",
+  },
+  "sel-zagros-farm": {
+    fa: "باغ‌های دیم و غلات با سوابق ثبت‌شده در سطح مزرعه.",
+    ar: "بساتين بعلية وحبوب مع سجلات على مستوى الحقل.",
+  },
+  "sel-kondor-workshop": {
+    fa: "منسوجات دست‌باف و رنگ‌زایی طبیعی.",
+    ar: "منسوجات يدوية وصباغة طبيعية.",
+  },
+  "sel-karaj-services": {
+    fa: "آزمون خاک، طراحی آبیاری و نظارت بر احیا.",
+    ar: "اختبار التربة وتصميم الري والإشراف على الاستعادة.",
+  },
+  "sel-taleghan-tourism": {
+    fa: "اقامت‌های جامعه‌محور و پیاده‌روی راهنمادار در مرتع.",
+    ar: "إقامات مجتمعية وجولات مرشدة في المراعي.",
+  },
+  "sel-kondor-supply": {
+    fa: "کیت آبیاری قطره‌ای، ابزار و بذر برای خرده‌بهره‌برداران.",
+    ar: "أطقم ري بالتنقيط وأدوات وبذور لصغار المزارعين.",
+  },
+};
+
+export const SELLERS: Seller[] = BASE_SELLERS.map((seller) => ({
+  ...seller,
+  summaryI18n: SUMMARY_I18N[seller.id],
+}));
 
 export const PRODUCTS: Product[] = [
   {

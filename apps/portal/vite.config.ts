@@ -5,6 +5,7 @@ import { defineConfig } from "vitest/config";
 
 /* Same React-duplicate guard as the console: dedupe + explicit optimizer entries. */
 export default defineConfig({
+  base: process.env.APP_BASE ?? "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     dedupe: ["react", "react-dom"],

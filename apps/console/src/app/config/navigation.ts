@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Bell, Boxes, Building2, Home, Settings, Users } from "lucide-react";
+import { Bell, Boxes, Building2, Home, Settings, ShieldCheck, UserRound, Users } from "lucide-react";
 import type { TranslationKey } from "@eco-nojin/i18n";
 
 export type NavItem = {
@@ -23,29 +23,27 @@ export type NavGroup = {
 export const NAV_GROUPS: NavGroup[] = [
   {
     labelKey: "nav.groupOverview",
-    items: [{ to: "/", labelKey: "nav.home", icon: Home, end: true, permission: "console.view" }],
+    items: [{ to: "/", labelKey: "nav.home", icon: Home, end: true }],
   },
   {
     labelKey: "nav.groupWorkspace",
     items: [
       { to: "/organizations", labelKey: "nav.organizations", icon: Building2, permission: "org.read" },
       { to: "/users", labelKey: "nav.users", icon: Users, permission: "users.read" },
-      { to: "/components", labelKey: "nav.components", icon: Boxes, permission: "console.view" },
-      {
-        to: "/notifications",
-        labelKey: "nav.notifications",
-        icon: Bell,
-        permission: "console.view",
-      },
-      {
-        to: "/settings",
-        labelKey: "nav.settings",
-        icon: Settings,
-        permission: "console.settings.manage",
-      },
+      { to: "/components", labelKey: "nav.components", icon: Boxes },
+      { to: "/notifications", labelKey: "nav.notifications", icon: Bell },
+      { to: "/settings", labelKey: "nav.settings", icon: Settings, permission: "org.update" },
     ],
   },
 ];
+
+NAV_GROUPS.push({
+  labelKey: "nav.groupAccount",
+  items: [
+    { to: "/profile", labelKey: "common.profile", icon: UserRound },
+    { to: "/security", labelKey: "nav.security", icon: ShieldCheck },
+  ],
+});
 
 export const ALL_NAV_ITEMS = NAV_GROUPS.flatMap((group) => group.items);
 
@@ -55,6 +53,8 @@ export const ROUTE_BREADCRUMBS: Record<string, TranslationKey[]> = {
   "/components": ["nav.components"],
   "/notifications": ["nav.notifications"],
   "/settings": ["nav.settings"],
+  "/profile": ["nav.groupAccount", "common.profile"],
+  "/security": ["nav.groupAccount", "nav.security"],
   "/organizations": ["nav.organizations"],
   "/users": ["nav.users"],
 };

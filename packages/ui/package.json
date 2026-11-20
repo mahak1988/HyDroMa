@@ -5,5 +5,9 @@
   "type": "module",
   "description": "Eco Nojin accessible UI primitives. Token-driven, direction-aware, framework-agnostic styling.",
   "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@eco-nojin/configuration": "0.1.0",
+    "@eco-nojin/i18n": "0.1.0"
+  },
   "peerDependencies": { "react": "^19.0.0", "react-dom": "^19.0.0" }
 }

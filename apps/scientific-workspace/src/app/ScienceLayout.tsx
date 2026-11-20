@@ -4,6 +4,7 @@ import {
   Droplets,
   FlaskConical,
   FolderKanban,
+  GitCompare,
   Globe2,
   Layers,
   LayoutDashboard,
@@ -36,6 +37,7 @@ const NAV: NavItem[] = [
   { to: "/remote-sensing", key: "hydro.nav.remote", icon: Satellite },
   { to: "/map", key: "hydro.nav.map", icon: MapIcon },
   { to: "/simulation", key: "hydro.nav.simulation", icon: FlaskConical },
+  { to: "/scenarios", key: "hydro.nav.scenarios", icon: GitCompare },
   { to: "/projects", key: "hydro.nav.projects", icon: FolderKanban },
 ] as const;
 

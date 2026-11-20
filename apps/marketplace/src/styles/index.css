@@ -27,3 +27,7 @@
     }
   }
 }
+/* Identity v1.1: commerce surfaces read in Nunito Sans (Latin) / Vazirmatn (fa). */
+body {
+  font-family: var(--font-commerce);
+}

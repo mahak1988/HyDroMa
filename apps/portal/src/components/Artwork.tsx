@@ -13,18 +13,18 @@ export function LandscapeArt({ className }: { className?: string }) {
           <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.55" />
         </linearGradient>
         <linearGradient id="ridge-b" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--success)" stopOpacity="0.75" />
-          <stop offset="100%" stopColor="var(--success)" stopOpacity="0.35" />
+          <stop offset="0%" stopColor="var(--brand-accent)" stopOpacity="0.72" />
+          <stop offset="100%" stopColor="var(--brand-accent)" stopOpacity="0.34" />
         </linearGradient>
         <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--info)" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="var(--info)" stopOpacity="0.12" />
+          <stop offset="0%" stopColor="var(--brand-slate)" stopOpacity="0.32" />
+          <stop offset="100%" stopColor="var(--brand-slate)" stopOpacity="0.1" />
         </linearGradient>
       </defs>
 
       <rect width="720" height="480" rx="24" fill="url(#sky)" />
-      <circle cx="560" cy="120" r="46" fill="var(--warning)" opacity="0.25" />
-      <circle cx="560" cy="120" r="26" fill="var(--warning)" opacity="0.55" />
+      <circle cx="560" cy="120" r="46" fill="var(--brand-champagne)" opacity="0.5" />
+      <circle cx="560" cy="120" r="26" fill="var(--brand-secondary)" opacity="0.55" />
 
       {/* contour lines */}
       {[0, 1, 2, 3, 4].map((index) => (
@@ -43,7 +43,7 @@ export function LandscapeArt({ className }: { className?: string }) {
       <path d="M0 400 C 120 372, 240 420, 360 396 S 600 372, 720 404 L720 480 L0 480 Z" fill="url(#water)" />
 
       {/* river */}
-      <path d="M330 300 C 350 340, 300 372, 336 404 S 300 444, 320 480" stroke="var(--info)" strokeWidth="6" strokeOpacity="0.45" fill="none" strokeLinecap="round" />
+      <path d="M330 300 C 350 340, 300 372, 336 404 S 300 444, 320 480" stroke="var(--brand-slate)" strokeWidth="6" strokeOpacity="0.5" fill="none" strokeLinecap="round" />
 
       {/* trees (small silhouettes) */}
       {[90, 150, 210, 620, 660].map((x, index) => (

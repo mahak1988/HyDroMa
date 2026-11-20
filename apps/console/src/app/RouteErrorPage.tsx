@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError, useNavigate } from "react-router-dom";
 import { useI18n } from "@eco-nojin/i18n";
 import { Button, Card, CardBody } from "@eco-nojin/ui";
 
@@ -11,6 +11,7 @@ function describe(error: unknown): string {
 export function RouteErrorPage() {
   const { t } = useI18n();
   const error = useRouteError();
+  const navigate = useNavigate();
 
   return (
     <div className="mx-auto max-w-xl">
@@ -25,7 +26,7 @@ export function RouteErrorPage() {
             <Button variant="primary" onClick={() => window.location.reload()}>
               {t("common.retry")}
             </Button>
-            <Button variant="secondary" onClick={() => window.location.assign("/")}>
+            <Button variant="secondary" onClick={() => navigate("/")}>
               {t("common.backHome")}
             </Button>
           </div>

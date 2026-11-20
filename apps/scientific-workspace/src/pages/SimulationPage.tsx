@@ -2,9 +2,9 @@ import { useState } from "react";
 import { FlaskConical } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
 import type { TranslationKey } from "@eco-nojin/i18n";
-import { Alert, Badge, Button, Card, CardBody, CardHeader, Table, TBody, Td, Th, THead, Tr } from "@eco-nojin/ui";
+import { Alert, Badge, Button, Card, CardBody, CardHeader, Panel, TBody, THead, Table, Td, Th, Tr } from "@eco-nojin/ui";
 import { PageLead } from "../components/Cards";
-import { Panel } from "../components/Charts";
+
 import { SCENARIOS, SCENARIO_LABELS } from "../data/indicators";
 import { useWorkspace } from "../app/WorkspaceContext";
 

@@ -84,3 +84,32 @@ export function resolveFallbackChain(code: LocaleCode): LocaleCode[] {
   }
   return chain;
 }
+
+/* ------------------------------- direction ------------------------------ */
+
+/**
+ * Right-to-left locales. Kept as data (not a code branch) so enabling a new
+ * RTL locale is a registry edit, not a refactor.
+ */
+export const RTL_LANGUAGES: ReadonlySet<string> = new Set(["ar", "he", "fa", "ur"]);
+
+/**
+ * Resolve text direction from a language tag.
+ * Unknown or empty tags fall back to `ltr`; regional subtags are ignored, so
+ * `fa-IR` and `ar-EG` resolve correctly.
+ */
+export function languageDirection(code: string | null | undefined): LocaleDirection {
+  if (!code) return "ltr";
+  const base = code.toLowerCase().split(/[-_]/u)[0] ?? "";
+  return RTL_LANGUAGES.has(base) ? "rtl" : "ltr";
+}
+
+/** Locales that should be mirrored (icons, chevrons, progress direction). */
+export function isRtlLocale(code: string | null | undefined): boolean {
+  return languageDirection(code) === "rtl";
+}
+
+/** Languages offered by the product, in display order. */
+export function availableLocales(): LocaleDefinition[] {
+  return LOCALES.filter((locale) => locale.enabled);
+}

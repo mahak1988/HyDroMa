@@ -1,0 +1,20 @@
+{
+  "name": "Eco Nojin",
+  "short_name": "Eco Nojin",
+  "description": "Living landscapes, science and local enterprise.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#5A3D50",
+  "lang": "fa",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

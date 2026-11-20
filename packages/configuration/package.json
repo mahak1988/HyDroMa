@@ -1,0 +1,8 @@
+{
+  "name": "@eco-nojin/configuration",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Single source of truth for the app registry, ports and environment contract.",
+  "exports": { ".": "./src/index.ts", "./apps.json": "./apps.json" }
+}

@@ -1,0 +1,18 @@
+/*
+ * LEGACY — superseded by tokens.css (Visual Identity v1.1, Royal Aubergine).
+ * Kept for provenance only: nothing imports this file any more. Do not extend.
+
+ * Brand design system v2 (candidate palette — owner decision pending).
+ *
+ * These files are the *source* of the visual identity: Territory Teal (#0B5563),
+ * Living Sand, Water Cyan, plus the A/B colour routes. They are opt-in: the
+ * product apps still run on the green token set until the owner closes the
+ * palette decision (see COLOR-01 / D-BRAND). Import this file only where the
+ * brand itself is the subject (apps/brand).
+ */
+@import "./brand/tokens.css";
+@import "./brand/themes.css";
+@import "./brand/typography.css";
+@import "./brand/layout.css";
+@import "./brand/components.css";
+@import "./brand/responsive.css";

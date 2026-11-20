@@ -1,0 +1,8 @@
+{
+  "name": "@eco-nojin/scientific",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "HyDroMA scientific core: deterministic, framework-free models with units, provenance, uncertainty and validation state.",
+  "exports": { ".": "./src/index.ts" }
+}

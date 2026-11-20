@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
+import { AppSwitcher } from "@eco-nojin/ui";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import "@fontsource-variable/inter";
+import "@fontsource-variable/manrope";
 import "@fontsource-variable/vazirmatn";
 import "@eco-nojin/design-system/tokens.css";
 import "@eco-nojin/design-system/base.css";
@@ -21,7 +22,10 @@ createRoot(container).render(
     <AppProviders queryClient={queryClient}>
       <DemoSessionProvider>
         <ShellErrorBoundary>
+          <>
           <RouterProvider router={router} />
+          <AppSwitcher current="console" />
+        </>
         </ShellErrorBoundary>
       </DemoSessionProvider>
     </AppProviders>

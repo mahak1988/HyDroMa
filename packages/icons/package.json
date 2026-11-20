@@ -1,0 +1,9 @@
+{
+  "name": "@eco-nojin/icons",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin domain icon set (30 glyphs) generated from the legacy sprite.",
+  "exports": { ".": "./src/index.ts" },
+  "peerDependencies": { "react": "^19.0.0" }
+}

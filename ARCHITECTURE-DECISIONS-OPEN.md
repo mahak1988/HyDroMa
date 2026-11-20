@@ -221,6 +221,92 @@ at any level in this phase. **Owner impact:** high.
 
 ---
 
+## D-HYDROMA-01 — Scientific engine runtime boundary
+
+**Context:** Phase 1 defines the scientific contract in TypeScript because the existing
+`packages/scientific` is TypeScript and the frontend must not depend on a Python service that does
+not exist yet. Phase 2 needs a Python runtime for the scientific libraries.
+
+| Option | Pros | Cons | Risk |
+|---|---|---|---|
+| A. TypeScript contracts now, Python runtime in Phase 2 | no frontend coupling, incremental, testable now | two languages must keep the contract aligned | medium |
+| B. Python-first engine now | one scientific runtime | blocks frontend integration until the backend exists | high |
+| C. Keep everything TypeScript | no runtime split | cannot use NumPy/SciPy/rasterio/PyProj | high (scientific capability) |
+
+**Advisory:** A, with the TypeScript contract treated as the cross-language reference and shared
+fixtures/tests in Phase 2. **Owner impact:** high.
+
+## D-HYDROMA-02 — Persistence and scientific storage
+
+**Context:** Phase 2 needs job state, model metadata, provenance and dataset references. Large rasters
+and result files must not go into SQLite.
+
+| Option | Pros | Cons | Risk |
+|---|---|---|---|
+| A. SQLite + filesystem/object storage | zero services, local, reproducible, no Docker | write concurrency and durability limits | low-medium |
+| B. PostgreSQL + PostGIS + object storage | concurrency, spatial SQL, RLS | service to operate before the first vertical slice | medium |
+| C. Files only | simplest | no queryable job/model state, weak provenance | high |
+
+**Advisory:** A for Phase 2, with a storage interface that can move to PostgreSQL/object storage later.
+**Owner impact:** medium.
+
+## D-HYDROMA-03 — Worker execution
+
+**Context:** Scientific jobs must outlive an HTTP request. Docker is prohibited; Redis/Celery/RabbitMQ
+would add infrastructure before a measured need.
+
+| Option | Pros | Cons | Risk |
+|---|---|---|---|
+| A. Independent local worker process + persisted SQLite jobs | no broker, recoverable, simple | process lifecycle and locking are our responsibility | low-medium |
+| B. FastAPI BackgroundTasks | no extra process | dies with the request/process, not recoverable | high |
+| C. Celery/RQ + Redis | mature queue semantics | broker, worker pool, ops cost, Docker temptation | medium |
+
+**Advisory:** A, with persisted job state, bounded retries and a timeout. C only after measured need and
+owner approval. **Owner impact:** medium.
+
+## D-HYDROMA-04 — Maturity evidence gates
+
+**Context:** Passing unit tests is not scientific validation. The lifecycle must not promote itself.
+
+| Option | Pros | Cons | Risk |
+|---|---|---|---|
+| A. Strict evidence per level (`checkPromotion`) | honest status, auditable, prevents overclaiming | requires discipline and evidence records | low |
+| B. Free-form maturity field | flexible | silent overclaiming, no gate | high |
+| C. Unit tests = validated | fast | scientifically false | critical |
+
+**Advisory:** A. `tested` means software-tested; `validated` requires observational evidence and
+independent review. **Owner impact:** high.
+
+## D-HYDROMA-05 — Spatial abstraction
+
+**Context:** Models consume rasters, vectors, grids, points and polygons. H3 is useful for some
+aggregations but must not be imposed on every model.
+
+| Option | Pros | Cons | Risk |
+|---|---|---|---|
+| A. Explicit CRS + optional domain kinds (raster/vector/grid/h3/point/polygon) | honest, composable, no global H3 | each model declares its domain | low |
+| B. H3 everywhere | one index | wrong for hydrology/soil/remote sensing | high |
+| C. GeoJSON only | simple | cannot represent rasters/grids | high |
+
+**Advisory:** A. The scientific package must not import MapLibre; visualization is a separate concern.
+**Owner impact:** medium.
+
+## D-HYDROMA-06 — Visualization responsibilities
+
+**Context:** MapLibre/deck.gl already exist. CesiumJS and Three.js would add large rendering engines;
+they need a concrete scientific requirement.
+
+| Option | Pros | Cons | Risk |
+|---|---|---|---|
+| A. MapLibre + deck.gl now; Cesium for terrain later; Three.js only for a defined 3D scene | reuse, low cost, clear boundary | 3D deferred | low |
+| B. Add Cesium now | globe/terrain ready | large bundle, terrain data/licence, mobile cost | medium |
+| C. Add Three.js now | custom 3D | duplicate renderer, no scientific requirement | high |
+
+**Advisory:** A. No 3D dependency in Phase 1 or Phase 2 without an approved use case and performance budget.
+**Owner impact:** medium.
+
+---
+
 ## Status summary
 
 | ID | Topic | Blocks | Owner impact |
@@ -242,3 +328,9 @@ at any level in this phase. **Owner impact:** high.
 | D-PROD-01 | first slice / commerce model | roadmap | critical |
 | D-PROD-02 | country/currency rollout | multi-tenant design | high |
 | D-AI-01 | agent autonomy | ai-workforce implementation | high |
+| D-HYDROMA-01 | scientific runtime boundary | Phase 2 Python runtime | high |
+| D-HYDROMA-02 | scientific persistence/storage | Phase 2 DB and storage | medium |
+| D-HYDROMA-03 | worker execution | Phase 2 job execution | medium |
+| D-HYDROMA-04 | maturity evidence gates | model status and MRV | high |
+| D-HYDROMA-05 | spatial abstraction | scientific inputs/outputs | medium |
+| D-HYDROMA-06 | visualization responsibilities | 3D/terrain roadmap | medium |

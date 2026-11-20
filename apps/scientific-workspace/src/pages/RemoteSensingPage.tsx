@@ -2,9 +2,9 @@ import { useMemo, useState } from "react";
 import { Satellite } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
 import type { TranslationKey } from "@eco-nojin/i18n";
-import { Alert, Badge, Button, Card, CardBody, CardHeader, Field, Input } from "@eco-nojin/ui";
+import { Alert, Badge, Button, Card, CardBody, CardHeader, Field, Input, Panel } from "@eco-nojin/ui";
 import { PageLead } from "../components/Cards";
-import { Panel } from "../components/Charts";
+
 import { ScienceMap, type MapLayers, type SelectedFeature } from "../components/ScienceMap";
 import { useWorkspace } from "../app/WorkspaceContext";
 

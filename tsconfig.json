@@ -23,9 +23,32 @@
       "@/*": ["apps/console/src/*"],
       "@eco-nojin/design-system/*": ["packages/design-system/*"],
       "@eco-nojin/ui": ["packages/ui/src/index.ts"],
+      "@eco-nojin/icons": ["packages/icons/src/index.ts"],
       "@eco-nojin/i18n": ["packages/i18n/src/index.ts"],
-      "@eco-nojin/frontend-core": ["packages/frontend-core/src/index.ts"]
+      "@eco-nojin/frontend-core": ["packages/frontend-core/src/index.ts"],
+      "@eco-nojin/configuration": ["packages/configuration/src/index.ts"],
+      "@eco-nojin/auth-client": ["packages/auth-client/src/index.ts"],
+      "@eco-nojin/utilities": ["packages/utilities/src/index.ts"],
+      "@eco-nojin/scientific": ["packages/scientific/src/index.ts"],
+      "@eco-nojin/spatial": ["packages/spatial/src/index.ts"]
     }
   },
-  "include": ["apps/console/src", "apps/console/tests", "apps/portal/src", "apps/portal/tests", "apps/scientific-workspace/src", "apps/scientific-workspace/tests", "apps/marketplace/src", "apps/marketplace/tests", "packages/ui/src", "packages/i18n/src", "packages/frontend-core/src", "packages/domain-types/src", "packages/validation/src", "packages/api-client/src", "packages/ui/tests", "packages/i18n/tests", "packages/domain-types/tests", "packages/validation/tests", "packages/api-client/tests", "vitest.setup.ts"]
+  "include": [
+    "apps/home/src",
+    "apps/brand/src",
+    "apps/platform/src",
+    "apps/console/src",
+    "apps/console/tests",
+    "apps/portal/src",
+    "apps/portal/tests",
+    "apps/scientific-workspace/src",
+    "apps/scientific-workspace/tests",
+    "apps/marketplace/src",
+    "apps/marketplace/tests",
+    "apps/tourism/src",
+    "apps/tourism/tests",
+    "packages/*/src",
+    "packages/*/tests",
+    "vitest.setup.ts"
+  ]
 }

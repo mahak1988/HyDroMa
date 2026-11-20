@@ -10,11 +10,14 @@ const dairy = PRODUCTS.find((item) => item.slug === "nomad-dairy")!;
 const dateBox = PRODUCTS.find((item) => item.slug === "date-box-export")!;
 
 describe("money", () => {
-  it("formats IRR with zero minor digits and EUR with two", () => {
-    expect(minorDigits("IRR")).toBe(0);
+  it("formats IRR with two minor digits and EUR with two", () => {
+    // IRR has 2 minor units per ISO 4217 (SIX List One, published 2026-09-17).
+    // It was previously asserted as 0, which was the defect this corrects.
+    expect(minorDigits("IRR")).toBe(2);
     expect(minorDigits("EUR")).toBe(2);
-    expect(formatMoney({ amountMinor: 12500000, currency: "IRR" }, "en")).toMatch(/12,500,000/);
+    expect(formatMoney({ amountMinor: 12500000, currency: "IRR" }, "en")).toMatch(/125,000\.00/);
     expect(formatMoney({ amountMinor: 1850, currency: "EUR" }, "en")).toMatch(/18\.50/);
+    expect(formatMoney({ amountMinor: 1, currency: "IRR" }, "en")).toMatch(/0\.01/);
   });
 
   it("never adds different currencies", () => {

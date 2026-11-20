@@ -1,0 +1,16 @@
+{
+  "name": "@eco-nojin/auth-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Demo session primitives and route guards. No tokens, no storage of secrets: the server stays the authority.",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@eco-nojin/domain-types": "0.1.0",
+    "@eco-nojin/frontend-core": "0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-router-dom": "^7.0.0"
+  }
+}

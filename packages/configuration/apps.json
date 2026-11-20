@@ -1,0 +1,74 @@
+[
+  {
+    "id": "home",
+    "path": "/",
+    "devPort": 5181,
+    "audience": "everyone",
+    "titleKey": "apps.home.title",
+    "bodyKey": "apps.home.body",
+    "accent": "brand"
+  },
+  {
+    "id": "platform",
+    "path": "/platform/",
+    "devPort": 5183,
+    "audience": "operators",
+    "titleKey": "apps.platform.title",
+    "bodyKey": "apps.platform.body",
+    "accent": "hydroma"
+  },
+  {
+    "id": "portal",
+    "path": "/portal/",
+    "devPort": 5176,
+    "audience": "public visitors",
+    "titleKey": "apps.portal.title",
+    "bodyKey": "apps.portal.body",
+    "accent": "brand"
+  },
+  {
+    "id": "console",
+    "path": "/console/",
+    "devPort": 5175,
+    "audience": "organizations",
+    "titleKey": "apps.console.title",
+    "bodyKey": "apps.console.body",
+    "accent": "console"
+  },
+  {
+    "id": "scientific-workspace",
+    "path": "/science/",
+    "devPort": 5177,
+    "audience": "scientists",
+    "titleKey": "apps.science.title",
+    "bodyKey": "apps.science.body",
+    "accent": "hydroma"
+  },
+  {
+    "id": "marketplace",
+    "path": "/market/",
+    "devPort": 5178,
+    "audience": "buyers and sellers",
+    "titleKey": "apps.market.title",
+    "bodyKey": "apps.market.body",
+    "accent": "market"
+  },
+  {
+    "id": "tourism",
+    "path": "/tourism/",
+    "devPort": 5179,
+    "audience": "guests and hosts",
+    "titleKey": "apps.tourism.title",
+    "bodyKey": "apps.tourism.body",
+    "accent": "tourism"
+  },
+  {
+    "id": "brand",
+    "path": "/brand/",
+    "devPort": 5182,
+    "audience": "designers",
+    "titleKey": "apps.brand.title",
+    "bodyKey": "apps.brand.body",
+    "accent": "brand"
+  }
+]

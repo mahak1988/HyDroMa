@@ -97,6 +97,8 @@ export function MarketLayout() {
   const nav: Array<{ to: string; key: string; end?: boolean }> = [
     { to: "/", key: "market.navHome", end: true },
     { to: "/catalog", key: "market.navCatalog" },
+    { to: "/categories", key: "market.navCategories" },
+    { to: "/stores", key: "market.navStores" },
     { to: "/cart", key: "market.navCart" },
     { to: "/orders", key: "market.navOrders" },
     { to: "/seller", key: "market.navSeller" },

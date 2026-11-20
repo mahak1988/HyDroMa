@@ -1,17 +1,22 @@
-# apps/tourism — stays and booking
+# apps/tourism — Discover Living Landscapes
 
-**Status:** SKELETON — boundaries defined, no implementation
-**Authority:** root `README.md`, `ECONOJJIN-ARCHITECTURE-BASELINE.md`, `ARCHITECTURE-DECISIONS-OPEN.md`.
-This file defines a boundary. It is not an approval to build.
+**Status:** IMPLEMENTED (frontend, demo data) — see
+`experiments/frontend-phase-2-planning/execution-reports/STAGE-2.8-TOURISM-IMPLEMENTATION-REPORT.md`.
 
-Responsibility: property discovery, availability presentation, reservation flow, guest/host UX.
+Responsibility: destination discovery, rural and nomadic tourism, stays, experiences, events,
+host workspace and a demo booking-request flow.
 
 Boundary:
 - In: `services/tourism` (availability, rates reference), `services/finance` (payment state),
-  `services/notification` (confirmations).
-- Out: calendar math and rate rules (service-owned), payment capture.
-- Calendar/timezone note: local calendars (Jalali/Hijri/Gregorian) and time zones are
-  presentation concerns here, but the canonical timestamps stay UTC in the service layer.
-- Open: standalone app vs `console` module (D-APP-01).
+  `services/notification` (confirmations), `services/landscape` (landscape records).
+- Out: payment capture, real availability, host confirmation, settlement, sensitive geometry.
+- Landscape: destinations reference a landscape record through `landscapeRef`; villages,
+  rangelands and nomadic communities are **not** duplicated here.
+- Nomadic territories: zones, routes and camps carry validity windows, recurring months,
+  access level and sensitivity. Sensitive geometry is never published without consent.
+- Marketplace: host records reference marketplace product ids; no Product/Seller model is
+  duplicated in this app.
+- Booking: every request is a local, browser-only demo record. No payment, no host notice,
+  no capacity is held.
 
-Status: skeleton.
+Status: implemented for demonstration. No backend, no live inventory, no payment.

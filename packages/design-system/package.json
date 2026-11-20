@@ -7,7 +7,9 @@
   "exports": {
     "./tokens.css": "./src/tokens.css",
     "./tailwind.css": "./src/tailwind.css",
-    "./base.css": "./src/base.css"
+    "./base.css": "./src/base.css",
+    "./brand.css": "./src/brand.css",
+    "./brand/tokens.json": "./src/brand/tokens.json"
   },
   "files": ["src"]
 }

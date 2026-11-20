@@ -157,3 +157,56 @@ export function Field({
     </div>
   );
 }
+
+/* --------------------------- Form feedback ---------------------------- */
+
+/**
+ * A field-level error message. Rendered next to the control it belongs to so a
+ * screen reader announces it as part of the field, and so a 422 from the server
+ * can be shown inline instead of as a toast.
+ */
+export function FormError({ id, children }: { id?: string; children?: ReactNode }) {
+  if (!children) return null;
+  return (
+    <p id={id} role="alert" className="text-2xs font-medium text-danger">
+      {children}
+    </p>
+  );
+}
+
+/** Form-level banner for errors that are not tied to a single field. */
+export function FormAlert({ title, children }: { title?: string; children: ReactNode }) {
+  return (
+    <div role="alert" className="rounded-md border border-danger/30 bg-danger-soft px-3 py-2 text-sm text-danger-soft-fg">
+      {title ? <p className="font-medium">{title}</p> : null}
+      <p>{children}</p>
+    </div>
+  );
+}
+
+/** Label + control + hint/error, without repeating the id wiring in every form. */
+export function FormRow<TField extends string>({
+  label,
+  field,
+  hint,
+  error,
+  required,
+  children,
+}: {
+  label: string;
+  field: TField;
+  hint?: string;
+  error?: string;
+  required?: boolean;
+  children: (props: { id: string; "aria-invalid": boolean; "aria-describedby": string | undefined }) => ReactNode;
+}) {
+  return (
+    <Field label={label} htmlFor={field} hint={hint} error={error} required={required}>
+      {children({
+        id: field,
+        "aria-invalid": Boolean(error),
+        "aria-describedby": error ? `${field}-error` : hint ? `${field}-hint` : undefined,
+      })}
+    </Field>
+  );
+}
