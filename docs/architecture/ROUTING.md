@@ -1,37 +1,76 @@
 # Eco Nojin Frontend — Routing & Navigation
 
-**Status:** Phase 2.1 frontend (FE‑4) · **Framework:** `react-router-dom` v7
+**Status:** unified platform (ADR-0010) · **Framework:** `react-router-dom` v7
 
-This documents the **actual** routing architecture. It is not a proposal.
+This documents the **actual** routing architecture: one SPA, lazy sections, one
+session.
 
-## 1. Architecture
-- **Data router** (`createBrowserRouter` + `RouterProvider`) in: `console`, `marketplace`, `tourism`, `portal`, `platform`, `scientific-workspace`.
-- **Static (no router):** `home` (public landing), `brand` (visual showcase).
-- **Base path:** every router uses `routerBasename(import.meta.env.BASE_URL)` from `@eco-nojin/configuration` — no hardcoded root assumptions.
+## 1. One SPA
 
-## 2. Fallback / error routes
-- Every router app declares a catch-all `path: "*"` that renders a real **NotFoundPage** (404), not the home/dashboard. `scientific-workspace` was corrected in FE‑4 (previously fell back to the Dashboard).
-- Route-level error handling uses `RouteErrorPage` (console) / layout error boundaries.
+- `apps/platform` is the only user-facing application, served at `/` by the
+  unified host on port 5180.
+- The router is `createBrowserRouter` in `apps/platform/src/app/router.tsx`,
+  with `basename` from `routerBasename(import.meta.env.BASE_URL)`.
+- `apps/brand` is a separate static design showcase at `/brand/`.
 
-## 3. Guards (authorization is server-checked; UI is presentation only)
-- `console`: `RoutePermissionGuard` (route `handle.permissions`).
-- `marketplace`: `SellerRoute` wraps `/seller`.
-- `tourism`: `HostRoute` wraps `/host` and `/bookings`.
+## 2. Route map
 
-## 4. Shared shell
-- `@eco-nojin/app-shell` provides `AppShell`/`AppHeader`/`AppSidebar`/`AppNav`/`PageHeader`/`Breadcrumbs`. Integrated into **console** (FE‑3). Other apps opt in; no app is forced.
+| Path | Owner | Kind |
+|---|---|---|
+| `/` | public core (`PortalLayout`) | static content pages + real `/login` |
+| `/platform/*` | workspace (`PlatformLayout`) | page registry (`src/content/pages.ts`) |
+| `/tourism/*` | tourism section | lazy section, `internal: true` |
+| `/market/*` | market section | lazy section, `internal: true` |
+| `/landscape/*` | landscape section | lazy section, `internal: true` |
+| `/landscape/field/*` | field collection | nested in the landscape section |
+| `/landscape/admin/*` | administration | nested in the landscape section |
+| `/science/*` | science section | lazy section, `internal: true` |
+| `/hydroma` | public intro page | content page; CTA to `/science` |
+| `/profile`, `/security` | public core | real console account pages |
+| `/api/**` | `services/api` | same-origin proxy |
 
-## 5. Navigation
-- Nav is data (per-app `NAV_GROUPS` / `NAV` arrays) → mapped to shared `NavGroup`s; active state via `NavLink` (`aria-current="page"`); permission filtering via `can()`.
-- Breadcrumbs derived from a per-app `ROUTE_BREADCRUMBS` map (console) or shared `Breadcrumbs`.
+Each section is loaded through `React.lazy` + `Suspense` with a light
+`role="status"` fallback. A failed section chunk does not take down the public
+core.
 
-## 6. PWA
-- `portal` ships `public/manifest.webmanifest` + `public/sw.js` + service-worker registration; scope/base derive from `BASE_URL`. Not verified in an installed browser (no device test); not modified.
+## 3. Navigation
 
-## 7. Route-integrity testing
-- `apps/scientific-workspace/tests/route-integrity.test.ts` — asserts each router app declares a catch-all, the catch-all maps to `NotFoundPage` (not Dashboard), and ScienceLayout nav targets resolve to declared routes. Wired into the root vitest include.
+- Public header/footer and page registry are data (`src/public/content/*.ts`,
+  `src/content/pages.ts`).
+- Section navigation is internal to the section (tourism `NAV`, market
+  `NAV_GROUPS`, science `NAV`, admin `NAV_GROUPS`); all section links go through
+  a `*/paths.ts` helper so the section prefix is preserved.
+- Section entries are listed in `apps/platform/src/sections/manifest.ts` with
+  `internal` and a lazy `loader`.
 
-## 8. Limitations
-- No global cross-app route-integrity guard script (per-app tests + this doc instead).
-- No E2E/visual verification of navigation in a real browser.
-- Only console uses the shared shell; other apps keep their own layouts (opt-in).
+## 4. Guards
+
+- Tourism: `HostRoute` (real session, org `kind === "business"`).
+- Market: `SellerRoute` (real session + seller record from the API).
+- Admin: `RoutePermissionGuard` with route `handle.permissions` (server
+  re-checks every call).
+- Field: no route guard; a guest queue stays `pending` until sign-in.
+
+## 5. API
+
+- All frontend calls go to `/api`; Vite dev and both hosts proxy to
+  `http://127.0.0.1:8000`.
+- Session cookie is `SameSite=Lax`; same-origin is mandatory.
+- HyDroMA engine base URL is configurable (`VITE_HYDROMA_BASE_URL`); an
+  unreachable engine renders an explicit unavailable state.
+
+## 6. Fallbacks
+
+- Every section declares a catch-all rendering its `NotFoundPage`.
+- The platform root declares `path: "*"` → `NotFoundPage`.
+- Archived apps keep their own routers for reference but are not served or
+  built.
+
+## 7. Testing
+
+- `apps/platform/tests/smoke.spec.ts` — public core, workspace, real login.
+- `tourism.spec.ts`, `market.spec.ts`, `landscape.spec.ts`, `field.spec.ts`,
+  `admin.spec.ts`, `account.spec.ts`, `science.spec.ts` — section e2e.
+- `*-a11y.spec.ts` — zero-tolerance axe gate per section.
+- `packages/configuration/tests` — registry v2.
+- `node --test services/api/tests/api.test.mjs` — API contract.

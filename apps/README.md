@@ -1,54 +1,61 @@
 # apps/ — one platform, one port, specialised sections
 
-**Status:** unified platform SPA (Phase 2 complete) · **One port:** `http://localhost:5180`
+**Status:** unified platform SPA (ADR-0010) · **One port:** `http://localhost:5180`
 
-The runtime is **one platform application** (`apps/platform`, port 5181) served by the
-unified host on port 5180: the **public core** lives at the root, and specialised
-sections are reached from the platform header. `packages/configuration/apps.json`
-is the registry (v2) — every entry carries `status`, `owner`, `dataMode`,
-`requiresSession` and `apiNamespaces`; `scripts/app-manifest.mjs` enforces
-five-way consistency (folder⇄registry, api usage, session primitives, test gates,
-unique paths/ports) in `verify`.
+The runtime is **one platform application** (`apps/platform`) served by the
+unified host on port 5180. The **public core** lives at `/`, the workspace at
+`/platform`, and the specialised sections are lazy route trees inside the same
+SPA. `apps/brand` is a static design showcase at `/brand/`.
 
-## Runtime apps (7)
+`packages/configuration/apps.json` is the registry (v2): every entry carries
+`status`, `owner`, `dataMode`, `requiresSession` and `apiNamespaces`.
+`scripts/app-manifest.mjs` enforces five-way consistency in `verify`.
 
-| App | Path | Internal port | Audience | Status | dataMode |
-|---|---|---|---|---|---|
-| `platform` | `/` | 5181 | everyone + operators | **live** | hybrid — public core at `/` (12 pages, real `/login`), workspace at `/platform` |
-| `console` | `/console/` | 5175 | organizations | **live** | api — fully real identity, notifications, session |
-| `scientific-workspace` | `/science/` | 5177 | scientists | **live** | api — model registry + runs via `hydroma-client` → local engine |
-| `marketplace` | `/market/` | 5178 | buyers, sellers | beta | hybrid — real session + sellers; catalog fixture (owner decision pending) |
-| `tourism` | `/tourism/` | 5179 | guests, hosts | beta | hybrid — real session gate + inquiries; booking backend pending |
-| `field-collection` | `/field/` | 5185 | field workers | sandbox | offline — localStorage queue; real sync pending |
-| `brand` | `/brand/` | 5182 | designers | sandbox | content — live tokens reference |
+## Sections (internal to the platform SPA)
 
-Migration target and phase order: `docs/reports/برنامه-پلتفرم-یکپارچه-2026-11-23.md`.
-Blocked capabilities (never faked): `docs/BLOCKED-CAPABILITIES.md`.
+| Section | Path | Kind | Notes |
+|---|---|---|---|
+| public core | `/` | static + real `/login` | marketing content, contact, auth |
+| workspace | `/platform/*` | page registry | landscape/projects/mrv/knowledge pages |
+| tourism | `/tourism/*` | lazy | real session gate; booking backend pending |
+| market | `/market/*` | lazy | sellers from API; catalog content-backed (hybrid) |
+| landscape | `/landscape/*` | lazy | shared page registry |
+| field | `/landscape/field/*` | lazy (nested) | offline queue; real `/v1/resources/surveys` sync |
+| admin | `/landscape/admin/*` | lazy (nested) | identity, users, notifications, profile, security |
+| science | `/science/*` | lazy | `hydroma-client`; explicit unavailable states |
+| brand | `/brand/` | separate static app | token showcase |
 
-## Sections bridge
+## Archived registry entries
 
-While a section still runs as its own bundle, it is listed in
-`apps/platform/src/sections/manifest.ts` (`external: true`) and the public header
-links to it with a document navigation. A section becomes `internal` when its
-routes move into the platform SPA as a lazy module.
+`console`, `marketplace`, `tourism`, `field-collection` and
+`scientific-workspace` are marked `status: "archived"`. `build:all`,
+`unified-dev` and `unified-serve` skip them. Their source folders remain under
+`apps/` (so `pnpm run check:apps` stays green and the code keeps typechecking);
+moving them to `archive/legacy-*` is an owner-approved change.
 
 ## Run
 
 ```bash
-pnpm run dev        # unified host on :5180 (API on :8000 + every app behind a proxy)
-pnpm run seed       # load reference data (catalog categories) into the API database
-pnpm run preview    # same host serving the production builds (build first)
-pnpm run build      # build all apps with the right base path
-pnpm run verify     # typecheck + lint + boundaries + tokens + app-manifest + unit + api tests + builds
+pnpm run dev        # unified host :5180 + API :8000
+pnpm run seed       # reference data (catalog categories)
+pnpm run preview    # serve production builds (build first)
+pnpm run build:all  # build live apps with the right base path
+pnpm run verify     # typecheck + lint + boundaries + tokens + app-manifest
+                    # + unit + API tests + build + bundle budget
+pnpm run check:bundle  # bundle budget only (after a build)
 ```
 
-Standalone section development keeps its own internal port (see registry), and
-`/api` is proxied by every dev server and both hosts, so session cookies stay
+`/api` is proxied by the dev server and both hosts, so session cookies stay
 same-origin everywhere.
 
-## Rules for adding or changing an app
+## Rules for adding or changing a section
 
-1. Registry entry first (`apps.json`, v2 fields required) — `pnpm run check:apps` fails otherwise.
-2. DoD for `status: "live"`: e2e spec + a11y spec + real data source (no fixtures).
-3. A blocked capability is labeled unavailable in the UI, never substituted with fake data.
-4. Commits only on explicit owner request; one work package per commit.
+1. Registry entry first (`apps.json`, v2 fields required); archived apps are
+   skipped by build/dev.
+2. Add the section as an internal lazy route in `src/sections/manifest.ts`;
+   keep its links behind a `*/paths.ts` helper.
+3. Reuse the root `RealSessionProvider`; never create a second session provider.
+4. `status: "live"` requires e2e + a11y specs and a real data source.
+5. A blocked capability is labeled unavailable in the UI, never substituted
+   with fake data (`docs/BLOCKED-CAPABILITIES.md`).
+6. Commits only on explicit owner request; one work package per commit.
