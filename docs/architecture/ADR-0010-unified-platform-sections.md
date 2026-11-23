@@ -51,10 +51,9 @@ made `/api` cookies fragile across origins, and multiplied bundle budgets.
   i18n catalogs are in the entry); the budget gate keeps it under 900 KB.
 - Legacy app folders live under `archive/legacy-*`; they still typecheck and
   lint from there but are no longer served or built.
-- The public marketing copy is currently authored in en/fa/ar; shared i18n
-  catalog keys (auth, sections, apps, hydroma, …) exist in all 15 shipped
-  locales. Translating the public core into the remaining 12 locales is open
-  work and must use native copy, not machine translation passed off as final.
+- The public core is authored in all 15 shipped locales (en, fa, ar, de, es, fr,
+  hi, id, it, ja, ko, pt, ru, tr, zh); shared catalog keys are complete in the
+  same 15. Locale parity is covered by the i18n and public-content tests.
 
 ## References
 
