@@ -14,7 +14,10 @@ const PORT = 5180;
 const pm = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
 const isWindows = process.platform === "win32";
 
-const apps = JSON.parse(await readFile(path.join(ROOT, "packages", "configuration", "apps.json"), "utf8"));
+const apps = JSON.parse(await readFile(path.join(ROOT, "packages", "configuration", "apps.json"), "utf8"))
+  // Archived apps are migrated into the platform SPA; their legacy bundle is no
+  // longer served on the unified host.
+  .filter((app) => app.status !== "archived");
 // Longest prefix first so "/console/" wins over the "/" catch-all.
 const ordered = [...apps].sort((a, b) => b.path.length - a.path.length);
 

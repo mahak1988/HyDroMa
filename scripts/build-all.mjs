@@ -6,7 +6,9 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const pm = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
-const apps = JSON.parse(readFileSync(path.join(ROOT, "packages", "configuration", "apps.json"), "utf8"));
+const apps = JSON.parse(readFileSync(path.join(ROOT, "packages", "configuration", "apps.json"), "utf8"))
+  // Archived apps live in the platform SPA now; the legacy bundle is not built.
+  .filter((app) => app.status !== "archived");
 
 const results = [];
 for (const app of apps) {

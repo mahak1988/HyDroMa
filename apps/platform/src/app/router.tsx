@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { routerBasename } from "@eco-nojin/configuration";
 import { PlatformLayout } from "./PlatformLayout";
 import { PortalLayout } from "../public/app/PortalLayout";
@@ -33,6 +33,25 @@ function ExternalRedirect({ href }: { href: string }) {
 const overview = pageById("overview");
 
 /**
+ * Internal sections are lazily loaded behind their own route prefix. Each one
+ * is a separate chunk (see `src/sections/manifest.ts`); the fallback is a light
+ * status message, not a full page.
+ */
+const TourismSection = lazy(() => import("../sections/tourism/app/router"));
+
+function SectionFallback() {
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="grid min-h-[60dvh] place-items-center bg-canvas text-sm text-fg-muted"
+    >
+      بارگذاری بخش…
+    </div>
+  );
+}
+
+/**
  * The unified platform router: the public core at the root (migrated from the
  * portal), the platform workspace nested under `/platform`, and redirects to
  * external section bundles for areas not migrated yet.
@@ -49,7 +68,6 @@ export const router = createBrowserRouter(
         // Section landings live in their own bundles; send visitors there.
         { path: "landscape", element: <ExternalRedirect href="/platform/" /> },
         { path: "marketplace", element: <ExternalRedirect href="/market/" /> },
-        { path: "tourism", element: <ExternalRedirect href="/tourism/" /> },
         { path: "mrv", element: <PageView pageKey="mrv" path="/mrv" /> },
         { path: "knowledge", element: <PageView pageKey="knowledge" path="/knowledge" /> },
         { path: "about", element: <PageView pageKey="about" path="/about" /> },
@@ -58,6 +76,14 @@ export const router = createBrowserRouter(
         { path: "login", element: <AuthPage /> },
         { path: "*", element: <NotFoundPage /> },
       ],
+    },
+    {
+      path: "/tourism/*",
+      element: (
+        <Suspense fallback={<SectionFallback />}>
+          <TourismSection />
+        </Suspense>
+      ),
     },
     {
       path: "/platform",

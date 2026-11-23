@@ -86,7 +86,7 @@
     "titleKey": "apps.tourism.title",
     "bodyKey": "apps.tourism.body",
     "accent": "tourism",
-    "status": "beta",
+    "status": "archived",
     "owner": "tourism-session",
     "dataMode": "hybrid",
     "requiresSession": false,
@@ -95,7 +95,7 @@
       "/v1/resources/inquiries"
     ],
     "since": "2026-11-19",
-    "notes": "Real session gate + real inquiry create; availability/booking backend pending."
+    "notes": "Migrated into the platform SPA as an internal lazy section at /tourism. Legacy bundle archived; folder removed in phase 7."
   },
   {
     "id": "field-collection",

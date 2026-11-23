@@ -16,6 +16,8 @@ export type SectionDescriptor = {
   href: string;
   /** false = separate bundle behind the unified host (document navigation). */
   internal: boolean;
+  /** Lazy loader for an internal section (own chunk). */
+  loader?: () => Promise<unknown>;
   audience: string;
 };
 
@@ -28,7 +30,14 @@ export const SECTIONS: SectionDescriptor[] = [
     audience: "landscape managers and operators",
   },
   { id: "market", labelKey: "apps.market.short", href: "/market/", internal: false, audience: "buyers and sellers" },
-  { id: "tourism", labelKey: "apps.tourism.short", href: "/tourism/", internal: false, audience: "guests and hosts" },
+  {
+    id: "tourism",
+    labelKey: "apps.tourism.short",
+    href: "/tourism",
+    internal: true,
+    loader: () => import("./tourism/app/router"),
+    audience: "guests and hosts",
+  },
   {
     id: "science",
     labelKey: "apps.science.short",
