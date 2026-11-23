@@ -10,7 +10,7 @@ import "./styles/index.css";
 import { router } from "./app/router";
 import { AppProviders, createQueryClient } from "@eco-nojin/frontend-core";
 import { ShellErrorBoundary } from "./app/ShellErrorBoundary";
-import { DemoSessionProvider } from "./session/DemoSession";
+import { ConsoleSessionProvider } from "./session/Session";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Root container missing");
@@ -20,14 +20,14 @@ const queryClient = createQueryClient();
 createRoot(container).render(
   <StrictMode>
     <AppProviders queryClient={queryClient}>
-      <DemoSessionProvider>
+      <ConsoleSessionProvider>
         <ShellErrorBoundary>
           <>
           <RouterProvider router={router} />
           <AppSwitcher current="console" />
         </>
         </ShellErrorBoundary>
-      </DemoSessionProvider>
+      </ConsoleSessionProvider>
     </AppProviders>
   </StrictMode>,
 );

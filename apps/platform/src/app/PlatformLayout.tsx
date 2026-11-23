@@ -15,6 +15,7 @@ export function PlatformLayout() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     setOpen(false);
@@ -49,9 +50,22 @@ export function PlatformLayout() {
         </div>
 
         <nav className="pl-nav">
+          <div className="pl-search">
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search pages…"
+              className="pl-searchInput"
+              aria-label="Search pages"
+            />
+          </div>
           {SECTIONS.map((item) => {
-            const pages = pagesOf(item.id as SectionId).filter((page) => page.path !== "");
-            const isOpen = collapsed[item.id] !== true;
+            const pages = pagesOf(item.id as SectionId)
+              .filter((page) => page.path !== "")
+              .filter((page) => !query || t(page.title, locale).toLowerCase().includes(query.toLowerCase()) || page.path.toLowerCase().includes(query.toLowerCase()));
+            if (query && pages.length === 0 && item.id !== "overview") return null;
+            const isOpen = query ? true : collapsed[item.id] !== true;
             const active = current.section === item.id;
             return (
               <div key={item.id} className={`pl-navGroup${active ? " is-active" : ""}`}>

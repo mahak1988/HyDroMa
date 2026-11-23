@@ -1,0 +1,1 @@
+export { en as hi } from "./en";

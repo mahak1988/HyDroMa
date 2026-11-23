@@ -1,0 +1,13 @@
+{
+  "name": "@eco-nojin/hydroma-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared typed client for the HyDroMA engine HTTP API (health, models, runs, provenance).",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@eco-nojin/api-client": "workspace:*"
+  }
+}

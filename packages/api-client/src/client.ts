@@ -3,8 +3,30 @@ import type {
   Membership,
   Organization,
   Paginated,
+  Product,
+  Seller,
   User,
 } from "@eco-nojin/domain-types";
+
+/** Session payloads returned by the Eco Nojin auth endpoints. */
+export type AuthMe = {
+  user: User;
+  memberships: Membership[];
+  activeOrganizationId: string | null;
+};
+export type AuthResult = {
+  user: User;
+  organizations?: Organization[];
+};
+export type LoginInput = { email: string; password: string };
+export type RegisterInput = {
+  email: string;
+  name: string;
+  password: string;
+  organizationName?: string;
+  country?: string;
+};
+export type AcceptInviteInput = { token: string; password: string };
 import type {
   InvitationCreateInput,
   MembershipRoleInput,
@@ -26,6 +48,17 @@ export function createApiClient(config: ApiClientConfig) {
   const transport = createTransport(config);
 
   return {
+    auth: {
+      me: (options?: { signal?: AbortSignal }) =>
+        transport.request<AuthMe>({ path: "v1/auth/me", signal: options?.signal }),
+      login: (payload: LoginInput) =>
+        transport.request<AuthResult>({ method: "POST", path: "v1/auth/login", body: payload }),
+      register: (payload: RegisterInput) =>
+        transport.request<AuthResult>({ method: "POST", path: "v1/auth/register", body: payload }),
+      logout: () => transport.request<{ ok: boolean }>({ method: "POST", path: "v1/auth/logout" }),
+      acceptInvite: (payload: AcceptInviteInput) =>
+        transport.request<AuthResult>({ method: "POST", path: "v1/auth/accept-invite", body: payload }),
+    },
     users: {
       list: (query: ListQuery = {}, options?: { signal?: AbortSignal }) =>
         transport.request<Paginated<User>>({ path: "v1/users", query: toQuery(query), signal: options?.signal }),
@@ -76,6 +109,49 @@ export function createApiClient(config: ApiClientConfig) {
         transport.request<Membership>({
           method: "PATCH",
           path: `v1/organizations/${encodeURIComponent(organizationId)}/members/${encodeURIComponent(membershipId)}`,
+          body: payload,
+        }),
+    },
+    catalog: {
+      categories: (options?: { signal?: AbortSignal }) =>
+        transport.request<unknown>({ path: "v1/catalog/categories", signal: options?.signal }),
+      sellers: (organizationId?: string, options?: { signal?: AbortSignal }) =>
+        transport.request<Paginated<Seller>>({
+          path: "v1/catalog/sellers",
+          query: organizationId ? { organizationId } as Record<string, string> : undefined,
+          signal: options?.signal,
+        }),
+      products: (query?: ListQuery, options?: { signal?: AbortSignal }) =>
+        transport.request<Paginated<Product>>({
+          path: "v1/catalog/products",
+          query: toQuery(query ?? {}),
+          signal: options?.signal,
+        }),
+      createProduct: (payload: unknown) =>
+        transport.request<Product>({ method: "POST", path: "v1/catalog/products", body: payload }),
+    },
+    resources: {
+      list: (type: string, query: ListQuery = {}, options?: { signal?: AbortSignal }) =>
+        transport.request<Paginated<Record<string, unknown>>>({
+          path: `v1/resources/${encodeURIComponent(type)}`,
+          query: toQuery(query),
+          signal: options?.signal,
+        }),
+      get: (type: string, id: string, options?: { signal?: AbortSignal }) =>
+        transport.request<Record<string, unknown>>({
+          path: `v1/resources/${encodeURIComponent(type)}/${encodeURIComponent(id)}`,
+          signal: options?.signal,
+        }),
+      create: (type: string, payload: Record<string, unknown>) =>
+        transport.request<Record<string, unknown>>({
+          method: "POST",
+          path: `v1/resources/${encodeURIComponent(type)}`,
+          body: payload,
+        }),
+      update: (type: string, id: string, payload: Record<string, unknown>) =>
+        transport.request<Record<string, unknown>>({
+          method: "PATCH",
+          path: `v1/resources/${encodeURIComponent(type)}/${encodeURIComponent(id)}`,
           body: payload,
         }),
     },

@@ -87,7 +87,7 @@ function readToken(name: string): string {
 }
 
 export function BrandApp() {
-  const { t, locale } = useI18n();
+  const { t, locale, locales, setLocale } = useI18n();
   const loc = (value: { fa: string; en: string; ar: string }): string =>
     locale === "fa" ? value.fa : locale === "ar" ? value.ar : value.en;
   const { mode, setMode } = useTheme();
@@ -107,7 +107,10 @@ export function BrandApp() {
           ← {t("brand.back")}
         </a>
         <h1>{t("brand.intro")}</h1>
-        <span className="brand__version">v1.1 · Warm Luxury</span>
+        <span className="brand__version">v1.1</span>
+        <select value={locale} onChange={(e) => setLocale(e.target.value as never)} className="brand__locale">
+          {locales.filter((l) => l.enabled).map((l) => <option key={l.code} value={l.code}>{l.code}</option>)}
+        </select>
       </header>
 
       <nav className="brand__tabs" aria-label={t("brand.intro")}>

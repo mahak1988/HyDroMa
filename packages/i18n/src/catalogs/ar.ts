@@ -1,6 +1,42 @@
 import type { Catalog } from "./en";
 
 export const ar: Catalog = {
+  auth: {
+    loginTitle: "تسجيل الدخول إلى Eco Nojin",
+    registerTitle: "إنشاء حساب جديد",
+    inviteTitle: "قبول الدعوة",
+    email: "البريد الإلكتروني",
+    password: "كلمة المرور",
+    name: "الاسم الكامل",
+    organizationName: "اسم المنظمة",
+    organizationOptional: "اختياري — ينشئ منظمة جديدة تملكها",
+    inviteToken: "رمز الدعوة",
+    submitLogin: "تسجيل الدخول",
+    submitRegister: "إنشاء حساب",
+    submitInvite: "قبول الدعوة",
+    switchToRegister: "ليس لديك حساب؟ أنشئ واحداً",
+    switchToLogin: "لديك حساب؟ سجّل الدخول",
+    switchToInvite: "لديك رمز دعوة؟",
+    submitting: "جارٍ التنفيذ…",
+    passwordHint: "عشرة أحرف على الأقل.",
+    modeLogin: "دخول",
+    modeRegister: "تسجيل",
+    modeInvite: "دعوة",
+    signedInAs: "مسجّل باسم {name}",
+    signedOut: "تم تسجيل خروجك.",
+    sessionExpired: "انتهت جلستك. سجّل الدخول مرة أخرى للمتابعة.",
+  },
+
+  hydroma: {
+    models: "نماذج HyDroMA",
+    maturity: "النضج",
+    scientificStatus: "الحالة العلمية",
+    units: "الوحدات",
+    noModels: "استجابت خدمة HyDroMA لكنها لا تعرض أي نماذج.",
+    serviceUnavailable: "خدمة HyDroMA غير متاحة",
+    serviceUnavailableBody: "الخدمة العلمية غير متاحة الآن. يعرض هذا القسم بيانات الخدمة الحقيقية فقط؛ المؤشرات التجريبية في مكان آخر.",
+    invalidResponse: "أعادت خدمة HyDroMA استجابة غير متوقعة.",
+  },
   brand: {
     intro: "نظام تصميم إيكو نوشين",
     tokens: "الرموز",
@@ -58,6 +94,7 @@ export const ar: Catalog = {
     tourism: { title: "سياحة المناظر الحية", body: "المقاصد والإقامات والتجارب والحجوزات مع تقويم شمسي وخريطة طبقية.", short: "السياحة" },
     brand: { title: "نظام التصميم", body: "الرموز والمكوّنات والسمتان الفاتحة والداكنة والهوية البصرية 1.1 — المرجع لتوحيد كل الأسطح.", short: "الهوية" },
     platform: { title: "المنصة المتكاملة", body: "المناظر والزراعة والتحقق والمشاريع والمعرفة والمالية والحوكمة في مساحة عمل واحدة.", short: "المنصة" },
+    field: { title: "الجمع الميداني", body: "مساحة عمل الاستبيان والخريطة والتحقق للعاملين ميدانياً (بيانات تجريبية).", short: "الميدان", surveyTitle: "الاستبيان", surveySave: "حفظ (تجريبي)", mapTitle: "الخريطة", homeTitle: "الجمع الميداني", recordsTitle: "السجلات" },
   },
   switcher: {
     label: "كل التطبيقات",

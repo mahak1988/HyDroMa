@@ -1,19 +1,34 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { ar } from "./catalogs/ar";
+import { de } from "./catalogs/de";
 import { en, type Catalog, type TranslationKey } from "./catalogs/en";
+import { es } from "./catalogs/es";
 import { fa } from "./catalogs/fa";
+import { fr } from "./catalogs/fr";
+import { id } from "./catalogs/id";
+import { it } from "./catalogs/it";
+import { ja } from "./catalogs/ja";
+import { pt } from "./catalogs/pt";
+import { ru } from "./catalogs/ru";
+import { tr } from "./catalogs/tr";
+import { zh } from "./catalogs/zh";
+import { DirectionProvider } from "./direction";
 import {
   DEFAULT_LOCALE,
   LOCALE_STORAGE_KEY,
   LOCALES,
   getLocale,
   isLocaleCode,
+  resolveLocale,
   type LocaleCode,
   type LocaleDirection,
 } from "./registry";
 
-const catalogs: Record<LocaleCode, Catalog> = { fa, en, ar };
+const catalogs: Record<LocaleCode, Catalog> = {
+  fa, en, ar, es, fr, de, pt, ru, zh, ja, tr, it, id,
+  ko: en, hi: en,
+};
 
 type PluralKey = "plural.notifications";
 
@@ -40,12 +55,21 @@ type I18nValue = {
 const I18nContext = createContext<I18nValue | null>(null);
 
 function detectLocale(): LocaleCode {
+  // 1. explicit, persisted user choice wins
   try {
     const stored = window.localStorage.getItem(LOCALE_STORAGE_KEY);
     if (isLocaleCode(stored)) return stored;
   } catch {
     // Storage can be blocked; the shell must still render.
   }
+  // 2. browser language preference (base subtag, e.g. "fa-IR" -> "fa")
+  if (typeof navigator !== "undefined" && navigator.languages && navigator.languages.length > 0) {
+    for (const lang of navigator.languages) {
+      const code = resolveLocale(lang);
+      if (code) return code;
+    }
+  }
+  // 3. default locale
   return DEFAULT_LOCALE;
 }
 
@@ -156,7 +180,11 @@ export function I18nProvider({
     };
   }, [definition, dir, locale, setLocale]);
 
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+  return (
+    <DirectionProvider locale={locale}>
+      <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
+    </DirectionProvider>
+  );
 }
 
 export function useI18n(): I18nValue {

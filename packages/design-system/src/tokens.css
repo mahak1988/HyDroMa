@@ -2,6 +2,12 @@
  * Eco Nojin — design tokens.
  *
  * Source of truth: "Eco Nojin Visual Identity, Experience & Design System v1.1".
+ *
+ * CANONICAL SOURCE OF TRUTH: this file. All applications consume it via
+ * `tokens.css` + `tailwind.css` + `base.css`. The `brand/` subtree
+ * (brand.css, brand/tokens.css, brand/tokens.json) is a LEGACY candidate
+ * palette ("Path A") pending owner decision COLOR-01 / D-BRAND — it is NOT
+ * canonical and must not be treated as a second source of truth.
  * The identity is warm and editorial: Royal Aubergine is the brand colour, Burnt
  * Terracotta the warm accent, Antique Champagne the premium detail. Green is no
  * longer a brand colour — it survives only as a *semantic* success/scientific

@@ -24,7 +24,7 @@ import {
   type DataTableColumn,
 } from "@eco-nojin/ui";
 import { PageHeader } from "../../app/layouts/PageHeader";
-import { useSession } from "../../session/DemoSession";
+import { useSession } from "../../session/Session";
 import { identityRepository } from "../../data";
 import { apiErrorMessage, userInvalidationKeys, useUsers } from "./queries";
 

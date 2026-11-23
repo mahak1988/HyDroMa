@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Boxes, FileCheck2, Languages, Layers } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
 import type { TranslationKey } from "@eco-nojin/i18n";
+import { useQuery } from "@tanstack/react-query";
 import { Badge, Card, CardBody, CardHeader } from "@eco-nojin/ui";
 import { PageHeader } from "../app/layouts/PageHeader";
-import { DemoFixtures } from "../permissions/fixture";
+import { useNotifications, useHealth, API_BASE } from "../hooks/useConsoleData";
+import { useSession } from "../session/Session";
 
 type Pillar = {
   titleKey: TranslationKey;
@@ -21,7 +23,34 @@ const pillars: Pillar[] = [
 
 export function HomePage() {
   const { t, format, locale, tp } = useI18n();
-  const unread = DemoFixtures.notifications.filter((item) => !item.read).length;
+  const { data: notifications } = useNotifications();
+  const { data: health } = useHealth();
+  const { activeOrg, status } = useSession();
+
+  // Real counts from the API; rendered as numbers, not progress fixtures.
+  const orgs = useQuery({
+    queryKey: ["home", "orgs"],
+    queryFn: async ({ signal }: { signal: AbortSignal }) => {
+      const response = await fetch(`${API_BASE}/v1/organizations`, { credentials: "include", signal });
+      if (!response.ok) throw new Error(`orgs ${response.status}`);
+      return (await response.json()) as { total: number };
+    },
+    enabled: status === "authenticated",
+  });
+  const users = useQuery({
+    queryKey: ["home", "users", activeOrg?.id],
+    queryFn: async ({ signal }: { signal: AbortSignal }) => {
+      const response = await fetch(`${API_BASE}/v1/users?organizationId=${encodeURIComponent(activeOrg?.id ?? "")}`, {
+        credentials: "include",
+        signal,
+      });
+      if (!response.ok) throw new Error(`users ${response.status}`);
+      return (await response.json()) as { total: number };
+    },
+    enabled: status === "authenticated" && Boolean(activeOrg?.id),
+  });
+
+  const unread = notifications?.unread ?? 0;
 
   return (
     <div>
@@ -45,9 +74,9 @@ export function HomePage() {
           <span dir="ltr">{locale}</span>
         </Badge>
         <Badge tone="neutral">
-          {t("common.version")} <span className="numeric">{DemoFixtures.version}</span>
+          {t("common.version")} <span className="numeric">{health?.version ?? "…"}</span>
         </Badge>
-        <Badge tone="warning">{t("common.demoNote")}</Badge>
+        <Badge tone="success">{t("common.liveApi")}</Badge>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -65,30 +94,20 @@ export function HomePage() {
       </div>
 
       <Card className="mt-4">
-        <CardHeader title={t("common.workspace")} subtitle={t("common.demoNote")} />
-        <CardBody className="space-y-3">
-          {[
-            { label: t("nav.organizations"), value: 78 },
-            { label: t("nav.users"), value: 64 },
-            { label: t("nav.components"), value: 42 },
-          ].map((item) => (
-            <div key={item.label} className="space-y-1">
-              <div className="flex items-center justify-between text-2xs">
-                <span className="text-fg-muted">{item.label}</span>
-                <span className="numeric text-fg">{item.value}%</span>
-              </div>
-              <div
-                className="h-1.5 overflow-hidden rounded-pill bg-surface-3"
-                role="progressbar"
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-valuenow={item.value}
-                aria-label={item.label}
-              >
-                <div className="h-full rounded-pill bg-primary" style={{ width: `${item.value}%` }} />
-              </div>
-            </div>
-          ))}
+        <CardHeader title={t("common.workspace")} subtitle={activeOrg?.name ?? ""} />
+        <CardBody className="grid gap-3 sm:grid-cols-3">
+          <div className="rounded-md bg-surface-2 p-3">
+            <p className="text-2xs text-fg-subtle">{t("nav.organizations")}</p>
+            <p className="mt-1 text-lg font-semibold text-fg numeric">{orgs.data?.total ?? "…"}</p>
+          </div>
+          <div className="rounded-md bg-surface-2 p-3">
+            <p className="text-2xs text-fg-subtle">{t("nav.users")}</p>
+            <p className="mt-1 text-lg font-semibold text-fg numeric">{users.data?.total ?? "…"}</p>
+          </div>
+          <div className="rounded-md bg-surface-2 p-3">
+            <p className="text-2xs text-fg-subtle">{t("common.notifications")}</p>
+            <p className="mt-1 text-lg font-semibold text-fg numeric">{tp("plural.notifications", unread)}</p>
+          </div>
         </CardBody>
       </Card>
 
@@ -97,10 +116,7 @@ export function HomePage() {
           title={t("common.notifications")}
           subtitle={t("notifications.subtitle")}
           action={
-            <Link
-              to="/notifications"
-              className="rounded-md px-2 py-1 text-2xs font-medium text-primary hover:underline"
-            >
+            <Link to="/notifications" className="rounded-md px-2 py-1 text-2xs font-medium text-primary hover:underline">
               {t("common.notifications")}
             </Link>
           }
@@ -114,9 +130,7 @@ export function HomePage() {
           </div>
           <div className="rounded-md bg-surface-2 p-3">
             <p className="text-2xs text-fg-subtle">{t("common.notifications")}</p>
-            <p className="mt-1 text-sm font-medium text-fg">
-              {tp("plural.notifications", unread)}
-            </p>
+            <p className="mt-1 text-sm font-medium text-fg">{tp("plural.notifications", unread)}</p>
           </div>
         </CardBody>
       </Card>

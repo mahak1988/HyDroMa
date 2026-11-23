@@ -18,6 +18,7 @@ const CARD_ICON: Record<string, IconName> = {
   tourism: "tourism",
   brand: "model",
   platform: "services",
+  "field-collection": "water",
 };
 
 const TITLE_KEYS: Record<string, TranslationKey> = {
@@ -28,6 +29,7 @@ const TITLE_KEYS: Record<string, TranslationKey> = {
   tourism: "apps.tourism.title",
   brand: "apps.brand.title",
   platform: "apps.platform.title",
+  "field-collection": "apps.field.title",
 };
 
 const BODY_KEYS: Record<string, TranslationKey> = {
@@ -38,6 +40,7 @@ const BODY_KEYS: Record<string, TranslationKey> = {
   tourism: "apps.tourism.body",
   brand: "apps.brand.body",
   platform: "apps.platform.body",
+  "field-collection": "apps.field.body",
 };
 
 export function HomeApp() {

@@ -1,4 +1,4 @@
-export { createApiClient, type ApiClient, type ApiClientConfig } from "./client";
+export { createApiClient, type ApiClient, type ApiClientConfig, type AuthMe, type AuthResult, type LoginInput, type RegisterInput, type AcceptInviteInput } from "./client";
 export { ApiError, statusToCode, type ErrorCode, type ErrorEnvelope } from "./errors";
 export { toQuery, type ListQuery } from "./pagination";
 export { createTransport, type HttpMethod, type RequestOptions, type Transport, type TransportConfig } from "./transport";

@@ -1,12 +1,24 @@
-import type { LocaleCode, SiteContent } from "./types";
+import type { SiteContent } from "./types";
 import { ar } from "./ar";
+import { de } from "./de";
 import { en } from "./en";
+import { es } from "./es";
 import { fa } from "./fa";
+import { fr } from "./fr";
+import { hi } from "./hi";
+import { id } from "./id";
+import { it } from "./it";
+import { ja } from "./ja";
+import { ko } from "./ko";
+import { pt } from "./pt";
+import { ru } from "./ru";
+import { tr } from "./tr";
+import { zh } from "./zh";
 
-export const CONTENT: Record<LocaleCode, SiteContent> = { fa, en, ar };
+export const CONTENT: Record<string, SiteContent> = { fa, en, ar, es, fr, de, pt, ru, zh, ja, ko, tr, it, hi, id };
 
 export function contentFor(locale: string): SiteContent {
-  return CONTENT[locale as LocaleCode] ?? en;
+  return CONTENT[locale] ?? en;
 }
 
 export const ROUTES = [

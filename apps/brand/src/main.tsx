@@ -8,7 +8,7 @@ import "@eco-nojin/design-system/base.css";
 import "./styles.css";
 import { I18nProvider } from "@eco-nojin/i18n";
 import { ThemeProvider } from "@eco-nojin/frontend-core/theme";
-import { AppSwitcher } from "@eco-nojin/ui";
+import { AppSwitcher, ToastProvider } from "@eco-nojin/ui";
 import { BrandApp } from "./BrandApp";
 
 const container = document.getElementById("root");
@@ -18,10 +18,12 @@ createRoot(container).render(
   <StrictMode>
     <ThemeProvider>
       <I18nProvider>
+        <ToastProvider>
         <>
           <BrandApp />
           <AppSwitcher current="brand" />
         </>
+        </ToastProvider>
       </I18nProvider>
     </ThemeProvider>
   </StrictMode>,

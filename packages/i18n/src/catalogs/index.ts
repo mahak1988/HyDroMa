@@ -1,3 +1,14 @@
 export { ar } from "./ar";
+export { de } from "./de";
 export { en, type Catalog, type TranslationKey } from "./en";
+export { es } from "./es";
 export { fa } from "./fa";
+export { fr } from "./fr";
+export { hi } from "./hi";
+export { id } from "./id";
+export { it } from "./it";
+export { ja } from "./ja";
+export { pt } from "./pt";
+export { ru } from "./ru";
+export { tr } from "./tr";
+export { zh } from "./zh";

@@ -30,13 +30,17 @@
       "@eco-nojin/auth-client": ["packages/auth-client/src/index.ts"],
       "@eco-nojin/utilities": ["packages/utilities/src/index.ts"],
       "@eco-nojin/scientific": ["packages/scientific/src/index.ts"],
-      "@eco-nojin/spatial": ["packages/spatial/src/index.ts"]
+      "@eco-nojin/spatial": ["packages/spatial/src/index.ts"],
+      "@eco-nojin/app-shell": ["packages/app-shell/src/index.ts"],
+      "@eco-nojin/api-client": ["packages/api-client/src/index.ts"],
+      "@eco-nojin/hydroma-client": ["packages/hydroma-client/src/index.ts"],
     }
   },
   "include": [
-    "apps/home/src",
-    "apps/brand/src",
+    "apps/field-collection/src",
+    "apps/field-collection/tests",
     "apps/platform/src",
+    "apps/platform/tests",
     "apps/console/src",
     "apps/console/tests",
     "apps/portal/src",

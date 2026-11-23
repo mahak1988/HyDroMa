@@ -48,3 +48,5 @@ export {
 export { AreaPriorityLimiter, bboxAreaHa, limitByDistance, polygonAreaHa, type LimitedFeature, type LimiterStats } from "./limiter";
 
 export { buildLegendItems, groupLegendByKind, legendSwatchStyle, type LegendItem } from "./legend";
+export { DECK_LAYER_BY_KIND, createDeckLayer, deckPropsFromDescriptor, resolveDeckLayerClass } from "./deck";
+export type { DeckLayerFactory, DeckLayerInput } from "./deck";

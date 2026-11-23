@@ -1,24 +1,19 @@
-import { useState } from "react";
 import { Bell, CheckCheck, Inbox } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
-import { useQuery } from "@tanstack/react-query";
 import { Badge, Button, Card, CardBody, CardHeader, Skeleton } from "@eco-nojin/ui";
 import { PageHeader } from "../app/layouts/PageHeader";
-import { fetchNotifications, type DemoNotification } from "../services/demo-notifications";
+import { useNotifications } from "../hooks/useConsoleData";
 
+/**
+ * Real notifications: the audit log of the caller's organizations, served by
+ * the API. Marking all seen persists server-side (notification_state), so the
+ * unread state survives reloads and devices.
+ */
 export function NotificationsPage() {
   const { t, format } = useI18n();
-  const [readIds, setReadIds] = useState<string[]>([]);
-  const query = useQuery({
-    queryKey: ["notifications"],
-    queryFn: ({ signal }) => fetchNotifications(signal),
-  });
-
-  const items = query.data ?? [];
-  const isRead = (item: DemoNotification) => item.read || readIds.includes(item.id);
-  const unread = items.filter((item) => !isRead(item)).length;
-
-  const markAll = () => setReadIds(items.map((item) => item.id));
+  const query = useNotifications();
+  const items = query.data?.items ?? [];
+  const unread = query.data?.unread ?? 0;
 
   return (
     <div>
@@ -26,7 +21,12 @@ export function NotificationsPage() {
         title={t("notifications.title")}
         subtitle={t("notifications.subtitle")}
         actions={
-          <Button variant="secondary" onClick={markAll} disabled={unread === 0} icon={<CheckCheck className="size-4" aria-hidden="true" />}>
+          <Button
+            variant="secondary"
+            onClick={() => query.markAllSeen.mutate()}
+            disabled={unread === 0 || query.markAllSeen.isPending}
+            icon={<CheckCheck className="size-4" aria-hidden="true" />}
+          >
             {t("notifications.markAll")}
           </Button>
         }
@@ -61,26 +61,31 @@ export function NotificationsPage() {
             </div>
           ) : (
             <ul className="divide-y divide-border">
-              {items.map((item: DemoNotification) => (
+              {items.map((item) => (
                 <li key={item.id} className="flex items-start gap-3 py-3">
                   <span
                     aria-hidden="true"
                     className={`mt-0.5 grid size-8 place-items-center rounded-full ${
-                      item.read ? "bg-surface-2 text-fg-subtle" : "bg-primary-soft text-primary-soft-fg"
+                      item.unread ? "bg-primary-soft text-primary-soft-fg" : "bg-surface-2 text-fg-subtle"
                     }`}
                   >
                     <Bell className="size-4" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-fg">{t(item.titleKey)}</p>
-                    <p className="text-xs text-fg-muted">{t(item.bodyKey)}</p>
-                    <p className="mt-0.5 text-2xs text-fg-subtle">{format.dateTime(item.time)}</p>
+                    <p className="text-sm font-medium text-fg" dir="ltr">
+                      {item.action}
+                    </p>
+                    <p className="text-xs text-fg-muted">
+                      {item.entity ?? ""}
+                      {item.entityId ? ` · ${item.entityId}` : ""}
+                    </p>
+                    <p className="mt-0.5 text-2xs text-fg-subtle">{format.dateTime(item.at)}</p>
                   </div>
-                  {isRead(item) ? null : (
+                  {item.unread ? (
                     <Badge tone="primary" dot>
                       {t("notifications.unread")}
                     </Badge>
-                  )}
+                  ) : null}
                 </li>
               ))}
             </ul>

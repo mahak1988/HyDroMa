@@ -8,7 +8,7 @@
 //   /market/     → apps/marketplace/dist
 //   /tourism/    → apps/tourism/dist
 //   /brand/      → apps/brand/dist
-import { createServer } from "node:http";
+import { createServer, request as httpRequest } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { readFileSync } from "node:fs";
@@ -74,9 +74,28 @@ async function resolveAsset(app, url) {
 }
 
 const server = createServer(async (req, res) => {
+  // Same-origin API path: /api/* is proxied to the real Eco Nojin API service,
+  // so session cookies stay same-site in production too.
+  const pathname = (req.url ?? "/").split("?")[0] ?? "/";
+  if (pathname === "/api" || pathname.startsWith("/api/")) {
+    const upstreamPath = (req.url ?? "/").replace(/^\/api/, "") || "/";
+    const upstream = httpRequest(
+      { host: "127.0.0.1", port: 8000, path: upstreamPath, method: req.method, headers: req.headers },
+      (upstreamRes) => {
+        res.writeHead(upstreamRes.statusCode ?? 502, upstreamRes.headers);
+        upstreamRes.pipe(res);
+      },
+    );
+    upstream.on("error", () => {
+      res.writeHead(502, { "content-type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: { code: "api_unavailable", message: "The Eco Nojin API is not running.", message_key: "errors.api_unavailable", status: 502, retryable: true, correlation_id: null } }));
+    });
+    req.pipe(upstream);
+    return;
+  }
+
   // A path without the trailing slash does not match its app prefix and would
   // fall through to the entry page; redirect so every surface has one URL.
-  const pathname = (req.url ?? "/").split("?")[0] ?? "/";
   const bare = apps.find((app) => app.path !== "/" && app.path === `${pathname.replace(/\/+$/u, "")}/`);
   if (bare && pathname === bare.path.replace(/\/$/u, "")) {
     const query = (req.url ?? "").slice(pathname.length);

@@ -1,6 +1,42 @@
 import type { Catalog } from "./en";
 
 export const fa: Catalog = {
+  auth: {
+    loginTitle: "ورود به Eco Nojin",
+    registerTitle: "ساخت حساب تازه",
+    inviteTitle: "پذیرش دعوت‌نامه",
+    email: "نشانی ایمیل",
+    password: "گذرواژه",
+    name: "نام کامل",
+    organizationName: "نام سازمان",
+    organizationOptional: "اختیاری — سازمانی تازه می‌سازد که مالکش هستید",
+    inviteToken: "توکن دعوت‌نامه",
+    submitLogin: "ورود",
+    submitRegister: "ساخت حساب",
+    submitInvite: "پذیرش دعوت‌نامه",
+    switchToRegister: "حساب ندارید؟ یکی بسازید",
+    switchToLogin: "قبلاً حساب داشته‌اید؟ وارد شوید",
+    switchToInvite: "توکن دعوت‌نامه دارید؟",
+    submitting: "در حال انجام…",
+    passwordHint: "دست‌کم ۱۰ نویسه.",
+    modeLogin: "ورود",
+    modeRegister: "ثبت‌نام",
+    modeInvite: "دعوت‌نامه",
+    signedInAs: "وارد شده به‌عنوان {name}",
+    signedOut: "از حساب خارج شده‌اید.",
+    sessionExpired: "نشست شما پایان یافت. برای ادامه دوباره وارد شوید.",
+  },
+
+  hydroma: {
+    models: "مدل‌های HyDroMA",
+    maturity: "بلوغ",
+    scientificStatus: "وضعیت علمی",
+    units: "واحدها",
+    noModels: "سرویس HyDroMA پاسخ داد اما مدلی ارائه نمی‌کند.",
+    serviceUnavailable: "سرویس HyDroMA در دسترس نیست",
+    serviceUnavailableBody: "سرویس علمی اکنون در دسترس نیست. این نما فقط داده واقعی سرویس را نشان می‌دهد؛ شاخص‌های نمایشی جای دیگری هستند.",
+    invalidResponse: "سرویس HyDroMA پاسخی غیرمنتظره برگرداند.",
+  },
   brand: {
     intro: "سیستم طراحی اکو نوژین",
     tokens: "توکن‌ها",
@@ -58,6 +94,7 @@ export const fa: Catalog = {
     tourism: { title: "گردشگری سرزمین‌های زنده", body: "مقصد، اقامت، تجربه و رزرو با تقویم شمسی و نقشهٔ لایه‌دار.", short: "گردشگری" },
     brand: { title: "سیستم طراحی", body: "توکن‌ها، مؤلفه‌ها، تم روشن/تاریک و هویت بصری نسخهٔ ۱٫۱ — مرجع یکسان‌سازی همهٔ سطوح.", short: "برند" },
     platform: { title: "پلتفرم یکپارچه", body: "منظر، کشاورزی، MRV، پروژه‌ها، دانش، مالی و حاکمیت در یک فضای کاری واحد با ۷۲ صفحه.", short: "پلتفرم" },
+    field: { title: "جمع‌آوری میدانی", body: "فضای کاری پرسشنامه، نقشه و اعتبارسنجی برای پرسشگران میدانی (دادهٔ نمایشی).", short: "میدانی", surveyTitle: "پرسشنامه", surveySave: "ذخیره (نمایشی)", mapTitle: "نقشه", homeTitle: "جمع‌آوری میدانی", recordsTitle: "رکوردها" },
   },
   switcher: {
     label: "همهٔ برنامه‌ها",

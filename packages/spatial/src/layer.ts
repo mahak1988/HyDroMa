@@ -19,6 +19,7 @@ export const SPATIAL_LAYER_KINDS = [
   "scatter",
   "boundary",
   "graticule",
+  "extrusion",
 ] as const;
 
 export type SpatialLayerKind = (typeof SPATIAL_LAYER_KINDS)[number];

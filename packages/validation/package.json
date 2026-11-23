@@ -9,6 +9,6 @@
     "zod": "4.6.7"
   },
   "peerDependencies": {
-    "@eco-nojin/domain-types": "0.1.0"
+    "@eco-nojin/domain-types": "workspace:*"
   }
 }

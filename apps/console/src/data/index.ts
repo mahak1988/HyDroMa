@@ -1,17 +1,15 @@
 import { createApiClient } from "@eco-nojin/api-client";
-import { mockIdentityRepository, type IdentityRepository } from "./mock-backend";
+import type { IdentityRepository } from "./identity-repository";
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl: string = import.meta.env.VITE_API_URL ?? "/api";
 
 /**
- * Data mode is explicit so nobody mistakes demo data for an operational backend.
- * The HTTP implementation is wired in Stage 2.4's next iteration; the interface is identical.
+ * Data mode is always real: the console talks to the Eco Nojin API. The API
+ * base comes from VITE_API_URL with the local dev server as default.
  */
-export const DATA_MODE: "demo" | "http" = apiUrl ? "http" : "demo";
+export const DATA_MODE = "http" as const;
 
-export const identityRepository: IdentityRepository = apiUrl
-  ? createHttpIdentityRepository(apiUrl)
-  : mockIdentityRepository;
+export const identityRepository: IdentityRepository = createHttpIdentityRepository(apiUrl);
 
 function createHttpIdentityRepository(baseUrl: string): IdentityRepository {
   const api = createApiClient({

@@ -1,4 +1,8 @@
-/* Eco Nojin Design System — Design Tokens (Path A: Territory Teal / Scientific) */
+/* LEGACY / CANDIDATE — NOT the canonical source of truth.
+ * Canonical tokens live in ../tokens.css (Visual Identity v1.1, Royal Aubergine).
+ * This file is "Path A: Territory Teal / Scientific", retained only as a candidate
+ * pending owner palette decision COLOR-01 / D-BRAND. Nothing imports it; do not
+ * treat it as a second token system or extend it. */
 :root {
   /* Brand */
   --brand-primary: #0B5563;

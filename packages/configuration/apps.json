@@ -63,6 +63,15 @@
     "accent": "tourism"
   },
   {
+    "id": "field-collection",
+    "path": "/field/",
+    "devPort": 5185,
+    "audience": "field workers",
+    "titleKey": "apps.field.title",
+    "bodyKey": "apps.field.body",
+    "accent": "hydroma"
+  },
+  {
     "id": "brand",
     "path": "/brand/",
     "devPort": 5182,

@@ -19,6 +19,7 @@ const TARGETS = [
   "apps/marketplace/src",
   "apps/tourism/src",
   "packages/ui/src",
+  "packages/app-shell/src",
 ];
 
 // Tailwind's default palette names. `accent-primary` and friends are fine.

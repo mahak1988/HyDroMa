@@ -1,36 +1,39 @@
 import { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
-import { useDemoFlag } from "@eco-nojin/auth-client";
+import { useRealSession } from "@eco-nojin/auth-client";
+import type { RealSessionValue } from "@eco-nojin/auth-client";
 
 /**
- * Demo session for the tourism surface.
+ * Real session for the tourism surface.
  *
- * Supply-side screens (host studio, bookings, payouts) are gated on `isHost`.
- * With no identity service the flag is a local fixture; when OIDC lands only
- * the source of this value changes, not its consumers.
+ * `isHost` is derived from the live API session: a signed-in user whose active
+ * organization is registered as a host business. There is no local flag — a
+ * guest sees the guest view until the API says otherwise.
  */
 type TourismSessionValue = {
   isHost: boolean;
   displayName: string;
-  signInAsHost: () => void;
+  session: RealSessionValue;
   signOut: () => void;
 };
 
 const TourismSessionContext = createContext<TourismSessionValue | null>(null);
 
-const ROLE_KEY = "eco.tourism.host";
-
 export function TourismSessionProvider({ children }: { children: ReactNode }) {
-  const { enabled, enable, disable } = useDemoFlag({ key: ROLE_KEY });
+  const session = useRealSession();
+
+  const isHost = session.status === "authenticated" && session.activeOrganization?.kind === "business";
 
   const value = useMemo<TourismSessionValue>(
     () => ({
-      isHost: enabled,
-      displayName: enabled ? "Host demo account" : "Guest",
-      signInAsHost: enable,
-      signOut: disable,
+      isHost,
+      displayName: session.user?.name ?? "Guest",
+      session,
+      signOut: () => {
+        void session.logout();
+      },
     }),
-    [enabled, enable, disable],
+    [isHost, session],
   );
 
   return <TourismSessionContext.Provider value={value}>{children}</TourismSessionContext.Provider>;

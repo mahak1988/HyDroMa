@@ -10,6 +10,7 @@ export {
   getLocale,
   isLocaleCode,
   resolveFallbackChain,
+    resolveLocale,
   RTL_LANGUAGES,
   type LocaleCode,
   type LocaleDefinition,

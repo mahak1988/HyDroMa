@@ -1,0 +1,16 @@
+{
+  "name": "@eco-nojin/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Eco Nojin API — real persistence (SQLite via node:sqlite), session auth, tenancy, RBAC and audit. Zero runtime dependencies.",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "dev": "node src/server.mjs",
+    "start": "node src/server.mjs",
+    "seed": "node scripts/seed.mjs",
+    "reset": "node scripts/reset.mjs"
+  }
+}

@@ -16,6 +16,10 @@ export type LocaleDefinition = {
   fallback: string | null;
   /** Locales are enabled per surface; a disabled locale is never served. */
   enabled: boolean;
+  /** Lifecycle: active (served) | planned (not served) | disabled (not served). */
+  status?: "active" | "planned" | "disabled";
+  /** Whether the catalog is fully translated (vs fallback-only). */
+  translated?: boolean;
 };
 
 /**
@@ -36,6 +40,8 @@ export const LOCALES: readonly LocaleDefinition[] = [
     calendar: "persian",
     fallback: "en",
     enabled: true,
+    status: "active",
+    translated: true,
   },
   {
     code: "en",
@@ -47,6 +53,8 @@ export const LOCALES: readonly LocaleDefinition[] = [
     calendar: "gregorian",
     fallback: null,
     enabled: true,
+    status: "active",
+    translated: true,
   },
   {
     code: "ar",
@@ -58,7 +66,22 @@ export const LOCALES: readonly LocaleDefinition[] = [
     calendar: "gregorian",
     fallback: "en",
     enabled: true,
+    status: "active",
+    translated: true,
   },
+  // --- Planned locales (12) — not served until translated ---
+  { code: "es", tag: "es-ES", nativeName: "Español", englishName: "Spanish", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "fr", tag: "fr-FR", nativeName: "Français", englishName: "French", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "de", tag: "de-DE", nativeName: "Deutsch", englishName: "German", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "pt", tag: "pt-BR", nativeName: "Português", englishName: "Portuguese", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "ru", tag: "ru-RU", nativeName: "Русский", englishName: "Russian", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "zh", tag: "zh-CN", nativeName: "中文", englishName: "Chinese (Simplified)", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "ja", tag: "ja-JP", nativeName: "日本語", englishName: "Japanese", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "ko", tag: "ko-KR", nativeName: "한국어", englishName: "Korean", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: false, status: "planned", translated: false },
+  { code: "tr", tag: "tr-TR", nativeName: "Türkçe", englishName: "Turkish", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "it", tag: "it-IT", nativeName: "Italiano", englishName: "Italian", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "hi", tag: "hi-IN", nativeName: "हिन्दी", englishName: "Hindi", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
+  { code: "id", tag: "id-ID", nativeName: "Bahasa Indonesia", englishName: "Indonesian", direction: "ltr", numberingSystem: "latn", calendar: "gregorian", fallback: "en", enabled: true, status: "active", translated: true },
 ] as const;
 
 export type LocaleCode = (typeof LOCALES)[number]["code"];
@@ -109,7 +132,21 @@ export function isRtlLocale(code: string | null | undefined): boolean {
   return languageDirection(code) === "rtl";
 }
 
-/** Languages offered by the product, in display order. */
+/** Languages offered by the product (enabled and active), in display order. */
 export function availableLocales(): LocaleDefinition[] {
-  return LOCALES.filter((locale) => locale.enabled);
+  return LOCALES.filter((locale) => locale.enabled && (locale.status ?? "active") === "active");
+}
+
+/**
+ * Resolve a BCP 47 tag or bare language subtag (e.g. "fa-IR", "ar", "en-US")
+ * to a served locale code, or ``null`` if unsupported / not served.
+ * Region/variant subtags are ignored (per languageDirection's convention).
+ */
+export function resolveLocale(input: string | null | undefined): LocaleCode | null {
+  if (!input) return null;
+  const base = input.toLowerCase().split(/[-_]/u)[0] ?? "";
+  const match = LOCALES.find(
+    (locale) => locale.code === base && locale.enabled && (locale.status ?? "active") === "active",
+  );
+  return match ? match.code : null;
 }

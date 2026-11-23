@@ -1,7 +1,9 @@
 ﻿import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import { ArrowLeft, CalendarDays, MapPin, Users } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
-import { Badge, Button, Card, CardBody, CardHeader, EmptyState, Table, TBody, Td, Th, THead, Tr } from "@eco-nojin/ui";
+import { Badge, Button, Card, CardBody, CardHeader, EmptyState, ResourceForm, Table, TBody, Td, Th, THead, Tr } from "@eco-nojin/ui";
+import { createApiClient } from "@eco-nojin/api-client";
 import { useTourism } from "../content";
 import { pick } from "../lib/text";
 import { formatMoney } from "../lib/money";
@@ -30,6 +32,8 @@ export function StayPage() {
 
   const destination = stay.destinationRef ? destinationById(stay.destinationRef) : undefined;
   const host = stay.hostId ? hostBySellerId(stay.hostId) : undefined;
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [inquiryStatus, setInquiryStatus] = useState<string>("");
 
   return (
     <div>
@@ -146,6 +150,40 @@ export function StayPage() {
                 {c.stays.request}
               </Button>
               <p className="text-2xs text-fg-subtle">{c.ui.paymentNotEnabled}</p>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardHeader title="Send inquiry" />
+            <CardBody className="space-y-3">
+              {!inquiryOpen ? (
+                <Button variant="secondary" className="w-full" onClick={() => setInquiryOpen(true)}>
+                  Send inquiry
+                </Button>
+              ) : (
+                <ResourceForm
+                  fields={[
+                    { key: "name", label: "Name", required: true },
+                    { key: "email", label: "Email", required: true },
+                    { key: "message", label: "Message", type: "textarea", required: true },
+                  ]}
+                  submitLabel="Send"
+                  loading={inquiryStatus === "sending"}
+                  onSubmit={async (values) => {
+                    setInquiryStatus("sending");
+                    try {
+                      const api = createApiClient({ baseUrl: "/api" });
+                      await api.resources.create("inquiries", { ...values, staySlug: stay.slug });
+                      setInquiryStatus("sent");
+                      setInquiryOpen(false);
+                    } catch (e) {
+                      setInquiryStatus(`error: ${String(e)}`);
+                    }
+                  }}
+                  onCancel={() => setInquiryOpen(false)}
+                />
+              )}
+              {inquiryStatus && inquiryStatus !== "sending" ? <p className="text-xs text-fg-muted">{inquiryStatus}</p> : null}
             </CardBody>
           </Card>
 

@@ -1,0 +1,83 @@
+{
+  "contract": "eco-nojin.hydroma.water-balance@1.1.0",
+  "note": "Shared, language-agnostic vectors. Expected values are independently derived (hand calculation), NOT produced by either implementation. Plain-number inputs only (quantity/unit normalisation is an adapter-layer concern tested separately in each language).",
+  "tolerance": { "float": 1e-6 },
+  "projection_keys": ["ok", "status", "storageChangeMm", "storageChangeM3", "inflowMm", "outflowMm", "residualMm", "balanceCloses", "finalStorageMm", "outOfDomain", "warnings", "errors"],
+  "vectors": [
+    {
+      "id": "normal-surplus",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": true, "status": "surplus", "storageChangeMm": 20.0, "storageChangeM3": null, "inflowMm": 100.0, "outflowMm": 80.0, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": false, "warnings": [], "errors": [] }
+    },
+    {
+      "id": "deficit",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 200.0 },
+      "expected": { "ok": true, "status": "deficit", "storageChangeMm": -120.0, "storageChangeM3": null, "inflowMm": 100.0, "outflowMm": 220.0, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": false, "warnings": ["ET_GT_INFLOW"], "errors": [] }
+    },
+    {
+      "id": "zero-input",
+      "input": { "periodDays": 1, "precipitation": 0.0, "irrigation": 0.0, "runoff": 0.0, "evapotranspiration": 0.0 },
+      "expected": { "ok": true, "status": "balanced", "storageChangeMm": 0.0, "storageChangeM3": null, "inflowMm": 0.0, "outflowMm": 0.0, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": false, "warnings": [], "errors": [] }
+    },
+    {
+      "id": "balanced-boundary",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 40.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": true, "status": "balanced", "storageChangeMm": 0.0, "storageChangeM3": null, "inflowMm": 100.0, "outflowMm": 100.0, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": false, "warnings": [], "errors": [] }
+    },
+    {
+      "id": "area-volume",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0, "areaHa": 2.0 },
+      "expected": { "ok": true, "status": "surplus", "storageChangeMm": 20.0, "storageChangeM3": 400.0, "inflowMm": 100.0, "outflowMm": 80.0, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": false, "warnings": [], "errors": [] }
+    },
+    {
+      "id": "rounding",
+      "input": { "periodDays": 30, "precipitation": 10.0, "irrigation": 0.0, "runoff": 3.33333, "evapotranspiration": 0.0 },
+      "expected": { "ok": true, "status": "surplus", "storageChangeMm": 6.6667, "storageChangeM3": null, "inflowMm": 10.0, "outflowMm": 3.3333, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": false, "warnings": [], "errors": [] }
+    },
+    {
+      "id": "closure-within",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0, "measuredStorageChange": 18.0 },
+      "expected": { "ok": true, "status": "surplus", "storageChangeMm": 20.0, "storageChangeM3": null, "inflowMm": 100.0, "outflowMm": 80.0, "residualMm": 2.0, "balanceCloses": true, "finalStorageMm": null, "outOfDomain": false, "warnings": [], "errors": [] }
+    },
+    {
+      "id": "closure-outside",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0, "measuredStorageChange": 0.0 },
+      "expected": { "ok": true, "status": "surplus", "storageChangeMm": 20.0, "storageChangeM3": null, "inflowMm": 100.0, "outflowMm": 80.0, "residualMm": 20.0, "balanceCloses": false, "finalStorageMm": null, "outOfDomain": false, "warnings": ["CLOSURE_MISMATCH"], "errors": [] }
+    },
+    {
+      "id": "out-of-domain-negative-final",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 200.0, "initialStorage": 10.0 },
+      "expected": { "ok": true, "status": "deficit", "storageChangeMm": -120.0, "storageChangeM3": null, "inflowMm": 100.0, "outflowMm": 220.0, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": true, "warnings": ["ET_GT_INFLOW", "NEGATIVE_STORAGE"], "errors": [] }
+    },
+    {
+      "id": "out-of-domain-runoff",
+      "input": { "periodDays": 30, "precipitation": 100.0, "irrigation": 0.0, "runoff": 200.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": true, "status": "deficit", "storageChangeMm": -160.0, "storageChangeM3": null, "inflowMm": 100.0, "outflowMm": 260.0, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": true, "warnings": ["RUNOFF_GT_INPUT"], "errors": [] }
+    },
+    {
+      "id": "missing-required",
+      "input": { "periodDays": 30, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": false, "status": null, "storageChangeMm": null, "storageChangeM3": null, "inflowMm": null, "outflowMm": null, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": null, "warnings": [], "errors": ["MISSING"] }
+    },
+    {
+      "id": "negative-value",
+      "input": { "periodDays": 30, "precipitation": -5.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": false, "status": null, "storageChangeMm": null, "storageChangeM3": null, "inflowMm": null, "outflowMm": null, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": null, "warnings": [], "errors": ["NEGATIVE"] }
+    },
+    {
+      "id": "period-zero",
+      "input": { "periodDays": 0, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": false, "status": null, "storageChangeMm": null, "storageChangeM3": null, "inflowMm": null, "outflowMm": null, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": null, "warnings": [], "errors": ["PERIOD_INVALID"] }
+    },
+    {
+      "id": "period-noninteger",
+      "input": { "periodDays": 2.5, "precipitation": 100.0, "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": false, "status": null, "storageChangeMm": null, "storageChangeM3": null, "inflowMm": null, "outflowMm": null, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": null, "warnings": [], "errors": ["PERIOD_INVALID"] }
+    },
+    {
+      "id": "non-finite-string",
+      "input": { "periodDays": 30, "precipitation": "NaN", "irrigation": 0.0, "runoff": 20.0, "evapotranspiration": 60.0 },
+      "expected": { "ok": false, "status": null, "storageChangeMm": null, "storageChangeM3": null, "inflowMm": null, "outflowMm": null, "residualMm": null, "balanceCloses": null, "finalStorageMm": null, "outOfDomain": null, "warnings": [], "errors": ["NOT_FINITE"] }
+    }
+  ]
+}

@@ -6,7 +6,7 @@
   "description": "Typed HTTP client for Eco Nojin contracts: envelope errors, retry policy, cancellation and pagination.",
   "exports": { ".": "./src/index.ts" },
   "dependencies": {
-    "@eco-nojin/domain-types": "0.1.0",
-    "@eco-nojin/validation": "0.1.0"
+    "@eco-nojin/domain-types": "workspace:*",
+    "@eco-nojin/validation": "workspace:*"
   }
 }

@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { AppSwitcher } from "@eco-nojin/ui";
+import { AppSwitcher, ToastProvider } from "@eco-nojin/ui";
 import { createRoot } from "react-dom/client";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/lora";
@@ -21,10 +21,12 @@ createRoot(container).render(
   <StrictMode>
     <ThemeProvider>
       <I18nProvider>
+        <ToastProvider>
         <>
         <PortalApp />
         <AppSwitcher current="portal" />
       </>
+        </ToastProvider>
       </I18nProvider>
     </ThemeProvider>
   </StrictMode>,

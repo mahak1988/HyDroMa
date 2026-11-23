@@ -8,7 +8,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@eco-nojin/domain-types": "0.1.0",
+    "@deck.gl/aggregation-layers": "9.4.1",
+    "@deck.gl/core": "9.4.1",
+    "@deck.gl/layers": "9.4.1",
+    "@eco-nojin/domain-types": "workspace:*",
     "@types/geojson": "7946.0.16",
     "maplibre-gl": "6.19.0"
   }

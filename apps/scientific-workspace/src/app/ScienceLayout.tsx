@@ -39,6 +39,7 @@ const NAV: NavItem[] = [
   { to: "/simulation", key: "hydro.nav.simulation", icon: FlaskConical },
   { to: "/scenarios", key: "hydro.nav.scenarios", icon: GitCompare },
   { to: "/projects", key: "hydro.nav.projects", icon: FolderKanban },
+  { to: "/models", key: "hydroma.models", icon: Layers },
 ] as const;
 
 function Brand() {

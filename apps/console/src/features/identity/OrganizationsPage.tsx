@@ -27,7 +27,6 @@ import {
   useToast,
 } from "@eco-nojin/ui";
 import { PageHeader } from "../../app/layouts/PageHeader";
-import { useSession } from "../../session/DemoSession";
 import { identityRepository } from "../../data";
 import { apiErrorMessage, useOrganizations } from "./queries";
 
@@ -43,7 +42,7 @@ export function OrganizationsPage() {
   const { t, format } = useI18n();
   const tr = (key: string) => t(key as TranslationKey);
   const { can } = usePermissions();
-  const { dataMode } = useSession();
+
   const queryClient = useQueryClient();
   const { push } = useToast();
   const navigate = useNavigate();
@@ -94,9 +93,7 @@ export function OrganizationsPage() {
         subtitle={t("orgs.subtitle")}
         actions={
           <>
-            <Badge tone={dataMode === "demo" ? "warning" : "success"}>
-              {dataMode === "demo" ? t("common.demoData") : t("common.liveApi")}
-            </Badge>
+            <Badge tone="success">{t("common.liveApi")}</Badge>
             {can("org.update") ? (
               <Button variant="primary" icon={<Plus className="size-4" aria-hidden="true" />} onClick={() => setOpen(true)}>
                 {t("orgs.new")}

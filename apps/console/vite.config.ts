@@ -15,6 +15,7 @@ export default defineConfig({
     dedupe: ["react", "react-dom"],
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@eco-nojin/app-shell": fileURLToPath(new URL("../../packages/app-shell/src/index.ts", import.meta.url)),
     },
   },
   optimizeDeps: {
@@ -28,7 +29,17 @@ export default defineConfig({
       "lucide-react",
     ],
   },
-  server: { port: 5175, strictPort: true },
+    server: {
+    port: 5175,
+    strictPort: true,
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
   build: {
     target: "es2022",
     sourcemap: false,

@@ -24,6 +24,16 @@ export default defineConfig({
       "lucide-react",
     ],
   },
-  server: { port: 5177, strictPort: true },
+    server: {
+    port: 5177,
+    strictPort: true,
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
   build: { target: "es2022", sourcemap: false, chunkSizeWarningLimit: 900 },
 });

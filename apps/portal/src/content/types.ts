@@ -1,4 +1,4 @@
-export type LocaleCode = "fa" | "en" | "ar";
+export type LocaleCode = "fa" | "en" | "ar" | "es" | "fr" | "de" | "pt" | "ru" | "zh" | "ja" | "ko" | "tr" | "it" | "hi" | "id";
 
 export type IconName =
   | "water"

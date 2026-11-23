@@ -13,6 +13,7 @@ describe("app registry", () => {
       "scientific-workspace",
       "marketplace",
       "tourism",
+      "field-collection",
       "brand",
     ]);
   });

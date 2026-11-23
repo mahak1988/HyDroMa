@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { ReactNode } from "react";
 import type { BookingRequest } from "@eco-nojin/domain-types";
 import { BOOKING_STORAGE_KEY } from "../lib/booking";
+import { readPersisted, writePersisted } from "@eco-nojin/utilities";
 import { parseBookings } from "../lib/booking-store";
 
 type BookingValue = {
@@ -13,22 +14,12 @@ type BookingValue = {
 const BookingContext = createContext<BookingValue | null>(null);
 
 function load(): BookingRequest[] {
-  try {
-    const raw = window.localStorage.getItem(BOOKING_STORAGE_KEY);
-    if (!raw) return [];
-    // Invalid records are dropped here and overwritten on the next persist.
-    return parseBookings(JSON.parse(raw));
-  } catch {
-    return [];
-  }
+  const parsed = readPersisted<BookingRequest[]>(BOOKING_STORAGE_KEY, (raw) => parseBookings(raw));
+  return parsed ?? [];
 }
 
 function persist(bookings: BookingRequest[]): void {
-  try {
-    window.localStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(bookings));
-  } catch {
-    // Storage can be blocked; the demo still works for the current session.
-  }
+  writePersisted(BOOKING_STORAGE_KEY, bookings);
 }
 
 export function BookingProvider({ children }: { children: ReactNode }) {

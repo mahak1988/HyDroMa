@@ -3,18 +3,13 @@ import { defineConfig } from "@playwright/test";
 /**
  * Monorepo-level Playwright configuration.
  *
- * Why this file exists: Playwright resolves its configuration from the current
- * working directory only — it does not search sub-directories. Running
- * `playwright test` from the repository root without this file therefore used
- * the built-in defaults (`testDir: "."`), which discovered every `*.spec.*` and
- * `*.test.*` file under the repository, including `experiments/` (POC) and
- * `upstream-registry/` (read-only evidence). That made root-level runs
- * unpredictable and could import third-party test files.
- *
- * This config scopes discovery to the console test directory and is the single
- * entry point for `npm run test:e2e` / `npm run test:a11y` from the root.
- * Workspace-scoped runs (`npm run test:e2e -w @eco-nojin/console`) still use
+ * Scopes discovery to the console test directory and is the single entry point
+ * for `npm run test:e2e` / `npm run test:a11y` from the root. Workspace-scoped
+ * runs (`npm run test:e2e -w @eco-nojin/console`) use
  * `apps/console/playwright.config.ts`; both files describe the same suite.
+ *
+ * The real API service is started alongside the console dev server; the specs
+ * sign in through it (see tests/auth.helper.ts).
  */
 export default defineConfig({
   testDir: "./apps/console/tests",
@@ -33,13 +28,24 @@ export default defineConfig({
     viewport: { width: 1440, height: 1000 },
     trace: "retain-on-failure",
   },
-  webServer: {
-    command: "npm run dev",
-    cwd: "apps/console",
-    url: "http://localhost:5175",
-    reuseExistingServer: true,
-    timeout: 120_000,
-    stdout: "ignore",
-    stderr: "pipe",
-  },
+  webServer: [
+    {
+      command: "node services/api/src/server.mjs",
+      url: "http://127.0.0.1:8000/health",
+      reuseExistingServer: true,
+      timeout: 60_000,
+      env: { NOJIN_DB: "databases/api/nojin-e2e.db", PORT: "8000" },
+      stdout: "ignore",
+      stderr: "pipe",
+    },
+    {
+      command: "npm run dev",
+      cwd: "apps/console",
+      url: "http://localhost:5175",
+      reuseExistingServer: true,
+      timeout: 120_000,
+      stdout: "ignore",
+      stderr: "pipe",
+    },
+  ],
 });

@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { appPath } from "@eco-nojin/configuration";
 import { useI18n } from "@eco-nojin/i18n";
-import { Badge, BarChart, Button, Card, CardBody, CardHeader, EmptyState, LineChart } from "@eco-nojin/ui";
+import { Badge, BarChart, Button, Card, CardBody, CardHeader, EmptyState, LineChart, ResourceForm } from "@eco-nojin/ui";
+import { createApiClient } from "@eco-nojin/api-client";
 import { Icon } from "@eco-nojin/icons";
 import { FACT_LABELS, UNIT_LABELS, findAny, list, type Entity, type Fact, type StatusKey } from "../data/entities";
 import { STATUS_TONE, SUGGESTIONS, UI, t } from "../content/ui";
@@ -11,6 +12,39 @@ import type { Loc, PageDef } from "../content/pages";
 const DETAIL_BASE: Record<string, string> = {
   landscape: "/landscapes",
   projects: "/projects",
+};
+
+const ENTITY_FIELDS: Record<string, Array<{ key: string; label: string; type?: "text" | "number" | "textarea"; required?: boolean }>> = {
+  village: [{ key: "name", label: "Name", required: true }, { key: "region", label: "Region" }],
+  territory: [{ key: "name", label: "Name", required: true }, { key: "region", label: "Region" }],
+  rangeland: [{ key: "name", label: "Name", required: true }, { key: "area", label: "Area (ha)", type: "number" }],
+  farm: [{ key: "name", label: "Name", required: true }, { key: "owner", label: "Owner" }],
+  resource: [{ key: "name", label: "Name", required: true }, { key: "type", label: "Type" }],
+  stakeholder: [{ key: "name", label: "Name", required: true }, { key: "role", label: "Role" }],
+  crop: [{ key: "name", label: "Name", required: true }, { key: "season", label: "Season" }],
+  plan: [{ key: "name", label: "Name", required: true }, { key: "period", label: "Period" }],
+  irrigation: [{ key: "name", label: "Name", required: true }, { key: "method", label: "Method" }],
+  health: [{ key: "name", label: "Name", required: true }, { key: "status", label: "Status" }],
+  input: [{ key: "name", label: "Name", required: true }, { key: "unit", label: "Unit" }],
+  livestock: [{ key: "name", label: "Name", required: true }, { key: "count", label: "Count", type: "number" }],
+  site: [{ key: "name", label: "Name", required: true }, { key: "area", label: "Area (ha)", type: "number" }],
+  carbon: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
+  methodology: [{ key: "name", label: "Name", required: true }, { key: "version", label: "Version" }],
+  report: [{ key: "name", label: "Name", required: true }, { key: "period", label: "Period" }],
+  dataset: [{ key: "name", label: "Name", required: true }, { key: "source", label: "Source" }],
+  project: [{ key: "name", label: "Name", required: true }, { key: "summary", label: "Summary", type: "textarea" }],
+  task: [{ key: "name", label: "Name", required: true }, { key: "assignee", label: "Assignee" }],
+  budget: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
+  article: [{ key: "name", label: "Name", required: true }, { key: "summary", label: "Summary", type: "textarea" }],
+  research: [{ key: "name", label: "Name", required: true }, { key: "topic", label: "Topic" }],
+  indigenous: [{ key: "name", label: "Name", required: true }, { key: "community", label: "Community" }],
+  course: [{ key: "name", label: "Name", required: true }, { key: "duration", label: "Duration" }],
+  contentItem: [{ key: "name", label: "Name", required: true }, { key: "type", label: "Type" }],
+  account: [{ key: "name", label: "Name", required: true }, { key: "role", label: "Role" }],
+  voucher: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
+  payment: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
+  wallet: [{ key: "name", label: "Name", required: true }, { key: "balance", label: "Balance", type: "number" }],
+  settlement: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
 };
 
 function useLoc() {
@@ -160,6 +194,8 @@ function ListPage({ page }: { page: PageDef }) {
   const { l, number, status, locale, date: formatDate } = useLoc();
   const [query, setQuery] = useState("");
   const [state, setState] = useState<string>("all");
+  const [createOpen, setCreateOpen] = useState(false);
+  const [createStatus, setCreateStatus] = useState<string>("");
 
   const entities = page.entity ? list(page.entity) : [];
   const filtered = useMemo(() => {
@@ -201,6 +237,40 @@ function ListPage({ page }: { page: PageDef }) {
           {number(filtered.length)} / {number(entities.length)} {l(UI.count)}
         </span>
       </div>
+
+      {page.entity && ENTITY_FIELDS[page.entity] ? (
+        <div className="pl-toolbar">
+          <Button variant="primary" size="sm" onClick={() => { setCreateOpen((v) => !v); setCreateStatus(""); }}>
+            {createOpen ? "Close" : `Create ${page.entity}`}
+          </Button>
+        </div>
+      ) : null}
+
+      {page.entity && ENTITY_FIELDS[page.entity] && createOpen ? (
+        <Card>
+          <CardHeader title={`Create ${page.entity}`} />
+          <CardBody>
+            <ResourceForm
+              fields={ENTITY_FIELDS[page.entity] ?? []}
+              submitLabel="Create"
+              loading={createStatus === "saving"}
+              onSubmit={async (values) => {
+                setCreateStatus("saving");
+                try {
+                  const api = createApiClient({ baseUrl: "/api" });
+                  await api.resources.create(page.entity!, values);
+                  setCreateStatus("saved");
+                  setCreateOpen(false);
+                } catch (e) {
+                  setCreateStatus(`error: ${String(e)}`);
+                }
+              }}
+              onCancel={() => setCreateOpen(false)}
+            />
+            {createStatus && createStatus !== "saving" ? <p className="text-xs text-fg-muted">{createStatus}</p> : null}
+          </CardBody>
+        </Card>
+      ) : null}
 
       <Card>
         <CardBody className="!p-0">

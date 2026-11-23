@@ -5,12 +5,13 @@ import {
   getLocale,
   isLocaleCode,
   resolveFallbackChain,
+  resolveLocale,
 } from "../src/registry";
 
 describe("locale registry", () => {
-  it("ships the three Phase 1 locales with unique BCP 47 codes", () => {
+  it("ships 15 locales (3 active + 12 planned) with unique BCP 47 codes", () => {
     const codes = LOCALES.map((locale) => locale.code);
-    expect(codes).toEqual(["fa", "en", "ar"]);
+    expect(codes).toHaveLength(15);
     expect(new Set(codes).size).toBe(codes.length);
     for (const locale of LOCALES) {
       expect(() => new Intl.Locale(locale.tag)).not.toThrow();
@@ -38,8 +39,19 @@ describe("locale registry", () => {
 
   it("guards unknown locales", () => {
     expect(isLocaleCode("fa")).toBe(true);
-    expect(isLocaleCode("de")).toBe(false);
+    expect(isLocaleCode("de")).toBe(true);
+    expect(isLocaleCode("zz")).toBe(false);
     expect(DEFAULT_LOCALE).toBe("fa");
+  });
+
+  it("resolves BCP 47 tags and subtags to a served locale", () => {
+    expect(resolveLocale("fa-IR")).toBe("fa");
+    expect(resolveLocale("ar-EG")).toBe("ar");
+    expect(resolveLocale("en-US")).toBe("en");
+    expect(resolveLocale("EN")).toBe("en");
+    expect(resolveLocale("ko-KR")).toBeNull();
+    expect(resolveLocale("")).toBeNull();
+    expect(resolveLocale(null)).toBeNull();
   });
 
   it("is data-driven: adding a 16th locale needs no code change", () => {
@@ -59,6 +71,6 @@ describe("locale registry", () => {
     ];
     const added = extended.find((locale) => locale.code === "de");
     expect(added?.direction).toBe("ltr");
-    expect(LOCALES).toHaveLength(3);
+    expect(LOCALES).toHaveLength(15);
   });
 });

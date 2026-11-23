@@ -7,7 +7,7 @@
  */
 import registry from "../apps.json";
 
-export type AppId = "home" | "portal" | "console" | "scientific-workspace" | "marketplace" | "tourism" | "brand" | "platform";
+export type AppId = "home" | "portal" | "console" | "scientific-workspace" | "marketplace" | "tourism" | "brand" | "platform" | "field-collection";
 
 export type AppDescriptor = {
   /** Directory name under apps/ and the stable identifier everywhere else. */

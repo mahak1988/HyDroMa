@@ -38,7 +38,13 @@ export function createTransport(config: TransportConfig): Transport {
   const sleep = config.sleep ?? ((ms: number) => new Promise((resolve) => setTimeout(resolve, ms)));
 
   function buildUrl(path: string, query?: RequestOptions["query"]): string {
-    const url = new URL(path, config.baseUrl.endsWith("/") ? config.baseUrl : `${config.baseUrl}/`);
+    // A relative base ("/api") is resolved against the current origin — the
+    // unified host proxies that path to the real API service, so the session
+    // cookie stays same-site in every environment.
+    const rawBase = config.baseUrl.startsWith("/")
+      ? `${window.location.origin}${config.baseUrl}`
+      : config.baseUrl;
+    const url = new URL(path, rawBase.endsWith("/") ? rawBase : `${rawBase}/`);
     for (const [key, value] of Object.entries(query ?? {})) {
       if (value === undefined || value === null || value === "") continue;
       url.searchParams.set(key, String(value));

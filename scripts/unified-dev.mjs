@@ -11,21 +11,51 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const PORT = 5180;
-const npm = process.platform === "win32" ? "npm.cmd" : "npm";
+const pm = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
 const isWindows = process.platform === "win32";
 
 const apps = JSON.parse(await readFile(path.join(ROOT, "packages", "configuration", "apps.json"), "utf8"));
 // Longest prefix first so "/console/" wins over the "/" catch-all.
 const ordered = [...apps].sort((a, b) => b.path.length - a.path.length);
 
+// The real API service runs alongside the frontend stack. If something is
+// already listening on 8000 (e.g. a manually started API), we leave it alone.
 const children = apps.map((app) =>
-  spawn(npm, ["run", "dev", "--workspace", `@eco-nojin/${app.id}`], {
+  spawn(pm, ["--filter", `@eco-nojin/${app.id}`, "run", "dev"], {
     cwd: ROOT,
     env: { ...process.env, APP_BASE: app.path },
     stdio: "inherit",
     shell: isWindows,
   }),
 );
+
+function portInUse(port) {
+  return new Promise((resolve) => {
+    const request = httpRequest({ host: "127.0.0.1", port, path: "/health", method: "GET", timeout: 800 }, (response) => {
+      response.resume();
+      resolve(true);
+    });
+    request.on("error", () => resolve(false));
+    request.on("timeout", () => {
+      request.destroy();
+      resolve(false);
+    });
+    request.end();
+  });
+}
+
+const apiInUse = await portInUse(8000);
+if (apiInUse) {
+  console.log("  API: an Eco Nojin API is already listening on :8000 — reusing it.");
+} else {
+  const api = spawn(process.execPath, ["services/api/src/server.mjs"], {
+    cwd: ROOT,
+    env: { ...process.env, PORT: "8000" },
+    stdio: "inherit",
+  });
+  children.push(api);
+  console.log("  API: started on http://127.0.0.1:8000 (pnpm run seed loads reference data)");
+}
 
 const pathOnly = (url = "/") => url.split("?")[0] ?? "/";
 
@@ -41,6 +71,25 @@ function unavailable(res, app) {
 }
 
 const server = createServer((req, res) => {
+  // Same-origin API path: the unified host proxies /api/* to the real Eco Nojin
+  // API service, so session cookies stay same-site and no CORS is needed.
+  if (pathOnly(req.url).startsWith("/api")) {
+    const upstreamPath = (req.url ?? "/").replace(/^\/api/, "") || "/";
+    const upstream = httpRequest(
+      { host: "127.0.0.1", port: 8000, path: upstreamPath, method: req.method, headers: req.headers },
+      (upstreamRes) => {
+        res.writeHead(upstreamRes.statusCode ?? 502, upstreamRes.headers);
+        upstreamRes.pipe(res);
+      },
+    );
+    upstream.on("error", () => {
+      res.writeHead(502, { "content-type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: { code: "api_unavailable", message: "The Eco Nojin API is starting. Retry shortly.", message_key: "errors.api_unavailable", status: 502, retryable: true, correlation_id: null } }));
+    });
+    req.pipe(upstream);
+    return;
+  }
+
   const app = match(req.url);
   const upstream = httpRequest(
     { host: "localhost", port: app.devPort, path: req.url, method: req.method, headers: req.headers },

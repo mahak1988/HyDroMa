@@ -3,6 +3,7 @@
 /* Shared frontend packages ship Tailwind classes; scan them from this single entry. */
 @source "../../ui/src";
 @source "../../frontend-core/src";
+@source "../../app-shell/src";
 
 @theme {
   --color-canvas: var(--canvas);

@@ -1,4 +1,9 @@
 import { expect, test } from "@playwright/test";
+import { ensureSignedIn } from "./auth.helper";
+
+test.beforeEach(async ({ context }) => {
+  await ensureSignedIn(context);
+});
 
 const routes = ["/", "/components", "/notifications", "/settings"];
 

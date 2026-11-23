@@ -5,7 +5,7 @@ import { useI18n, type TranslationKey } from "@eco-nojin/i18n";
 import { Badge, Button, Card, CardBody, CardHeader } from "@eco-nojin/ui";
 import { formatJalali } from "@eco-nojin/utilities";
 import { PageHeader } from "../app/layouts/PageHeader";
-import { useSession } from "../session/DemoSession";
+import { useSession } from "../session/Session";
 
 const ROLE_TONE: Record<OrganizationRole, "primary" | "info" | "neutral" | "warning" | "success"> = {
   owner: "primary",
@@ -52,8 +52,8 @@ export function ProfilePage() {
         subtitle={t("profile.subtitle")}
         actions={
           <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="warning" dot>
-              {t("profile.demoNote")}
+            <Badge tone="success" dot>
+              {t("common.liveApi")}
             </Badge>
             <Link to="/security">
               <Button variant="secondary" size="sm">

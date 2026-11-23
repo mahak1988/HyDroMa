@@ -3,7 +3,7 @@ import { ApiError } from "@eco-nojin/api-client";
 import { queryKeysFactory, withScope } from "@eco-nojin/frontend-core";
 import type { UserStatus } from "@eco-nojin/domain-types";
 import { identityRepository } from "../../data";
-import { useSession } from "../../session/DemoSession";
+import { useSession } from "../../session/Session";
 
 export type UserQuery = {
   search?: string;

@@ -20,25 +20,47 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.18.0
 
       - name: Install
-        run: npm ci --no-audit --no-fund
+        run: pnpm install --frozen-lockfile --no-audit --no-fund
 
       - name: Typecheck
-        run: npm run typecheck
+        run: pnpm run typecheck
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Architecture boundaries
-        run: npm run check:boundaries
+        run: pnpm run check:boundaries
 
       - name: Design tokens
-        run: npm run check:tokens
+        run: pnpm run check:tokens
 
       - name: Unit tests
-        run: npx vitest run
+        run: pnpm exec vitest run
+
+      - name: API service tests (real persistence, auth, RBAC)
+        run: pnpm run test:api
 
       - name: Build every app for the unified host
-        run: npm run build:all
+        run: pnpm run build:all
+
+  hydroma-python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install HyDroMA (test + api extras)
+        run: pip install -e "engines/hydroma[api,test]"
+
+      - name: Run HyDroMA Python regression suite
+        run: pytest engines/hydroma/tests

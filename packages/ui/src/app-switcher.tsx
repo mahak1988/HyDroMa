@@ -21,6 +21,7 @@ const SHORT_KEYS: Record<AppId, TranslationKey> = {
   tourism: "apps.tourism.short",
   brand: "apps.brand.short",
   platform: "apps.platform.short",
+  "field-collection": "apps.field.short",
 };
 
 const bar: CSSProperties = {

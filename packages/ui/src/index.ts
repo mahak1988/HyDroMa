@@ -1,4 +1,6 @@
 export { AppSwitcher } from "./app-switcher";
+export { createChartRegistry, type ChartPlugin, type ChartRegistry } from "./chart-registry";
+export { defaultChartRegistry } from "./chart-defaults";
 export { Button, Spinner, type ButtonProps } from "./button";
 export { DatePicker } from "./date-picker";
 export {
@@ -50,4 +52,5 @@ export {
   type ChartScale,
 } from "./charts";
 export { PageSizeSelect, Pagination } from "./pagination";
+export { ResourceForm, ResourceTable, type ResourceField, type ResourceFormProps, type ResourceTableProps } from "./resource-crud";
 export { Tabs, type TabItem } from "./tabs";

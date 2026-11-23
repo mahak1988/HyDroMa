@@ -72,5 +72,16 @@ desktop.ini
 apps/*/artifacts/
 test-results/
 playwright-report/
+
+# ---- Phase 2.0 baseline (2026-11-20): generated evidence and legacy archive stay out of history ----
+/artifacts/
+/archive/
 # Literal reviewer folder that was created in the repository root
 /%TEMP%/
+
+# Python test cache (Phase 2.1)
+.pytest_cache/
+
+# Local API databases
+databases/
+

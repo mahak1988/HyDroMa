@@ -1,16 +1,19 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { useDemoRole } from "@eco-nojin/auth-client";
+import { useRealSession } from "@eco-nojin/auth-client";
+import { createApiClient } from "@eco-nojin/api-client";
+import type { RealSessionValue } from "@eco-nojin/auth-client";
 
 /**
- * Demo session for the marketplace.
+ * Real session for the marketplace.
  *
- * There is no identity service yet, so the "viewer" is a fixture. What matters
- * is the shape: a role and a permission set that a real session will later
- * provide unchanged. `/seller` reads from here; the server will re-check.
- *
- * Storage and reload semantics live in `@eco-nojin/auth-client` — this file only
- * maps the shared primitive onto the marketplace vocabulary.
+ * Roles are derived from the live API session, not from local storage:
+ *   signed out            -> guest
+ *   signed in             -> buyer
+ *   signed in + the active
+ *   organization is a registered
+ *   seller                -> seller
+ * The server re-checks everything; this mapping only chooses what to render.
  */
 export type MarketRole = "guest" | "buyer" | "seller";
 
@@ -18,34 +21,55 @@ type MarketSessionValue = {
   role: MarketRole;
   isSeller: boolean;
   displayName: string;
-  /** Demo-only switch so a reviewer can see the gated state. */
-  signInAsSeller: () => void;
+  session: RealSessionValue;
+  openSignIn: () => void;
   signOut: () => void;
 };
 
 const MarketSessionContext = createContext<MarketSessionValue | null>(null);
 
-const ROLE_KEY = "eco.market.role";
-const ROLES = ["guest", "buyer", "seller"] as const satisfies readonly MarketRole[];
-
-const DISPLAY: Record<MarketRole, string> = {
-  guest: "Guest",
-  buyer: "Buyer demo account",
-  seller: "Seller demo account",
-};
-
 export function MarketSessionProvider({ children }: { children: ReactNode }) {
-  const { role, signIn, signOut } = useDemoRole<MarketRole>({ key: ROLE_KEY, allowed: ROLES, fallback: "guest" });
+  const session = useRealSession();
+  const [isRegisteredSeller, setIsRegisteredSeller] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (session.status !== "authenticated" || !session.activeOrganizationId) {
+      setIsRegisteredSeller(false);
+      return;
+    }
+    // A seller is an organization that has a seller record in the marketplace.
+    const organizationId = session.activeOrganizationId;
+    const api = createApiClient({ baseUrl: API_BASE });
+    api.catalog.sellers(organizationId ?? undefined)
+      .then((payload) => {
+        if (!cancelled) setIsRegisteredSeller((payload.items ?? []).length > 0);
+      })
+      .catch(() => {
+        if (!cancelled) setIsRegisteredSeller(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [session.status, session.activeOrganizationId, session]);
+
+  const role: MarketRole =
+    session.status !== "authenticated" ? "guest" : isRegisteredSeller ? "seller" : "buyer";
 
   const value = useMemo<MarketSessionValue>(
     () => ({
       role,
       isSeller: role === "seller",
-      displayName: DISPLAY[role],
-      signInAsSeller: () => signIn("seller"),
-      signOut,
+      displayName: session.user?.name ?? "Guest",
+      session,
+      openSignIn: () => {
+        window.location.hash = "#signin";
+      },
+      signOut: () => {
+        void session.logout();
+      },
     }),
-    [role, signIn, signOut],
+    [role, session],
   );
 
   return <MarketSessionContext.Provider value={value}>{children}</MarketSessionContext.Provider>;
@@ -56,3 +80,5 @@ export function useMarketSession(): MarketSessionValue {
   if (!value) throw new Error("useMarketSession must be used inside MarketSessionProvider");
   return value;
 }
+
+const API_BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? "/api";

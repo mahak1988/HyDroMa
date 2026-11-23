@@ -32,8 +32,9 @@ const UNITS = [
   "packages/configuration",
   "packages/utilities",
   "packages/scientific",
+  "packages/app-shell",
 ];
-const APP_NAMES = ["home", "console", "portal", "marketplace", "tourism", "scientific-workspace", "brand", "platform"];
+const APP_NAMES = ["home", "console", "portal", "marketplace", "tourism", "scientific-workspace", "brand", "platform", "field-collection"];
 const LAYER_RE = /^(engines|services|contracts|upstream-registry|upstream-archives|experiments|app)\//;
 
 const violations = [];
@@ -41,7 +42,7 @@ const violations = [];
 async function walk(dir) {
   const out = [];
   for (const entry of await readdir(dir, { withFileTypes: true })) {
-    if (["node_modules", "dist", "artifacts", ".next"].includes(entry.name)) continue;
+    if (["node_modules", "dist", "build", "out", "coverage", "artifacts", ".next", ".turbo", ".vite", "temp", "tmp"].includes(entry.name)) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) out.push(...(await walk(full)));
     else if (/\.(ts|tsx|mts|js|mjs)$/.test(entry.name)) out.push(full);
