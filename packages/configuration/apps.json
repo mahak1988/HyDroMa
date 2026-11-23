@@ -67,7 +67,7 @@
     "titleKey": "apps.market.title",
     "bodyKey": "apps.market.body",
     "accent": "market",
-    "status": "beta",
+    "status": "archived",
     "owner": "market-session",
     "dataMode": "hybrid",
     "requiresSession": false,
@@ -76,7 +76,7 @@
       "/v1/catalog"
     ],
     "since": "2026-11-19",
-    "notes": "Sellers from API; catalog fixture behind TanStack Query - owner decision pending."
+    "notes": "Migrated into the platform SPA as an internal lazy section at /market. Sellers come from the API; the catalog display stays content-backed (owner decision: hybrid). Legacy bundle archived; folder removed in phase 7."
   },
   {
     "id": "tourism",

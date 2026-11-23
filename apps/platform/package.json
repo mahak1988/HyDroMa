@@ -10,6 +10,7 @@
     "preview": "vite preview --port 5183 --strictPort"
   },
   "dependencies": {
+    "@tanstack/react-query": "5.108.0",
     "@eco-nojin/configuration": "workspace:*",
     "@eco-nojin/design-system": "workspace:*",
     "@eco-nojin/domain-types": "workspace:*",

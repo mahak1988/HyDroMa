@@ -29,7 +29,14 @@ export const SECTIONS: SectionDescriptor[] = [
     internal: false,
     audience: "landscape managers and operators",
   },
-  { id: "market", labelKey: "apps.market.short", href: "/market/", internal: false, audience: "buyers and sellers" },
+  {
+    id: "market",
+    labelKey: "apps.market.short",
+    href: "/market",
+    internal: true,
+    loader: () => import("./market/app/router"),
+    audience: "buyers and sellers",
+  },
   {
     id: "tourism",
     labelKey: "apps.tourism.short",

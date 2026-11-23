@@ -38,6 +38,7 @@ const overview = pageById("overview");
  * status message, not a full page.
  */
 const TourismSection = lazy(() => import("../sections/tourism/app/router"));
+const MarketSection = lazy(() => import("../sections/market/app/router"));
 
 function SectionFallback() {
   return (
@@ -67,7 +68,6 @@ export const router = createBrowserRouter(
         { path: "hydroma", element: <PageView pageKey="hydroma" path="/hydroma" /> },
         // Section landings live in their own bundles; send visitors there.
         { path: "landscape", element: <ExternalRedirect href="/platform/" /> },
-        { path: "marketplace", element: <ExternalRedirect href="/market/" /> },
         { path: "mrv", element: <PageView pageKey="mrv" path="/mrv" /> },
         { path: "knowledge", element: <PageView pageKey="knowledge" path="/knowledge" /> },
         { path: "about", element: <PageView pageKey="about" path="/about" /> },
@@ -82,6 +82,14 @@ export const router = createBrowserRouter(
       element: (
         <Suspense fallback={<SectionFallback />}>
           <TourismSection />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/market/*",
+      element: (
+        <Suspense fallback={<SectionFallback />}>
+          <MarketSection />
         </Suspense>
       ),
     },
