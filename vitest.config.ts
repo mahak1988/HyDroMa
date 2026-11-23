@@ -28,7 +28,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: false,
     css: false,
-    include: ["packages/*/tests/**/*.test.{ts,tsx}", "apps/console/tests/**/*.test.{ts,tsx}", "apps/marketplace/tests/unit/**/*.test.ts", "apps/tourism/tests/unit/**/*.test.ts", "apps/scientific-workspace/tests/**/*.test.{ts,tsx}", "apps/platform/tests/**/*.test.{ts,tsx}"],
+    include: ["packages/*/tests/**/*.test.{ts,tsx}", "archive/legacy-console/tests/**/*.test.{ts,tsx}", "archive/legacy-marketplace/tests/unit/**/*.test.ts", "archive/legacy-tourism/tests/unit/**/*.test.ts", "archive/legacy-scientific-workspace/tests/**/*.test.{ts,tsx}", "apps/platform/tests/**/*.test.{ts,tsx}"],
     setupFiles: ["./vitest.setup.ts"],
     restoreMocks: true,
   },

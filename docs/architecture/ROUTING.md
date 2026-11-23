@@ -63,8 +63,10 @@ core.
 
 - Every section declares a catch-all rendering its `NotFoundPage`.
 - The platform root declares `path: "*"` → `NotFoundPage`.
-- Archived apps keep their own routers for reference but are not served or
-  built.
+- Legacy apps (`console`, `marketplace`, `tourism`, `field-collection`,
+  `scientific-workspace`) live under `archive/legacy-*`; they keep their own
+  routers for reference but are not served, built or reachable. The registry
+  contains `platform` and `brand` only.
 
 ## 7. Testing
 

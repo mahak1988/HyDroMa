@@ -11,13 +11,13 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const UNITS = [
-  "apps/console",
-  "apps/scientific-workspace",
-  "apps/marketplace",
-  "apps/tourism",
+  "archive/legacy-console",
+  "archive/legacy-scientific-workspace",
+  "archive/legacy-marketplace",
+  "archive/legacy-tourism",
   "apps/brand",
   "apps/platform",
-  "apps/field-collection",
+  "archive/legacy-field-collection",
   "packages/design-system",
   "packages/ui",
   "packages/icons",
@@ -67,7 +67,7 @@ for (const unit of UNITS) {
   const unitRoot = path.join(ROOT, unit);
   const files = await walk(unitRoot);
   const unitName = unit.split("/")[1];
-  const isApp = unit.startsWith("apps/");
+  const isApp = unit.startsWith("apps/") || unit.startsWith("archive/legacy-");
 
   for (const file of files) {
     scanned += 1;

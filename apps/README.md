@@ -25,13 +25,13 @@ SPA. `apps/brand` is a static design showcase at `/brand/`.
 | science | `/science/*` | lazy | `hydroma-client`; explicit unavailable states |
 | brand | `/brand/` | separate static app | token showcase |
 
-## Archived registry entries
+## Archived apps
 
 `console`, `marketplace`, `tourism`, `field-collection` and
-`scientific-workspace` are marked `status: "archived"`. `build:all`,
-`unified-dev` and `unified-serve` skip them. Their source folders remain under
-`apps/` (so `pnpm run check:apps` stays green and the code keeps typechecking);
-moving them to `archive/legacy-*` is an owner-approved change.
+`scientific-workspace` were moved to `archive/legacy-*` and removed from the
+registry. They are still typechecked and linted from the archive, but they are
+not built, served or reachable at runtime — their routes live in the platform
+SPA now. The registry contains `platform` and `brand` only.
 
 ## Run
 

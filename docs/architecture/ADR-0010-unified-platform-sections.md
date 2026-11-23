@@ -33,9 +33,10 @@ made `/api` cookies fragile across origins, and multiplied bundle budgets.
    `demo` states. The marketplace catalog stays content-backed while sellers
    are API records (owner decision: hybrid). Field observations sync for real
    through `POST /v1/resources/surveys`; statuses come from the API.
-6. **Archived apps**: registry entries with `status: "archived"` are skipped by
-   `build:all`, `unified-dev` and `unified-serve`. Their source folders remain
-   under `apps/` until the owner approves moving them to `archive/legacy-*`.
+6. **Archived apps**: the legacy bundles moved to `archive/legacy-*` and were
+   removed from the registry. They are still typechecked and linted from the
+   archive, but `build:all`, `unified-dev` and `unified-serve` no longer see
+   them; their routes live in the platform SPA.
 7. **Budget gate**: `scripts/check-bundle-budget.mjs` caps the initial entry at
    900 KB and each lazy section entry (`router-*.js`) at 700 KB; vendor map/3D
    chunks are reported but not capped. The gate is part of `verify`.
@@ -48,9 +49,8 @@ made `/api` cookies fragile across origins, and multiplied bundle budgets.
   public core keeps working if a section chunk fails.
 - The platform initial chunk is larger than any single legacy app (all shared
   i18n catalogs are in the entry); the budget gate keeps it under 900 KB.
-- Legacy app folders still typecheck and lint (root `tsconfig`/lint include
-  them) but are no longer served or built. Deleting or archiving those folders
-  is a separate owner-approved change.
+- Legacy app folders live under `archive/legacy-*`; they still typecheck and
+  lint from there but are no longer served or built.
 - The public marketing copy is currently authored in en/fa/ar; shared i18n
   catalog keys (auth, sections, apps, hydroma, …) exist in all 15 shipped
   locales. Translating the public core into the remaining 12 locales is open

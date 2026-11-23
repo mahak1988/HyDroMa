@@ -7,11 +7,6 @@ describe("app registry", () => {
     expect(new Set(ids).size).toBe(ids.length);
     expect(ids).toEqual([
       "platform",
-      "console",
-      "scientific-workspace",
-      "marketplace",
-      "tourism",
-      "field-collection",
       "brand",
     ]);
   });
@@ -40,7 +35,7 @@ describe("app registry", () => {
   });
 
   it("exposes a trailing-slash path for links", () => {
-    expect(appPath("console")).toBe("/console/");
+    expect(appPath("brand")).toBe("/brand/");
     expect(appPath("platform")).toBe("/");
   });
 });
