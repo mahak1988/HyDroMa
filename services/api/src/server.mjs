@@ -631,7 +631,7 @@ export function createApp(options = {}) {
 
   /* ----------------------------- resources ------------------------------ */
 
-  const RESOURCE_TYPES = new Set(["landscapes", "villages", "projects", "farms", "sites", "reports", "courses", "articles"]);
+  const RESOURCE_TYPES = new Set(["landscapes", "villages", "projects", "farms", "sites", "reports", "courses", "articles", "surveys"]);
 
   route("GET", /^\/v1\/resources\/(?<type>[a-z-]+)$/u, async (req, res, ctx, url) => {
     const type = ctx.params.type;

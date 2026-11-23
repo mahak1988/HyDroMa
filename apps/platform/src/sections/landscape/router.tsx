@@ -1,8 +1,15 @@
 import { Route, Routes } from "react-router-dom";
+import "./field/styles/index.css";
 import { EmptyState } from "@eco-nojin/ui";
 import { PlatformLayout } from "../../app/PlatformLayout";
 import { PageRenderer } from "../../pages/PageRenderer";
 import { LANDSCAPE_PAGES, pageById, type PageDef } from "../../content/pages";
+import { ObservationProvider } from "./field/store/observations";
+import { FieldLayout } from "./field/app/FieldLayout";
+import { HomePage as FieldHomePage } from "./field/pages/HomePage";
+import { SurveyPage as FieldSurveyPage } from "./field/pages/SurveyPage";
+import { RecordsPage as FieldRecordsPage } from "./field/pages/RecordsPage";
+import { MapPage as FieldMapPage } from "./field/pages/MapPage";
 
 /**
  * Landscape management section (lazy, internal to the platform SPA).
@@ -32,6 +39,19 @@ export default function LandscapeSectionRouter() {
         {LANDSCAPE_PAGES.filter((page) => page.path !== "").map((page) => (
           <Route key={page.id} path={page.path} element={renderPage(page)} />
         ))}
+        <Route
+          path="field"
+          element={
+            <ObservationProvider>
+              <FieldLayout />
+            </ObservationProvider>
+          }
+        >
+          <Route index element={<FieldHomePage />} />
+          <Route path="survey" element={<FieldSurveyPage />} />
+          <Route path="records" element={<FieldRecordsPage />} />
+          <Route path="map" element={<FieldMapPage />} />
+        </Route>
         <Route
           path="*"
           element={<EmptyState title="۴۰۴ — صفحه یافت نشد" body="این مسیر در بخش مدیریت منظر تعریف نشده است." />}

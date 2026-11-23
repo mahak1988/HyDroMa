@@ -63,7 +63,7 @@ export function PlatformLayout({ basePath = "/platform", sections: sectionIds, p
           </span>
         </div>
 
-        <nav className="pl-nav">
+        <nav className="pl-nav" aria-label={t(UI.sections, locale)}>
           <div className="pl-search">
             <input
               type="search"

@@ -23,6 +23,10 @@ const routes = [
   "/landscape/landscapes/villages",
   "/landscape/landscapes/assessment",
   "/landscape/landscapes/kondor",
+  "/landscape/field",
+  "/landscape/field/survey",
+  "/landscape/field/records",
+  "/landscape/field/map",
 ];
 
 for (const route of routes) {

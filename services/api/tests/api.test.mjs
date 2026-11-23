@@ -142,6 +142,19 @@ test("resources CRUD with RBAC: member cannot create, owner can delete, cross-or
   await call(base, `/v1/resources/villages/${created.json.id}`, { cookie: owner, expect: 404 });
 });
 
+test("field surveys sync through the resources API", async (t) => {
+  const base = await makeApp(t);
+  const owner = cookieOf((await call(base, "/v1/auth/register", { method: "POST", body: { email: "field@b.local", name: "Field", password: PASS, organizationName: "Field Co" }, expect: 201 })).headers);
+
+  const created = await call(base, "/v1/resources/surveys", { method: "POST", cookie: owner, body: { siteName: "Kondor terrace", notes: "Soil sample 12", status: "pending" }, expect: 201 });
+  assert.equal(created.json.siteName, "Kondor terrace");
+  assert.ok(created.json.id);
+
+  const listed = await call(base, "/v1/resources/surveys", { cookie: owner });
+  assert.equal(listed.json.total, 1);
+  assert.equal(listed.json.items[0].siteName, "Kondor terrace");
+});
+
 test("catalog: categories exist, product creation validates price", async (t) => {
   const base = await makeApp(t);
   const owner = cookieOf((await call(base, "/v1/auth/register", { method: "POST", body: { email: "c@b.local", name: "CC", password: PASS, organizationName: "CC Market" }, expect: 201 })).headers);

@@ -105,13 +105,15 @@
     "titleKey": "apps.field.title",
     "bodyKey": "apps.field.body",
     "accent": "hydroma",
-    "status": "sandbox",
+    "status": "archived",
     "owner": "field-offline",
-    "dataMode": "offline",
+    "dataMode": "hybrid",
     "requiresSession": false,
-    "apiNamespaces": [],
+    "apiNamespaces": [
+      "/v1/resources/surveys"
+    ],
     "since": "2026-11-22",
-    "notes": "Offline queue in localStorage; real sync blocked on session+resources integration."
+    "notes": "Migrated into the platform SPA as /landscape/field. Offline queue in localStorage; real sync POSTs /v1/resources/surveys with the root real session. Legacy bundle archived; folder removed in phase 7."
   },
   {
     "id": "brand",

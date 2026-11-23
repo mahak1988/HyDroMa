@@ -53,7 +53,14 @@ export const SECTIONS: SectionDescriptor[] = [
     internal: false,
     audience: "scientists",
   },
-  { id: "field", labelKey: "apps.field.short", href: "/field/", internal: false, audience: "field workers" },
+  {
+    id: "field",
+    labelKey: "apps.field.short",
+    href: "/landscape/field",
+    internal: true,
+    loader: () => import("./landscape/router"),
+    audience: "field workers",
+  },
   { id: "brand", labelKey: "apps.brand.short", href: "/brand/", internal: false, audience: "designers" },
 ];
 
