@@ -803,3 +803,10 @@ export function pageById(id: string): PageDef {
 export function pagesOf(section: SectionId): PageDef[] {
   return PAGES.filter((page) => page.section === section);
 }
+
+/**
+ * The landscape management surface, mounted as the platform's `/landscape`
+ * section. Kept as a filtered view of the shared registry so the platform
+ * workspace and the section render the same page definitions.
+ */
+export const LANDSCAPE_PAGES: PageDef[] = PAGES.filter((page) => page.section === "landscape");

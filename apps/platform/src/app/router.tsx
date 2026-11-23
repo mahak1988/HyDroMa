@@ -39,6 +39,7 @@ const overview = pageById("overview");
  */
 const TourismSection = lazy(() => import("../sections/tourism/app/router"));
 const MarketSection = lazy(() => import("../sections/market/app/router"));
+const LandscapeSection = lazy(() => import("../sections/landscape/router"));
 
 function SectionFallback() {
   return (
@@ -67,7 +68,7 @@ export const router = createBrowserRouter(
         { path: "ecosystem", element: <PageView pageKey="ecosystem" path="/ecosystem" /> },
         { path: "hydroma", element: <PageView pageKey="hydroma" path="/hydroma" /> },
         // Section landings live in their own bundles; send visitors there.
-        { path: "landscape", element: <ExternalRedirect href="/platform/" /> },
+        { path: "marketplace", element: <ExternalRedirect href="/market/" /> },
         { path: "mrv", element: <PageView pageKey="mrv" path="/mrv" /> },
         { path: "knowledge", element: <PageView pageKey="knowledge" path="/knowledge" /> },
         { path: "about", element: <PageView pageKey="about" path="/about" /> },
@@ -90,6 +91,14 @@ export const router = createBrowserRouter(
       element: (
         <Suspense fallback={<SectionFallback />}>
           <MarketSection />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/landscape/*",
+      element: (
+        <Suspense fallback={<SectionFallback />}>
+          <LandscapeSection />
         </Suspense>
       ),
     },

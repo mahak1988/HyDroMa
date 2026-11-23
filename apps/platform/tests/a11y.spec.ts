@@ -18,6 +18,11 @@ const routes = [
   "/platform",
   "/platform/landscapes",
   "/platform/projects",
+  "/landscape",
+  "/landscape/landscapes",
+  "/landscape/landscapes/villages",
+  "/landscape/landscapes/assessment",
+  "/landscape/landscapes/kondor",
 ];
 
 for (const route of routes) {

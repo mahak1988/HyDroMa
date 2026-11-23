@@ -190,7 +190,7 @@ function Dashboard({ page }: { page: PageDef }) {
 
 /* ---------------------------------- list ---------------------------------- */
 
-function ListPage({ page }: { page: PageDef }) {
+function ListPage({ page, detailBase }: { page: PageDef; detailBase?: string }) {
   const { l, number, status, locale, date: formatDate } = useLoc();
   const [query, setQuery] = useState("");
   const [state, setState] = useState<string>("all");
@@ -208,7 +208,7 @@ function ListPage({ page }: { page: PageDef }) {
     });
   }, [entities, query, state, locale]);
 
-  const base = DETAIL_BASE[page.section];
+  const base = detailBase ?? DETAIL_BASE[page.section];
 
   return (
     <div className="pl-stack">
@@ -284,7 +284,9 @@ function ListPage({ page }: { page: PageDef }) {
                     <th>{l(UI.table.name)}</th>
                     <th>{l(UI.table.status)}</th>
                     <th>{l(UI.table.source)}</th>
-                    <th aria-label={l(UI.open)} />
+                    <th>
+                      <span className="sr-only">{l(UI.open)}</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -667,12 +669,12 @@ function AtlasPage({ page }: { page: PageDef }) {
 
 /* -------------------------------- renderer -------------------------------- */
 
-export function PageRenderer({ page }: { page: PageDef }) {
+export function PageRenderer({ page, detailBase }: { page: PageDef; detailBase?: string }) {
   switch (page.kind) {
     case "dashboard":
       return <Dashboard page={page} />;
     case "list":
-      return <ListPage page={page} />;
+      return <ListPage page={page} detailBase={detailBase} />;
     case "detail":
       return <DetailPage page={page} />;
     case "wizard":

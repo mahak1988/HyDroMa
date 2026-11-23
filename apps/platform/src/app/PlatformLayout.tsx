@@ -4,12 +4,21 @@ import { useI18n } from "@eco-nojin/i18n";
 import { Badge, Button } from "@eco-nojin/ui";
 import { Icon } from "@eco-nojin/icons";
 import { useTheme } from "@eco-nojin/frontend-core/theme";
-import { PAGES, SECTIONS, pageById, pagesOf, type SectionId } from "../content/pages";
+import { PAGES, SECTIONS, pageById, type PageDef, type SectionId } from "../content/pages";
 import { UI, t } from "../content/ui";
 
 const OVERVIEW = pageById("overview");
 
-export function PlatformLayout() {
+type PlatformLayoutProps = {
+  /** Public prefix for workspace links (defaults to the platform workspace). */
+  basePath?: string;
+  /** Restrict the sidebar to these sections (defaults to all). */
+  sections?: SectionId[];
+  /** Page registry to render (defaults to the platform registry). */
+  pages?: PageDef[];
+};
+
+export function PlatformLayout({ basePath = "/platform", sections: sectionIds, pages = PAGES }: PlatformLayoutProps = {}) {
   const { locale, setLocale, locales } = useI18n();
   const { mode, setMode } = useTheme();
   const location = useLocation();
@@ -23,14 +32,19 @@ export function PlatformLayout() {
 
   const current = useMemo(() => {
     const path = location.pathname;
-    const exact = [...PAGES].sort((a, b) => b.path.length - a.path.length).find((page) => page.path && path.endsWith(`/${page.path}`));
+    const exact = [...pages].sort((a, b) => b.path.length - a.path.length).find((page) => page.path && path.endsWith(`/${page.path}`));
     if (exact) return exact;
-    const dynamic = PAGES.find((page) => page.path.includes(":") && path.includes(`/${page.path.split("/:")[0]}/`));
+    const dynamic = pages.find((page) => page.path.includes(":") && path.includes(`/${page.path.split("/:")[0]}/`));
     if (dynamic) return dynamic;
-    return path.replace(/\/+$/u, "").endsWith("platform") ? OVERVIEW : OVERVIEW;
-  }, [location.pathname]);
+    return path.replace(/\/+$/u, "").endsWith(basePath.replace(/\/+$/u, "")) ? (pages.find((page) => page.path === "") ?? OVERVIEW) : (pages[0] ?? OVERVIEW);
+  }, [location.pathname, pages, basePath]);
 
-  const section = SECTIONS.find((item) => item.id === current.section) ?? SECTIONS[0]!;
+  const visibleSections = useMemo(
+    () => (sectionIds ? SECTIONS.filter((item) => sectionIds.includes(item.id)) : SECTIONS),
+    [sectionIds],
+  );
+
+  const section = visibleSections.find((item) => item.id === current.section) ?? visibleSections[0] ?? SECTIONS[0]!;
 
   return (
     <div className={`pl-app${open ? " is-open" : ""}`}>
@@ -60,11 +74,13 @@ export function PlatformLayout() {
               aria-label="Search pages"
             />
           </div>
-          {SECTIONS.map((item) => {
-            const pages = pagesOf(item.id as SectionId)
+          {visibleSections.map((item) => {
+            const sectionPages = pages
+              .filter((page) => page.section === item.id)
               .filter((page) => page.path !== "")
+              .filter((page) => !page.path.includes(":"))
               .filter((page) => !query || t(page.title, locale).toLowerCase().includes(query.toLowerCase()) || page.path.toLowerCase().includes(query.toLowerCase()));
-            if (query && pages.length === 0 && item.id !== "overview") return null;
+            if (query && sectionPages.length === 0 && item.id !== "overview") return null;
             const isOpen = query ? true : collapsed[item.id] !== true;
             const active = current.section === item.id;
             return (
@@ -85,15 +101,15 @@ export function PlatformLayout() {
                   <ul className="pl-navList">
                     {item.id === "overview" ? (
                       <li>
-                        <Link to="/platform" className={location.pathname.replace(/\/+$/u, "").endsWith("platform") ? "is-current" : ""}>
+                        <Link to={basePath} className={location.pathname.replace(/\/+$/u, "").endsWith(basePath.replace(/\/+$/u, "")) ? "is-current" : ""}>
                           {t(OVERVIEW.title, locale)}
                         </Link>
                       </li>
                     ) : null}
-                    {pages.map((page) => (
+                    {sectionPages.map((page) => (
                       <li key={page.id}>
                         <Link
-                          to={`/platform/${page.path}`}
+                          to={`${basePath}/${page.path}`}
                           className={page.id === current.id ? "is-current" : ""}
                           aria-current={page.id === current.id ? "page" : undefined}
                         >

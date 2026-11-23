@@ -25,8 +25,9 @@ export const SECTIONS: SectionDescriptor[] = [
   {
     id: "landscape",
     labelKey: "apps.platform.short",
-    href: "/platform/",
-    internal: false,
+    href: "/landscape",
+    internal: true,
+    loader: () => import("./landscape/router"),
     audience: "landscape managers and operators",
   },
   {
