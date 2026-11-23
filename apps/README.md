@@ -1,64 +1,54 @@
-# apps/ — every user-facing surface, one origin
+# apps/ — one platform, one port, specialised sections
 
-**Status:** implemented (frontend, demo data) · **One port:** `http://localhost:5180`
+**Status:** unified platform SPA (Phase 2 complete) · **One port:** `http://localhost:5180`
 
-Every application lives here and is served from a single origin and a single port.
-`packages/configuration/apps.json` is the registry: the dev host, the production host, the
-entry page and the in-app switcher all read it, so adding an app is a one-file change.
+The runtime is **one platform application** (`apps/platform`, port 5181) served by the
+unified host on port 5180: the **public core** lives at the root, and specialised
+sections are reached from the platform header. `packages/configuration/apps.json`
+is the registry (v2) — every entry carries `status`, `owner`, `dataMode`,
+`requiresSession` and `apiNamespaces`; `scripts/app-manifest.mjs` enforces
+five-way consistency (folder⇄registry, api usage, session primitives, test gates,
+unique paths/ports) in `verify`.
 
-| App | Path | Internal port | Audience | State |
-|---|---|---|---|---|
-| `home` | `/` | 5181 | everyone | entry page, links every surface |
-| `portal` | `/portal/` | 5176 | public visitors | implemented — prerendered, PWA, fa/ar/en |
-| `console` | `/console/` | 5175 | organizations | implemented (demo) — identity, tenancy, permissions |
-| `scientific-workspace` | `/science/` | 5177 | scientists | implemented (demo) — indicators, maps, scenarios |
-| `marketplace` | `/market/` | 5178 | buyers, sellers | implemented (demo) — catalog, cart, seller console |
-| `tourism` | `/tourism/` | 5179 | guests, hosts | implemented (demo) — stays, experiences, bookings |
-| `platform` | `/platform/` | 5183 | operators, communities | implemented (demo) — landscape, agriculture, MRV, projects, knowledge, finance, community, governance (72 pages) |
-| `brand` | `/brand/` | 5182 | designers | implemented — live tokens, components, light/dark, identity |
+## Runtime apps (7)
+
+| App | Path | Internal port | Audience | Status | dataMode |
+|---|---|---|---|---|---|
+| `platform` | `/` | 5181 | everyone + operators | **live** | hybrid — public core at `/` (12 pages, real `/login`), workspace at `/platform` |
+| `console` | `/console/` | 5175 | organizations | **live** | api — fully real identity, notifications, session |
+| `scientific-workspace` | `/science/` | 5177 | scientists | **live** | api — model registry + runs via `hydroma-client` → local engine |
+| `marketplace` | `/market/` | 5178 | buyers, sellers | beta | hybrid — real session + sellers; catalog fixture (owner decision pending) |
+| `tourism` | `/tourism/` | 5179 | guests, hosts | beta | hybrid — real session gate + inquiries; booking backend pending |
+| `field-collection` | `/field/` | 5185 | field workers | sandbox | offline — localStorage queue; real sync pending |
+| `brand` | `/brand/` | 5182 | designers | sandbox | content — live tokens reference |
+
+Migration target and phase order: `docs/reports/برنامه-پلتفرم-یکپارچه-2026-11-23.md`.
+Blocked capabilities (never faked): `docs/BLOCKED-CAPABILITIES.md`.
+
+## Sections bridge
+
+While a section still runs as its own bundle, it is listed in
+`apps/platform/src/sections/manifest.ts` (`external: true`) and the public header
+links to it with a document navigation. A section becomes `internal` when its
+routes move into the platform SPA as a lazy module.
 
 ## Run
 
 ```bash
-npm run dev        # unified host on :5180 (starts every app behind a proxy)
-npm run preview    # same host, serving the production builds (run build first)
-npm run build      # builds all apps with the right base path, then the host serves them
-npm run verify     # typecheck + lint + boundaries + tokens + unit tests + all builds
+pnpm run dev        # unified host on :5180 (API on :8000 + every app behind a proxy)
+pnpm run seed       # load reference data (catalog categories) into the API database
+pnpm run preview    # same host serving the production builds (build first)
+pnpm run build      # build all apps with the right base path
+pnpm run verify     # typecheck + lint + boundaries + tokens + app-manifest + unit + api tests + builds
 ```
 
-Standalone app development still works and keeps its own port:
+Standalone section development keeps its own internal port (see registry), and
+`/api` is proxied by every dev server and both hosts, so session cookies stay
+same-origin everywhere.
 
-```bash
-npm run dev:console   # 5175
-npm run dev:portal    # 5176
-npm run dev:science   # 5177
-npm run dev:market    # 5178
-npm run dev:tourism   # 5179
-npm run dev:platform  # 5183
-npm run dev:brand     # 5182
-npm run dev:home      # 5181
-```
+## Rules for adding or changing an app
 
-## Boundaries
-
-Each app is its own bundle; apps never import another app's source. Shared behaviour lives in
-`packages/*` and is consumed as a workspace dependency:
-
-- `@eco-nojin/configuration` — app registry, ports, basename rules.
-- `@eco-nojin/ui` — primitives, charts, `AppSwitcher` (renders only in unified mode).
-- `@eco-nojin/icons` — 30 domain glyphs (catchment, groundwater, MRV, nomadic, …).
-- `@eco-nojin/auth-client` — demo session primitives and the shared route guards.
-- `@eco-nojin/scientific` — deterministic models with units, provenance and validation state.
-
-`apps/platform` composes seven services behind one registry: 72 routes are generated from
-`src/content/pages.ts` and rendered by six shared page patterns (dashboard, list, detail, wizard,
-report, map). See `docs/platform-page-map.md` for the page-by-page mapping to the 120-page plan.
-- `@eco-nojin/spatial` — map bootstrap, layer registry, token-driven colours.
-
-`scripts/check-boundaries.mjs` enforces this on every run: 20 units, zero violations.
-
-## Data
-
-All apps run on demo data and are labelled as such in the UI. No app talks to a backend yet:
-`apps/console/src/data/index.ts` switches to the HTTP client when `VITE_API_URL` is set, and every
-other surface has the same seam. Payments, wallets and tokens are explicitly out of scope.
+1. Registry entry first (`apps.json`, v2 fields required) — `pnpm run check:apps` fails otherwise.
+2. DoD for `status: "live"`: e2e spec + a11y spec + real data source (no fixtures).
+3. A blocked capability is labeled unavailable in the UI, never substituted with fake data.
+4. Commits only on explicit owner request; one work package per commit.

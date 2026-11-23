@@ -6,7 +6,18 @@
     "audience": "operators",
     "titleKey": "apps.platform.title",
     "bodyKey": "apps.platform.body",
-    "accent": "hydroma"
+    "accent": "hydroma",
+    "status": "live",
+    "owner": "platform-core",
+    "dataMode": "hybrid",
+    "requiresSession": false,
+    "apiNamespaces": [
+      "/v1/resources",
+      "/v1/models",
+      "/v1/auth"
+    ],
+    "since": "2026-11-18",
+    "notes": "Unified platform SPA: public core at /, workspace at /platform."
   },
   {
     "id": "console",
@@ -15,7 +26,19 @@
     "audience": "organizations",
     "titleKey": "apps.console.title",
     "bodyKey": "apps.console.body",
-    "accent": "console"
+    "accent": "console",
+    "status": "live",
+    "owner": "console-session",
+    "dataMode": "api",
+    "requiresSession": true,
+    "apiNamespaces": [
+      "/v1/auth",
+      "/v1/organizations",
+      "/v1/users",
+      "/v1/notifications"
+    ],
+    "since": "2026-11-18",
+    "notes": "Fully real: identity management, notifications, session."
   },
   {
     "id": "scientific-workspace",
@@ -24,7 +47,17 @@
     "audience": "scientists",
     "titleKey": "apps.science.title",
     "bodyKey": "apps.science.body",
-    "accent": "hydroma"
+    "accent": "hydroma",
+    "status": "live",
+    "owner": "science-runtime",
+    "dataMode": "api",
+    "requiresSession": false,
+    "apiNamespaces": [
+      "/v1/models",
+      "/v1/runs"
+    ],
+    "since": "2026-11-19",
+    "notes": "Model registry + run submission via hydroma-client to the local engine."
   },
   {
     "id": "marketplace",
@@ -33,7 +66,17 @@
     "audience": "buyers and sellers",
     "titleKey": "apps.market.title",
     "bodyKey": "apps.market.body",
-    "accent": "market"
+    "accent": "market",
+    "status": "beta",
+    "owner": "market-session",
+    "dataMode": "hybrid",
+    "requiresSession": false,
+    "apiNamespaces": [
+      "/v1/auth",
+      "/v1/catalog"
+    ],
+    "since": "2026-11-19",
+    "notes": "Sellers from API; catalog fixture behind TanStack Query - owner decision pending."
   },
   {
     "id": "tourism",
@@ -42,7 +85,17 @@
     "audience": "guests and hosts",
     "titleKey": "apps.tourism.title",
     "bodyKey": "apps.tourism.body",
-    "accent": "tourism"
+    "accent": "tourism",
+    "status": "beta",
+    "owner": "tourism-session",
+    "dataMode": "hybrid",
+    "requiresSession": false,
+    "apiNamespaces": [
+      "/v1/auth",
+      "/v1/resources/inquiries"
+    ],
+    "since": "2026-11-19",
+    "notes": "Real session gate + real inquiry create; availability/booking backend pending."
   },
   {
     "id": "field-collection",
@@ -51,7 +104,14 @@
     "audience": "field workers",
     "titleKey": "apps.field.title",
     "bodyKey": "apps.field.body",
-    "accent": "hydroma"
+    "accent": "hydroma",
+    "status": "sandbox",
+    "owner": "field-offline",
+    "dataMode": "offline",
+    "requiresSession": false,
+    "apiNamespaces": [],
+    "since": "2026-11-22",
+    "notes": "Offline queue in localStorage; real sync blocked on session+resources integration."
   },
   {
     "id": "brand",
@@ -60,6 +120,13 @@
     "audience": "designers",
     "titleKey": "apps.brand.title",
     "bodyKey": "apps.brand.body",
-    "accent": "brand"
+    "accent": "brand",
+    "status": "sandbox",
+    "owner": "design-system",
+    "dataMode": "content",
+    "requiresSession": false,
+    "apiNamespaces": [],
+    "since": "2026-11-19",
+    "notes": "Designer reference reading live tokens."
   }
 ]

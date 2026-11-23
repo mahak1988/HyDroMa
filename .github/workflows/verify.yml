@@ -40,6 +40,9 @@ jobs:
       - name: Design tokens
         run: pnpm run check:tokens
 
+      - name: App manifest consistency
+        run: pnpm run check:apps
+
       - name: Unit tests
         run: pnpm exec vitest run
 
