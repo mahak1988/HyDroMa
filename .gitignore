@@ -1,0 +1,41 @@
+# فایل‌های نادیده‌گرفته (gitignore) — عمومی؛ بسته به زبان نهایی پروژه می‌توانید موارد اضافی را حذف کنید
+
+# ===== فایل‌های سیستم‌عامل =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===== پیکربندی ویرایشگر / IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== پایتون =====
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+.ipynb_checkpoints/
+
+# ===== Node.js =====
+node_modules/
+npm-debug.log*
+dist/
+
+# ===== C/C++ و میکروکنترلر =====
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.map
+build/
+
+# ===== لاگ‌ها و فایل‌های موقت =====
+*.log
+tmp/
+temp/
