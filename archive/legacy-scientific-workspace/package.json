@@ -1,0 +1,32 @@
+{
+  "name": "@eco-nojin/scientific-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "HyDroMA — Smart Environmental & Landscape Intelligence workspace (scientific UI).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit -p ../../tsconfig.json && vite build",
+    "preview": "vite preview --port 4182 --strictPort",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@deck.gl/aggregation-layers": "9.4.1",
+    "@deck.gl/core": "9.4.1",
+    "@deck.gl/layers": "9.4.1",
+    "@deck.gl/mapbox": "9.4.1",
+    "@eco-nojin/design-system": "workspace:*",
+    "@eco-nojin/hydroma-client": "workspace:*",
+    "@eco-nojin/i18n": "workspace:*",
+    "@eco-nojin/scientific": "workspace:*",
+    "@eco-nojin/spatial": "workspace:*",
+    "@eco-nojin/ui": "workspace:*",
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource-variable/source-serif-4": "5.3.1",
+    "@fontsource-variable/vazirmatn": "5.3.0",
+    "lucide-react": "1.75.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router-dom": "7.18.5"
+  }
+}

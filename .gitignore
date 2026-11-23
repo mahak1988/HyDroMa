@@ -1,45 +1,207 @@
-# ---- Eco Nojin root ignore rules (proposal; repository not yet initialised) ----
+# ==========================================================================
+# Eco Nojin — root ignore rules
 # Decision owner: see ARCHITECTURE-DECISIONS-OPEN.md (D-GIT-01)
+# Scope: generated, local, secret and machine-specific files only.
+# Never ignore: source code, tests, docs, lockfiles, project configuration,
+#               scientific fixtures, or intentional datasets.
+# ==========================================================================
 
-# Dependencies and build output
+# --------------------------------------------------------------------------
+# 1. Operating systems
+# --------------------------------------------------------------------------
+# Windows
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+
+# Linux / generic filesystem noise
+*~
+.directory
+.Trash-*
+.nfs*
+
+# --------------------------------------------------------------------------
+# 2. Editors and IDEs (local state only)
+# --------------------------------------------------------------------------
+# VS Code: local state is ignored; intentionally shared settings are committed
+/.vscode/
+
+# JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+.fleet/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# Vim
+*.swp
+*.swo
+*.swn
+.netrwhist
+
+# Emacs
+\#*\#
+.\#*
+auto-save-list/
+
+# Sublime Text (workspace only; .sublime-project is shareable and kept)
+*.sublime-workspace
+
+# --------------------------------------------------------------------------
+# 3. Node.js / JavaScript / TypeScript
+# --------------------------------------------------------------------------
+# Dependencies
 node_modules/
-.next/
-out/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn/cache
+.yarn/unplugged
+.yarn/install-state.gz
+.yarn/build-state.yml
+
+# Build output (pnpm workspace: apps/*, packages/*, services/*)
 dist/
 build/
-coverage/
-.turbo/
+out/
+.next/
 *.tsbuildinfo
+.turbo/
 
-# Python
+# Caches
+.parcel-cache/
+.vite/
+.cache/
+.eslintcache
+.stylelintcache
+
+# Local overrides
+*.local
+
+# --------------------------------------------------------------------------
+# 4. Python
+# --------------------------------------------------------------------------
+# Byte-compiled / packaging artefacts
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+build/
+dist/
+
+# Virtual environments
 .venv/
 venv/
 
-# Secrets and local environment
+# Type checkers / linters
+.mypy_cache/
+.pytype/
+.pyre/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.cython_debug/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# --------------------------------------------------------------------------
+# 5. Testing, coverage and reports
+# --------------------------------------------------------------------------
+.pytest_cache/
+.tox/
+.nox/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+coverage/
+coverage.xml
+*.cover
+*.lcov
+
+# Browser / end-to-end test output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.playwright-artifacts-*/
+
+# --------------------------------------------------------------------------
+# 6. Logs and temporary files
+# --------------------------------------------------------------------------
+*.log
+*.log.*
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+~$*
+
+# --------------------------------------------------------------------------
+# 7. Secrets and local environment (templates stay tracked)
+# --------------------------------------------------------------------------
 .env
 .env.*
 !.env.example
+!.env.sample
+!.env.template
+
 *.pem
 *.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
 secrets/
+.secrets/
+credentials.json
+.netrc
 
-# Logs
-*.log
-logs/
+# --------------------------------------------------------------------------
+# 8. Local databases and development data
+# --------------------------------------------------------------------------
+# Local API databases (see databases/README.md)
+databases/
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
 
-# Large upstream archives (kept on disk, out of version control)
-upstream-archives/**/*.zip
-upstream-archives/**/*.tar.gz
-upstream-archives/**/*.tgz
-
-# Extracted third-party sources: evidence, not part of the product tree
-upstream-registry/**/node_modules/
-upstream-registry/**/.next/
-upstream-registry/**/dist/
-
-# Data payloads (see data/.gitignore)
+# --------------------------------------------------------------------------
+# 9. Scientific payloads (see data/.gitignore)
+# --------------------------------------------------------------------------
 data/**/*.tif
 data/**/*.tiff
 data/**/*.nc
@@ -49,39 +211,53 @@ data/**/*.parquet
 data/**/*.csv
 data/**/*.zip
 
-# OS noise
-Thumbs.db
-desktop.ini
-.DS_Store
-
-# ---- Baseline exclusions (added 2026-11-18, owner-authorised baseline commit) ----
-# Local tooling/session state: not project source
-/.kilo/
-/.vscode/
-
-# Upstream evidence kept on disk as read-only witnesses (see UPSTREAM-FRONTEND-MANIFEST.json
-# for the recorded SHA256 values). Committing them would add ~7 GB and 246k files.
-/upstream-registry/
+# --------------------------------------------------------------------------
+# 10. Upstream archives and extracted third-party sources
+# --------------------------------------------------------------------------
+# Read-only witnesses kept on disk only; see UPSTREAM-FRONTEND-MANIFEST.json
 /upstream-archives/
+/upstream-registry/
 
-# Isolated experiment workspaces (RTL proof copies, build reproducer, Node runtime)
+# Extracted third-party trees are evidence, not product source
+upstream-archives/**/*.zip
+upstream-archives/**/*.tar.gz
+upstream-archives/**/*.tgz
+upstream-registry/**/node_modules/
+upstream-registry/**/.next/
+upstream-registry/**/dist/
+
+# --------------------------------------------------------------------------
+# 11. Local agent and tooling state
+# --------------------------------------------------------------------------
+# Local agent/session state (skills and instructions stay under version control
+# in the projects that own them)
+/.kilo/
+scripts/.zwork/
+.claude/
+.cursor/
+.windsurf/
+.aider*
+
+# --------------------------------------------------------------------------
+# 12. Isolated experiments and review output
+# --------------------------------------------------------------------------
+# RTL proof copies, build reproducers and other throwaway workspaces
 /experiments/
 
-# ---- Phase 1 checkpoint (2026-11-18): generated evidence stays out of history ----
-# Per-app artifacts (screenshots, contact sheets, play-test output)
-apps/*/artifacts/
-test-results/
-playwright-report/
-
-# ---- Phase 2.0 baseline (2026-11-20): generated evidence and legacy archive stay out of history ----
+# Generated review/evidence output
 /artifacts/
-/archive/
+/archive/*
+!/archive/legacy-console/
+!/archive/legacy-marketplace/
+!/archive/legacy-tourism/
+!/archive/legacy-field-collection/
+!/archive/legacy-scientific-workspace/
+apps/*/artifacts/
+
 # Literal reviewer folder that was created in the repository root
 /%TEMP%/
-
-# Python test cache (Phase 2.1)
-.pytest_cache/
-
-# Local API databases
-databases/
-
+# Archived app build/evidence output stays on disk, not in Git
+archive/legacy-*/artifacts/
+archive/legacy-*/dist/
+archive/legacy-*/test-results/
+archive/legacy-*/node_modules/
