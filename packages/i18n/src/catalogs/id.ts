@@ -83,6 +83,7 @@ export const id = {
     auditBody: "Kejadian sensitif dicatat dengan waktu dan sumber.",
   },
   apps: {
+    sections: { label: "Aplikasi", short: "Apl." },
     home: { title: "Setiap permukaan, satu titik masuk", body: "Satu titik masuk ke semua permukaan: platform terintegrasi, portal publik, konsol organisasi, ruang kerja ilmiah, marketplace, pariwisata, dan sistem desain.", short: "Beranda", enter: "Buka aplikasi", note: "Semua permukaan dilayani dari satu port dan satu origin. Setiap app menggunakan data demo; belum terhubung ke layanan langsung." },
     portal: { title: "Portal publik", body: "Cerita ekosistem, HyDroMA, lanskap, dan MRV — statis dulu untuk pencarian.", short: "Portal" },
     console: { title: "Konsol organisasi", body: "Pengguna, organisasi, peran, dan pengaturan dengan izin tingkat rute dan tenancy.", short: "Konsol" },

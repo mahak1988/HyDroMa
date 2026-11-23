@@ -5,6 +5,8 @@ import { useI18n } from "@eco-nojin/i18n";
 import { useTheme } from "@eco-nojin/frontend-core/theme";
 import type { ThemeMode } from "@eco-nojin/frontend-core/theme";
 import { Button, Dropdown } from "@eco-nojin/ui";
+import type { TranslationKey } from "@eco-nojin/i18n";
+import { NAV_SECTIONS } from "../../sections/manifest";
 import { Brand } from "../components/Brand";
 import { useSite } from "../content/useContent";
 
@@ -66,6 +68,27 @@ function ThemeMenu() {
   );
 }
 
+function SectionsMenu() {
+  const { t } = useI18n();
+  return (
+    <Dropdown
+      label={t("apps.sections.label")}
+      align="end"
+      items={NAV_SECTIONS.map((section) => ({
+        id: section.id,
+        label: t(section.labelKey as TranslationKey),
+        onSelect: () => window.location.assign(section.href),
+      }))}
+      trigger={
+        <Button variant="ghost" size="sm" aria-label={t("apps.sections.label")}>
+          <span className="hidden lg:inline">{t("apps.sections.label")}</span>
+          <span className="lg:hidden">{t("apps.sections.short")}</span>
+        </Button>
+      }
+    />
+  );
+}
+
 export function PortalLayout() {
   const site = useSite();
   const { pathname } = useLocation();
@@ -115,6 +138,7 @@ export function PortalLayout() {
           </nav>
 
           <div className="flex items-center gap-1.5">
+            <SectionsMenu />
             <LanguageMenu />
             <ThemeMenu />
             <Link

@@ -7,26 +7,21 @@
     "packages/*",
     "services/*"
   ],
-  "description": "Eco Nojin platform monorepo — real API service, one origin, seven surfaces, one shared foundation.",
+  "description": "Eco Nojin unified platform monorepo — one port, public core, specialised sections, real API.",
   "engines": {
     "node": ">=22.12.0"
   },
-    "scripts": {
+  "scripts": {
     "dev": "node scripts/unified-dev.mjs",
     "dev:all": "node scripts/unified-dev.mjs",
-    "dev:home": "pnpm --filter @eco-nojin/home run dev",
     "dev:console": "pnpm --filter @eco-nojin/console run dev",
-    "dev:portal": "pnpm --filter @eco-nojin/portal run dev",
     "dev:science": "pnpm --filter @eco-nojin/scientific-workspace run dev",
     "dev:market": "pnpm --filter @eco-nojin/marketplace run dev",
     "dev:tourism": "pnpm --filter @eco-nojin/tourism run dev",
     "dev:brand": "pnpm --filter @eco-nojin/brand run dev",
     "build": "node scripts/build-all.mjs",
     "build:all": "node scripts/build-all.mjs",
-    "build:home": "pnpm --filter @eco-nojin/home run build",
     "build:console": "pnpm --filter @eco-nojin/console run build",
-    "build:portal": "pnpm --filter @eco-nojin/portal run build",
-    "build:portal:static": "pnpm --filter @eco-nojin/portal run build:static",
     "build:science": "pnpm --filter @eco-nojin/scientific-workspace run build",
     "build:market": "pnpm --filter @eco-nojin/marketplace run build",
     "build:tourism": "pnpm --filter @eco-nojin/tourism run build",
@@ -34,13 +29,12 @@
     "preview": "node scripts/unified-serve.mjs",
     "start": "node scripts/unified-serve.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "oxlint apps/console/src apps/portal/src apps/scientific-workspace/src apps/marketplace/src apps/tourism/src apps/home/src apps/brand/src apps/platform/src apps/field-collection/src packages/ui/src packages/icons/src packages/i18n/src packages/frontend-core/src packages/domain-types/src packages/spatial/src packages/validation/src packages/api-client/src packages/auth-client/src packages/configuration/src packages/utilities/src packages/scientific/src packages/app-shell/src packages/hydroma-client/src --ignore-pattern **/maplibre-gl-worker.mjs",
+    "lint": "oxlint apps/console/src apps/scientific-workspace/src apps/marketplace/src apps/tourism/src apps/brand/src apps/platform/src apps/field-collection/src packages/ui/src packages/icons/src packages/i18n/src packages/frontend-core/src packages/domain-types/src packages/spatial/src packages/validation/src packages/api-client/src packages/auth-client/src packages/configuration/src packages/utilities/src packages/scientific/src packages/app-shell/src packages/hydroma-client/src --ignore-pattern **/maplibre-gl-worker.mjs",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test a11y.spec.ts",
-    "test:portal": "pnpm --filter @eco-nojin/portal run test:e2e",
     "test:science": "pnpm --filter @eco-nojin/scientific-workspace run test:e2e",
     "test:market": "pnpm --filter @eco-nojin/marketplace run test:e2e",
     "test:tourism": "pnpm --filter @eco-nojin/tourism run test:e2e",
@@ -50,7 +44,9 @@
     "build:platform": "pnpm --filter @eco-nojin/platform run build",
     "dev:api": "node services/api/src/server.mjs",
     "seed": "node services/api/scripts/seed.mjs",
-    "test:api": "node --test services/api/tests/api.test.mjs"
+    "test:api": "node --test services/api/tests/api.test.mjs",
+    "dev:field": "pnpm --filter @eco-nojin/field-collection run dev",
+    "build:field": "pnpm --filter @eco-nojin/field-collection run build"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

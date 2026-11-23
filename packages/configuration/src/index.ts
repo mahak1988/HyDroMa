@@ -7,7 +7,7 @@
  */
 import registry from "../apps.json";
 
-export type AppId = "home" | "portal" | "console" | "scientific-workspace" | "marketplace" | "tourism" | "brand" | "platform" | "field-collection";
+export type AppId = "platform" | "console" | "scientific-workspace" | "marketplace" | "tourism" | "brand" | "field-collection";
 
 export type AppDescriptor = {
   /** Directory name under apps/ and the stable identifier everywhere else. */
@@ -25,7 +25,7 @@ export type AppDescriptor = {
 export const APPS = registry as AppDescriptor[];
 
 /** Apps reachable from the switcher and the home page (everything but home). */
-export const PRODUCT_APPS: AppDescriptor[] = APPS.filter((app) => app.id !== "home");
+export const PRODUCT_APPS: AppDescriptor[] = APPS.filter((app) => app.id !== "platform");
 
 export function appById(id: AppId): AppDescriptor {
   const app = APPS.find((candidate) => candidate.id === id);

@@ -83,6 +83,7 @@ export const de = {
     auditBody: "Sensible Ereignisse werden mit Zeit und Quelle aufgezeichnet.",
   },
   apps: {
+    sections: { label: "Anwendungen", short: "Apps" },
     home: { title: "Jede Oberfläche, ein Einstiegspunkt", body: "Ein Einstiegspunkt zu allen Oberflächen: integrierte Plattform, öffentliches Portal, Organisationskonsole, wissenschaftlicher Arbeitsbereich, Marketplace, Tourismus und Designsystem.", short: "Start", enter: "Anwendung öffnen", note: "Alle Oberflächen werden von einem Port und einer Herkunft ausgeliefert. Jede App nutzt Demodaten; keine ist mit einem Live-Dienst verbunden." },
     portal: { title: "Öffentliches Portal", body: "Die Ökosystem-Geschichte, HyDroMA, Landschaften und MRV — statisch zuerst für die Suche.", short: "Portal" },
     console: { title: "Organisationskonsole", body: "Benutzer, Organisationen, Rollen und Einstellungen mit routenbasierten Berechtigungen und Mandantenfähigkeit.", short: "Konsole" },

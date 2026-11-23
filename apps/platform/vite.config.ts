@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { dedupe: ["react", "react-dom"] },
     server: {
-    port: 5183,
+    port: 5181,
     strictPort: true,
     proxy: {
       "/api": {

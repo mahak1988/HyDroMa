@@ -43,8 +43,6 @@
     "apps/platform/tests",
     "apps/console/src",
     "apps/console/tests",
-    "apps/portal/src",
-    "apps/portal/tests",
     "apps/scientific-workspace/src",
     "apps/scientific-workspace/tests",
     "apps/marketplace/src",

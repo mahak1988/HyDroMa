@@ -83,6 +83,7 @@ export const tr = {
     auditBody: "Hassas olaylar zaman ve kaynak ile kaydedilir.",
   },
   apps: {
+    sections: { label: "Uygulamalar", short: "Uyg." },
     home: { title: "Tüm yüzeyler, tek giriş noktası", body: "Tüm yüzeylere tek giriş noktası: entegre platform, genel portal, organizasyon konsolu, bilimsel çalışma alanı, marketplace, turizm ve tasarım sistemi.", short: "Ana sayfa", enter: "Uygulamayı aç", note: "Tüm yüzeyler tek bir port ve tek bir kökenden servis edilir. Her uygulama demo verisi kullanır; henüz hiçbir canlı servise bağlı değil." },
     portal: { title: "Genel portal", body: "Ekosistem hikâyesi, HyDroMA, peyzajlar ve MRV — arama için önce statik.", short: "Portal" },
     console: { title: "Organizasyon konsolu", body: "Rota düzeyinde izinler ve kiracılık ile kullanıcılar, organizasyonlar, roller ve ayarlar.", short: "Konsol" },

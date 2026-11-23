@@ -83,6 +83,7 @@ export const fr = {
     auditBody: "Les événements sensibles sont enregistrés avec heure et source.",
   },
   apps: {
+    sections: { label: "Applications", short: "Apps" },
     home: { title: "Toute surface, un seul point d'entrée", body: "Un point d'entrée vers toutes les surfaces : plateforme intégrée, portail public, console d'organisation, espace de travail scientifique, marketplace, tourisme et système de design.", short: "Accueil", enter: "Ouvrir l'application", note: "Toutes les surfaces sont servies depuis un seul port et une seule origine. Chaque app utilise des données de démonstration ; aucune n'est connectée à un service en direct." },
     portal: { title: "Portail public", body: "L'histoire de l'écosystème, HyDroMA, les paysages et le MRV — statique d'abord pour la recherche.", short: "Portail" },
     console: { title: "Console d'organisation", body: "Utilisateurs, organisations, rôles et paramètres avec permissions au niveau des routes et tenancy.", short: "Console" },

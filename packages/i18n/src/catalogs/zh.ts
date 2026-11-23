@@ -83,6 +83,7 @@ export const zh = {
     auditBody: "敏感事件记录时间与来源。",
   },
   apps: {
+    sections: { label: "应用", short: "应用" },
     home: { title: "所有表面，一个入口", body: "通往所有表面的单一入口：集成平台、公共门户、组织控制台、科学工作区、市场、旅游和设计系统。", short: "首页", enter: "打开应用", note: "所有表面从单一端口和单一来源提供。每个应用使用演示数据；尚未连接到实时服务。" },
     portal: { title: "公共门户", body: "生态系统故事、HyDroMA、景观与 MRV — 以静态优先便于搜索。", short: "门户" },
     console: { title: "组织控制台", body: "用户、组织、角色和设置，支持路由级权限和租户隔离。", short: "控制台" },

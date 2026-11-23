@@ -13,7 +13,7 @@ for (const app of apps) {
   const script = app.id === "portal" ? "build:static" : "build";
   process.stdout.write(`\n▶ ${app.id} (${app.path}) — pnpm run ${script}\n`);
   const code = await new Promise((resolve) => {
-    const child = spawn(pm, ["run", script, "--filter", `@eco-nojin/${app.id}`], {
+    const child = spawn(pm, ["--filter", `@eco-nojin/${app.id}`, "run", script], {
       cwd: ROOT,
       env: { ...process.env, APP_BASE: app.path },
       stdio: "inherit",
@@ -33,4 +33,4 @@ if (failed.length > 0) {
   console.error(`\n${failed.length} app(s) failed to build.`);
   process.exit(1);
 }
-console.log("\nAll apps built. Start the host with: npm run preview\n");
+console.log("\nAll apps built. Start the host with: pnpm run preview\n");

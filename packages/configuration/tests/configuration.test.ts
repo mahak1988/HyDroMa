@@ -6,9 +6,7 @@ describe("app registry", () => {
     const ids = APPS.map((app) => app.id);
     expect(new Set(ids).size).toBe(ids.length);
     expect(ids).toEqual([
-      "home",
       "platform",
-      "portal",
       "console",
       "scientific-workspace",
       "marketplace",
@@ -24,8 +22,8 @@ describe("app registry", () => {
     expect(UNIFIED_PORT).not.toBe(APPS.find((app) => app.devPort === UNIFIED_PORT)?.devPort);
   });
 
-  it("reserves / for the home page and nests the rest under a prefix", () => {
-    expect(appById("home").path).toBe("/");
+  it("reserves / for the platform root and nests the rest under a prefix", () => {
+    expect(appById("platform").path).toBe("/");
     for (const app of PRODUCT_APPS) {
       expect(app.path.startsWith("/")).toBe(true);
       expect(app.path.endsWith("/")).toBe(true);
@@ -43,6 +41,6 @@ describe("app registry", () => {
 
   it("exposes a trailing-slash path for links", () => {
     expect(appPath("console")).toBe("/console/");
-    expect(appPath("home")).toBe("/");
+    expect(appPath("platform")).toBe("/");
   });
 });

@@ -85,7 +85,7 @@ export function PlatformLayout() {
                   <ul className="pl-navList">
                     {item.id === "overview" ? (
                       <li>
-                        <Link to="/" className={location.pathname.replace(/\/+$/u, "").endsWith("platform") ? "is-current" : ""}>
+                        <Link to="/platform" className={location.pathname.replace(/\/+$/u, "").endsWith("platform") ? "is-current" : ""}>
                           {t(OVERVIEW.title, locale)}
                         </Link>
                       </li>
@@ -93,7 +93,7 @@ export function PlatformLayout() {
                     {pages.map((page) => (
                       <li key={page.id}>
                         <Link
-                          to={`/${page.path}`}
+                          to={`/platform/${page.path}`}
                           className={page.id === current.id ? "is-current" : ""}
                           aria-current={page.id === current.id ? "page" : undefined}
                         >

@@ -84,6 +84,7 @@ export const en = {
     auditBody: "Sensitive events are recorded with time and source.",
   },
   apps: {
+    sections: { label: "Applications", short: "Apps" },
     home: { title: "Every surface, one entry point", body: "One entry point to every surface: integrated platform, public portal, organization console, scientific workspace, marketplace, tourism and design system.", short: "Home", enter: "Open application", note: "Every surface is served from one port and one origin. Each app runs on demo data; none is connected to a live service yet." },
     portal: { title: "Public portal", body: "The ecosystem story, HyDroMA, landscapes and MRV — static-first for search.", short: "Portal" },
     console: { title: "Organization console", body: "Users, organizations, roles and settings with route-level permissions and tenancy.", short: "Console" },

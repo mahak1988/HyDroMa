@@ -13,14 +13,12 @@ import { useI18n, type TranslationKey } from "@eco-nojin/i18n";
  * not a client-side route change, because each app is its own bundle.
  */
 const SHORT_KEYS: Record<AppId, TranslationKey> = {
-  home: "apps.home.short",
-  portal: "apps.portal.short",
+  platform: "apps.platform.short",
   console: "apps.console.short",
   "scientific-workspace": "apps.science.short",
   marketplace: "apps.market.short",
   tourism: "apps.tourism.short",
   brand: "apps.brand.short",
-  platform: "apps.platform.short",
   "field-collection": "apps.field.short",
 };
 

@@ -83,9 +83,9 @@ export function AuthPanel({ labels, onAccepted }: { labels: AuthPanelLabels; onA
   }
 
   const inputClass =
-    "w-full rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-[var(--color-foreground)]";
+    "w-full rounded-md border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--fg)]";
   const buttonClass =
-    "w-full rounded-md bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-[var(--color-primary-foreground)] disabled:opacity-60";
+    "w-full rounded-md bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--primary-fg)] disabled:opacity-60";
 
   return (
     <section className="mx-auto w-full max-w-md">
@@ -98,7 +98,11 @@ export function AuthPanel({ labels, onAccepted }: { labels: AuthPanelLabels; onA
             aria-selected={mode === item}
             onClick={() => setMode(item)}
             className="rounded-md px-3 py-1.5 text-sm"
-            style={mode === item ? { background: "var(--color-primary)", color: "var(--color-primary-foreground)" } : undefined}
+            style={
+              mode === item
+                ? { background: "var(--primary)", color: "var(--primary-fg)" }
+                : undefined
+            }
           >
             {item === "login" ? labels.modeLogin : item === "register" ? labels.modeRegister : labels.modeInvite}
           </button>
@@ -110,12 +114,12 @@ export function AuthPanel({ labels, onAccepted }: { labels: AuthPanelLabels; onA
       </h1>
 
       {error ? (
-        <p role="alert" className="mt-2 rounded-md bg-[var(--color-danger-soft,transparent)] p-2 text-sm" style={{ color: "var(--color-danger)" }}>
+        <p role="alert" className="mt-2 rounded-md bg-[var(--danger-soft, transparent)] p-2 text-sm" style={{ color: "var(--danger)" }}>
           {error}
         </p>
       ) : null}
       {notice ? (
-        <p role="status" className="mt-2 rounded-md p-2 text-sm" style={{ color: "var(--color-success)" }}>
+        <p role="status" className="mt-2 rounded-md p-2 text-sm" style={{ color: "var(--success, #2e7d32)" }}>
           {notice === "registered" ? labels.registerTitle : labels.inviteTitle}
         </p>
       ) : null}
