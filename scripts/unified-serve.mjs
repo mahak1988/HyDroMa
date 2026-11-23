@@ -1,13 +1,9 @@
 // Unified production host.
 //
-// Serves the built output of every app from one origin and one port:
-//   /            → apps/home/dist
-//   /console/    → apps/console/dist
-//   /portal/     → apps/portal/dist   (prerendered pages win over the SPA shell)
-//   /science/    → apps/scientific-workspace/dist
-//   /market/     → apps/marketplace/dist
-//   /tourism/    → apps/tourism/dist
+// Serves the built output of every live app from one origin and one port:
+//   /            → apps/platform/dist   (public core + lazy sections)
 //   /brand/      → apps/brand/dist
+// Archived apps are not served: their routes live inside the platform SPA now.
 import { createServer, request as httpRequest } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
@@ -15,7 +11,8 @@ import { readFileSync } from "node:fs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const PORT = Number(process.env.PORT ?? 5180);
-const apps = JSON.parse(readFileSync(path.join(ROOT, "packages", "configuration", "apps.json"), "utf8"));
+const apps = JSON.parse(readFileSync(path.join(ROOT, "packages", "configuration", "apps.json"), "utf8"))
+  .filter((app) => app.status !== "archived");
 const ordered = [...apps].sort((a, b) => b.path.length - a.path.length);
 
 const TYPES = {

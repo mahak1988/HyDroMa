@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { appPath } from "@eco-nojin/configuration";
+
 import { useI18n } from "@eco-nojin/i18n";
 import { Badge, BarChart, Button, Card, CardBody, CardHeader, EmptyState, LineChart, ResourceForm } from "@eco-nojin/ui";
 import { createApiClient } from "@eco-nojin/api-client";
@@ -657,7 +657,7 @@ function AtlasPage({ page }: { page: PageDef }) {
               ))}
             </ul>
             <p className="pl-note">{l(UI.demoNote)}</p>
-            <a className="pl-link" href={`${appPath("scientific-workspace")}map/`}>
+            <a className="pl-link" href="/science/map/">
               {l({ fa: "نقشهٔ تعاملی فضای علمی", en: "Interactive science map", ar: "خريطة المساحة العلمية" })} ←
             </a>
           </CardBody>
