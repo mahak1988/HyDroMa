@@ -5,6 +5,7 @@ import { PlatformLayout } from "./PlatformLayout";
 import { PortalLayout } from "../public/app/PortalLayout";
 import { PageView, NotFoundPage } from "../public/app/PageView";
 import { AuthPage } from "../public/app/AuthPage";
+import { AccountPage } from "../public/app/AccountPage";
 import { PAGES, pageById } from "../content/pages";
 import { PageRenderer } from "../pages/PageRenderer";
 import { EmptyState } from "@eco-nojin/ui";
@@ -75,6 +76,8 @@ export const router = createBrowserRouter(
         { path: "contact", element: <PageView pageKey="contact" path="/contact" /> },
         { path: "partner", element: <PageView pageKey="partner" path="/partner" /> },
         { path: "login", element: <AuthPage /> },
+        { path: "profile", element: <AccountPage kind="profile" /> },
+        { path: "security", element: <AccountPage kind="security" /> },
         { path: "*", element: <NotFoundPage /> },
       ],
     },

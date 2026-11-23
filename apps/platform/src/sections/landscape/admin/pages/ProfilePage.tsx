@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import { appPath } from "@eco-nojin/configuration";
 import { ROLE_DEFINITIONS, ROLE_PERMISSIONS, type OrganizationRole } from "@eco-nojin/domain-types";
 import { useI18n, type TranslationKey } from "@eco-nojin/i18n";
 import { Badge, Button, Card, CardBody, CardHeader } from "@eco-nojin/ui";
 import { formatJalali } from "@eco-nojin/utilities";
 import { PageHeader } from "../app/layouts/PageHeader";
 import { useSession } from "../session/Session";
-import { adminPath } from "../lib/paths";
 
 const ROLE_TONE: Record<OrganizationRole, "primary" | "info" | "neutral" | "warning" | "success"> = {
   owner: "primary",
@@ -56,7 +54,7 @@ export function ProfilePage() {
             <Badge tone="success" dot>
               {t("common.liveApi")}
             </Badge>
-            <Link to={adminPath("/security")}>
+            <Link to="../security">
               <Button variant="secondary" size="sm">
                 {t("profile.openSecurity")}
               </Button>
@@ -175,17 +173,17 @@ export function ProfilePage() {
         <Card className="lg:col-span-3">
           <CardHeader title={t("profile.preferences")} subtitle={t("profile.openFinance")} />
           <CardBody className="flex flex-wrap items-center gap-3">
-            <Link to={adminPath("/security")} className="rounded-md border border-border px-3 py-2 text-xs text-fg hover:bg-surface-2">
+            <Link to="../security" className="rounded-md border border-border px-3 py-2 text-xs text-fg hover:bg-surface-2">
               {t("profile.openSecurity")} ←
             </Link>
             <a
-              href={appPath("platform") + "finance/"}
+              href="/platform/finance/"
               className="rounded-md border border-border px-3 py-2 text-xs text-fg hover:bg-surface-2"
             >
               {t("profile.openFinance")} ←
             </a>
             <a
-              href={appPath("platform") + "landscapes/economy"}
+              href="/platform/landscapes/economy"
               className="rounded-md border border-border px-3 py-2 text-xs text-fg hover:bg-surface-2"
             >
               {t("profile.economy")} ←
