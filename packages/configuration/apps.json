@@ -27,7 +27,7 @@
     "titleKey": "apps.console.title",
     "bodyKey": "apps.console.body",
     "accent": "console",
-    "status": "live",
+    "status": "archived",
     "owner": "console-session",
     "dataMode": "api",
     "requiresSession": true,
@@ -38,7 +38,7 @@
       "/v1/notifications"
     ],
     "since": "2026-11-18",
-    "notes": "Fully real: identity management, notifications, session."
+    "notes": "Migrated into the platform SPA as the internal /landscape/admin section (real session, identity, users, notifications). Legacy bundle archived; folder removed in phase 7."
   },
   {
     "id": "scientific-workspace",

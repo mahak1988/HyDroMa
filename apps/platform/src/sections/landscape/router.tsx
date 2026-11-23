@@ -10,6 +10,7 @@ import { HomePage as FieldHomePage } from "./field/pages/HomePage";
 import { SurveyPage as FieldSurveyPage } from "./field/pages/SurveyPage";
 import { RecordsPage as FieldRecordsPage } from "./field/pages/RecordsPage";
 import { MapPage as FieldMapPage } from "./field/pages/MapPage";
+import AdminSectionRouter from "./admin/router";
 
 /**
  * Landscape management section (lazy, internal to the platform SPA).
@@ -52,11 +53,12 @@ export default function LandscapeSectionRouter() {
           <Route path="records" element={<FieldRecordsPage />} />
           <Route path="map" element={<FieldMapPage />} />
         </Route>
+      </Route>
+      <Route path="admin/*" element={<AdminSectionRouter />} />
         <Route
           path="*"
           element={<EmptyState title="۴۰۴ — صفحه یافت نشد" body="این مسیر در بخش مدیریت منظر تعریف نشده است." />}
         />
-      </Route>
     </Routes>
   );
 }
