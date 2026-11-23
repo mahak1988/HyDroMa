@@ -49,8 +49,9 @@ export const SECTIONS: SectionDescriptor[] = [
   {
     id: "science",
     labelKey: "apps.science.short",
-    href: "/science/",
-    internal: false,
+    href: "/science",
+    internal: true,
+    loader: () => import("./science/app/router"),
     audience: "scientists",
   },
   {

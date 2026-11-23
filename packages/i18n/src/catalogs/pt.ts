@@ -33,6 +33,8 @@ export const pt = {
     serviceUnavailable: "Serviço HyDroMA indisponível",
     serviceUnavailableBody: "O serviço científico não está acessível no momento. Esta view mostra apenas dados reais do serviço; indicadores de demonstração estão em outro lugar.",
     invalidResponse: "O serviço HyDroMA retornou uma resposta inesperada.",
+    runModel: "Run model",
+    run: "Run",
   },
   brand: {
     intro: "Sistema de design Eco Nojin",

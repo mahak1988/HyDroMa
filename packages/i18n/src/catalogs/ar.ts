@@ -36,6 +36,8 @@ export const ar: Catalog = {
     serviceUnavailable: "خدمة HyDroMA غير متاحة",
     serviceUnavailableBody: "الخدمة العلمية غير متاحة الآن. يعرض هذا القسم بيانات الخدمة الحقيقية فقط؛ المؤشرات التجريبية في مكان آخر.",
     invalidResponse: "أعادت خدمة HyDroMA استجابة غير متوقعة.",
+    runModel: "Run model",
+    run: "Run",
   },
   brand: {
     intro: "نظام تصميم إيكو نوشين",

@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@tanstack/react-query": "5.108.0",
+    "@deck.gl/aggregation-layers": "9.4.1",
+    "@deck.gl/core": "9.4.1",
+    "@deck.gl/layers": "9.4.1",
+    "@deck.gl/mapbox": "9.4.1",
     "@eco-nojin/configuration": "workspace:*",
     "@eco-nojin/design-system": "workspace:*",
     "@eco-nojin/domain-types": "workspace:*",

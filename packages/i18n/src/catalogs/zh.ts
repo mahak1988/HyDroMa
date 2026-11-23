@@ -33,6 +33,8 @@ export const zh = {
     serviceUnavailable: "HyDroMA 服务不可用",
     serviceUnavailableBody: "科学服务当前不可达。此视图仅显示服务的真实数据；演示指标在别处。",
     invalidResponse: "HyDroMA 服务返回了意外响应。",
+    runModel: "Run model",
+    run: "Run",
   },
   brand: {
     intro: "Eco Nojin 设计系统",

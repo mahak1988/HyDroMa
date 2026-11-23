@@ -33,6 +33,8 @@ export const tr = {
     serviceUnavailable: "HyDroMA servisi kullanılamıyor",
     serviceUnavailableBody: "Bilimsel servis şu anda erişilemiyor. Bu görünüm yalnızca servisin gerçek verilerini gösterir; demo göstergeleri başka yerdedir.",
     invalidResponse: "HyDroMA servisi beklenmeyen bir yanıt döndürdü.",
+    runModel: "Run model",
+    run: "Run",
   },
   brand: {
     intro: "Eco Nojin tasarım sistemi",

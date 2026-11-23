@@ -33,6 +33,8 @@ export const ja = {
     serviceUnavailable: "HyDroMA サービス利用不可",
     serviceUnavailableBody: "科学サービスは現在到達できません。このビューはサービスの実データのみを表示します。デモ指標は別の場所にあります。",
     invalidResponse: "HyDroMA サービスが予期しない応答を返しました。",
+    runModel: "Run model",
+    run: "Run",
   },
   brand: {
     intro: "Eco Nojin デザインシステム",

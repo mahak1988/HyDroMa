@@ -48,7 +48,7 @@
     "titleKey": "apps.science.title",
     "bodyKey": "apps.science.body",
     "accent": "hydroma",
-    "status": "live",
+    "status": "archived",
     "owner": "science-runtime",
     "dataMode": "api",
     "requiresSession": false,
@@ -57,7 +57,7 @@
       "/v1/runs"
     ],
     "since": "2026-11-19",
-    "notes": "Model registry + run submission via hydroma-client to the local engine."
+    "notes": "Migrated into the platform SPA as the internal lazy /science section (hydroma-client untouched, explicit unavailable states). Legacy bundle archived; folder removed in phase 7."
   },
   {
     "id": "marketplace",

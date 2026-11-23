@@ -33,6 +33,8 @@ export const id = {
     serviceUnavailable: "Layanan HyDroMA tidak tersedia",
     serviceUnavailableBody: "Layanan ilmiah saat ini tidak dapat dijangkau. Tampilan ini hanya menampilkan data nyata layanan; indikator demo ada di tempat lain.",
     invalidResponse: "Layanan HyDroMA mengembalikan respons yang tidak diharapkan.",
+    runModel: "Run model",
+    run: "Run",
   },
   brand: {
     intro: "Sistem desain Eco Nojin",

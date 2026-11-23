@@ -41,6 +41,7 @@ const overview = pageById("overview");
 const TourismSection = lazy(() => import("../sections/tourism/app/router"));
 const MarketSection = lazy(() => import("../sections/market/app/router"));
 const LandscapeSection = lazy(() => import("../sections/landscape/router"));
+const ScienceSection = lazy(() => import("../sections/science/app/router"));
 
 function SectionFallback() {
   return (
@@ -102,6 +103,14 @@ export const router = createBrowserRouter(
       element: (
         <Suspense fallback={<SectionFallback />}>
           <LandscapeSection />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/science/*",
+      element: (
+        <Suspense fallback={<SectionFallback />}>
+          <ScienceSection />
         </Suspense>
       ),
     },

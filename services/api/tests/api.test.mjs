@@ -155,6 +155,16 @@ test("field surveys sync through the resources API", async (t) => {
   assert.equal(listed.json.items[0].siteName, "Kondor terrace");
 });
 
+test("recorded runs are listed through GET /v1/runs", async (t) => {
+  const base = await makeApp(t);
+  const owner = cookieOf((await call(base, "/v1/auth/register", { method: "POST", body: { email: "runs@b.local", name: "Runs", password: PASS, organizationName: "Runs Co" }, expect: 201 })).headers);
+
+  await call(base, "/v1/resources/runs", { method: "POST", cookie: owner, body: { model: "water-balance", version: "1.0.0", status: "completed" }, expect: 201 });
+  const listed = await call(base, "/v1/runs", { cookie: owner });
+  assert.equal(listed.json.total, 1);
+  assert.equal(listed.json.items[0].model, "water-balance");
+});
+
 test("catalog: categories exist, product creation validates price", async (t) => {
   const base = await makeApp(t);
   const owner = cookieOf((await call(base, "/v1/auth/register", { method: "POST", body: { email: "c@b.local", name: "CC", password: PASS, organizationName: "CC Market" }, expect: 201 })).headers);

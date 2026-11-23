@@ -36,6 +36,8 @@ export const fa: Catalog = {
     serviceUnavailable: "سرویس HyDroMA در دسترس نیست",
     serviceUnavailableBody: "سرویس علمی اکنون در دسترس نیست. این نما فقط داده واقعی سرویس را نشان می‌دهد؛ شاخص‌های نمایشی جای دیگری هستند.",
     invalidResponse: "سرویس HyDroMA پاسخی غیرمنتظره برگرداند.",
+    runModel: "Run model",
+    run: "Run",
   },
   brand: {
     intro: "سیستم طراحی اکو نوژین",

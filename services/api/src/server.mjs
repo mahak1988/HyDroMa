@@ -538,6 +538,18 @@ export function createApp(options = {}) {
     }));
     return json(res, 200, { items, nextCursor: null, total: items.length });
   }, { auth: true });
+  /* ------------------------------- runs -------------------------------- */
+
+  route("GET", /^\/v1\/runs$/u, async (req, res, ctx) => {
+    const orgId = membershipsOf(ctx.user.id)[0]?.org_id;
+    if (!orgId) return json(res, 200, { items: [], nextCursor: null, total: 0 });
+    const rows = db
+      .prepare("SELECT id, data, created_at FROM resources WHERE org_id = ? AND type = 'runs' ORDER BY created_at DESC LIMIT 200")
+      .all(orgId);
+    const items = rows.map((row) => ({ id: row.id, ...JSON.parse(row.data), createdAt: row.created_at }));
+    return json(res, 200, { items, nextCursor: null, total: items.length });
+  }, { auth: true });
+
   /* ------------------------------ catalog ------------------------------- */
 
   route("GET", /^\/v1\/catalog\/categories$/u, async (req, res) => {
@@ -631,7 +643,7 @@ export function createApp(options = {}) {
 
   /* ----------------------------- resources ------------------------------ */
 
-  const RESOURCE_TYPES = new Set(["landscapes", "villages", "projects", "farms", "sites", "reports", "courses", "articles", "surveys"]);
+  const RESOURCE_TYPES = new Set(["landscapes", "villages", "projects", "farms", "sites", "reports", "courses", "articles", "surveys", "runs"]);
 
   route("GET", /^\/v1\/resources\/(?<type>[a-z-]+)$/u, async (req, res, ctx, url) => {
     const type = ctx.params.type;
