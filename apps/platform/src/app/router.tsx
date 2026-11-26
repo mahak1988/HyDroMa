@@ -1,14 +1,38 @@
 import { createBrowserRouter } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { routerBasename } from "@eco-nojin/configuration";
 import { PlatformLayout } from "./PlatformLayout";
+import { WorkspaceGate } from "./WorkspaceGate";
 import { PortalLayout } from "../public/app/PortalLayout";
-import { PageView, NotFoundPage } from "../public/app/PageView";
+import { PageView, ExtraPageView, NotFoundPage } from "../public/app/PageView";
 import { AuthPage } from "../public/app/AuthPage";
 import { AccountPage } from "../public/app/AccountPage";
 import { PAGES, pageById } from "../content/pages";
 import { PageRenderer } from "../pages/PageRenderer";
 import { EmptyState } from "@eco-nojin/ui";
+import { CapabilityBoundary } from "../components/CapabilityBoundary";
+import { ResourceDetailPage, ResourceListPage } from "../sections/api-pages/ResourcePages";
+import { MarketplacePage } from "../sections/api-pages/MarketplacePage";
+import { NotificationsPage } from "../sections/api-pages/NotificationsPage";
+import { ModelsPage } from "../sections/api-pages/ModelsPage";
+import { FarmsModule, FarmDetail } from "../sections/agriculture/FarmsModule";
+import { CropCyclesModule } from "../sections/agriculture/CropCyclesModule";
+import { IrrigationModule } from "../sections/agriculture/IrrigationModule";
+import { TasksModule } from "../sections/agriculture/TasksModule";
+import { IntelligenceModule } from "../sections/agriculture/IntelligenceModule";
+import { ReadinessModule } from "../sections/agriculture/ReadinessModule";
+import { HICModule } from "../sections/agriculture/HICModule";
+import { EnvSourcesModule } from "../sections/agriculture/EnvSourcesModule";
+import { TaskDetail } from "../sections/agriculture/TaskDetail";
+import { TaskSchedule } from "../sections/agriculture/TaskSchedule";
+import { FieldObservationsModule } from "../sections/agriculture/FieldObservationsModule";
+import { ProjectsModule, ProjectDetail } from "../sections/projects/ProjectsModule";
+import { ChallengesModule } from "../sections/rewards/ChallengesModule";
+import { RewardsModule } from "../sections/rewards/RewardsModule";
+import { TerritoriesModule } from "../sections/territory/TerritoriesModule";
+import { VillagesModule } from "../sections/communities/VillagesModule";
+import { CommunityWorkspace } from "../sections/communities/CommunityWorkspace";
+import { moduleById } from "../services/capabilities";
 
 function NotFound() {
   return (
@@ -24,14 +48,58 @@ function NotFound() {
  * client-side route change (each section is its own build behind the unified
  * host while migration is in progress).
  */
-function ExternalRedirect({ href }: { href: string }) {
-  useEffect(() => {
-    window.location.assign(href);
-  }, [href]);
-  return null;
-}
-
 const overview = pageById("overview");
+
+/**
+ * Capability-aware canonical module entries (M01…M18).
+ *
+ * These render REAL API-backed pages where the backend supports the module, an
+ * honest capability boundary where it does not, and are matched before the
+ * legacy `PAGES` registry so the canonical module route is authoritative. No
+ * demo data is presented as operational on these entries.
+ */
+const capabilityRoutes = [
+  { path: "territories", element: <TerritoriesModule /> },
+  { path: "landscapes", element: <TerritoriesModule /> },
+  { path: "communities/:id", element: <CommunityWorkspace /> },
+  { path: "communities", element: <VillagesModule /> },
+  { path: "natural-resources", element: <ResourceListPage type="sites" /> },
+  { path: "hydroma/sources", element: <EnvSourcesModule /> },
+  { path: "hydroma/readiness", element: <ReadinessModule /> },
+  { path: "hic", element: <HICModule /> },
+  { path: "hydroma", element: <ModelsPage /> },
+  { path: "agriculture/intelligence", element: <IntelligenceModule /> },
+  { path: "agriculture/:id", element: <FarmDetail /> },
+  { path: "irrigation", element: <IrrigationModule /> },
+  { path: "tasks/schedule", element: <TaskSchedule /> },
+  { path: "tasks/:id", element: <TaskDetail /> },
+  { path: "tasks", element: <TasksModule /> },
+  { path: "agriculture", element: <FarmsModule /> },
+  { path: "agriculture/cycles", element: <CropCyclesModule /> },
+  { path: "agriculture/irrigation", element: <IrrigationModule /> },
+  { path: "agriculture/observations", element: <FieldObservationsModule /> },
+  { path: "tourism", element: <CapabilityBoundary module={moduleById("tourism")!} /> },
+  { path: "marketplace", element: <MarketplacePage /> },
+  { path: "inventory", element: <CapabilityBoundary module={moduleById("inventory")!} /> },
+  { path: "finance", element: <CapabilityBoundary module={moduleById("finance")!} /> },
+  { path: "ecocoin", element: <RewardsModule /> },
+  { path: "challenges", element: <ChallengesModule /> },
+  { path: "community", element: <NotificationsPage /> },
+  { path: "projects/:id", element: <ProjectDetail /> },
+  { path: "projects", element: <ProjectsModule /> },
+  { path: "field", element: <ResourceListPage type="surveys" /> },
+  { path: "mrv", element: <ResourceListPage type="sites" /> },
+  { path: "knowledge", element: <ResourceListPage type="articles" /> },
+  { path: "reports", element: <ResourceListPage type="reports" /> },
+  { path: "administration", element: <CapabilityBoundary module={moduleById("administration")!} /> },
+  { path: "landscapes/:id", element: <ResourceDetailPage type="landscapes" /> },
+  { path: "villages/:id", element: <ResourceDetailPage type="villages" /> },
+  { path: "farms/:id", element: <ResourceDetailPage type="farms" /> },
+  { path: "sites/:id", element: <ResourceDetailPage type="sites" /> },
+  { path: "articles/:id", element: <ResourceDetailPage type="articles" /> },
+  { path: "surveys/:id", element: <ResourceDetailPage type="surveys" /> },
+  { path: "reports/:id", element: <ResourceDetailPage type="reports" /> },
+];
 
 /**
  * Internal sections are lazily loaded behind their own route prefix. Each one
@@ -69,11 +137,20 @@ export const router = createBrowserRouter(
         { index: true, element: <PageView pageKey="home" path="/" /> },
         { path: "ecosystem", element: <PageView pageKey="ecosystem" path="/ecosystem" /> },
         { path: "hydroma", element: <PageView pageKey="hydroma" path="/hydroma" /> },
-        // Section landings live in their own bundles; send visitors there.
-        { path: "marketplace", element: <ExternalRedirect href="/market/" /> },
+        // Public marketplace intro (real content); the live catalog is in the workspace.
+        { path: "marketplace", element: <ExtraPageView pageKey="marketplace" path="/marketplace" /> },
         { path: "mrv", element: <PageView pageKey="mrv" path="/mrv" /> },
         { path: "knowledge", element: <PageView pageKey="knowledge" path="/knowledge" /> },
         { path: "about", element: <PageView pageKey="about" path="/about" /> },
+        { path: "vision", element: <ExtraPageView pageKey="vision" path="/vision" /> },
+        { path: "impact", element: <ExtraPageView pageKey="impact" path="/impact" /> },
+        { path: "landscapes", element: <PageView pageKey="landscape" path="/landscapes" /> },
+        { path: "projects", element: <ExtraPageView pageKey="projects" path="/projects" /> },
+        { path: "technology", element: <PageView pageKey="hydroma" path="/technology" /> },
+        { path: "partners", element: <PageView pageKey="partner" path="/partners" /> },
+        { path: "accessibility", element: <ExtraPageView pageKey="accessibility" path="/accessibility" /> },
+        { path: "privacy", element: <ExtraPageView pageKey="privacy" path="/privacy" /> },
+        { path: "terms", element: <ExtraPageView pageKey="terms" path="/terms" /> },
         { path: "contact", element: <PageView pageKey="contact" path="/contact" /> },
         { path: "partner", element: <PageView pageKey="partner" path="/partner" /> },
         { path: "login", element: <AuthPage /> },
@@ -116,9 +193,14 @@ export const router = createBrowserRouter(
     },
     {
       path: "/platform",
-      element: <PlatformLayout />,
+      element: (
+        <WorkspaceGate>
+          <PlatformLayout />
+        </WorkspaceGate>
+      ),
       children: [
         { index: true, element: <PageRenderer page={overview} /> },
+        ...capabilityRoutes,
         ...PAGES.filter((page) => page.path !== "").map((page) => ({
           path: page.path,
           element: <PageRenderer page={page} />,
