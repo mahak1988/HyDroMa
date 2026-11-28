@@ -27,6 +27,7 @@ Process:
 | [ADR-0010](../architecture/ADR-0010-unified-platform-sections.md) | Unified platform sections (one SPA, lazy sections) — recorded in `docs/architecture/` | ACCEPTED | 2026-11-23 |
 | [ADR-0011](./ADR-0011-optional-environmental-connectors.md) | Optional environmental connectors (`connect` package) | ACCEPTED | 2026-11-27 |
 | [ADR-0012](./ADR-0012-master-blueprint-and-repo-standardization.md) | Master Blueprint adoption and repository standardization | ACCEPTED | 2026-11-28 |
+| [ADR-0013](./ADR-0013-ai-workforce-governance-layer.md) | AI Workforce governance layer (registry, permissions, hash-chained audit, policy, gateway contract); execution plane NOT_ACTIVE | ACCEPTED | 2026-11-29 |
 | [ADR-DRAFT-UPSTREAM-001](./ADR-DRAFT-UPSTREAM-001-xclim.md) | Adopt xclim (climate indices) via original adapter | DRAFT — pending owner | 2026-11-21 |
 
 Technology-selection series (MapLibre, CesiumJS, pgSTAC, Hydromt-wflow, connectors) is
