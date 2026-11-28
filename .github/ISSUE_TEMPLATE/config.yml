@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Repository governance (AGENTS.md)
+    url: https://github.com/mahak1988/HyDroMa/blob/main/AGENTS.md
+    about: Non-negotiable project rules — read before opening any issue.

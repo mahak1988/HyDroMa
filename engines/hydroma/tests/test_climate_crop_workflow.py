@@ -287,7 +287,10 @@ def test_api_missing_source_is_structured_error():
 def test_architecture_boundary_no_forbidden_imports():
     import ast
     import os
-    path = os.path.join("hydroma", "climate_crop_workflow.py")
+    # Resolve relative to this test file so the test passes from any CWD
+    # (repo root, CI runner, or engines/hydroma).
+    engine_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    path = os.path.join(engine_dir, "hydroma", "climate_crop_workflow.py")
     tree = ast.parse(open(path, encoding="utf-8").read())
     roots = set()
     for node in ast.walk(tree):
