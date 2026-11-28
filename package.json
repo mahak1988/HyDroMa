@@ -47,7 +47,7 @@
     "build:platform": "pnpm --filter @eco-nojin/platform run build",
     "dev:api": "node services/api/src/server.mjs",
     "seed": "node services/api/scripts/seed.mjs",
-    "test:api": "node --test services/api/tests/",
+    "test:api": "node --test services/api/tests/*.test.mjs",
     "check:apps": "node scripts/app-manifest.mjs"
   },
   "devDependencies": {
