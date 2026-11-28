@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability / گزارش آسیب‌پذیری
+    url: https://github.com/mahak1988/HyDroMa/blob/main/SECURITY.md
+    about: به‌صورت خصوصی گزارش دهید — Issue عمومی باز نکنید.
+  - name: Master Blueprint & capability status model
+    url: https://github.com/mahak1988/HyDroMa/blob/main/docs/blueprint/README.md
+    about: راهبرد، اهداف G01–G16 و تعریف وضعیت‌های چهارگانه قابلیت.
+  - name: ADR register
+    url: https://github.com/mahak1988/HyDroMa/blob/main/docs/adr/README.md
+    about: فهرست تصمیم‌های معماری ثبت‌شده.
