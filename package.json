@@ -1,13 +1,24 @@
 {
-  "packageManager": "pnpm@12.18.0",
+  "name": "@eco-nojin/monorepo",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "description": "Eco Nojin unified platform monorepo — one port, public core, specialised sections, real API.",
+  "author": "Eco Nojin project (owner: mahak1988)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahak1988/HyDroMa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mahak1988/HyDroMa/issues"
+  },
+  "homepage": "https://github.com/mahak1988/HyDroMa#readme",
+  "packageManager": "pnpm@12.18.0",
   "workspaces": [
     "apps/*",
     "packages/*",
     "services/*"
   ],
-  "description": "Eco Nojin unified platform monorepo — one port, public core, specialised sections, real API.",
   "engines": {
     "node": ">=22.12.0"
   },
