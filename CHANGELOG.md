@@ -6,16 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/) from v1.0
 (the project is in `0.x` while capabilities are unverified).
 Dates are UTC.
 
-## [Unreleased] — 2026-11-28
+## [Unreleased] — 2026-11-28 (branch `standards/blueprint-v1`)
 
 ### Added
 
 - `docs/blueprint/` — Eco Nojin Master Blueprint v1.0 (structured rendition), blueprint
   index with the four-state capability model (VISION / DESIGNED / IMPLEMENTED / VERIFIED),
-  `GOALS-STATUS-MATRIX.md` (G01–G16 with evidence) and `ROADMAP-ALIGNMENT.md`
-  (14 phases, 10 priorities, 6 vertical slices mapped to the repository).
-- `docs/adr/ADR-0011-master-blueprint-and-repo-standardization.md` — adoption decision
-  (owner-authorized) and the completed ADR register (`docs/adr/README.md`, ADR-0001…0011).
+  `GOALS-STATUS-MATRIX.md` (G01–G16 with evidence, refreshed after the implementation wave)
+  and `ROADMAP-ALIGNMENT.md` (14 phases, 10 priorities, 6 vertical slices).
+- `docs/adr/ADR-0012-master-blueprint-and-repo-standardization.md` — adoption decision
+  (owner-authorized; renumbered from a transient 0011 because ADR-0011 was concurrently
+  adopted on main) and the completed ADR register (`docs/adr/README.md`, ADR-0001…0012).
 - Community health files: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`,
   `CHANGELOG.md` (this file), `.editorconfig`.
 - GitHub templates: `.github/PULL_REQUEST_TEMPLATE.md`, `.github/ISSUE_TEMPLATE/`
@@ -27,14 +28,82 @@ Dates are UTC.
 ### Changed
 
 - Root `README.md` and `docs/README.md` rewritten to match the implemented reality
-  (services/api real backend, engines/hydroma Python engine, unified platform SPA,
-  15 shipped locales, pnpm-based tooling).
+  (services/api real backend with engine gateway/execution/science/stac/transparency,
+  engines/hydroma Python engine + optional connect package, services/edi service,
+  unified platform SPA, 15 shipped locales, pnpm-based tooling).
 - `.github/README.md` updated: CI is active (verify.yml), templates documented.
+
+### Removed
+
+- Root artifact `tatus` — an accidentally committed terminal log from commit 01782c1f
+  (a truncated `git status` typo capturing stdout). Removed per ADR-0012; no project
+  content lost (the history it captured is in git itself).
 
 ### Fixed
 
 - Documentation/reality drift: README no longer claims the backend and scientific engine
   are "not implemented".
+- ADR references inside `docs/blueprint/` point to ADR-0012.
+
+## [2026-11-28] — ecosystem implementation wave (on `main`, commit `01782c1f`)
+
+### Added
+
+- Platform sections in `apps/platform`: agriculture (farms, crop cycles, task schedule &
+  detail, irrigation, field observations, env data/sources, dataset builder, HyDroMA
+  workspace, intelligence, readiness, overview), communities (villages, community
+  workspace), projects, territory, rewards & challenges; API-backed pages (marketplace,
+  models, notifications, resources); `DemoLayout`, `WorkspaceGate`, `ApiState`,
+  `CapabilityBoundary`; PWA basics (manifest, service worker, icons).
+- `services/api`: `engine-gateway.mjs`, `engine-execution.mjs`, `science.mjs`,
+  `stac.mjs`, `stac-contract.mjs`, `transparency.mjs`; expanded persistence (`db.mjs`)
+  and server; expanded test suite (security, rate-limit, tenant-isolation, cookie, cors,
+  runs hardening/integrity, engine gateway/execution/real, rewards, EcoCoin ledger,
+  challenge workflow, agri tasks, soil versioning/context, dataset API, env data/sources,
+  STAC, science, intelligence, readiness, quality, transparency).
+- `engines/hydroma`: ~30 new scientific modules (agroclimate, drought ×3, groundwater
+  + spatial, surface hydrology, watershed, soil physics, rosetta, crop growth / DSSAT /
+  dual / GDD, carbon, chilling, biodiversity stress, pest risk, plant strengthening,
+  isotope, remote sensing, SDG indicators, water footprint, water productivity,
+  calibration, execution manifest, exec worker, free sources) plus the optional
+  `connect` package per ADR-0011 (CHIRPS, ERA5, Sentinel-2 reference connectors,
+  acquisition with SSRF protection, SHA-256 verified cache, artifact manifest,
+  STAC discovery) with an offline test suite.
+- `services/edi` — a standalone Python EDI service: canonical data contracts v1
+  (JSON schema), provenance metadata, quality validation, storage (SQLite/Parquet/
+  atomic writes/manifest/recovery), security policy, registry, tests.
+- `lab/` — scientific benchmark harness (`run_real.py`, pilots, real-data pipeline:
+  acquire/normalize/provenance/quality/consistency/independence/benchmark, SPI/SPEI)
+  with benchmark results, provenance-and-status reports and an independent scientific
+  review package. Evidence-gathering pending owner-approved validation; models remain
+  `NOT_VALIDATED`.
+- `contracts/`: `hydro-model-port.md`, `map-adapter.md`, `stac-search-port.md`.
+- `docs/architecture/`: architecture overview/principles/status/roadmap, guardrails,
+  C4 diagrams, component & domain registries, a full frontend architecture set
+  (modules/routes registries, auth & permissions, migration plan, current-vs-target),
+  per-domain READMEs and the technology-selection ADR series under
+  `docs/architecture/adr/` (0011 MapLibre, 0012 CesiumJS, 0013 pgSTAC, 0014 Hydromt-wflow,
+  0015 connectors) with registries.
+- `docs/adr/ADR-0011-optional-environmental-connectors.md` (ACCEPTED, 2026-11-27).
+- `docs/reports/`: ~50 phase reports (phases 3.60–3.105, autonomous engineering phases,
+  scientific-run persistence, EDI acquisition, dataset binding, reality audits) and the
+  continuation prompt for the unified-platform agent.
+- Root reports: `SMART_CONTRACT_ARCHITECTURE_DISCOVERY_AND_DESIGN.md`,
+  `SMART_CONTRACT_AGENT_TRAINING_REPORT.md`.
+- TS parity packages: scientific engine port, GDD model, Hargreaves ET0, hydro-model-port
+  adapter, STAC search port, map adapter; i18n catalogs updated.
+
+### Changed
+
+- `package.json`: verify chain extended with `check:arch` and `test:arch`
+  (architecture guardrails); `test:api` now runs the whole `services/api/tests/`
+  directory.
+- `scripts/`: `architecture-guardrails.mjs` (+ tests), extended `check-tokens.mjs`,
+  unified dev/serve updates, Playwright config updated.
+
+### Removed
+
+- (handled on this branch) the accidental `tatus` terminal-log artifact.
 
 ## Historical (before this changelog existed)
 

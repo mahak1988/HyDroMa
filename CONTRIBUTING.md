@@ -40,15 +40,15 @@ PRODUCTION_APPROVED`) and from the scientific validation status. **All HyDroMA m
 ```bash
 pnpm install --frozen-lockfile
 pnpm run dev          # unified host: http://localhost:5180
-pnpm run verify       # full gate chain (typecheck → lint → boundaries → tokens → apps → tests → api tests → build → bundle budget)
-pnpm run test:api     # services/api suite (real persistence, auth, RBAC)
+pnpm run verify       # typecheck → lint → boundaries → arch guardrails → arch tests → tokens → apps → tests → api tests → build → bundle budget
+pnpm run test:api     # services/api suite (real persistence, auth, RBAC; runs the whole services/api/tests/ directory)
 pip install -e "engines/hydroma[api,test]"
 pytest engines/hydroma/tests
 ```
 
-## CI gates (all must be green)
+## Quality gates
 
-`.github/workflows/verify.yml` runs on every push to `main` and every PR:
+### CI (`.github/workflows/verify.yml`) — runs on every push to `main` and every PR
 
 | Gate | Command |
 |---|---|
@@ -58,10 +58,18 @@ pytest engines/hydroma/tests
 | Design tokens | `pnpm run check:tokens` |
 | App manifest consistency | `pnpm run check:apps` |
 | Unit tests | `pnpm exec vitest run` |
-| API service tests | `pnpm run test:api` |
+| API service tests | `pnpm run test:api` (whole `services/api/tests/` suite: auth, RBAC, tenant isolation, rate limit, security, runs integrity, engine gateway/execution, rewards, EcoCoin ledger, …) |
 | Build every app | `pnpm run build:all` |
-| Bundle budget | `pnpm run check:bundle` |
-| HyDroMA Python regression | `pytest engines/hydroma/tests` |
+| HyDroMA Python regression | `pytest engines/hydroma/tests` (includes offline `connect` suite and core boundary tests) |
+
+### Local chain (`pnpm run verify`)
+
+`typecheck → lint → check:boundaries → check:arch → test:arch → check:tokens → check:apps →
+test → test:api → build:all → check:bundle`
+
+Note: the architecture-guardrails gates (`check:arch`, `test:arch`) and the bundle budget
+(`check:bundle`) currently run in the local chain but are **not yet** wired into the CI
+workflow steps — see the `blueprint-track` issues.
 
 ## Branches and pull requests
 
