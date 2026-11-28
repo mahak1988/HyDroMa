@@ -46,6 +46,18 @@ Dates are UTC.
 - Documentation/reality drift: README no longer claims the backend and scientific engine
   are "not implemented".
 - ADR references inside `docs/blueprint/` point to ADR-0012.
+- `test:api` now runs `node --test services/api/tests/*.test.mjs` — the bare-directory
+  form stopped resolving on Node 24 (`MODULE_NOT_FOUND`), which broke API tests locally
+  and in CI. Verified: 159 pass / 4 skipped / 0 fail.
+- HyDroMA regression suite passes from the repo root: the architecture-boundary test in
+  `engines/hydroma/tests/test_climate_crop_workflow.py` resolves the engine file via
+  `__file__` instead of the process CWD (CI invokes pytest from the root).
+- CI root-cause analysis recorded: `pnpm install --frozen-lockfile --no-audit --no-fund`
+  in `verify.yml` fails on pnpm 12 (flags removed in pnpm 12 → `unexpected argument`) and
+  the local-only architecture gates (`check:arch`, `test:arch`) are not yet wired into the
+  workflow. Editing workflow files requires the `workflows` permission, so these two
+  verify.yml corrections are recorded as owner follow-ups in the standardization
+  completion report and the `blueprint-track` issue, not silently skipped.
 
 ## [2026-11-28] — ecosystem implementation wave (on `main`, commit `01782c1f`)
 
