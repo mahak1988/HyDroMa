@@ -2,7 +2,7 @@
 
 **Status:** ACTIVE — منبع راهبردی اهداف و فلسفه اکو نوژین در مخزن
 **Authority:** مالک پروژه (کشت و صنعت دشت امید نارون) — سند مادر با تاریخ ۲۰۲۶-۱۱-۲۸
-**Decided:** ADR-0011 (docs/adr/ADR-0011-master-blueprint-and-repo-standardization.md)
+**Decided:** ADR-0012 (docs/adr/ADR-0012-master-blueprint-and-repo-standardization.md)
 
 این پوشه، سند مادر اکو نوژین (Master Blueprint v1.0) و نگاشت اهداف آن به وضعیت واقعی
 مخزن را نگه می‌دارد. طبق بند ۶۹ سند مادر، هر قابلیت با چهار وضعیت مشخص می‌شود تا
@@ -40,14 +40,15 @@ Quality & Validation، Business Model، Ecosystem Governance).
 | سند رسمی آینده | محل موقت فعلی در مخزن |
 |---|---|
 | Vision & Manifesto | `docs/blueprint/ECO-NOJIN-MASTER-BLUEPRINT-v1.0.md` |
-| Master / Domain Architecture | `architecture/` + `docs/architecture/` + `ECO-NOJIN-ECOSYSTEM-ARCHITECTURE.md` |
-| HyDroMA Scientific Architecture | `engines/hydroma/README.md` + `docs/scientific-governance/` |
-| Identity, Governance, Security | `docs/security/` + `docs/data-governance/` + `AGENTS.md` |
+| Master / Domain Architecture | `docs/architecture/` (معماری هدف، C4، مرزها، registries) + `architecture/` + `ECO-NOJIN-ECOSYSTEM-ARCHITECTURE.md` |
+| HyDroMA Scientific Architecture | `engines/hydroma/README.md` + `docs/scientific-governance/` + `docs/architecture/hydroma/` |
+| EDI Architecture | `services/edi/README.md` + `contracts/` |
+| Identity, Governance, Security | `docs/security/` + `docs/data-governance/` + `AGENTS.md` + `docs/architecture/iam/` + `docs/architecture/security/` |
 | UX & Design System | `brand/` + `packages/ui/` + `docs/architecture/` |
 | Internationalization | `packages/i18n/` + ADR-0005 |
-| Roadmap | `docs/blueprint/ROADMAP-ALIGNMENT.md` |
-| Quality & Validation | `docs/scientific-governance/` + `.github/workflows/verify.yml` |
-| بقیه حوزه‌ها (EDI، GIS، MRV، Projects، Marketplace، Tourism، AI، Infrastructure، Business) | مسیرهای بالقوه در `ROOT-STRUCTURE-MANIFEST.md` — وضعیت VISION/DESIGNED |
+| Roadmap | `docs/blueprint/ROADMAP-ALIGNMENT.md` + `docs/architecture/architecture-roadmap.md` |
+| Quality & Validation | `docs/scientific-governance/` + `.github/workflows/verify.yml` + `lab/` |
+| بقیه حوزه‌ها (GIS، MRV، Projects، Marketplace، Tourism، AI، Infrastructure، Business) | مسیرهای بالقوه در `ROOT-STRUCTURE-MANIFEST.md` — وضعیت VISION/DESIGNED |
 
 ## قواعد به‌روزرسانی
 

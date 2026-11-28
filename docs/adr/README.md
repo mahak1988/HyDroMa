@@ -12,8 +12,12 @@ Process:
   implementation instructions.
 - No second version of an accepted standard: superseding requires a new ADR
   that explicitly marks the old one `SUPERSEDED`.
+- This directory is the single authoritative **process register** for project
+  decisions (ADR-0001). Technology-selection notes also live under
+  [`docs/architecture/adr/`](../architecture/adr/) as a separate series —
+  indexed below; do not duplicate either register.
 
-## Index
+## Index — project decisions (this directory)
 
 | ADR | Title | Status | Date |
 |---|---|---|---|
@@ -27,10 +31,24 @@ Process:
 | [ADR-0008](./ADR-0008-plugin-shell.md) | Plugin shell: medusa Injection Zones + directus preRegisterCheck (pattern only) | ACCEPTED | 2026-11-22 |
 | [ADR-0009](./ADR-0009-scope-field-collection.md) | Scope: field-collection app included; analytics/flow-builder deferred | ACCEPTED | 2026-11-22 |
 | [ADR-0010](../architecture/ADR-0010-unified-platform-sections.md) | Unified platform sections (one SPA, lazy sections, one session, same-origin API, budget gate) | ACCEPTED | 2026-11-23 |
-| [ADR-0011](./ADR-0011-master-blueprint-and-repo-standardization.md) | Master Blueprint adoption and repository standardization | ACCEPTED | 2026-11-28 |
+| [ADR-0011](./ADR-0011-optional-environmental-connectors.md) | Optional external environmental data connectors for HyDroMA (`hydroma.connect`) | ACCEPTED | 2026-11-27 |
+| [ADR-0012](./ADR-0012-master-blueprint-and-repo-standardization.md) | Master Blueprint adoption and repository standardization | ACCEPTED | 2026-11-28 |
 | [ADR-DRAFT-UPSTREAM-001](./ADR-DRAFT-UPSTREAM-001-xclim.md) | Adopt xclim (climate indices) via original adapter | DRAFT — pending owner approval | 2026-11-21 |
 
-Note: ADR-0010 lives in [`docs/architecture/`](../architecture/) together with
-the platform architecture guides; the remaining ADRs live here.
+## Technology-selection series (`docs/architecture/adr/`)
+
+| ADR | Title |
+|---|---|
+| [0000](../architecture/adr/0000-template.md) | Template |
+| [0011](../architecture/adr/0011-maplibre-gl-js.md) | MapLibre GL JS |
+| [0012](../architecture/adr/0012-cesiumjs.md) | CesiumJS |
+| [0013](../architecture/adr/0013-pgstac.md) | pgSTAC |
+| [0014](../architecture/adr/0014-hydromt-wflow.md) | Hydromt-wflow |
+| [0015](../architecture/adr/0015-optional-environmental-connectors.md) | Optional environmental connectors |
+
+Note: the technology series uses its own numbering namespace inside
+`docs/architecture/adr/`; it is linked here for completeness. New project
+process decisions go to this directory (`docs/adr/`) following the process
+rules above.
 
 Template: [`ADR-0000-template.md`](./ADR-0000-template.md).
