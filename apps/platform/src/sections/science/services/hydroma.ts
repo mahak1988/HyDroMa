@@ -97,7 +97,7 @@ export function createHydromaClient(options: HydromaClientOptions): HydromaClien
   }
 
   return {
-    health: (signal) => get<HydromaHealth>("/health", validateHealth, signal),
-    models: (signal) => get<HydromaModelsResponse>("/v1/models", validateModels, signal),
+    health: (signal) => get<HydromaHealth>("health", validateHealth, signal),
+    models: (signal) => get<HydromaModelsResponse>("v1/models", validateModels, signal),
   };
 }

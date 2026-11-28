@@ -41,6 +41,13 @@ test("models page is explicit when the engine is unavailable", async ({ page }) 
   await expect(page.locator("body")).not.toContainText(/invented|mock data/i);
 });
 
+test("models page loads the real registry through the same-origin proxy", async ({ page }) => {
+  await page.goto("/science/models");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByText("Root-zone water balance")).toBeVisible();
+  await expect(page.locator("body")).not.toContainText(/service unavailable/i);
+});
+
 test("recorded runs are listed through the real API", async ({ context }) => {
   await ensureSignedIn(context);
   const created = await context.request.post(`${API_BASE}/v1/resources/runs`, {

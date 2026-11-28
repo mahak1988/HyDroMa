@@ -12,6 +12,10 @@ dependencies = []
 [project.optional-dependencies]
 api = ["fastapi", "uvicorn[standard]", "httpx"]
 test = ["pytest", "httpx"]
+# Optional environmental-data connectors (Phase 3.96). The scientific core
+# never imports these; they are only needed to run live acquisition.
+connect = ["httpx", "pystac"]
+raster = ["rasterio"]
 
 [tool.setuptools.packages.find]
 where = ["."]

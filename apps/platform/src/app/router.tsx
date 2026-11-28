@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { routerBasename } from "@eco-nojin/configuration";
 import { PlatformLayout } from "./PlatformLayout";
 import { WorkspaceGate } from "./WorkspaceGate";
+import { DemoLayout } from "./DemoLayout";
 import { PortalLayout } from "../public/app/PortalLayout";
 import { PageView, ExtraPageView, NotFoundPage } from "../public/app/PageView";
 import { AuthPage } from "../public/app/AuthPage";
@@ -15,24 +16,36 @@ import { ResourceDetailPage, ResourceListPage } from "../sections/api-pages/Reso
 import { MarketplacePage } from "../sections/api-pages/MarketplacePage";
 import { NotificationsPage } from "../sections/api-pages/NotificationsPage";
 import { ModelsPage } from "../sections/api-pages/ModelsPage";
-import { FarmsModule, FarmDetail } from "../sections/agriculture/FarmsModule";
-import { CropCyclesModule } from "../sections/agriculture/CropCyclesModule";
-import { IrrigationModule } from "../sections/agriculture/IrrigationModule";
-import { TasksModule } from "../sections/agriculture/TasksModule";
-import { IntelligenceModule } from "../sections/agriculture/IntelligenceModule";
-import { ReadinessModule } from "../sections/agriculture/ReadinessModule";
-import { HICModule } from "../sections/agriculture/HICModule";
-import { EnvSourcesModule } from "../sections/agriculture/EnvSourcesModule";
-import { TaskDetail } from "../sections/agriculture/TaskDetail";
-import { TaskSchedule } from "../sections/agriculture/TaskSchedule";
-import { FieldObservationsModule } from "../sections/agriculture/FieldObservationsModule";
-import { ProjectsModule, ProjectDetail } from "../sections/projects/ProjectsModule";
-import { ChallengesModule } from "../sections/rewards/ChallengesModule";
-import { RewardsModule } from "../sections/rewards/RewardsModule";
-import { TerritoriesModule } from "../sections/territory/TerritoriesModule";
-import { VillagesModule } from "../sections/communities/VillagesModule";
-import { CommunityWorkspace } from "../sections/communities/CommunityWorkspace";
 import { moduleById } from "../services/capabilities";
+
+/**
+ * Capability modules are heavy, API-backed workspaces. They are code-split so
+ * the initial entry chunk stays within the bundle budget (see
+ * scripts/check-bundle-budget.mjs); each becomes its own lazy chunk.
+ */
+const FarmsModule = lazy(() => import("../sections/agriculture/FarmsModule").then((m) => ({ default: m.FarmsModule })));
+const FarmDetail = lazy(() => import("../sections/agriculture/FarmsModule").then((m) => ({ default: m.FarmDetail })));
+const CropCyclesModule = lazy(() => import("../sections/agriculture/CropCyclesModule").then((m) => ({ default: m.CropCyclesModule })));
+const IrrigationModule = lazy(() => import("../sections/agriculture/IrrigationModule").then((m) => ({ default: m.IrrigationModule })));
+const TasksModule = lazy(() => import("../sections/agriculture/TasksModule").then((m) => ({ default: m.TasksModule })));
+const TaskDetail = lazy(() => import("../sections/agriculture/TaskDetail").then((m) => ({ default: m.TaskDetail })));
+const TaskSchedule = lazy(() => import("../sections/agriculture/TaskSchedule").then((m) => ({ default: m.TaskSchedule })));
+const IntelligenceModule = lazy(() => import("../sections/agriculture/IntelligenceModule").then((m) => ({ default: m.IntelligenceModule })));
+const ReadinessModule = lazy(() => import("../sections/agriculture/ReadinessModule").then((m) => ({ default: m.ReadinessModule })));
+const HICModule = lazy(() => import("../sections/agriculture/HICModule").then((m) => ({ default: m.HICModule })));
+const EnvSourcesModule = lazy(() => import("../sections/agriculture/EnvSourcesModule").then((m) => ({ default: m.EnvSourcesModule })));
+const FieldObservationsModule = lazy(() => import("../sections/agriculture/FieldObservationsModule").then((m) => ({ default: m.FieldObservationsModule })));
+const OverviewModule = lazy(() => import("../sections/agriculture/OverviewModule").then((m) => ({ default: m.OverviewModule })));
+const HydromaWorkspace = lazy(() => import("../sections/agriculture/HydromaWorkspace").then((m) => ({ default: m.HydromaWorkspace })));
+const HydromaRunPage = lazy(() => import("../sections/science/pages/RunModelPage").then((m) => ({ default: m.RunModelPage })));const EnvDataModule = lazy(() => import("../sections/agriculture/EnvDataModule").then((m) => ({ default: m.EnvDataModule })));
+const DatasetBuilderModule = lazy(() => import("../sections/agriculture/DatasetBuilderModule").then((m) => ({ default: m.DatasetBuilderModule })));
+const ProjectsModule = lazy(() => import("../sections/projects/ProjectsModule").then((m) => ({ default: m.ProjectsModule })));
+const ProjectDetail = lazy(() => import("../sections/projects/ProjectsModule").then((m) => ({ default: m.ProjectDetail })));
+const ChallengesModule = lazy(() => import("../sections/rewards/ChallengesModule").then((m) => ({ default: m.ChallengesModule })));
+const RewardsModule = lazy(() => import("../sections/rewards/RewardsModule").then((m) => ({ default: m.RewardsModule })));
+const TerritoriesModule = lazy(() => import("../sections/territory/TerritoriesModule").then((m) => ({ default: m.TerritoriesModule })));
+const VillagesModule = lazy(() => import("../sections/communities/VillagesModule").then((m) => ({ default: m.VillagesModule })));
+const CommunityWorkspace = lazy(() => import("../sections/communities/CommunityWorkspace").then((m) => ({ default: m.CommunityWorkspace })));
 
 function NotFound() {
   return (
@@ -42,13 +55,6 @@ function NotFound() {
     />
   );
 }
-
-/**
- * Crossing into an external section bundle is a document navigation, not a
- * client-side route change (each section is its own build behind the unified
- * host while migration is in progress).
- */
-const overview = pageById("overview");
 
 /**
  * Capability-aware canonical module entries (M01…M18).
@@ -66,8 +72,12 @@ const capabilityRoutes = [
   { path: "natural-resources", element: <ResourceListPage type="sites" /> },
   { path: "hydroma/sources", element: <EnvSourcesModule /> },
   { path: "hydroma/readiness", element: <ReadinessModule /> },
+ { path: "hydroma/irrigation", element: <HydromaWorkspace /> },
+ { path: "hydroma/environment", element: <EnvDataModule /> },
+ { path: "hydroma/datasets", element: <DatasetBuilderModule /> },
   { path: "hic", element: <HICModule /> },
   { path: "hydroma", element: <ModelsPage /> },
+  { path: "hydroma/run", element: <HydromaRunPage /> },
   { path: "agriculture/intelligence", element: <IntelligenceModule /> },
   { path: "agriculture/:id", element: <FarmDetail /> },
   { path: "irrigation", element: <IrrigationModule /> },
@@ -128,8 +138,7 @@ function SectionFallback() {
  * portal), the platform workspace nested under `/platform`, and redirects to
  * external section bundles for areas not migrated yet.
  */
-export const router = createBrowserRouter(
-  [
+export const appRoutes = [
     {
       path: "/",
       element: <PortalLayout />,
@@ -199,15 +208,26 @@ export const router = createBrowserRouter(
         </WorkspaceGate>
       ),
       children: [
-        { index: true, element: <PageRenderer page={overview} /> },
-        ...capabilityRoutes,
-        ...PAGES.filter((page) => page.path !== "").map((page) => ({
-          path: page.path,
-          element: <PageRenderer page={page} />,
+        { index: true, element: <Suspense fallback={<SectionFallback />}><OverviewModule /></Suspense> },
+        ...capabilityRoutes.map((route) => ({
+          path: route.path,
+          element: <Suspense fallback={<SectionFallback />}>{route.element}</Suspense>,
         })),
+        {
+          element: <DemoLayout />,
+          children: [
+            { path: "demo", element: <PageRenderer page={pageById("overview") ?? PAGES[0]!} /> },
+            ...PAGES.filter((page) => page.path !== "").map((page) => ({
+              path: page.path,
+              element: <PageRenderer page={page} />,
+            })),
+          ],
+        },
         { path: "*", element: <NotFound /> },
       ],
     },
-  ],
-  { basename: routerBasename(import.meta.env.BASE_URL) },
-);
+];
+
+export const router = createBrowserRouter(appRoutes, {
+  basename: routerBasename(import.meta.env.BASE_URL),
+});

@@ -15,6 +15,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      "/hydroma-api": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/hydroma-api/, ""),
+      },
     },
   },
   build: { target: "es2022", sourcemap: false, chunkSizeWarningLimit: 700 },

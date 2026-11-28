@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useI18n } from "@eco-nojin/i18n";
 
 import { useHydromaModels } from "../services/useHydromaModels";
@@ -54,6 +55,32 @@ export function ModelsPage() {
         <h1 className="text-xl font-semibold tracking-tight text-fg">{t("hydroma.models")}</h1>
         <p className="text-xs text-fg-muted">{state.source}</p>
       </header>
+      <section className="rounded-lg border border-border bg-surface p-4" aria-label={t("hydroma.workspace")}>
+        <p className="text-sm font-medium text-fg">{t("hydroma.workspace")}</p>
+        <p className="mt-1 text-2xs text-fg-muted">{t("hydroma.workspaceNote")}</p>
+        <ul className="mt-3 flex flex-wrap gap-3 text-xs">
+          <li>
+            <Link className="font-medium text-primary underline underline-offset-2" to="/platform/hydroma/run">
+              {t("hydroma.openRun")}
+            </Link>
+          </li>
+          <li>
+            <Link className="font-medium text-primary underline underline-offset-2" to="/platform/hydroma/datasets">
+              {t("hydroma.openDatasets")}
+            </Link>
+          </li>
+          <li>
+            <Link className="font-medium text-primary underline underline-offset-2" to="/platform/hydroma/readiness">
+              {t("hydroma.openReadiness")}
+            </Link>
+          </li>
+          <li>
+            <Link className="font-medium text-primary underline underline-offset-2" to="/platform/hydroma/sources">
+              {t("hydroma.openSources")}
+            </Link>
+          </li>
+        </ul>
+      </section>
       <ul className="grid gap-3 sm:grid-cols-2">
         {state.models.map((model) => (
           <li key={`${model.id}@${model.version}`} className="rounded-lg border border-border bg-surface p-4">

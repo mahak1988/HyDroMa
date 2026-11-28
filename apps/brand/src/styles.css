@@ -1,4 +1,4 @@
-/* Showcase shell. Every colour comes from the live design tokens. */
+﻿/* Showcase shell. Every colour comes from the live design tokens. */
 .brand {
   min-height: 100dvh;
   background: var(--canvas);
@@ -111,7 +111,7 @@
 }
 
 .brand__themeCard {
-  border: 1px solid var(--neutral-line, #d5dde0);
+  border: 1px solid var(--neutral-line, #ded5c9);
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--neutral-white, #fff);
@@ -123,8 +123,8 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background: var(--neutral-cloud, #f5f7f8);
-  color: var(--neutral-ink, #0f1e24);
+  background: var(--neutral-cloud, #f1e9dc);
+  color: var(--neutral-ink, #2d2523);
   font-size: var(--text-xs);
 }
 
@@ -132,7 +132,7 @@
   padding: var(--space-5);
   display: grid;
   gap: var(--space-3);
-  color: var(--neutral-ink, #0f1e24);
+  color: var(--neutral-ink, #2d2523);
 }
 
 .brand__previewTitle { font-weight: 700; font-size: var(--text-lg); }

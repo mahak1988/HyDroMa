@@ -83,6 +83,79 @@ export type ModelSummary = {
 };
 export type ModelList = { models: ModelSummary[]; source?: string };
 
+export type SoilProfile = {
+  id: string;
+  organizationId: string;
+  farmId: string | null;
+  projectId: string | null;
+  name: string;
+  version: number;
+  layers: Array<Record<string, unknown>>;
+  source: string;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type EnvParameter = { code: string; name: string; category: string; dimension: string; canonicalUnit: string; dataType: string; allowedUnits: string[]; minValue: number | null; maxValue: number | null; notes: string | null };
+export type EnvObservation = { id: string; organizationId: string; farmId: string | null; projectId: string | null; importId: string | null; parameter: string; value: number; unit: string; canonicalValue: number; canonicalUnit: string; observedAt: string; depthMm: number | null; source: string; method: string | null; instrument: string | null; quality: string; qualityReasons: string[]; createdAt: string };
+
+export type SoilObservation = {
+  id: string;
+  organizationId: string;
+  farmId: string | null;
+  projectId: string | null;
+  profileId: string | null;
+  observedAt: string;
+  depthMm: number | null;
+  parameter: string;
+  value: number;
+  unit: string;
+  source: string;
+  method: string | null;
+  instrument: string | null;
+  quality: string | null;
+  notes: string | null;
+  createdAt: string;
+};
+
+export type HydromaRun = {
+  id: string;
+  organizationId: string;
+  runKey: string;
+  modelId: string;
+  modelVersion: string;
+  status: string;
+  farmId: string | null;
+  cropCycleId: string | null;
+  projectId: string | null;
+  soilProfileId: string | null;
+  soilProfileVersion: number | null;
+  datasetId: string | null;
+  datasetRevision: number | null;
+  snapshot: Record<string, unknown> | null;
+  snapshotFingerprint: string | null;
+  input: Record<string, unknown>;
+  inputHash: string;
+  parameterHash: string;
+  output: Record<string, unknown> | null;
+  resultSummary: string | null;
+  provenance: Record<string, unknown> | null;
+  units: Record<string, unknown> | null;
+  softwareMaturity: string | null;
+  scientificStatus: string | null;
+  error: string | null;
+  requestedBy: string | null;
+  correlationId: string | null;
+  engineRunId: string | null;
+  reconciliationRequired: boolean;
+  attempts: number;
+  createdAt: string;
+  updatedAt: string;
+  startedAt: string | null;
+  completedAt: string | null;
+};
+
 /** Reward rule (Phase 3.64): configurable EcoCoin reward definition. */
 export type RewardRule = {
   id: string;
@@ -245,6 +318,19 @@ export type LedgerEntry = {
   participationId: string | null;
   rewardRuleId: string | null;
   at: string;
+};
+/** Server-side ledger query (real pagination, sorting and filtering). */
+export type LedgerQuery = {
+  organizationId?: string;
+  userId?: string;
+  entryType?: string;
+  challengeId?: string;
+  source?: string;
+  from?: string;
+  to?: string;
+  sort?: "asc" | "desc";
+  limit?: number;
+  cursor?: string;
 };
 export type EcoCoinSummary = {
   balance: number;
@@ -507,7 +593,55 @@ export function createApiClient(config: ApiClientConfig) {
       updateSource: (id: string, payload: Record<string, unknown>) =>
         transport.request<Record<string, unknown>>({ method: "PATCH", path: `v1/env/sources/${encodeURIComponent(id)}`, body: payload }),
     },
+    datasets: {
+      assemble: (payload: { farmId?: string; projectId?: string; startDate: string; endDate: string; parameters: string[] }) =>
+        transport.request<{ dataset: Record<string, unknown> & { id: string; readiness: string; coverage: number } }>({ method: "POST", path: "v1/datasets/assemble", body: payload }),
+      list: (options?: { signal?: AbortSignal }) =>
+        transport.request<{ items: Array<{ id: string; farmId: string | null; projectId: string | null; startDate: string; endDate: string; readiness: string; coverage: number; createdAt: string }>; total: number }>({ path: "v1/datasets", signal: options?.signal }),
+      get: (id: string, options?: { signal?: AbortSignal }) =>
+        transport.request<{ dataset: Record<string, unknown> }>({ path: `v1/datasets/${encodeURIComponent(id)}`, signal: options?.signal }),
+      modelInput: (id: string, payload: { modelId: string; modelVersion: string }) =>
+        transport.request<{ modelInput: Record<string, unknown> }>({ method: "POST", path: `v1/datasets/${encodeURIComponent(id)}/model-input`, body: payload }),
+    },
+    envData: {
+      listParameters: (options?: { signal?: AbortSignal }) =>
+        transport.request<{ items: EnvParameter[]; total: number }>({ path: "v1/env/parameters", signal: options?.signal }),
+      listObservations: (query?: Record<string, string>, options?: { signal?: AbortSignal }) =>
+        transport.request<{ items: EnvObservation[]; total: number }>({ path: "v1/env/observations", query, signal: options?.signal }),
+      createObservation: (payload: Record<string, unknown>) =>
+        transport.request<{ observation: EnvObservation }>({ method: "POST", path: "v1/env/observations", body: payload }),
+      importCsv: (payload: { csv: string; filename?: string; source?: string; farmId?: string; projectId?: string }) =>
+        transport.request<{ import: { id: string; total: number; imported: number; rejected: number; duplicates: number } }>({ method: "POST", path: "v1/env/imports", body: payload }),
+      listImports: (options?: { signal?: AbortSignal }) =>
+        transport.request<{ items: Array<{ id: string; filename: string; source: string; status: string; total: number; imported: number; rejected: number; duplicates: number; createdAt: string }>; total: number }>({ path: "v1/env/imports", signal: options?.signal }),
+    },
+    soil: {
+      listProfiles: (query?: Record<string, string>, options?: { signal?: AbortSignal }) =>
+        transport.request<{ items: SoilProfile[]; total: number }>({ path: "v1/soil/profiles", query, signal: options?.signal }),
+      createProfile: (payload: { name: string; layers: Array<Record<string, unknown>>; source?: string; farmId?: string; projectId?: string; notes?: string }) =>
+        transport.request<{ profile: SoilProfile }>({ method: "POST", path: "v1/soil/profiles", body: payload }),
+      getProfile: (id: string, options?: { signal?: AbortSignal }) =>
+        transport.request<{ profile: SoilProfile }>({ path: `v1/soil/profiles/${encodeURIComponent(id)}`, signal: options?.signal }),
+      updateProfile: (id: string, payload: { layers?: Array<Record<string, unknown>>; source?: string; notes?: string }) =>
+        transport.request<{ profile: SoilProfile }>({ method: "PATCH", path: `v1/soil/profiles/${encodeURIComponent(id)}`, body: payload }),
+      listVersions: (id: string, options?: { signal?: AbortSignal }) =>
+        transport.request<{ items: Array<{ id: string; profileId: string; version: number; layers: Array<Record<string, unknown>>; source: string; notes: string | null; createdAt: string }>; total: number }>({ path: `v1/soil/profiles/${encodeURIComponent(id)}/versions`, signal: options?.signal }),
+      listObservations: (query?: Record<string, string>, options?: { signal?: AbortSignal }) =>
+        transport.request<{ items: SoilObservation[]; total: number }>({ path: "v1/soil/observations", query, signal: options?.signal }),
+      createObservation: (payload: { farmId?: string; projectId?: string; profileId?: string; observedAt: string; depthMm?: number; parameter: string; value: number; unit: string; source?: string; method?: string; instrument?: string; quality?: string; notes?: string }) =>
+        transport.request<{ observation: SoilObservation }>({ method: "POST", path: "v1/soil/observations", body: payload }),
+    },
     hydroma: {
+      createRun: (payload: { runKey: string; modelId: string; modelVersion: string; input: Record<string, unknown>; datasetId?: string; datasetRevision?: number; farmId?: string; projectId?: string }, options?: { signal?: AbortSignal }) =>
+        transport.request<{ run: HydromaRun; duplicate?: boolean }>({ method: "POST", path: "v1/hydroma/runs", body: payload, signal: options?.signal }),
+      executeRun: (id: string, modelInput: Record<string, unknown>) =>
+        transport.request<{ attempt: Record<string, unknown>; duplicate?: boolean }>({ method: "POST", path: `v1/hydroma/runs/${encodeURIComponent(id)}/execute`, body: { modelInput } }),
+      createIrrigationRun: (payload: { runKey: string; input: Record<string, unknown>; farmId?: string; cropCycleId?: string; projectId?: string; soilProfileId?: string; soilProfileVersion?: number; correlationId?: string }, options?: { signal?: AbortSignal }) =>
+        transport.request<{ run: HydromaRun; duplicate?: boolean }>({ method: "POST", path: "v1/hydroma/irrigation/runs", body: payload, signal: options?.signal }),
+      listRuns: (query?: Record<string, string>, options?: { signal?: AbortSignal }) =>
+        transport.request<Paginated<HydromaRun>>({ path: "v1/hydroma/runs", query, signal: options?.signal }),
+      getRun: (id: string, options?: { signal?: AbortSignal }) =>
+        transport.request<{ run: HydromaRun }>({ path: `v1/hydroma/runs/${encodeURIComponent(id)}`, signal: options?.signal }),
       readiness: (farmId: string, cropCycleId?: string, options?: { signal?: AbortSignal }) =>
         transport.request<{ contractId: string; contractVersion: string; model: string; state: string; required: string[]; available: string[]; missing: string[]; invalid: string[]; unitMismatches: unknown[]; temporalIssues: unknown[]; spatialIssues: unknown[]; provenanceDeficiencies: unknown[]; sources: Array<{ type: string; id: string; created_at: string }>; assessedAt: string; provenance?: string; spatial?: string; findings?: Array<{ id: string; category: string; severity: string; source: string; field: string; reason: string; expected: string; actual: string; rulesVersion: string }> }>({ path: "v1/hydroma/readiness", query: { farmId, ...(cropCycleId ? { cropCycleId } : {}) }, signal: options?.signal }),
       createAssessment: (payload: { farmId: string; cropCycleId?: string }) =>
@@ -520,6 +654,12 @@ export function createApiClient(config: ApiClientConfig) {
         transport.request<{ id: string; reviewState: string; state: string }>({ method: "POST", path: `v1/hydroma/readiness/assessments/${encodeURIComponent(id)}/review`, body: payload }),
       reviews: (id: string, options?: { signal?: AbortSignal }) =>
         transport.request<{ items: Array<{ id: string; decision: string; note: string | null; actorId: string | null; at: string }> }>({ path: `v1/hydroma/readiness/assessments/${encodeURIComponent(id)}/reviews`, signal: options?.signal }),
+    },
+    science: {
+      gdd: (payload: { tMax: number; tMin: number; tBase: number; tCap?: number }) =>
+        transport.request<{ modelId: string; modelVersion: string; status: string; outputs: { gdd: number; dailyMean: number; capped: boolean } | null; scientificStatus: string }>({ method: "POST", path: "v1/science/gdd", body: payload }),
+      et0: (payload: { tMax: number; tMin: number; ra: number }) =>
+        transport.request<{ modelId: string; modelVersion: string; status: string; outputs: { et0: number; tMean: number } | null; scientificStatus: string }>({ method: "POST", path: "v1/science/et0", body: payload }),
     },
     community: {
       activities: (query?: Record<string, string>, options?: { signal?: AbortSignal }) =>
@@ -560,12 +700,17 @@ export function createApiClient(config: ApiClientConfig) {
         transport.request<{ metrics: Record<string, number>; priorities: Array<{ reason: string; severity: string; label: string; date: string | null; to: string }>; recent: Array<{ date: string; type: string; label: string; to: string; recordCreated: boolean }> }>({ path: "v1/agri/intelligence", signal: options?.signal }),
     },
     ecocoin: {
-      ledger: (organizationId?: string, options?: { signal?: AbortSignal }) =>
-        transport.request<Paginated<LedgerEntry>>({
+      ledger: (query: LedgerQuery = {}, options?: { signal?: AbortSignal }) => {
+        const params: Record<string, string> = {};
+        for (const [key, value] of Object.entries(query)) {
+          if (value !== undefined && value !== null && value !== "") params[key] = String(value);
+        }
+        return transport.request<Paginated<LedgerEntry>>({
           path: "v1/ecocoin/ledger",
-          query: organizationId ? ({ organizationId } as Record<string, string>) : undefined,
+          query: params,
           signal: options?.signal,
-        }),
+        });
+      },
       summary: (options?: { signal?: AbortSignal }) =>
         transport.request<EcoCoinSummary>({ path: "v1/ecocoin/summary", signal: options?.signal }),
       balance: (userId?: string, options?: { signal?: AbortSignal }) =>

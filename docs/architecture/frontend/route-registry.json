@@ -1,0 +1,2652 @@
+{
+  "schemaVersion": "1.1.0",
+  "generatedAt": "2026-11-23",
+  "description": "Frontend and API route registry. EXISTING routes are declared in the current router/page registry/API server; PARTIALLY_EXISTING routes render but lack data or a required capability; DEPRECATED_CANDIDATE routes exist but should be retired; PROPOSED routes are not implemented. Permissions are the module-level grants required to enter the route; the server remains the authority.",
+  "counts": {
+    "existing": 135,
+    "partiallyExisting": 44,
+    "deprecatedCandidate": 2,
+    "proposed": 28,
+    "total": 209
+  },
+  "routes": [
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/",
+      "moduleId": "M01",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Public home",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/ecosystem",
+      "moduleId": "M01",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Public content page",
+      "permissions": []
+    },
+    {
+      "status": "DEPRECATED_CANDIDATE",
+      "auth": "public",
+      "kind": "page",
+      "path": "/hydroma",
+      "moduleId": "M01",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Public HyDroMA intro; CTA to /science",
+      "permissions": []
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/mrv",
+      "moduleId": "M13",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Public MRV content page",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/knowledge",
+      "moduleId": "M01",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Public knowledge page",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/about",
+      "moduleId": "M01",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Public about page",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/contact",
+      "moduleId": "M01",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Contact form is not wired to a backend",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/partner",
+      "moduleId": "M01",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Partnership page",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/login",
+      "moduleId": "M02",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Real API login/register",
+      "permissions": []
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/profile",
+      "moduleId": "M02",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Real console profile page in public core",
+      "permissions": []
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/security",
+      "moduleId": "M02",
+      "source": "apps/platform/src/app/router.tsx",
+      "notes": "Real console security page in public core",
+      "permissions": []
+    },
+    {
+      "status": "DEPRECATED_CANDIDATE",
+      "auth": "public",
+      "kind": "redirect",
+      "path": "/marketplace",
+      "moduleId": "M06",
+      "notes": "Redirects to /market/",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "fallback",
+      "path": "/*",
+      "moduleId": "M01",
+      "notes": "Public not-found",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform",
+      "moduleId": "M03",
+      "section": "overview",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/atlas",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (map); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/villages",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/nomadic-territories",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/rangelands",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/farms",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/natural-resources",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/:id",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (detail); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/assessment",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/management-plan",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (wizard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/restoration-projects",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/management-group",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/stakeholders",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/economy",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/monitoring",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/landscapes/reports",
+      "moduleId": "M03",
+      "section": "landscape",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/farms",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/crops",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/planning",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (wizard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/irrigation",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/health",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/inputs",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/livestock",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/performance",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/agriculture/reports",
+      "moduleId": "M04",
+      "section": "agriculture",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv/land-degradation",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv/restoration",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv/carbon",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv/methodologies",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv/reports",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv/verification",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/mrv/provenance",
+      "moduleId": "M13",
+      "section": "mrv",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/list",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/:id",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (detail); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/design",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (wizard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/operations",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (wizard); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/tasks",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/budget",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/monitoring",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/results",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/projects/reports",
+      "moduleId": "M08",
+      "section": "projects",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge/library",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge/research",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge/indigenous-knowledge",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge/courses",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge/content",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge/community",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/knowledge/researchers/:id",
+      "moduleId": "M01",
+      "section": "knowledge",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (detail); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance/accounts",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance/entries",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance/income-expense",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (report); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance/payments",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance/wallet",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance/settlements",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/finance/reports",
+      "moduleId": "M07",
+      "section": "finance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/community/notifications",
+      "moduleId": "M02",
+      "section": "community",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/community/messages",
+      "moduleId": "M02",
+      "section": "community",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/community/groups",
+      "moduleId": "M02",
+      "section": "community",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/community/activities",
+      "moduleId": "M02",
+      "section": "community",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (dashboard); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance/users",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "users.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance/organizations",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": [
+        "org.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance/services",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance/content",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance/data",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance/audit",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (list); local registry content",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "page",
+      "path": "/platform/governance/settings",
+      "moduleId": "M02",
+      "section": "governance",
+      "source": "apps/platform/src/content/pages.ts",
+      "notes": "Workspace page (wizard); local registry content",
+      "permissions": [
+        "org.update"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/destinations",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/destinations/:slug",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/nomadic",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/nomadic/:slug",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/stays",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/stays/:slug",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/experiences",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/experiences/:slug",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/tours",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/events",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/map",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "session+host",
+      "kind": "section",
+      "path": "/tourism/host",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "session+host",
+      "kind": "section",
+      "path": "/tourism/host/signin",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "session+host",
+      "kind": "section",
+      "path": "/tourism/bookings",
+      "moduleId": "M17",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/tourism/book/:kind/:slug",
+      "moduleId": "M18",
+      "source": "apps/platform/src/sections/tourism/app/router.tsx",
+      "notes": "Local demo booking request",
+      "permissions": [
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/catalog",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/categories",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/stores",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/p/:slug",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/s/:slug",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/cart",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/checkout",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "PARTIALLY_EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/market/orders",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "section",
+      "path": "/market/seller/signin",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+seller",
+      "kind": "section",
+      "path": "/market/seller",
+      "moduleId": "M06",
+      "source": "apps/platform/src/sections/market/app/router.tsx",
+      "permissions": [
+        "catalog.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/:id",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/atlas",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/villages",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/nomadic-territories",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/rangelands",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/farms",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/natural-resources",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/assessment",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/management-plan",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/restoration-projects",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/management-group",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/stakeholders",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/economy",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/monitoring",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/landscapes/reports",
+      "moduleId": "M03",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/field",
+      "moduleId": "M10",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/field/survey",
+      "moduleId": "M10",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/field/records",
+      "moduleId": "M10",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/landscape/field/map",
+      "moduleId": "M10",
+      "source": "apps/platform/src/sections/landscape/router.tsx",
+      "permissions": [
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/components",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/organizations",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": [
+        "org.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/organizations/:id",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": [
+        "org.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/users",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": [
+        "users.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/users/:id",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": [
+        "users.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/notifications",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/profile",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/security",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session+permission",
+      "kind": "section",
+      "path": "/landscape/admin/settings",
+      "moduleId": "M02",
+      "source": "apps/platform/src/sections/landscape/admin/router.tsx",
+      "permissions": [
+        "org.update"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/water",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/soil",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/climate",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/vegetation",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/remote-sensing",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/map",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/simulation",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/scenarios",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/projects",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/models",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "section",
+      "path": "/science/run",
+      "moduleId": "M16",
+      "source": "apps/platform/src/sections/science/app/router.tsx",
+      "permissions": [
+        "hydroma.run",
+        "reports.read"
+      ]
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "fallback",
+      "path": "/science/*",
+      "moduleId": "M01",
+      "notes": "Section fallback",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "fallback",
+      "path": "/tourism/*",
+      "moduleId": "M01",
+      "notes": "Section fallback",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "fallback",
+      "path": "/market/*",
+      "moduleId": "M01",
+      "notes": "Section fallback",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "fallback",
+      "path": "/landscape/*",
+      "moduleId": "M01",
+      "notes": "Section fallback",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "fallback",
+      "path": "/platform/*",
+      "moduleId": "M01",
+      "notes": "Section fallback",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "api",
+      "path": "/v1/auth/register",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "api",
+      "path": "/v1/auth/login",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "api",
+      "path": "/v1/auth/logout",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/auth/me",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/auth/accept-invite",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/organizations",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/organizations/:id",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/organizations/:id/members",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/organizations/:id/invitations",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/users",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/users/:id",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/notifications",
+      "moduleId": "M02",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/runs",
+      "moduleId": "M16",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "api",
+      "path": "/v1/models",
+      "moduleId": "M16",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "api",
+      "path": "/v1/catalog/categories",
+      "moduleId": "M06",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/catalog/sellers",
+      "moduleId": "M06",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/catalog/products",
+      "moduleId": "M06",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/resources/:type",
+      "moduleId": "M03",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "session",
+      "kind": "api",
+      "path": "/v1/resources/:type/:id",
+      "moduleId": "M03",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "status": "EXISTING",
+      "auth": "public",
+      "kind": "api",
+      "path": "/health",
+      "moduleId": "M01",
+      "source": "services/api/src/server.mjs",
+      "notes": "Real API route",
+      "permissions": []
+    },
+    {
+      "path": "/platform/inventory",
+      "moduleId": "M05",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "billing.read"
+      ]
+    },
+    {
+      "path": "/platform/inventory/items",
+      "moduleId": "M05",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "billing.read"
+      ]
+    },
+    {
+      "path": "/platform/inventory/movements",
+      "moduleId": "M05",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "billing.read"
+      ]
+    },
+    {
+      "path": "/platform/inventory/warehouses",
+      "moduleId": "M05",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "billing.read"
+      ]
+    },
+    {
+      "path": "/platform/inventory/stock",
+      "moduleId": "M05",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "billing.read"
+      ]
+    },
+    {
+      "path": "/platform/challenges",
+      "moduleId": "M09",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/challenges/:id",
+      "moduleId": "M09",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/eco-coin",
+      "moduleId": "M12",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/eco-coin/wallet",
+      "moduleId": "M12",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/eco-coin/issuance",
+      "moduleId": "M12",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/eco-coin/transactions",
+      "moduleId": "M12",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/finance/ledger",
+      "moduleId": "M07",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/finance/reconciliation",
+      "moduleId": "M07",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/finance/tourism-revenue",
+      "moduleId": "M07",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "billing.read",
+        "billing.manage",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/restoration",
+      "moduleId": "M08",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/restoration/baselines",
+      "moduleId": "M08",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "landscape.write",
+        "reports.read"
+      ]
+    },
+    {
+      "path": "/platform/evidence",
+      "moduleId": "M11",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "path": "/platform/evidence/:id",
+      "moduleId": "M11",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "path": "/platform/integrations/edi",
+      "moduleId": "M14",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": []
+    },
+    {
+      "path": "/platform/integrations/canonical",
+      "moduleId": "M15",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": []
+    },
+    {
+      "path": "/market/seller/register",
+      "moduleId": "M06",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "path": "/market/seller/products/new",
+      "moduleId": "M06",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "catalog.read",
+        "catalog.write",
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "path": "/tourism/availability",
+      "moduleId": "M18",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "path": "/tourism/bookings/:id",
+      "moduleId": "M18",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "orders.read",
+        "orders.manage"
+      ]
+    },
+    {
+      "path": "/platform/mrv/credits",
+      "moduleId": "M13",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "path": "/platform/mrv/credits/:id",
+      "moduleId": "M13",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "hydroma.run",
+        "reports.read",
+        "audit.read"
+      ]
+    },
+    {
+      "path": "/platform/agriculture/inputs/new",
+      "moduleId": "M04",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    },
+    {
+      "path": "/platform/agriculture/crops/new",
+      "moduleId": "M04",
+      "kind": "page",
+      "status": "PROPOSED",
+      "auth": "session+permission",
+      "source": null,
+      "notes": "Proposed; not implemented",
+      "permissions": [
+        "landscape.read",
+        "landscape.write"
+      ]
+    }
+  ]
+}

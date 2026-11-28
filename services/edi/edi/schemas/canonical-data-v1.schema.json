@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ecojin.local/schemas/edi-canonical-data-v1.json",
+  "title": "EDI Canonical Data v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "record_kind",
+    "observation_id",
+    "source_id",
+    "source_product",
+    "source_type",
+    "variable",
+    "dataset_id",
+    "dataset_version",
+    "value_encoding",
+    "value",
+    "unit",
+    "timestamp",
+    "timezone",
+    "hour_labeling",
+    "hour_labeling_status",
+    "hour_labeling_evidence",
+    "temporal_resolution",
+    "temporal_basis",
+    "spatial_resolution",
+    "geometry_crs",
+    "geometry",
+    "grid",
+    "asset",
+    "spatial_support",
+    "measurement_height_m",
+    "measurement_depth_m",
+    "sensor_elevation_m",
+    "elevation_datum",
+    "quality_flag",
+    "uncertainty",
+    "provenance",
+    "retrieved_at",
+    "valid_from",
+    "valid_to",
+    "stale",
+    "stale_since",
+    "alternate_of",
+    "selection_id",
+    "processing_version",
+    "scientific_status"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "record_kind": {"enum": ["point_observation", "time_series_record", "gridded_record", "raster_asset", "asset_backed_observation"]},
+    "observation_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{32}$"},
+    "source_id": {"type": "string", "minLength": 1},
+    "source_product": {"type": "string", "minLength": 1},
+    "source_type": {"enum": ["ground_station", "satellite", "reanalysis", "model", "derived"]},
+    "variable": {"enum": ["air_temperature", "max_air_temperature", "min_air_temperature", "precipitation", "relative_humidity", "wind_speed", "solar_radiation", "air_pressure", "soil_moisture", "soil_temperature", "land_surface_temperature", "ndvi", "evi", "evapotranspiration"]},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "dataset_version": {"type": "string", "minLength": 1},
+    "value_encoding": {"enum": ["scalar", "asset", "missing"]},
+    "value": {"type": ["number", "null"]},
+    "unit": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "timezone": {"type": "string", "minLength": 1},
+    "hour_labeling": {"enum": ["hour_beginning", "hour_ending", "unknown"]},
+    "hour_labeling_status": {"enum": ["PROVIDER_CONFIRMED", "ASSUMPTION", "NOT_APPLICABLE"]},
+    "hour_labeling_evidence": {"type": "string", "minLength": 1},
+    "temporal_resolution": {"type": "string", "pattern": "^P(?!$)(?=\\d|T\\d)(?:\\d+Y)?(?:\\d+M)?(?:\\d+W)?(?:\\d+D)?(?:T(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?)?$"},
+    "temporal_basis": {"enum": ["instant", "period_mean", "period_sum", "daily_mean", "daily_min", "daily_max", "daily_sum"]},
+    "spatial_resolution": {"type": "string", "minLength": 1},
+    "geometry_crs": {"type": "string", "minLength": 1},
+    "geometry": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/PointGeometry"}, {"$ref": "#/$defs/PolygonGeometry"}]},
+    "grid": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/GridMetadata"}]},
+    "asset": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/AssetReference"}]},
+    "spatial_support": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/SpatialSupport"}]},
+    "measurement_height_m": {"type": ["number", "null"]},
+    "measurement_depth_m": {"type": ["number", "null"]},
+    "sensor_elevation_m": {"type": ["number", "null"]},
+    "elevation_datum": {"type": ["string", "null"]},
+    "quality_flag": {"enum": ["unchecked", "valid", "suspect", "invalid", "missing"]},
+    "uncertainty": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/Uncertainty"}]},
+    "provenance": {"$ref": "#/$defs/Provenance"},
+    "retrieved_at": {"type": "string", "format": "date-time"},
+    "valid_from": {"type": "string", "format": "date-time"},
+    "valid_to": {"type": ["string", "null"], "format": "date-time"},
+    "stale": {"type": "boolean"},
+    "stale_since": {"type": ["string", "null"], "format": "date-time"},
+    "alternate_of": {"type": ["string", "null"]},
+    "selection_id": {"type": ["string", "null"]},
+    "processing_version": {"type": "string", "minLength": 1},
+    "scientific_status": {"const": "NOT_VALIDATED"}
+  },
+  "$defs": {
+    "PointGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": {"const": "Point"},
+        "coordinates": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"type": "number"}
+        }
+      }
+    },
+    "PolygonGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": {"const": "Polygon"},
+        "coordinates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {"type": "number"}
+            }
+          }
+        }
+      }
+    },
+    "GridMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["crs", "shape", "cell_size", "origin"],
+      "properties": {
+        "crs": {"type": "string", "minLength": 1},
+        "shape": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 1}},
+        "cell_size": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "exclusiveMinimum": 0}},
+        "origin": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}
+      }
+    },
+    "AssetReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "media_type", "sha256", "byte_size"],
+      "properties": {
+        "uri": {"type": "string", "minLength": 1},
+        "media_type": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "byte_size": {"type": "integer", "minimum": 0}
+      }
+    },
+    "Uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "method", "confidence"],
+      "properties": {
+        "value": {"type": "number", "minimum": 0},
+        "unit": {"type": "string", "minLength": 1},
+        "method": {"type": "string", "minLength": 1},
+        "confidence": {"enum": ["low", "medium", "high"]}
+      }
+    },
+    "SpatialSupport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {"enum": ["point", "radius", "polygon", "grid_cell", "unknown"]},
+        "radius_m": {"type": ["number", "null"], "minimum": 0},
+        "area_m2": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_url", "raw_file", "raw_sha256", "retrieved_at", "adapter_version", "transform_version", "processing_history", "dataset_version", "upstream_sources"],
+      "properties": {
+        "source_url": {"type": "string", "minLength": 1},
+        "raw_file": {"type": "string", "minLength": 1},
+        "raw_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "adapter_version": {"type": "string", "minLength": 1},
+        "transform_version": {"type": "string", "minLength": 1},
+        "processing_history": {"type": "array", "items": {"type": "string"}},
+        "dataset_version": {"type": "string", "minLength": 1},
+        "upstream_sources": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"value_encoding": {"const": "missing"}}, "required": ["value_encoding"]},
+      "then": {
+        "properties": {
+          "value": {"type": "null"},
+          "quality_flag": {"const": "missing"},
+          "asset": {"type": "null"}
+        },
+        "required": ["value", "quality_flag", "asset"]
+      }
+    },
+    {
+      "if": {"properties": {"value_encoding": {"const": "scalar"}}, "required": ["value_encoding"]},
+      "then": {
+        "properties": {
+          "value": {"type": "number"},
+          "quality_flag": {"enum": ["unchecked", "valid", "suspect", "invalid"]},
+          "asset": {"type": "null"}
+        },
+        "required": ["value", "quality_flag", "asset"]
+      }
+    },
+    {
+      "if": {"properties": {"value_encoding": {"const": "asset"}}, "required": ["value_encoding"]},
+      "then": {
+        "properties": {
+          "value": {"type": "null"},
+          "quality_flag": {"enum": ["unchecked", "valid", "suspect", "invalid"]},
+          "asset": {"$ref": "#/$defs/AssetReference"}
+        },
+        "required": ["value", "quality_flag", "asset"]
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "raster_asset"}}, "required": ["record_kind"]},
+      "then": {
+        "properties": {
+          "value_encoding": {"const": "asset"},
+          "asset": {"$ref": "#/$defs/AssetReference"},
+          "grid": {"$ref": "#/$defs/GridMetadata"},
+          "geometry": {"$ref": "#/$defs/PolygonGeometry"}
+        },
+        "required": ["value_encoding", "asset", "grid", "geometry"]
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "point_observation"}}, "required": ["record_kind"]},
+      "then": {
+        "properties": {
+          "geometry": {"$ref": "#/$defs/PointGeometry"},
+          "value_encoding": {"enum": ["scalar", "missing"]}
+        },
+        "required": ["geometry"]
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "gridded_record"}}, "required": ["record_kind"]},
+      "then": {
+        "properties": {"grid": {"$ref": "#/$defs/GridMetadata"}},
+        "required": ["grid"]
+      }
+    },
+    {
+      "if": {"properties": {"hour_labeling": {"enum": ["hour_beginning", "hour_ending"]}}, "required": ["hour_labeling"]},
+      "then": {
+        "properties": {
+          "hour_labeling_status": {"enum": ["PROVIDER_CONFIRMED", "ASSUMPTION"]},
+          "hour_labeling_evidence": {"minLength": 1}
+        },
+        "required": ["hour_labeling_status", "hour_labeling_evidence"]
+      }
+    },
+    {
+      "if": {"properties": {"stale": {"const": true}}, "required": ["stale"]},
+      "then": {
+        "properties": {
+          "stale_since": {"type": "string", "format": "date-time"},
+          "quality_flag": {"enum": ["suspect", "invalid"]},
+          "valid_to": {"type": "string", "format": "date-time"}
+        },
+        "required": ["stale_since", "quality_flag", "valid_to"]
+      }
+    },
+    {
+      "if": {"properties": {"variable": {"const": "wind_speed"}}, "required": ["variable"]},
+      "then": {
+        "properties": {"measurement_height_m": {"type": "number", "const": 2.0}},
+        "required": ["measurement_height_m"]
+      }
+    },
+    {
+      "if": {"properties": {"variable": {"const": "air_pressure"}}, "required": ["variable"]},
+      "then": {
+        "properties": {"sensor_elevation_m": {"type": "number"}},
+        "required": ["sensor_elevation_m"]
+      }
+    },
+    {
+      "if": {"properties": {"variable": {"const": "soil_moisture"}}, "required": ["variable"]},
+      "then": {
+        "properties": {"measurement_depth_m": {"type": "number"}},
+        "required": ["measurement_depth_m"]
+      }
+    }
+  ]
+}

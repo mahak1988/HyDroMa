@@ -1,0 +1,15 @@
+* [33m1792046[m Agent host session 783a619a-68ac-4f45-8dbf-4f84924bc095 - turn 1
+* [33mba9df11[m Agent host session 783a619a-68ac-4f45-8dbf-4f84924bc095 - turn 1 start
+* [33m76646c9[m Agent host session 783a619a-68ac-4f45-8dbf-4f84924bc095 - baseline checkpoint
+* [33m3dbd465[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m feat(platform): complete Indonesian public-core content
+* [33mda3c692[m chore(apps): track archived legacy sources
+* [33m54c90cf[m chore(apps): archive legacy app bundles under archive/legacy-*
+* [33mde206b4[m docs(platform): phase 8 - ADR 0010, unified routing and apps guide
+* [33md41fc07[m feat(platform): phase 7 - bundle budget gate, market page splitting, SPA-only host
+* [33m649c322[m feat(platform): phase 6 - science section at /science and GET /v1/runs
+* [33m61bde57[m feat(platform): phase 5d - profile and security in the public core
+* [33m6a6a055[m feat(platform): phase 5c - administration section at /landscape/admin
+* [33m48504fa[m feat(platform): phase 5b - field collection at /landscape/field with real sync
+* [33m4c22756[m feat(platform): phase 5a - landscape section at /landscape
+* [33m0cd2c11[m feat(platform): phase 4 - marketplace section inside the unified SPA
+* [33mfd68168[m feat(platform): phase 3 - tourism section inside the unified SPA

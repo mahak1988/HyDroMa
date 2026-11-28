@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { HydromaClientError, createHydromaClient, type HydromaModel } from "./hydroma";
+import { HYDROMA_BASE_URL } from "./hydromaBaseUrl";
 
-/** Base URL is configurable; defaults to a local loopback HyDroMA service. */
-export const HYDROMA_BASE_URL = (import.meta.env.VITE_HYDROMA_BASE_URL as string | undefined) ?? "http://127.0.0.1:8000";
+export { HYDROMA_BASE_URL };
 
 export type HydromaState =
   | { status: "loading" }

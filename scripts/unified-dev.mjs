@@ -93,6 +93,25 @@ const server = createServer((req, res) => {
     return;
   }
 
+  // Same-origin HyDroMA engine path: the unified host proxies /hydroma-api/* to
+  // the engine so the frontend never needs an absolute loopback URL.
+  if (pathOnly(req.url).startsWith("/hydroma-api")) {
+    const upstreamPath = (req.url ?? "/").replace(/^\/hydroma-api/, "") || "/";
+    const upstream = httpRequest(
+      { host: "127.0.0.1", port: 8000, path: upstreamPath, method: req.method, headers: req.headers },
+      (upstreamRes) => {
+        res.writeHead(upstreamRes.statusCode ?? 502, upstreamRes.headers);
+        upstreamRes.pipe(res);
+      },
+    );
+    upstream.on("error", () => {
+      res.writeHead(502, { "content-type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: { code: "hydroma_unavailable", message: "The HyDroMA engine is unreachable.", message_key: "errors.hydroma_unavailable", status: 502, retryable: true, correlation_id: null } }));
+    });
+    req.pipe(upstream);
+    return;
+  }
+
   const app = match(req.url);
   const upstream = httpRequest(
     { host: "localhost", port: app.devPort, path: req.url, method: req.method, headers: req.headers },

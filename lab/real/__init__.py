@@ -1,0 +1,1 @@
+"""Real-data lab (Open-Meteo) for HyDroMA — outside engines/."""

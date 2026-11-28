@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Globe2, Menu, Monitor, Moon, Sun, X } from "lucide-react";
 import { useI18n } from "@eco-nojin/i18n";
 import { useTheme } from "@eco-nojin/frontend-core/theme";
@@ -9,6 +9,60 @@ import type { TranslationKey } from "@eco-nojin/i18n";
 import { NAV_SECTIONS } from "../../sections/manifest";
 import { Brand } from "../components/Brand";
 import { useSite } from "../content/useContent";
+import { getExtraPage, type ExtraPageKey } from "../content/extra";
+import type { PageKey } from "../content/types";
+
+const PAGE_KEYS: Record<string, PageKey> = {
+  "/ecosystem": "ecosystem",
+  "/hydroma": "hydroma",
+  "/mrv": "mrv",
+  "/knowledge": "knowledge",
+  "/about": "about",
+  "/contact": "contact",
+  "/partner": "partner",
+  "/partners": "partner",
+  "/landscapes": "landscape",
+  "/technology": "hydroma",
+};
+
+const EXTRA_KEYS: Record<string, ExtraPageKey> = {
+  "/vision": "vision",
+  "/impact": "impact",
+  "/projects": "projects",
+  "/accessibility": "accessibility",
+  "/privacy": "privacy",
+  "/terms": "terms",
+};
+
+const EXPLORE_LABEL: Record<string, string> = { fa: "کاوش", en: "Explore", ar: "استكشف" };
+
+function ExploreMenu() {
+  const { locale } = useI18n();
+  const site = useSite();
+  const navigate = useNavigate();
+  const exploreLabel = EXPLORE_LABEL[locale] ?? "Explore";
+  const items = [
+    { id: "landscapes", label: site.pages.landscape.eyebrow, to: "/landscapes" },
+    { id: "projects", label: getExtraPage(locale, "projects").eyebrow, to: "/projects" },
+    { id: "vision", label: getExtraPage(locale, "vision").eyebrow, to: "/vision" },
+    { id: "impact", label: getExtraPage(locale, "impact").eyebrow, to: "/impact" },
+    { id: "technology", label: site.pages.hydroma.eyebrow, to: "/technology" },
+    { id: "partners", label: site.pages.partner.eyebrow, to: "/partners" },
+  ];
+  return (
+    <Dropdown
+      label={exploreLabel}
+      align="end"
+      items={items.map((item) => ({ id: item.id, label: item.label, onSelect: () => navigate(item.to) }))}
+      trigger={
+        <Button variant="ghost" size="sm" aria-label={exploreLabel}>
+          <span className="hidden lg:inline">{exploreLabel}</span>
+          <span className="lg:hidden">···</span>
+        </Button>
+      }
+    />
+  );
+}
 
 function LanguageMenu() {
   const { locale, locales, setLocale } = useI18n();
@@ -91,6 +145,7 @@ function SectionsMenu() {
 
 export function PortalLayout() {
   const site = useSite();
+  const { locale, t } = useI18n();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const drawerRef = useRef<HTMLDialogElement>(null);
@@ -106,7 +161,15 @@ export function PortalLayout() {
     setOpen(false);
   }, [pathname]);
 
-  const current = site.nav.find((item) => item.to === pathname);
+  const current = useMemo(() => {
+    const nav = site.nav.find((item) => item.to === pathname);
+    if (nav) return { to: nav.to, label: nav.label };
+    const pageKey = PAGE_KEYS[pathname];
+    if (pageKey) return { to: pathname, label: site.pages[pageKey].eyebrow };
+    const extraKey = EXTRA_KEYS[pathname];
+    if (extraKey) return { to: pathname, label: getExtraPage(locale, extraKey).eyebrow };
+    return null;
+  }, [pathname, site, locale]);
 
   return (
     <div className="min-h-dvh bg-canvas">
@@ -120,7 +183,7 @@ export function PortalLayout() {
             <Brand />
           </Link>
 
-          <nav aria-label={site.ui.menu} className="hidden items-center gap-0.5 lg:flex">
+          <nav aria-label={site.ui.menu} className="hidden items-center gap-0.5 xl:flex">
             {site.nav.map((item) => (
               <NavLink
                 key={item.to}
@@ -138,18 +201,21 @@ export function PortalLayout() {
           </nav>
 
           <div className="flex items-center gap-1.5">
-            <SectionsMenu />
+            <div className="hidden items-center gap-1.5 xl:flex">
+              <ExploreMenu />
+              <SectionsMenu />
+            </div>
             <LanguageMenu />
             <ThemeMenu />
             <Link
               to="/contact"
-              className="hidden h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-fg shadow-e1 transition-colors hover:bg-primary-hover sm:inline-flex"
+              className="hidden h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-fg shadow-e1 transition-colors hover:bg-primary-hover xl:inline-flex"
             >
               {site.ui.contactCta}
             </Link>
             <Link
               to="/login"
-              className="hidden h-9 items-center rounded-md border border-border-strong bg-surface px-3 text-sm text-fg hover:bg-surface-2 md:inline-flex"
+              className="hidden h-9 items-center rounded-md border border-border-strong bg-surface px-3 text-sm text-fg hover:bg-surface-2 xl:inline-flex"
             >
               {site.ui.login}
             </Link>
@@ -157,7 +223,7 @@ export function PortalLayout() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label={site.ui.menu}
-              className="rounded-md p-2 text-fg-muted hover:bg-surface-2 hover:text-fg lg:hidden"
+              className="rounded-md p-2 text-fg-muted hover:bg-surface-2 hover:text-fg xl:hidden"
             >
               <Menu className="size-5" aria-hidden="true" />
             </button>
@@ -199,7 +265,10 @@ export function PortalLayout() {
             links={[
               { to: "/ecosystem", label: site.nav[1]?.label ?? "" },
               { to: "/hydroma", label: site.nav[2]?.label ?? "" },
-              { to: "/landscape", label: site.nav[3]?.label ?? "" },
+              { to: "/landscapes", label: site.pages.landscape.eyebrow },
+              { to: "/technology", label: site.pages.hydroma.eyebrow },
+              { to: "/vision", label: getExtraPage(locale, "vision").eyebrow },
+              { to: "/impact", label: getExtraPage(locale, "impact").eyebrow },
             ]}
           />
           <FooterColumn
@@ -208,6 +277,8 @@ export function PortalLayout() {
               { to: "/marketplace", label: site.nav[4]?.label ?? "" },
               { to: "/tourism", label: site.nav[5]?.label ?? "" },
               { to: "/mrv", label: site.nav[6]?.label ?? "" },
+              { to: "/projects", label: getExtraPage(locale, "projects").eyebrow },
+              { to: "/partners", label: site.pages.partner.eyebrow },
             ]}
           />
           <FooterColumn
@@ -216,7 +287,9 @@ export function PortalLayout() {
               { to: "/knowledge", label: site.nav[7]?.label ?? "" },
               { to: "/about", label: site.pages.about.eyebrow },
               { to: "/contact", label: site.pages.contact.eyebrow },
-              { to: "/partner", label: site.pages.partner.eyebrow },
+              { to: "/accessibility", label: getExtraPage(locale, "accessibility").eyebrow },
+              { to: "/privacy", label: getExtraPage(locale, "privacy").eyebrow },
+              { to: "/terms", label: getExtraPage(locale, "terms").eyebrow },
             ]}
           />
         </div>
@@ -261,6 +334,46 @@ export function PortalLayout() {
               {item.label}
             </NavLink>
           ))}
+          <div className="mt-3 border-t border-border pt-3">
+            <p className="px-3 pb-1 text-2xs font-medium uppercase tracking-wide text-fg-subtle">
+              {EXPLORE_LABEL[locale] ?? "Explore"}
+            </p>
+            {[
+              { to: "/landscapes", label: site.pages.landscape.eyebrow },
+              { to: "/projects", label: getExtraPage(locale, "projects").eyebrow },
+              { to: "/vision", label: getExtraPage(locale, "vision").eyebrow },
+              { to: "/impact", label: getExtraPage(locale, "impact").eyebrow },
+              { to: "/technology", label: site.pages.hydroma.eyebrow },
+              { to: "/partners", label: site.pages.partner.eyebrow },
+              { to: "/accessibility", label: getExtraPage(locale, "accessibility").eyebrow },
+              { to: "/privacy", label: getExtraPage(locale, "privacy").eyebrow },
+              { to: "/terms", label: getExtraPage(locale, "terms").eyebrow },
+            ].map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setOpen(false)}
+                className="block rounded-md px-3 py-2 text-sm text-fg-muted hover:bg-surface-2 hover:text-fg"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <div className="mt-3 border-t border-border pt-3">
+            <p className="px-3 pb-1 text-2xs font-medium uppercase tracking-wide text-fg-subtle">
+              {t("apps.sections.label")}
+            </p>
+            {NAV_SECTIONS.map((section) => (
+              <Link
+                key={section.id}
+                to={section.href}
+                onClick={() => setOpen(false)}
+                className="block rounded-md px-3 py-2 text-sm text-fg-muted hover:bg-surface-2 hover:text-fg"
+              >
+                {t(section.labelKey as TranslationKey)}
+              </Link>
+            ))}
+          </div>
           <div className="flex gap-2 border-t border-border pt-3">
             <Link to="/contact" onClick={() => setOpen(false)} className="flex-1 rounded-md bg-primary px-3 py-2 text-center text-sm text-primary-fg">
               {site.ui.contactCta}

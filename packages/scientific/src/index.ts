@@ -33,6 +33,16 @@ export type {
 export { WATER_BALANCE_DEFINITION, waterBalanceModel } from "./water-balance-model";
 export type { WaterBalanceContractInput, WaterBalanceOutputs } from "./water-balance-model";
 
+export { GDD_DEFINITION, gddModel } from "./gdd-model";
+export { GDD_MODEL, accumulateGdd, computeGdd } from "./growing-degree-days";
+export type { GddInput, GddResult } from "./growing-degree-days";
+
+export { HARGREAVES_MODEL, computeHargreavesEt0 } from "./hargreaves-et0";
+export type { HargreavesInput, HargreavesResult } from "./hargreaves-et0";
+
+export { runGdd, runHargreavesEt0 } from "./engine";
+export type { EngineResult } from "./engine";
+
 export {
   MATURITY_EVIDENCE_KINDS,
   MODEL_MATURITY,

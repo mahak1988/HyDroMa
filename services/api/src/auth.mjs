@@ -65,9 +65,10 @@ export function parseCookies(header = "") {
   return out;
 }
 
-export function sessionCookie(token, expires) {
+export function sessionCookie(token, expires, secure = false) {
   const maxAge = Math.max(0, Math.floor((new Date(expires).getTime() - Date.now()) / 1000));
-  return `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}`;
+  return `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure ? "; Secure" : ""}`;
 }
 
-export const clearedCookie = `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`;
+export const clearedCookie = (secure = false) =>
+  `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure ? "; Secure" : ""}`;

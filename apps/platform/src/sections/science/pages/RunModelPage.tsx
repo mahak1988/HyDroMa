@@ -3,8 +3,9 @@ import { useI18n } from "@eco-nojin/i18n";
 import { createHydromaClient } from "@eco-nojin/hydroma-client";
 import { Button } from "@eco-nojin/ui";
 import { ProvenancePanel } from "../components/ProvenancePanel";
+import { HYDROMA_BASE_URL } from "../services/hydromaBaseUrl";
 
-const BASE = (import.meta.env.VITE_HYDROMA_BASE_URL as string | undefined) ?? "http://127.0.0.1:8000";
+const BASE = HYDROMA_BASE_URL;
 
 export function RunModelPage() {
   const { t } = useI18n();

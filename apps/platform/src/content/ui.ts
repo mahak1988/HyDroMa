@@ -3,6 +3,41 @@ import type { Loc } from "./pages";
 export const t = (value: Loc, locale: string): string =>
   locale === "fa" ? value.fa : locale === "ar" ? value.ar : value.en;
 
+/**
+ * Centralized labels for demo entity form fields.
+ *
+ * Unknown keys deliberately fall back to the raw machine key: a missing
+ * translation must never be replaced by a misleading label.
+ */
+export const FIELD_LABELS: Record<string, Loc> = {
+  name: { fa: "نام", en: "Name", ar: "الاسم" },
+  region: { fa: "منطقه", en: "Region", ar: "المنطقة" },
+  area: { fa: "مساحت (هکتار)", en: "Area (ha)", ar: "المساحة (هكتار)" },
+  owner: { fa: "مالک", en: "Owner", ar: "المالك" },
+  type: { fa: "نوع", en: "Type", ar: "النوع" },
+  role: { fa: "نقش", en: "Role", ar: "الدور" },
+  season: { fa: "فصل", en: "Season", ar: "الموسم" },
+  period: { fa: "دوره", en: "Period", ar: "الفترة" },
+  method: { fa: "روش", en: "Method", ar: "الطريقة" },
+  status: { fa: "وضعیت", en: "Status", ar: "الحالة" },
+  unit: { fa: "واحد", en: "Unit", ar: "الوحدة" },
+  count: { fa: "تعداد", en: "Count", ar: "العدد" },
+  amount: { fa: "مبلغ", en: "Amount", ar: "المبلغ" },
+  version: { fa: "نسخه", en: "Version", ar: "الإصدار" },
+  source: { fa: "منبع", en: "Source", ar: "المصدر" },
+  summary: { fa: "خلاصه", en: "Summary", ar: "الملخص" },
+  assignee: { fa: "مسئول", en: "Assignee", ar: "المسؤول" },
+  topic: { fa: "موضوع", en: "Topic", ar: "الموضوع" },
+  community: { fa: "جامعه", en: "Community", ar: "المجتمع" },
+  duration: { fa: "مدت", en: "Duration", ar: "المدة" },
+  balance: { fa: "موجودی", en: "Balance", ar: "الرصيد" },
+};
+
+export function fieldLabel(key: string, locale: string): string {
+  const label = FIELD_LABELS[key];
+  return label ? t(label, locale) : key;
+}
+
 export const UI = {
   skip: { fa: "پرش به محتوای اصلی", en: "Skip to main content", ar: "الانتقال إلى المحتوى" },
   menu: { fa: "منو", en: "Menu", ar: "القائمة" },
@@ -27,6 +62,18 @@ export const UI = {
   next: { fa: "گام بعد", en: "Next step", ar: "الخطوة التالية" },
   back: { fa: "بازگشت", en: "Back", ar: "رجوع" },
   finish: { fa: "ثبت و پایان", en: "Submit", ar: "إرسال" },
+  close: { fa: "بستن", en: "Close", ar: "إغلاق" },
+  create: { fa: "ایجاد", en: "Create", ar: "إنشاء" },
+  saving: { fa: "در حال ذخیره…", en: "Saving…", ar: "جارٍ الحفظ…" },
+  saved: { fa: "ذخیره شد (نمایشی)", en: "Saved (demo)", ar: "تم الحفظ (عرض)" },
+  error: { fa: "خطا", en: "Error", ar: "خطأ" },
+  demoBanner: { fa: "محیط نمایشی", en: "Demo environment", ar: "بيئة عرض" },
+  demoBannerBody: {
+    fa: "این صفحه فقط دادهٔ نمایشی محلی دارد؛ هیچ رکوردی در سازمان ذخیره نمی‌شود و نتیجهٔ عملیاتی نیست.",
+    en: "This page contains local demo data only. Nothing is persisted to the organization and nothing here is operational.",
+    ar: "تحتوي هذه الصفحة على بيانات عرض محلية فقط؛ لا يُحفظ أي سجل في المؤسسة ولا شيء هنا تشغيلي.",
+  },
+  demoOpen: { fa: "مشاهدهٔ صفحهٔ نمایشی", en: "Open demo page", ar: "فتح صفحة العرض" },
   draftNote: {
     fa: "پیش‌نویس — تا تأیید نهایی ثبت نمی‌شود.",
     en: "Draft — not saved until final approval.",

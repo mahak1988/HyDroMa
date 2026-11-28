@@ -120,6 +120,18 @@
 import { createServer as createHttpServer } from "node:http";
 import { randomBytes, createHash } from "node:crypto";
 import { database, newId, now, audit, openDatabase } from "./db.mjs";
+import { stacContract } from "./stac-contract.mjs";
+import { runGdd, runHargreavesEt0 } from "./science.mjs";
+import { executeModel } from "./engine-execution.mjs";
+import {
+  executeIrrigation,
+  validateIrrigationInput,
+  assertSafeGatewayUrl,
+  tryAcquireExecutionSlot,
+  releaseExecutionSlot,
+  GatewayError,
+  IRRIGATION_MODEL,
+} from "./engine-gateway.mjs";
 import {
   clearedCookie,
   createSession,
@@ -166,7 +178,7 @@ const json = (res, status, body, headers = {}) => {
   res.end(payload);
 };
 
-const fail = (res, status, code, message, details) =>
+const fail = (res, status, code, message, details, headers) =>
   json(res, status, {
     error: {
       code,
@@ -177,7 +189,7 @@ const fail = (res, status, code, message, details) =>
       correlation_id: null,
       ...(details ? { details } : {}),
     },
-  });
+  }, headers);
 
 async function readJson(req, limit = 1_000_000) {
   let size = 0;
@@ -198,17 +210,70 @@ async function readJson(req, limit = 1_000_000) {
 const str = (value, max = 300) => (typeof value === "string" ? value.trim().slice(0, max) : "");
 const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(value);
 
+const DEFAULT_ORIGINS =
+  "http://localhost:5180,http://localhost:5181,http://localhost:5175,http://localhost:5176,http://localhost:5177,http://localhost:5178,http://localhost:5179,http://127.0.0.1:5180";
+const allowedOrigins = () =>
+  (process.env.NOJIN_ORIGINS ?? DEFAULT_ORIGINS).split(",").map((item) => item.trim()).filter(Boolean);
+const isAllowedOrigin = (origin) => {
+  const allowed = allowedOrigins();
+  return allowed.includes("*") || allowed.includes(origin);
+};
+
 function cors(req, res) {
   const origin = req.headers.origin;
   if (!origin) return;
-  const allowed = (process.env.NOJIN_ORIGINS ?? "http://localhost:5180,http://localhost:5175,http://localhost:5176,http://localhost:5177,http://localhost:5178,http://localhost:5179,http://127.0.0.1:5180")
-    .split(",")
-    .map((item) => item.trim());
-  if (allowed.includes("*") || allowed.includes(origin)) {
+  if (isAllowedOrigin(origin) && allowedOrigins().includes(origin)) {
     res.setHeader("access-control-allow-origin", origin);
     res.setHeader("access-control-allow-credentials", "true");
     res.setHeader("vary", "Origin");
+  } else if (allowedOrigins().includes("*")) {
+    // A wildcard origin must never be combined with credentials, otherwise any
+    // site could issue credentialed cross-origin requests. Reflect the wildcard
+    // without credentials instead of echoing an arbitrary Origin.
+    res.setHeader("access-control-allow-origin", "*");
+    res.setHeader("vary", "Origin");
   }
+}
+
+// In-process fixed-window rate limiter (no external service). Keyed by client IP
+// so it resists trivial input variation (changing the email does not help) and
+// cannot be used to lock out a specific victim account (no per-account lock).
+// Multi-instance deployments need a shared store; this is documented as a limit.
+function createRateLimiter({ max = 20, windowMs = 15 * 60_000, disabled = false } = {}) {
+  // Sanitise config so an invalid/partial value fails SAFE (never NaN → never
+  // blocks). A non-numeric or <1 max/window falls back to the secure default.
+  const limit = Number.isFinite(max) && max >= 1 ? Math.floor(max) : 20;
+  const window = Number.isFinite(windowMs) && windowMs >= 1 ? Math.floor(windowMs) : 15 * 60_000;
+  const hits = new Map();
+  const fresh = (t) => ({ count: 0, resetAt: t + window });
+  return {
+    disabled,
+    retryAfter(key) {
+      if (disabled) return null;
+      const t = Date.now();
+      const entry = hits.get(key);
+      if (!entry || t >= entry.resetAt) return null;
+      if (entry.count >= limit) return Math.max(1, Math.ceil((entry.resetAt - t) / 1000));
+      return null;
+    },
+    hit(key) {
+      if (disabled) return;
+      const t = Date.now();
+      let entry = hits.get(key);
+      if (!entry || t >= entry.resetAt) { entry = fresh(t); hits.set(key, entry); }
+      entry.count += 1;
+    },
+    reset(key) { hits.delete(key); },
+  };
+}
+
+// Only trust X-Forwarded-For when a reverse proxy is explicitly configured.
+function clientIp(req) {
+  if (String(process.env.NOJIN_TRUST_PROXY).toLowerCase() === "true") {
+    const xff = req.headers["x-forwarded-for"];
+    if (typeof xff === "string" && xff.length) return xff.split(",")[0].trim();
+  }
+  return req.socket?.remoteAddress ?? "unknown";
 }
 
 const userView = (row) => ({
@@ -248,10 +313,326 @@ const slugify = (value) =>
     .replace(/^-|-$/gu, "")
     .slice(0, 60) || newId("org");
 
+/* --------------------------- run persistence ---------------------------- */
+
+function canonicalize(value) {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (value && typeof value === "object") {
+    const out = {};
+    for (const key of Object.keys(value).sort()) out[key] = canonicalize(value[key]);
+    return out;
+  }
+  return value;
+}
+
+const canonicalJson = (value) => JSON.stringify(canonicalize(value));
+const hashJson = (value) => createHash("sha256").update(canonicalJson(value)).digest("hex");
+
+// Phase 3.84 — payload protection and server-controlled maturity metadata.
+const MAX_INPUT_BYTES = 256 * 1024;
+const MAX_OUTPUT_BYTES = 256 * 1024;
+const MAX_PROVENANCE_BYTES = 64 * 1024;
+const MAX_UNITS_BYTES = 16 * 1024;
+const SENSITIVE_KEY = /(pass(word|phrase)?|secret|token|api[-_]?key|private[-_]?key|credential)/iu;
+
+const byteLength = (value) => Buffer.byteLength(typeof value === "string" ? value : JSON.stringify(value), "utf8");
+
+/** Return the first sensitive key found (recursively), or null. Values are never logged. */
+function findSensitiveKey(value) {
+  if (Array.isArray(value)) {
+    for (const item of value) { const hit = findSensitiveKey(item); if (hit) return hit; }
+    return null;
+  }
+  if (value && typeof value === "object") {
+    for (const key of Object.keys(value)) {
+      if (SENSITIVE_KEY.test(key)) return key;
+      const hit = findSensitiveKey(value[key]);
+      if (hit) return hit;
+    }
+  }
+  return null;
+}
+
+const RUN_TRANSITIONS = {
+  QUEUED: ["RUNNING", "CANCELLED"],
+  RUNNING: ["COMPLETED", "FAILED", "CANCELLED"],
+  COMPLETED: [],
+  FAILED: [],
+  CANCELLED: [],
+};
+
+const parseJson = (value) => (value === null || value === undefined ? null : JSON.parse(value));
+
+/** Server-side agricultural context validation (tenant + farm/project consistency). */
+function validateRunContext(db, orgId, farmId, projectId) {
+  if (farmId) {
+    const farm = db.prepare("SELECT id FROM resources WHERE id = ? AND org_id = ? AND type = 'farms'").get(farmId, orgId);
+    if (!farm) return "farm not found in organization";
+  }
+  if (projectId) {
+    const project = db.prepare("SELECT data FROM resources WHERE id = ? AND org_id = ? AND type = 'projects'").get(projectId, orgId);
+    if (!project) return "project not found in organization";
+    if (farmId) {
+      let data = {};
+      try { data = JSON.parse(project.data); } catch { data = {}; }
+      if (data.farmId && String(data.farmId) !== String(farmId)) return "project does not belong to the selected farm";
+    }
+  }
+  return null;
+}
+
+const soilObservationView = (row) => ({
+  id: row.id,
+  organizationId: row.org_id,
+  farmId: row.farm_id ?? null,
+  projectId: row.project_id ?? null,
+  profileId: row.profile_id ?? null,
+  observedAt: row.observed_at,
+  depthMm: row.depth_mm ?? null,
+  parameter: row.parameter,
+  value: row.value,
+  unit: row.unit,
+  source: row.source,
+  method: row.method ?? null,
+  instrument: row.instrument ?? null,
+  quality: row.quality ?? null,
+  notes: row.notes ?? null,
+  createdAt: row.created_at,
+});
+
+/** Deterministic unit conversion to the parameter's canonical unit. No silent inference. */
+function convertUnit(value, from, to) {
+  if (from === to) return value;
+  const groups = [
+    { units: ["degC", "degF", "K"], toC: (v, u) => (u === "degF" ? ((v - 32) * 5) / 9 : u === "K" ? v - 273.15 : v), fromC: (v, u) => (u === "degF" ? (v * 9) / 5 + 32 : u === "K" ? v + 273.15 : v) },
+    { units: ["mm", "in"], factor: { mm: 1, in: 25.4 } },
+    { units: ["m_per_s", "km_per_h"], factor: { m_per_s: 1, km_per_h: 1 / 3.6 } },
+    { units: ["m3_per_m3", "percent"], factor: { m3_per_m3: 1, percent: 0.01 } },
+    { units: ["percent", "fraction"], factor: { percent: 1, fraction: 100 } },
+    { units: ["MJ_per_m2_day"], factor: { MJ_per_m2_day: 1 } },
+  ];
+  for (const group of groups) {
+    if (!group.units.includes(from) || !group.units.includes(to)) continue;
+    if (group.toC) return group.fromC(group.toC(value, from), to);
+    return value * (group.factor[from] / group.factor[to]);
+  }
+  return null;
+}
+
+function validateEnvRecord(db, orgId, row, importId) {
+  const parameter = String(row.parameter ?? "").trim();
+  const unit = String(row.unit ?? "").trim();
+  const value = Number(row.value);
+  const observedAt = String(row.observedAt ?? "").trim();
+  const param = db.prepare("SELECT * FROM env_parameters WHERE code = ?").get(parameter);
+  if (!param) return { error: `unsupported parameter: ${parameter || "(empty)"}` };
+  let allowed = [];
+  try { allowed = JSON.parse(param.allowed_units_json); } catch { allowed = []; }
+  if (!allowed.includes(unit)) return { error: `unsupported unit for ${parameter}: ${unit || "(empty)"}` };
+  if (!Number.isFinite(value)) return { error: `non-finite value for ${parameter}` };
+  if (!observedAt) return { error: "observed_at is required" };
+  const canonicalValue = convertUnit(value, unit, param.canonical_unit);
+  if (canonicalValue === null) return { error: `cannot convert ${unit} to ${param.canonical_unit}` };
+  const reasons = [];
+  if (param.min_value !== null && canonicalValue < param.min_value) reasons.push(`below plausible minimum ${param.min_value}`);
+  if (param.max_value !== null && canonicalValue > param.max_value) reasons.push(`above plausible maximum ${param.max_value}`);
+  const depthRaw = row.depth_mm;
+  const depthMm = depthRaw === undefined || depthRaw === null || depthRaw === "" ? null : Number(depthRaw);
+  if (depthMm !== null && !Number.isFinite(depthMm)) return { error: "depth_mm must be numeric" };
+  const farmId = row.farmId ? String(row.farmId) : null;
+  const projectId = row.projectId ? String(row.projectId) : null;
+  const source = String(row.source || "imported");
+  return {
+    parameter, unit, value, observedAt, canonicalValue, canonicalUnit: param.canonical_unit,
+    depthMm, farmId, projectId, source,
+    method: row.method ? String(row.method) : null,
+    instrument: row.instrument ? String(row.instrument) : null,
+    quality: reasons.length > 0 ? "WARNING" : "VALID",
+    reasons,
+    dedupeKey: [parameter, observedAt, farmId ?? "", projectId ?? "", value, unit].join("|"),
+    importId,
+  };
+}
+
+function envObservationView(row) {
+  return {
+    id: row.id,
+    organizationId: row.org_id,
+    farmId: row.farm_id ?? null,
+    projectId: row.project_id ?? null,
+    importId: row.import_id ?? null,
+    parameter: row.parameter,
+    value: row.value,
+    unit: row.unit,
+    canonicalValue: row.canonical_value,
+    canonicalUnit: row.canonical_unit,
+    observedAt: row.observed_at,
+    depthMm: row.depth_mm ?? null,
+    source: row.source,
+    method: row.method ?? null,
+    instrument: row.instrument ?? null,
+    quality: row.quality,
+    qualityReasons: parseJson(row.quality_reasons_json) ?? [],
+    createdAt: row.created_at,
+  };
+}
+
+const MODEL_MAPPINGS = {
+  fao56_et0: [
+    ["air_temperature", "temperature", "degC"],
+    ["relative_humidity", "humidity", "percent"],
+    ["wind_speed", "wind", "m_per_s"],
+    ["solar_radiation", "radiation", "MJ_per_m2_day"],
+  ],
+  water_balance: [["precipitation", "precipitation", "mm"]],
+};
+
+function assembleDataset({ organizationId, farmId, projectId, start, end, parameters, rows }) {
+  const day = (ts) => String(ts).slice(0, 10);
+  const selected = rows.filter((r) => parameters.includes(r.parameter) && day(r.observed_at) >= start && day(r.observed_at) <= end);
+  const seen = new Set();
+  const aligned = [];
+  for (const row of selected) {
+    const key = `${day(row.observed_at)}|${row.parameter}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    aligned.push(row);
+  }
+  const byParameter = Object.fromEntries(parameters.map((p) => [p, []]));
+  const warnings = [];
+  for (const row of aligned) {
+    if (row.quality === "WARNING") warnings.push(`quality warning for ${row.parameter} on ${row.observed_at}`);
+    byParameter[row.parameter].push({ timestamp: row.observed_at, value: row.canonical_value ?? row.value, unit: row.canonical_unit ?? row.unit, source: row.source, quality: row.quality ?? "UNREVIEWED" });
+  }
+  const days = [];
+  for (let d = new Date(`${start}T00:00:00Z`); d <= new Date(`${end}T00:00:00Z`); d.setUTCDate(d.getUTCDate() + 1)) days.push(d.toISOString().slice(0, 10));
+  const present = new Set(aligned.map((r) => day(r.observed_at)));
+  const missingDates = days.filter((d) => !present.has(d));
+  const missingParameters = parameters.filter((p) => byParameter[p].length === 0);
+  const coverage = days.length ? Number((present.size / days.length).toFixed(4)) : 0;
+  const readiness = aligned.length === 0 ? "BLOCKED" : missingParameters.length || missingDates.length ? "INCOMPLETE" : warnings.length ? "READY_WITH_WARNINGS" : "READY_FOR_MAPPING";
+  return {
+    organizationId, farmId, projectId, temporalRange: { start, end }, parameters, observations: aligned, byParameter,
+    missingDates, missingParameters, coverage, warnings, readiness, qualityStatus: "UNREVIEWED",
+    provenance: { assemblyVersion: "1.0.0", sources: [...new Set(aligned.map((r) => r.source).filter(Boolean))].sort(), transform: "exact-daily-match; no interpolation", scientificStatus: "NOT_VALIDATED" },
+    assembledAt: now(),
+  };
+}
+
+function mapModelInput(dataset, modelId, modelVersion) {
+  const mappings = MODEL_MAPPINGS[modelId];
+  if (!mappings) throw new Error(`no mapping for model ${modelId}`);
+  const inputs = {};
+  const missing = [];
+  for (const [source, target, unit] of mappings) {
+    const series = dataset.byParameter?.[source] ?? [];
+    if (series.length === 0) { missing.push(source); continue; }
+    inputs[target] = series.map((p) => ({ timestamp: p.timestamp, value: p.unit === unit ? p.value : convertUnit(p.value, p.unit, unit), unit }));
+  }
+  if (missing.length) throw new Error(`missing model inputs: ${missing.join(", ")}`);
+  return { modelId, modelVersion, datasetId: dataset.datasetId ?? dataset.id, mappingVersion: "1.0.0", inputs, provenance: { ...dataset.provenance, mapping: mappings.map(([s, t, u]) => ({ source: s, target: t, unit: u })) } };
+}
+
+const attemptView = (row) => ({
+  id: row.id,
+  runId: row.run_id,
+  attempt: row.attempt,
+  status: row.status,
+  modelId: row.model_id ?? null,
+  modelVersion: row.model_version ?? null,
+  inputFingerprint: row.input_fingerprint ?? null,
+  inputSource: row.input_source ?? null,
+  manifestFingerprint: row.manifest_fingerprint ?? null,
+  outputFingerprint: row.output_fingerprint ?? null,
+  error: row.error ?? null,
+  startedAt: row.started_at,
+  finishedAt: row.finished_at ?? null,
+  manifest: parseJson(row.manifest_json),
+  output: parseJson(row.output_json),
+});
+
+const soilProfileView = (row) => ({
+  id: row.id,
+  organizationId: row.org_id,
+  farmId: row.farm_id ?? null,
+  projectId: row.project_id ?? null,
+  name: row.name,
+  version: row.version ?? 1,
+  layers: parseJson(row.layers_json),
+  source: row.source,
+  notes: row.notes ?? null,
+  createdAt: row.created_at,
+  updatedAt: row.updated_at,
+});
+
+const runView = (row) => ({
+  id: row.id,
+  organizationId: row.org_id,
+  runKey: row.run_key,
+  modelId: row.model_id,
+  modelVersion: row.model_version,
+  status: row.status,
+  farmId: row.farm_id ?? null,
+  cropCycleId: row.crop_cycle_id ?? null,
+  projectId: row.project_id ?? null,
+  soilProfileId: row.soil_profile_id ?? null,
+  soilProfileVersion: row.soil_profile_version ?? null,
+  datasetId: row.dataset_id ?? null,
+  datasetRevision: row.dataset_revision ?? null,
+  snapshot: parseJson(row.snapshot_json),
+  snapshotFingerprint: row.snapshot_fingerprint ?? null,
+  input: parseJson(row.input_json),
+  inputHash: row.input_hash,
+  parameterHash: row.parameter_hash,
+  output: parseJson(row.output_json),
+  resultSummary: row.result_summary ?? null,
+  provenance: parseJson(row.provenance_json),
+  units: parseJson(row.units_json),
+  softwareMaturity: row.software_maturity ?? null,
+  scientificStatus: row.scientific_status ?? null,
+  error: row.error ?? null,
+  requestedBy: row.requested_by ?? null,
+  correlationId: row.correlation_id ?? null,
+  engineRunId: row.engine_run_id ?? null,
+  reconciliationRequired: (row.reconciliation_required ?? 0) === 1,
+  attempts: row.attempts ?? 0,
+  createdAt: row.created_at,
+  updatedAt: row.updated_at,
+  startedAt: row.started_at ?? null,
+  completedAt: row.completed_at ?? null,
+});
+
 /* --------------------------------- app ---------------------------------- */
 
 export function createApp(options = {}) {
   const db = options.db ?? database();
+
+  // Rate limiting (SEC-03): per-IP, in-process, configurable. `options.rateLimit`
+  // lets tests inject a deterministic threshold/window without any production
+  // bypass; production reads env with secure defaults.
+  const rate = createRateLimiter({
+    max: options.rateLimit?.max ?? Number(process.env.NOJIN_RATE_LIMIT_MAX ?? 20),
+    windowMs: options.rateLimit?.windowMs ?? Number(process.env.NOJIN_RATE_LIMIT_WINDOW_MS ?? 15 * 60_000),
+    disabled: options.rateLimit?.disabled ?? String(process.env.NOJIN_RATE_LIMIT_DISABLED).toLowerCase() === "true",
+  });
+  const limited = (res, retryAfter) =>
+    fail(res, 429, "rate_limited", "Too many attempts. Please try again later.", undefined, {
+      "retry-after": String(retryAfter),
+    });
+
+  // Secure cookie (SEC-05): `Secure` is added on HTTPS. Local http dev keeps the
+  // attribute off so sessions still work. `options.cookieSecure` overrides for tests.
+  const cookieSecure = (req) => {
+    if (typeof options.cookieSecure === "boolean") return options.cookieSecure;
+    const v = String(process.env.NOJIN_COOKIE_SECURE ?? "").toLowerCase();
+    if (v === "true") return true;
+    if (v === "false") return false;
+    // Auto-detect: trust x-forwarded-proto only behind an explicitly trusted proxy,
+    // so a client cannot spoof it. A real TLS-terminating proxy that is not marked
+    // trusted should set NOJIN_COOKIE_SECURE=true explicitly.
+    const trustedProxy = String(process.env.NOJIN_TRUST_PROXY).toLowerCase() === "true";
+    return Boolean(req.socket?.encrypted) || (trustedProxy && req.headers["x-forwarded-proto"] === "https");
+  };
 
   const membershipOf = (userId, orgId) =>
     db.prepare("SELECT * FROM memberships WHERE user_id = ? AND org_id = ? AND status = 'active'").get(userId, orgId);
@@ -271,6 +652,10 @@ export function createApp(options = {}) {
   /* ------------------------------- auth -------------------------------- */
 
   route("POST", /^\/v1\/auth\/register$/u, async (req, res) => {
+    const ip = clientIp(req);
+    const retry = rate.retryAfter(ip);
+    if (retry) return limited(res, retry);
+    rate.hit(ip); // every registration attempt counts (anti-spam); not reset on success
     const body = await readJson(req);
     const email = str(body.email).toLowerCase();
     const name = str(body.name, 120);
@@ -316,28 +701,33 @@ export function createApp(options = {}) {
 
     const session = createSession(db, userId);
     return json(res, 201, { user: userView(db.prepare("SELECT * FROM users WHERE id = ?").get(userId)), organizations }, {
-      "set-cookie": sessionCookie(session.token, session.expires),
+      "set-cookie": sessionCookie(session.token, session.expires, cookieSecure(req)),
     });
   });
 
   route("POST", /^\/v1\/auth\/login$/u, async (req, res) => {
+    const ip = clientIp(req);
+    const retry = rate.retryAfter(ip);
+    if (retry) return limited(res, retry);
     const body = await readJson(req);
     const email = str(body.email).toLowerCase();
     const password = str(body.password, 200);
     const row = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
     if (!row || row.status !== "active" || !verifyPassword(password, row.password_hash)) {
+      rate.hit(ip); // count only failed attempts; success below resets the window
       return fail(res, 401, "invalid_credentials", "Email or password is incorrect.");
     }
+    rate.reset(ip);
     db.prepare("UPDATE users SET last_active_at = ? WHERE id = ?").run(now(), row.id);
     const session = createSession(db, row.id);
     audit(db, { actorId: row.id, action: "auth.login", entity: "user", entityId: row.id });
-    return json(res, 200, { user: userView(row) }, { "set-cookie": sessionCookie(session.token, session.expires) });
+    return json(res, 200, { user: userView(row) }, { "set-cookie": sessionCookie(session.token, session.expires, cookieSecure(req)) });
   });
 
   route("POST", /^\/v1\/auth\/logout$/u, async (req, res) => {
     const token = parseCookies(req.headers.cookie)[SESSION_COOKIE];
     destroySession(db, token);
-    return json(res, 200, { ok: true }, { "set-cookie": clearedCookie });
+    return json(res, 200, { ok: true }, { "set-cookie": clearedCookie(cookieSecure(req)) });
   });
 
   route("GET", /^\/v1\/auth\/me$/u, async (req, res, ctx) => {
@@ -457,6 +847,10 @@ export function createApp(options = {}) {
   }, { auth: true });
 
   route("POST", /^\/v1\/auth\/accept-invite$/u, async (req, res) => {
+    const ip = clientIp(req);
+    const retry = rate.retryAfter(ip);
+    if (retry) return limited(res, retry);
+    rate.hit(ip); // count every attempt (token brute-force defence); reset on success
     const body = await readJson(req);
     const token = str(body.token, 200);
     const password = str(body.password, 200);
@@ -476,8 +870,9 @@ export function createApp(options = {}) {
     audit(db, { orgId: membership.org_id, actorId: membership.user_id, action: "member.accept", entity: "membership", entityId: membership.id });
 
     const session = createSession(db, membership.user_id);
+    rate.reset(ip);
     return json(res, 200, { user: userView(db.prepare("SELECT * FROM users WHERE id = ?").get(membership.user_id)) }, {
-      "set-cookie": sessionCookie(session.token, session.expires),
+      "set-cookie": sessionCookie(session.token, session.expires, cookieSecure(req)),
     });
   });
 
@@ -555,9 +950,21 @@ export function createApp(options = {}) {
   route("PATCH", /^\/v1\/users\/(?<id>[\w-]+)$/u, async (req, res, ctx) => {
     const row = db.prepare("SELECT * FROM users WHERE id = ?").get(ctx.params.id);
     if (!row) return fail(res, 404, "not_found", "User not found.");
-    const orgId = membershipsOf(ctx.user.id)[0]?.org_id;
-    const membership = orgId ? membershipOf(ctx.user.id, orgId) : null;
-    if (!membership || !requireWrite(membership)) return fail(res, 403, "forbidden", "Your role cannot update users.");
+    // Tenant isolation: the caller may only manage a user who shares one of the
+    // caller's organizations, and must hold a write role in that shared org.
+    // Without this a manager/admin of any tenant could mutate (e.g. suspend)
+    // users belonging to other tenants, since `users` is a global table.
+    const callerMemberships = membershipsOf(ctx.user.id);
+    const sharesOrg = (orgId) =>
+      Boolean(db.prepare("SELECT 1 FROM memberships WHERE user_id = ? AND org_id = ?").get(row.id, orgId));
+    const writable = callerMemberships.find((m) => requireWrite(m) && sharesOrg(m.org_id));
+    if (!writable) {
+      const anyShared = callerMemberships.some((m) => sharesOrg(m.org_id));
+      return anyShared
+        ? fail(res, 403, "forbidden", "Your role cannot update users.")
+        : fail(res, 404, "not_found", "User not found.");
+    }
+    const orgId = writable.org_id;
     const body = await readJson(req);
     const name = str(body.name, 80);
     const status = str(body.status);
@@ -1364,8 +1771,30 @@ export function createApp(options = {}) {
     const scope = orgFrom(ctx, url);
     if (scope.error) return fail(res, ...scope.error);
     if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot read the organization ledger.");
-    const rows = db.prepare("SELECT * FROM eco_coin_ledger WHERE org_id = ? ORDER BY created_at DESC, id DESC LIMIT 500").all(scope.orgId);
-    return json(res, 200, { items: rows.map(ledgerView), nextCursor: null, total: rows.length });
+    const where = ["org_id = ?"];
+    const params = [scope.orgId];
+    const entryType = str(url.searchParams.get("entryType") ?? "", 20);
+    if (entryType) { where.push("entry_type = ?"); params.push(entryType); }
+    const challengeId = str(url.searchParams.get("challengeId") ?? "", 80);
+    if (challengeId) { where.push("challenge_id = ?"); params.push(challengeId); }
+    const source = str(url.searchParams.get("source") ?? "", 80);
+    if (source) { where.push("source = ?"); params.push(source); }
+    const userId = str(url.searchParams.get("userId") ?? "", 80);
+    if (userId) { where.push("user_id = ?"); params.push(userId); }
+    const from = str(url.searchParams.get("from") ?? "", 40);
+    if (from) { where.push("created_at >= ?"); params.push(/^\d{4}-\d{2}-\d{2}$/u.test(from) ? `${from}T00:00:00.000Z` : from); }
+    const to = str(url.searchParams.get("to") ?? "", 40);
+    if (to) { where.push("created_at <= ?"); params.push(/^\d{4}-\d{2}-\d{2}$/u.test(to) ? `${to}T23:59:59.999Z` : to); }
+    const sort = url.searchParams.get("sort") === "asc" ? "ASC" : "DESC";
+    const limit = Math.min(Math.max(Number(url.searchParams.get("limit")) || 50, 1), 200);
+    const total = db.prepare(`SELECT COUNT(*) AS n FROM eco_coin_ledger WHERE ${where.join(" AND ")}`).get(...params).n;
+    let offset = 0;
+    const cursor = url.searchParams.get("cursor");
+    if (cursor) { try { offset = Math.max(0, Number(Buffer.from(cursor, "base64").toString("utf8")) || 0); } catch { offset = 0; } }
+    const rows = db.prepare(`SELECT * FROM eco_coin_ledger WHERE ${where.join(" AND ")} ORDER BY created_at ${sort}, id ${sort} LIMIT ? OFFSET ?`).all(...params, limit, offset);
+    const nextOffset = offset + rows.length;
+    const nextCursor = nextOffset < total ? Buffer.from(String(nextOffset)).toString("base64") : null;
+    return json(res, 200, { items: rows.map(ledgerView), total, nextCursor, limit });
   }, { auth: true });
 
   route("GET", /^\/v1\/ecocoin\/summary$/u, async (req, res, ctx) => {
@@ -2225,10 +2654,22 @@ export function createApp(options = {}) {
       activeProjects: projects.filter((p) => (p.data.status ?? "active") === "active").length,
     };
 
-    const priorities = [];
-    for (const t of tasks.filter(isOverdue).slice(0, 10)) priorities.push({ reason: "overdue", severity: "high", label: t.title, date: t.due_at, to: `/platform/tasks/${t.id}` });
-    for (const t of tasks.filter(isDueSoon).slice(0, 10)) priorities.push({ reason: "due_soon", severity: "medium", label: t.title, date: t.due_at, to: `/platform/tasks/${t.id}` });
-    for (const t of tasks.filter((t) => isOpen(t) && !t.assignee_id).slice(0, 10)) priorities.push({ reason: "unassigned", severity: "low", label: t.title, date: t.due_at, to: `/platform/tasks/${t.id}` });
+    // Priorities: a task may satisfy more than one predicate (e.g. overdue AND
+    // unassigned). Dedupe by task, keeping the single most-severe classification
+    // so a task is never listed twice while no severity information is discarded.
+    const SEVERITY_RANK = { low: 1, medium: 2, high: 3 };
+    const priorityByTask = new Map();
+    const addPriority = (t, reason, severity) => {
+      const to = `/platform/tasks/${t.id}`;
+      const existing = priorityByTask.get(to);
+      if (!existing || SEVERITY_RANK[severity] > SEVERITY_RANK[existing.severity]) {
+        priorityByTask.set(to, { reason, severity, label: t.title, date: t.due_at, to });
+      }
+    };
+    for (const t of tasks.filter((t) => isOpen(t) && !t.assignee_id).slice(0, 10)) addPriority(t, "unassigned", "low");
+    for (const t of tasks.filter(isDueSoon).slice(0, 10)) addPriority(t, "due_soon", "medium");
+    for (const t of tasks.filter(isOverdue).slice(0, 10)) addPriority(t, "overdue", "high");
+    const priorities = [...priorityByTask.values()];
 
     const recent = [];
     for (const t of tasks) recent.push({ date: t.updated_at || t.created_at, type: "task", label: t.title, to: `/platform/tasks/${t.id}`, recordCreated: false });
@@ -2426,6 +2867,775 @@ export function createApp(options = {}) {
     return json(res, 200, envView(db.prepare("SELECT * FROM env_sources WHERE id = ?").get(row.id)));
   }, { auth: true });
 
+  /* ------------------------- scientific runs (3.83) ---------------------- */
+  // Persistence-only foundation for the irrigation vertical slice. No model is
+  // executed here: the future EngineGateway will create QUEUED runs and update
+  // them through this boundary. Tenant-owned, idempotent by (org_id, run_key).
+
+  route("POST", /^\/v1\/hydroma\/runs$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot create scientific runs.");
+
+    const body = await readJson(req);
+    const runKey = str(body.runKey, 120);
+    const modelId = str(body.modelId, 120);
+    const modelVersion = str(body.modelVersion, 40);
+    if (!runKey || !modelId || !modelVersion) return fail(res, 422, "invalid_run", "runKey, modelId and modelVersion are required.");
+    if (!body.input || typeof body.input !== "object" || Array.isArray(body.input)) {
+      return fail(res, 422, "invalid_input", "input must be a JSON object.");
+    }
+    if (byteLength(body.input) > MAX_INPUT_BYTES) return fail(res, 413, "payload_too_large", "input exceeds the allowed size.");
+    if (findSensitiveKey(body.input)) return fail(res, 422, "sensitive_input", "input must not contain credentials or secrets.");
+    const inputHash = hashJson(body.input);
+    const parameterHash = hashJson({ modelId, modelVersion, input: body.input });
+    const farmId = str(body.farmId, 80) || null;
+    const cropCycleId = str(body.cropCycleId, 80) || null;
+    const projectId = str(body.projectId, 80) || null;
+    const soilProfileId = str(body.soilProfileId, 80) || null;
+    const soilProfileVersion = body.soilProfileVersion == null ? null : Number(body.soilProfileVersion);
+    const contextError = validateRunContext(db, scope.orgId, farmId, projectId);
+    if (contextError) return fail(res, 422, "invalid_context", contextError);
+    if (soilProfileId) {
+      const profile = db.prepare("SELECT id FROM soil_profiles WHERE id = ? AND org_id = ?").get(soilProfileId, scope.orgId);
+      if (!profile) return fail(res, 422, "invalid_context", "soil profile not found in organization");
+      if (soilProfileVersion !== null && !db.prepare("SELECT id FROM soil_profile_versions WHERE profile_id = ? AND org_id = ? AND version = ?").get(soilProfileId, scope.orgId, soilProfileVersion)) {
+        return fail(res, 422, "invalid_context", "soil profile version not found");
+      }
+    }
+    const datasetId = str(body.datasetId, 80) || null;
+    let snapshot = null;
+    let snapshotFingerprint = null;
+    let datasetRevision = null;
+    if (datasetId) {
+      const datasetRow = db.prepare("SELECT * FROM scientific_datasets WHERE id = ? AND org_id = ?").get(datasetId, scope.orgId);
+      if (!datasetRow) return fail(res, 422, "invalid_dataset", "dataset not found in organization");
+      const dataset = JSON.parse(datasetRow.payload_json);
+      dataset.datasetId = datasetRow.id;
+      datasetRevision = body.datasetRevision == null ? (datasetRow.current_revision ?? 1) : Number(body.datasetRevision);
+      if (!db.prepare("SELECT id FROM dataset_revisions WHERE dataset_id = ? AND org_id = ? AND revision = ?").get(datasetRow.id, scope.orgId, datasetRevision)) {
+        return fail(res, 422, "invalid_revision", "dataset revision not found");
+      }
+      try {
+        const mapped = mapModelInput(dataset, modelId, modelVersion);
+        snapshot = { ...mapped, datasetId: datasetRow.id, datasetRevision, datasetRevisionId: `${datasetRow.id}:r${datasetRevision}`, datasetRevisionOf: datasetRow.created_at, assemblyVersion: dataset.provenance?.assemblyVersion ?? "1.0.0", snapshotVersion: "1.0.0", hashAlgorithm: "sha256", scientificStatus: "NOT_VALIDATED" };
+        snapshotFingerprint = hashJson(snapshot);
+      } catch (error) {
+        return fail(res, 422, "mapping_failed", error instanceof Error ? error.message : "mapping failed");
+      }
+      if (farmId && datasetRow.farm_id && datasetRow.farm_id !== farmId) return fail(res, 422, "invalid_context", "dataset farm does not match run farm");
+      if (projectId && datasetRow.project_id && datasetRow.project_id !== projectId) return fail(res, 422, "invalid_context", "dataset project does not match run project");
+    }
+    const id = newId("run");
+    const at = now();
+    let info;
+    db.exec("BEGIN");
+    try {
+      info = db
+        .prepare(
+          `INSERT OR IGNORE INTO hydroma_runs
+             (id, org_id, run_key, model_id, model_version, status, farm_id, crop_cycle_id, project_id,
+              soil_profile_id, soil_profile_version, dataset_id, dataset_revision, snapshot_json, snapshot_fingerprint,
+              input_json, input_hash, parameter_hash, requested_by, correlation_id,
+              scientific_status, created_at, updated_at)
+           VALUES (?, ?, ?, ?, ?, 'QUEUED', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'NOT_VALIDATED', ?, ?)`,
+        )
+        .run(
+          id,
+          scope.orgId,
+          runKey,
+          modelId,
+          modelVersion,
+          farmId,
+          cropCycleId,
+          projectId,
+          soilProfileId,
+          soilProfileVersion,
+          datasetId,
+          datasetRevision,
+          snapshot === null ? null : canonicalJson(snapshot),
+          snapshotFingerprint,
+          canonicalJson(body.input),
+          inputHash,
+          parameterHash,
+          ctx.user.id,
+          str(body.correlationId, 120) || null,
+          at,
+          at,
+        );
+      if (info.changes > 0) {
+        audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.create", entity: "hydroma_runs", entityId: id, detail: { runKey, modelId, modelVersion } });
+      }
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    if (info.changes > 0) {
+      return json(res, 201, { run: runView(db.prepare("SELECT * FROM hydroma_runs WHERE id = ? AND org_id = ?").get(id, scope.orgId)) });
+    }
+    const existing = db.prepare("SELECT * FROM hydroma_runs WHERE org_id = ? AND run_key = ?").get(scope.orgId, runKey);
+    return json(res, 200, { run: runView(existing), duplicate: true });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/hydroma\/runs$/u, async (req, res, ctx, url) => {
+    const scope = orgFrom(ctx, url);
+    if (scope.error) return fail(res, ...scope.error);
+    const limit = Math.min(Math.max(Number(url.searchParams.get("limit")) || 50, 1), 200);
+    const status = str(url.searchParams.get("status") ?? "", 20);
+    const farmId = str(url.searchParams.get("farmId") ?? "", 80);
+    const projectId = str(url.searchParams.get("projectId") ?? "", 80);
+    const where = ["org_id = ?"];
+    const params = [scope.orgId];
+    if (status) { where.push("status = ?"); params.push(status); }
+    if (farmId) { where.push("farm_id = ?"); params.push(farmId); }
+    if (projectId) { where.push("project_id = ?"); params.push(projectId); }
+    const total = db.prepare(`SELECT COUNT(*) AS n FROM hydroma_runs WHERE ${where.join(" AND ")}`).get(...params).n;
+    let offset = 0;
+    const cursor = url.searchParams.get("cursor");
+    if (cursor) { try { offset = Math.max(0, Number(Buffer.from(cursor, "base64").toString("utf8")) || 0); } catch { offset = 0; } }
+    const rows = db
+      .prepare(`SELECT * FROM hydroma_runs WHERE ${where.join(" AND ")} ORDER BY created_at DESC, id DESC LIMIT ? OFFSET ?`)
+      .all(...params, limit, offset);
+    const nextOffset = offset + rows.length;
+    const nextCursor = nextOffset < total ? Buffer.from(String(nextOffset)).toString("base64") : null;
+    return json(res, 200, { items: rows.map(runView), total, nextCursor, limit });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/hydroma\/runs\/(?<id>[\w-]+)$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const row = db.prepare("SELECT * FROM hydroma_runs WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Scientific run not found.");
+    return json(res, 200, { run: runView(row) });
+  }, { auth: true });
+
+  route("POST", /^\/v1\/hydroma\/runs\/(?<id>[\w-]+)\/status$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot update scientific runs.");
+    const row = db.prepare("SELECT * FROM hydroma_runs WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Scientific run not found.");
+
+    const body = await readJson(req);
+    const status = str(body.status, 20).toUpperCase();
+    // Completion is authoritative: only the gateway may persist COMPLETED after a
+    // real engine result. Clients may only move QUEUED->RUNNING or abort to FAILED.
+    if (status === "COMPLETED" || status === "CANCELLED") {
+      return fail(res, 409, "forbidden_transition", "Completion is controlled by the execution gateway.");
+    }
+    if (["COMPLETED", "FAILED", "CANCELLED"].includes(row.status)) {
+      return fail(res, 409, "invalid_transition", `Run is already ${row.status}.`);
+    }
+    if (!RUN_TRANSITIONS[row.status].includes(status)) {
+      return fail(res, 409, "invalid_transition", `Cannot move a run from ${row.status} to ${status}.`);
+    }
+    const at = now();
+    if (body.output !== undefined) {
+      if (byteLength(body.output) > MAX_OUTPUT_BYTES) return fail(res, 413, "payload_too_large", "output exceeds the allowed size.");
+      if (findSensitiveKey(body.output)) return fail(res, 422, "sensitive_output", "output must not contain credentials or secrets.");
+    }
+    if (body.provenance !== undefined) {
+      if (byteLength(body.provenance) > MAX_PROVENANCE_BYTES) return fail(res, 413, "payload_too_large", "provenance exceeds the allowed size.");
+      if (findSensitiveKey(body.provenance)) return fail(res, 422, "sensitive_provenance", "provenance must not contain credentials or secrets.");
+    }
+    if (body.units !== undefined) {
+      if (byteLength(body.units) > MAX_UNITS_BYTES) return fail(res, 413, "payload_too_large", "units exceed the allowed size.");
+    }
+    const outputJson = body.output === undefined ? null : canonicalJson(body.output);
+    const provenanceJson = body.provenance === undefined ? null : canonicalJson(body.provenance);
+    const unitsJson = body.units === undefined ? null : canonicalJson(body.units);
+    db.exec("BEGIN");
+    try {
+      db.prepare(
+        `UPDATE hydroma_runs
+            SET status = ?, output_json = COALESCE(?, output_json), result_summary = COALESCE(?, result_summary),
+                provenance_json = COALESCE(?, provenance_json), units_json = COALESCE(?, units_json),
+                software_maturity = NULL, scientific_status = 'NOT_VALIDATED',
+                error = COALESCE(?, error), updated_at = ?,
+                started_at = COALESCE(started_at, ?), completed_at = ?
+          WHERE id = ? AND org_id = ?`,
+      ).run(
+        status,
+        outputJson,
+        str(body.resultSummary, 500) || null,
+        provenanceJson,
+        unitsJson,
+        str(body.error, 500) || null,
+        at,
+        status === "RUNNING" ? at : null,
+        ["COMPLETED", "FAILED", "CANCELLED"].includes(status) ? at : null,
+        row.id,
+        scope.orgId,
+      );
+      audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.status", entity: "hydroma_runs", entityId: row.id, detail: { from: row.status, to: status } });
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    return json(res, 200, { run: runView(db.prepare("SELECT * FROM hydroma_runs WHERE id = ? AND org_id = ?").get(row.id, scope.orgId)) });
+  }, { auth: true });
+
+  /* --------------------------- soil profiles (3.93) ----------------------- */
+
+  route("GET", /^\/v1\/soil\/profiles$/u, async (req, res, ctx, url) => {
+    const scope = orgFrom(ctx, url);
+    if (scope.error) return fail(res, ...scope.error);
+    const where = ["org_id = ?"];
+    const params = [scope.orgId];
+    const farmId = str(url.searchParams.get("farmId") ?? "", 80);
+    const projectId = str(url.searchParams.get("projectId") ?? "", 80);
+    if (farmId) { where.push("farm_id = ?"); params.push(farmId); }
+    if (projectId) { where.push("project_id = ?"); params.push(projectId); }
+    const rows = db.prepare(`SELECT * FROM soil_profiles WHERE ${where.join(" AND ")} ORDER BY updated_at DESC`).all(...params);
+    return json(res, 200, { items: rows.map(soilProfileView), total: rows.length });
+  }, { auth: true });
+
+  route("POST", /^\/v1\/soil\/profiles$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot create soil profiles.");
+    const body = await readJson(req);
+    const name = str(body.name, 120);
+    if (!name) return fail(res, 422, "invalid_profile", "name is required.");
+    const layers = body.layers;
+    const layerErrors = validateIrrigationInput({ layers, p: 1, depletion_mm: 0 });
+    if (layerErrors.length > 0) return fail(res, 422, "invalid_layers", layerErrors[0]);
+    const farmId = str(body.farmId, 80) || null;
+    const projectId = str(body.projectId, 80) || null;
+    const contextError = validateRunContext(db, scope.orgId, farmId, projectId);
+    if (contextError) return fail(res, 422, "invalid_context", contextError);
+    const source = str(body.source, 20) || "user_entered";
+    if (!["measured", "user_entered", "estimated", "imported", "derived"].includes(source)) {
+      return fail(res, 422, "invalid_source", "unsupported soil source.");
+    }
+    const id = newId("soil");
+    const at = now();
+    try {
+      db.prepare("INSERT INTO soil_profiles (id, org_id, farm_id, project_id, name, layers_json, source, notes, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+        .run(id, scope.orgId, farmId, projectId, name, canonicalJson(layers), source, str(body.notes, 500) || null, ctx.user.id, at, at);
+    } catch (error) {
+      if (/UNIQUE/i.test(String(error?.message))) return fail(res, 409, "duplicate_profile", "A soil profile with this name already exists.");
+      throw error;
+    }
+    audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "soil.profile.create", entity: "soil_profiles", entityId: id, detail: { name, source } });
+    db.prepare("INSERT INTO soil_profile_versions (id, profile_id, org_id, version, layers_json, source, notes, created_by, created_at) VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?)")
+      .run(newId("soilv"), id, scope.orgId, canonicalJson(layers), source, str(body.notes, 500) || null, ctx.user.id, at);
+    return json(res, 201, { profile: soilProfileView(db.prepare("SELECT * FROM soil_profiles WHERE id = ? AND org_id = ?").get(id, scope.orgId)) });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/soil\/profiles\/(?<id>[\w-]+)$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const row = db.prepare("SELECT * FROM soil_profiles WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Soil profile not found.");
+    return json(res, 200, { profile: soilProfileView(row) });
+  }, { auth: true });
+
+  route("PATCH", /^\/v1\/soil\/profiles\/(?<id>[\w-]+)$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot update soil profiles.");
+    const row = db.prepare("SELECT * FROM soil_profiles WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Soil profile not found.");
+    const body = await readJson(req);
+    const layers = body.layers ?? parseJson(row.layers_json);
+    const layerErrors = validateIrrigationInput({ layers, p: 1, depletion_mm: 0 });
+    if (layerErrors.length > 0) return fail(res, 422, "invalid_layers", layerErrors[0]);
+    const source = str(body.source, 20) || row.source;
+    if (!["measured", "user_entered", "estimated", "imported", "derived"].includes(source)) return fail(res, 422, "invalid_source", "unsupported soil source.");
+    const at = now();
+    const version = (row.version ?? 1) + 1;
+    db.exec("BEGIN");
+    try {
+      db.prepare("UPDATE soil_profiles SET version = ?, layers_json = ?, source = ?, notes = COALESCE(?, notes), updated_at = ? WHERE id = ? AND org_id = ?")
+        .run(version, canonicalJson(layers), source, str(body.notes, 500) || null, at, row.id, scope.orgId);
+      db.prepare("INSERT INTO soil_profile_versions (id, profile_id, org_id, version, layers_json, source, notes, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
+        .run(newId("soilv"), row.id, scope.orgId, version, canonicalJson(layers), source, str(body.notes, 500) || null, ctx.user.id, at);
+      audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "soil.profile.update", entity: "soil_profiles", entityId: row.id, detail: { version } });
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    return json(res, 200, { profile: soilProfileView(db.prepare("SELECT * FROM soil_profiles WHERE id = ? AND org_id = ?").get(row.id, scope.orgId)) });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/soil\/profiles\/(?<id>[\w-]+)\/versions$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const rows = db.prepare("SELECT * FROM soil_profile_versions WHERE profile_id = ? AND org_id = ? ORDER BY version DESC").all(ctx.params.id, scope.orgId);
+    return json(res, 200, { items: rows.map((r) => ({ id: r.id, profileId: r.profile_id, version: r.version, layers: parseJson(r.layers_json), source: r.source, notes: r.notes, createdAt: r.created_at })), total: rows.length });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/soil\/profiles\/(?<id>[\w-]+)\/versions\/(?<version>\d+)$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const row = db.prepare("SELECT * FROM soil_profile_versions WHERE profile_id = ? AND org_id = ? AND version = ?").get(ctx.params.id, scope.orgId, Number(ctx.params.version));
+    if (!row) return fail(res, 404, "not_found", "Soil profile version not found.");
+    return json(res, 200, { version: { id: row.id, profileId: row.profile_id, version: row.version, layers: parseJson(row.layers_json), source: row.source, notes: row.notes, createdAt: row.created_at } });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/soil\/observations$/u, async (req, res, ctx, url) => {
+    const scope = orgFrom(ctx, url);
+    if (scope.error) return fail(res, ...scope.error);
+    const where = ["org_id = ?"];
+    const params = [scope.orgId];
+    for (const key of ["farmId", "projectId", "profileId", "parameter"]) {
+      const value = str(url.searchParams.get(key) ?? "", 80);
+      if (value) {
+        const column = { farmId: "farm_id", projectId: "project_id", profileId: "profile_id", parameter: "parameter" }[key];
+        where.push(`${column} = ?`);
+        params.push(value);
+      }
+    }
+    const rows = db.prepare(`SELECT * FROM soil_observations WHERE ${where.join(" AND ")} ORDER BY observed_at DESC`).all(...params);
+    return json(res, 200, { items: rows.map(soilObservationView), total: rows.length });
+  }, { auth: true });
+
+  route("POST", /^\/v1\/soil\/observations$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot record observations.");
+    const body = await readJson(req);
+    const parameter = str(body.parameter, 40);
+    const unit = str(body.unit, 24);
+    const value = Number(body.value);
+    const observedAt = str(body.observedAt, 40);
+    if (!parameter || !unit || !Number.isFinite(value) || !observedAt) return fail(res, 422, "invalid_observation", "parameter, unit, value and observedAt are required.");
+    const source = str(body.source, 24) || "user_entered";
+    if (!["field_measurement", "lab_measurement", "user_entered", "imported", "estimated", "derived"].includes(source)) return fail(res, 422, "invalid_source", "unsupported observation source.");
+    const farmId = str(body.farmId, 80) || null;
+    const projectId = str(body.projectId, 80) || null;
+    const profileId = str(body.profileId, 80) || null;
+    const contextError = validateRunContext(db, scope.orgId, farmId, projectId);
+    if (contextError) return fail(res, 422, "invalid_context", contextError);
+    if (profileId && !db.prepare("SELECT id FROM soil_profiles WHERE id = ? AND org_id = ?").get(profileId, scope.orgId)) return fail(res, 422, "invalid_context", "soil profile not found in organization");
+    const depth = body.depthMm === undefined || body.depthMm === null ? null : Number(body.depthMm);
+    if (depth !== null && !Number.isFinite(depth)) return fail(res, 422, "invalid_depth", "depthMm must be numeric.");
+    const id = newId("obs");
+    db.prepare("INSERT INTO soil_observations (id, org_id, farm_id, project_id, profile_id, observed_at, depth_mm, parameter, value, unit, source, method, instrument, quality, notes, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+      .run(id, scope.orgId, farmId, projectId, profileId, observedAt, depth, parameter, value, unit, source, str(body.method, 80) || null, str(body.instrument, 120) || null, str(body.quality, 40) || null, str(body.notes, 500) || null, ctx.user.id, now());
+    audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "soil.observation.create", entity: "soil_observations", entityId: id, detail: { parameter, source } });
+    return json(res, 201, { observation: soilObservationView(db.prepare("SELECT * FROM soil_observations WHERE id = ? AND org_id = ?").get(id, scope.orgId)) });
+  }, { auth: true });
+
+  /* ---------------------- environmental data (3.95) ----------------------- */
+
+  route("GET", /^\/v1\/env\/parameters$/u, async (req, res, ctx) => {
+    const rows = db.prepare("SELECT * FROM env_parameters ORDER BY category, code").all();
+    return json(res, 200, { items: rows.map((r) => ({ code: r.code, name: r.name, category: r.category, dimension: r.dimension, canonicalUnit: r.canonical_unit, dataType: r.data_type, allowedUnits: parseJson(r.allowed_units_json) ?? [], minValue: r.min_value, maxValue: r.max_value, notes: r.notes })), total: rows.length });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/env\/observations$/u, async (req, res, ctx, url) => {
+    const scope = orgFrom(ctx, url);
+    if (scope.error) return fail(res, ...scope.error);
+    const where = ["org_id = ?"];
+    const params = [scope.orgId];
+    for (const key of ["farmId", "projectId", "parameter", "quality"]) {
+      const value = str(url.searchParams.get(key) ?? "", 80);
+      if (value) {
+        const column = { farmId: "farm_id", projectId: "project_id", parameter: "parameter", quality: "quality" }[key];
+        where.push(`${column} = ?`);
+        params.push(value);
+      }
+    }
+    const limit = Math.min(Math.max(Number(url.searchParams.get("limit")) || 100, 1), 500);
+    const rows = db.prepare(`SELECT * FROM env_observations WHERE ${where.join(" AND ")} ORDER BY observed_at DESC LIMIT ?`).all(...params, limit);
+    return json(res, 200, { items: rows.map(envObservationView), total: rows.length });
+  }, { auth: true });
+
+  route("POST", /^\/v1\/env\/observations$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot record environmental data.");
+    const body = await readJson(req);
+    const result = validateEnvRecord(db, scope.orgId, body, null);
+    if (result.error) return fail(res, 422, "invalid_observation", result.error);
+    const id = newId("env");
+    db.prepare("INSERT OR IGNORE INTO env_observations (id, org_id, farm_id, project_id, import_id, parameter, value, unit, canonical_value, canonical_unit, observed_at, depth_mm, source, method, instrument, quality, quality_reasons_json, dedupe_key, created_at) VALUES (?, ?, ?, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+      .run(id, scope.orgId, result.farmId, result.projectId, result.parameter, result.value, result.unit, result.canonicalValue, result.canonicalUnit, result.observedAt, result.depthMm, result.source, result.method, result.instrument, result.quality, canonicalJson(result.reasons), result.dedupeKey, now());
+    audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "env.observation.create", entity: "env_observations", entityId: id, detail: { parameter: result.parameter, quality: result.quality } });
+    return json(res, 201, { observation: envObservationView(db.prepare("SELECT * FROM env_observations WHERE id = ? AND org_id = ?").get(id, scope.orgId)) });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/env\/imports$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const rows = db.prepare("SELECT * FROM env_imports WHERE org_id = ? ORDER BY created_at DESC LIMIT 100").all(scope.orgId);
+    return json(res, 200, { items: rows.map((r) => ({ id: r.id, filename: r.filename, source: r.source, status: r.status, total: r.total, imported: r.imported_count, rejected: r.rejected_count, duplicates: r.duplicate_count, createdAt: r.created_at })), total: rows.length });
+  }, { auth: true });
+
+  route("POST", /^\/v1\/env\/imports$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot import environmental data.");
+    const body = await readJson(req);
+    const csv = str(body.csv, 300_000);
+    if (!csv) return fail(res, 422, "invalid_file", "csv is required.");
+    const lines = csv.split(/\r?\n/u).filter((line) => line.trim() !== "");
+    if (lines.length < 2) return fail(res, 422, "invalid_file", "csv must contain a header and at least one row.");
+    if (lines.length > 1001) return fail(res, 413, "too_many_rows", "csv exceeds 1000 rows.");
+    const headers = lines[0].split(",").map((h) => h.trim().toLowerCase());
+    const required = ["parameter", "unit", "value", "observed_at"];
+    if (required.some((key) => !headers.includes(key))) return fail(res, 422, "invalid_header", "required columns: parameter, unit, value, observed_at.");
+    const farmId = str(body.farmId, 80) || null;
+    const projectId = str(body.projectId, 80) || null;
+    const contextError = validateRunContext(db, scope.orgId, farmId, projectId);
+    if (contextError) return fail(res, 422, "invalid_context", contextError);
+    const source = str(body.source, 24) || "imported";
+    const importId = newId("envimp");
+    let imported = 0;
+    let rejected = 0;
+    let duplicates = 0;
+    db.exec("BEGIN");
+    try {
+      db.prepare("INSERT INTO env_imports (id, org_id, farm_id, project_id, filename, source, status, total, imported_count, rejected_count, duplicate_count, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, 'PROCESSING', 0, 0, 0, 0, ?, ?)")
+        .run(importId, scope.orgId, farmId, projectId, str(body.filename, 200) || "import.csv", source, ctx.user.id, now());
+      for (const line of lines.slice(1)) {
+        const cells = line.split(",").map((c) => c.trim());
+        const row = {};
+        headers.forEach((key, index) => { row[key] = cells[index] ?? ""; });
+        row.observedAt = row.observed_at;
+        row.depthMm = row.depth_mm;
+        const result = validateEnvRecord(db, scope.orgId, { ...row, farmId, projectId }, importId);
+        if (result.error) { rejected += 1; continue; }
+        const info = db.prepare("INSERT OR IGNORE INTO env_observations (id, org_id, farm_id, project_id, import_id, parameter, value, unit, canonical_value, canonical_unit, observed_at, depth_mm, source, method, instrument, quality, quality_reasons_json, dedupe_key, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+          .run(newId("env"), scope.orgId, farmId, projectId, importId, result.parameter, result.value, result.unit, result.canonicalValue, result.canonicalUnit, result.observedAt, result.depthMm, result.source, result.method, result.instrument, result.quality, canonicalJson(result.reasons), result.dedupeKey, now());
+        if (info.changes > 0) imported += 1; else duplicates += 1;
+      }
+      db.prepare("UPDATE env_imports SET status = 'COMPLETED', total = ?, imported_count = ?, rejected_count = ?, duplicate_count = ? WHERE id = ?").run(lines.length - 1, imported, rejected, duplicates, importId);
+      audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "env.import", entity: "env_imports", entityId: importId, detail: { imported, rejected, duplicates } });
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    return json(res, 201, { import: { id: importId, total: lines.length - 1, imported, rejected, duplicates } });
+  }, { auth: true });
+
+  /* ------------------- scientific dataset assembly (3.97) ----------------- */
+
+  route("POST", /^\/v1\/datasets\/assemble$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot assemble datasets.");
+    const body = await readJson(req);
+    const start = str(body.startDate, 40);
+    const end = str(body.endDate, 40);
+    const parameters = Array.isArray(body.parameters) ? body.parameters.map((p) => str(p, 40)).filter(Boolean) : [];
+    if (!start || !end || parameters.length === 0) return fail(res, 422, "invalid_request", "startDate, endDate and parameters are required.");
+    const farmId = str(body.farmId, 80) || null;
+    const projectId = str(body.projectId, 80) || null;
+    const contextError = validateRunContext(db, scope.orgId, farmId, projectId);
+    if (contextError) return fail(res, 422, "invalid_context", contextError);
+    const rows = db.prepare("SELECT * FROM env_observations WHERE org_id = ? AND observed_at >= ? AND observed_at <= ?").all(scope.orgId, `${start}T00:00:00Z`, `${end}T23:59:59Z`);
+    const id = newId("dataset");
+    const dataset = { ...assembleDataset({ organizationId: scope.orgId, farmId, projectId, start, end, parameters, rows }), datasetId: id };
+    db.prepare("INSERT INTO scientific_datasets (id, org_id, farm_id, project_id, start_date, end_date, parameters_json, payload_json, readiness, coverage, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+      .run(id, scope.orgId, farmId, projectId, start, end, canonicalJson(parameters), canonicalJson(dataset), dataset.readiness, dataset.coverage, ctx.user.id, now(), now());
+    db.prepare("INSERT OR IGNORE INTO dataset_revisions (id, dataset_id, org_id, revision, payload_json, readiness, coverage, created_by, created_at) VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?)")
+      .run(`${id}:r1`, id, scope.orgId, canonicalJson(dataset), dataset.readiness, dataset.coverage, ctx.user.id, now());
+    audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "dataset.assemble", entity: "scientific_datasets", entityId: id, detail: { readiness: dataset.readiness, coverage: dataset.coverage } });
+    return json(res, 201, { dataset: { id, ...dataset } });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/datasets$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const rows = db.prepare("SELECT id, farm_id, project_id, start_date, end_date, readiness, coverage, created_at FROM scientific_datasets WHERE org_id = ? ORDER BY created_at DESC LIMIT 100").all(scope.orgId);
+    return json(res, 200, { items: rows.map((r) => ({ id: r.id, farmId: r.farm_id, projectId: r.project_id, startDate: r.start_date, endDate: r.end_date, readiness: r.readiness, coverage: r.coverage, createdAt: r.created_at })), total: rows.length });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/datasets\/(?<id>[\w-]+)$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const row = db.prepare("SELECT * FROM scientific_datasets WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Dataset not found.");
+    return json(res, 200, { dataset: { id: row.id, ...JSON.parse(row.payload_json) } });
+  }, { auth: true });
+
+  route("GET", /^\/v1\/datasets\/(?<id>[\w-]+)\/revisions$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    const rows = db.prepare("SELECT id, revision, readiness, coverage, created_at FROM dataset_revisions WHERE dataset_id = ? AND org_id = ? ORDER BY revision DESC").all(ctx.params.id, scope.orgId);
+    return json(res, 200, { items: rows.map((r) => ({ id: r.id, revision: r.revision, readiness: r.readiness, coverage: r.coverage, createdAt: r.created_at })), total: rows.length });
+  }, { auth: true });
+
+  route("POST", /^\/v1\/datasets\/(?<id>[\w-]+)\/revisions$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot revise datasets.");
+    const row = db.prepare("SELECT * FROM scientific_datasets WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Dataset not found.");
+    const body = await readJson(req);
+    const payload = body.payload && typeof body.payload === "object" ? body.payload : JSON.parse(row.payload_json);
+    const revision = (row.current_revision ?? 1) + 1;
+    const id = `${row.id}:r${revision}`;
+    const at = now();
+    db.exec("BEGIN");
+    try {
+      db.prepare("INSERT INTO dataset_revisions (id, dataset_id, org_id, revision, payload_json, readiness, coverage, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
+        .run(id, row.id, scope.orgId, revision, canonicalJson(payload), str(payload.readiness, 40) || row.readiness, Number(payload.coverage) || row.coverage, ctx.user.id, at);
+      db.prepare("UPDATE scientific_datasets SET current_revision = ?, payload_json = ?, readiness = ?, coverage = ?, updated_at = ? WHERE id = ? AND org_id = ?")
+        .run(revision, canonicalJson(payload), str(payload.readiness, 40) || row.readiness, Number(payload.coverage) || row.coverage, at, row.id, scope.orgId);
+      audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "dataset.revision", entity: "dataset_revisions", entityId: id, detail: { revision } });
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    return json(res, 201, { revision: { id, revision } });
+  }, { auth: true });
+
+  route("POST", /^\/v1\/datasets\/(?<id>[\w-]+)\/model-input$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot map model inputs.");
+    const row = db.prepare("SELECT * FROM scientific_datasets WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Dataset not found.");
+    const body = await readJson(req);
+    try {
+      return json(res, 200, { modelInput: mapModelInput(JSON.parse(row.payload_json), str(body.modelId, 80), str(body.modelVersion, 40) || "1.0.0") });
+    } catch (error) {
+      return fail(res, 422, "mapping_failed", error instanceof Error ? error.message : "mapping failed");
+    }
+  }, { auth: true });
+
+  /* --------------------- controlled irrigation execution (3.85) ----------- */
+  // Backend -> EngineGateway -> HyDroMA HTTP contract -> persisted run.
+  // Only the existing irrigation model is callable; the engine is never imported.
+
+  route("POST", /^\/v1\/hydroma\/irrigation\/runs$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot request model execution.");
+
+    const body = await readJson(req);
+    const runKey = str(body.runKey, 120);
+    if (!runKey) return fail(res, 422, "invalid_run", "runKey is required.");
+    const input = body.input;
+    const validation = validateIrrigationInput(input);
+    if (validation.length > 0) return fail(res, 422, "invalid_input", validation[0]);
+    if (byteLength(input) > MAX_INPUT_BYTES) return fail(res, 413, "payload_too_large", "input exceeds the allowed size.");
+    if (findSensitiveKey(input)) return fail(res, 422, "sensitive_input", "input must not contain credentials or secrets.");
+
+    const existing = db.prepare("SELECT * FROM hydroma_runs WHERE org_id = ? AND run_key = ?").get(scope.orgId, runKey);
+    if (existing) return json(res, 200, { run: runView(existing), duplicate: true });
+
+    if (!tryAcquireExecutionSlot()) {
+      return fail(res, 429, "execution_capacity_exceeded", "Too many concurrent model executions.");
+    }
+
+    try {
+    const modelId = IRRIGATION_MODEL.id;
+    const modelVersion = IRRIGATION_MODEL.version;
+    const id = newId("run");
+    const at = now();
+    const correlationId = str(body.correlationId, 120) || null;
+    const farmId = str(body.farmId, 80) || null;
+    const cropCycleId = str(body.cropCycleId, 80) || null;
+    const projectId = str(body.projectId, 80) || null;
+    const soilProfileId = str(body.soilProfileId, 80) || null;
+    const soilProfileVersion = body.soilProfileVersion == null ? null : Number(body.soilProfileVersion);
+    const contextError = validateRunContext(db, scope.orgId, farmId, projectId);
+    if (contextError) return fail(res, 422, "invalid_context", contextError);
+    if (soilProfileId) {
+      const profile = db.prepare("SELECT id FROM soil_profiles WHERE id = ? AND org_id = ?").get(soilProfileId, scope.orgId);
+      if (!profile) return fail(res, 422, "invalid_context", "soil profile not found in organization");
+      if (soilProfileVersion !== null && !db.prepare("SELECT id FROM soil_profile_versions WHERE profile_id = ? AND org_id = ? AND version = ?").get(soilProfileId, scope.orgId, soilProfileVersion)) {
+        return fail(res, 422, "invalid_context", "soil profile version not found");
+      }
+    }
+    let inserted = false;
+
+    db.exec("BEGIN");
+    try {
+      const info = db
+        .prepare(
+          `INSERT OR IGNORE INTO hydroma_runs
+             (id, org_id, run_key, model_id, model_version, status, farm_id, crop_cycle_id, project_id, soil_profile_id, soil_profile_version,
+              input_json, input_hash, parameter_hash, requested_by, correlation_id,
+              scientific_status, attempts, created_at, updated_at)
+           VALUES (?, ?, ?, ?, ?, 'QUEUED', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'NOT_VALIDATED', 0, ?, ?)`,
+        )
+        .run(id, scope.orgId, runKey, modelId, modelVersion, farmId, cropCycleId, projectId, soilProfileId, soilProfileVersion, canonicalJson(input), hashJson(input), hashJson({ modelId, modelVersion, input }), ctx.user.id, correlationId, at, at);
+      if (info.changes > 0) {
+        inserted = true;
+        audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.create", entity: "hydroma_runs", entityId: id, detail: { runKey, modelId, modelVersion, via: "gateway" } });
+      }
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    if (!inserted) {
+      const duplicateRun = db.prepare("SELECT * FROM hydroma_runs WHERE org_id = ? AND run_key = ?").get(scope.orgId, runKey);
+      return json(res, 200, { run: runView(duplicateRun), duplicate: true });
+    }
+
+    db.exec("BEGIN");
+    try {
+      db.prepare("UPDATE hydroma_runs SET status = 'RUNNING', started_at = ?, updated_at = ? WHERE id = ? AND org_id = ?").run(at, at, id, scope.orgId);
+      audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.status", entity: "hydroma_runs", entityId: id, detail: { from: "QUEUED", to: "RUNNING", via: "gateway" } });
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+
+    let result;
+    try {
+      result = await executeIrrigation({ input, runKey, correlationId, requestedBy: ctx.user.id, tenantId: scope.orgId });
+    } catch (error) {
+      const code = error instanceof GatewayError ? error.code : "engine_error";
+      const status = code === "invalid_input" ? 422 : code === "timeout" ? 504 : code === "invalid_configuration" ? 500 : 502;
+      const uncertain = code === "timeout" || code === "engine_unavailable";
+      const message = code === "timeout" ? "Model execution timed out; reconciliation required." : uncertain ? "Engine unreachable; reconciliation required." : "Model execution failed.";
+      db.exec("BEGIN");
+      try {
+        const info = db.prepare("UPDATE hydroma_runs SET status = 'FAILED', error = ?, reconciliation_required = ?, completed_at = ?, updated_at = ? WHERE id = ? AND org_id = ? AND status = 'RUNNING'").run(message, uncertain ? 1 : 0, now(), now(), id, scope.orgId);
+        if (info.changes > 0) {
+          audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.status", entity: "hydroma_runs", entityId: id, detail: { from: "RUNNING", to: "FAILED", code, reconciliationRequired: uncertain } });
+        }
+        db.exec("COMMIT");
+        if (info.changes === 0) return fail(res, 409, "run_state_changed", "Run state changed during execution.");
+      } catch (rollbackError) {
+        db.exec("ROLLBACK");
+        throw rollbackError;
+      }
+      return fail(res, status, code === "timeout" ? "engine_timeout" : "engine_error", message);
+    }
+
+    if (!result || result.status !== "COMPLETED") {
+      const message = "Model execution failed.";
+      db.exec("BEGIN");
+      try {
+        const info = db.prepare("UPDATE hydroma_runs SET status = 'FAILED', error = ?, completed_at = ?, updated_at = ? WHERE id = ? AND org_id = ? AND status = 'RUNNING'").run(message, now(), now(), id, scope.orgId);
+        if (info.changes > 0) {
+          audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.status", entity: "hydroma_runs", entityId: id, detail: { from: "RUNNING", to: "FAILED", code: "engine_error" } });
+        }
+        db.exec("COMMIT");
+        if (info.changes === 0) return fail(res, 409, "run_state_changed", "Run state changed during execution.");
+      } catch (rollbackError) {
+        db.exec("ROLLBACK");
+        throw rollbackError;
+      }
+      return fail(res, 502, "engine_error", message);
+    }
+
+    db.exec("BEGIN");
+    try {
+      const info = db.prepare(
+        `UPDATE hydroma_runs
+            SET status = 'COMPLETED', output_json = ?, provenance_json = ?, units_json = ?,
+                result_summary = ?, completed_at = ?, updated_at = ?, software_maturity = NULL,
+                scientific_status = 'NOT_VALIDATED', engine_run_id = ?, attempts = attempts + 1,
+                reconciliation_required = 0
+          WHERE id = ? AND org_id = ? AND status = 'RUNNING'`,
+      ).run(canonicalJson(result.output), canonicalJson(result.provenance), canonicalJson(result.units), "Irrigation model completed.", now(), now(), result.engineRunId ?? null, id, scope.orgId);
+      if (info.changes === 0) {
+        db.exec("COMMIT");
+        return fail(res, 409, "run_state_changed", "Run state changed during execution; result not applied.");
+      }
+      audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.status", entity: "hydroma_runs", entityId: id, detail: { from: "RUNNING", to: "COMPLETED", via: "gateway", engineRunId: result.engineRunId ?? null } });
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    return json(res, 200, { run: runView(db.prepare("SELECT * FROM hydroma_runs WHERE id = ? AND org_id = ?").get(id, scope.orgId)) });
+    } finally {
+      releaseExecutionSlot();
+    }
+  }, { auth: true });
+
+  route("POST", /^\/v1\/hydroma\/runs\/reconcile$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot reconcile runs.");
+    const staleMs = Math.max(60_000, Number(process.env.NOJIN_HYDROMA_STALE_MS ?? 300_000));
+    const cutoff = new Date(Date.now() - staleMs).toISOString();
+    const rows = db.prepare("SELECT id FROM hydroma_runs WHERE org_id = ? AND status = 'RUNNING' AND updated_at < ?").all(scope.orgId, cutoff);
+    let reconciled = 0;
+    db.exec("BEGIN");
+    try {
+      for (const row of rows) {
+        const info = db.prepare("UPDATE hydroma_runs SET status = 'FAILED', reconciliation_required = 1, error = ?, completed_at = ?, updated_at = ? WHERE id = ? AND org_id = ? AND status = 'RUNNING'").run("Stale execution; reconciliation required.", now(), now(), row.id, scope.orgId);
+        if (info.changes > 0) {
+          reconciled += 1;
+          audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.run.reconcile", entity: "hydroma_runs", entityId: row.id, detail: { from: "RUNNING", to: "FAILED", reconciliationRequired: true } });
+        }
+      }
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+    return json(res, 200, { reconciled });
+  }, { auth: true });
+
+  /* ------------------ controlled model execution (3.101) ------------------ */
+
+  route("POST", /^\/v1\/hydroma\/runs\/(?<id>[\w-]+)\/execute$/u, async (req, res, ctx) => {
+    const scope = orgFrom(ctx, new URL(req.url, "http://localhost"));
+    if (scope.error) return fail(res, ...scope.error);
+    if (!requireWrite(scope.membership)) return fail(res, 403, "forbidden", "Your role cannot execute models.");
+    const row = db.prepare("SELECT * FROM hydroma_runs WHERE id = ? AND org_id = ?").get(ctx.params.id, scope.orgId);
+    if (!row) return fail(res, 404, "not_found", "Run not found.");
+
+    const latest = db.prepare("SELECT * FROM hydroma_execution_attempts WHERE run_id = ? AND org_id = ? ORDER BY attempt DESC LIMIT 1").get(row.id, scope.orgId);
+    if (latest?.status === "SUCCEEDED") return json(res, 200, { attempt: attemptView(latest), duplicate: true });
+    if (latest?.status === "RUNNING") return fail(res, 409, "execution_in_progress", "Execution already in progress.");
+
+    if (row.snapshot_json) {
+      let snapshot = null;
+      try { snapshot = JSON.parse(row.snapshot_json); } catch { snapshot = null; }
+      if (!snapshot || hashJson(snapshot) !== row.snapshot_fingerprint) {
+        return fail(res, 409, "snapshot_integrity", "snapshot fingerprint mismatch");
+      }
+    }
+    if (row.dataset_id && row.dataset_revision !== null && !db.prepare("SELECT id FROM dataset_revisions WHERE dataset_id = ? AND org_id = ? AND revision = ?").get(row.dataset_id, scope.orgId, row.dataset_revision)) {
+      return fail(res, 422, "invalid_revision", "dataset revision not found");
+    }
+
+    const body = await readJson(req);
+    const mode = str(body.mode, 20) || "client";
+    if (mode !== "client" && mode !== "snapshot") return fail(res, 422, "invalid_mode", "mode must be client or snapshot");
+    if (!body.modelInput || typeof body.modelInput !== "object" || Array.isArray(body.modelInput)) {
+      if (mode === "snapshot") return fail(res, 422, "snapshot_input_unsupported", "snapshot-derived model input is not implemented; supply explicit modelInput");
+      return fail(res, 422, "invalid_input", "modelInput object is required (scientific transformations are not inferred)");
+    }
+    const inputSource = "client";
+    const inputJson = canonicalJson(body.modelInput);
+    const inputFingerprint = hashJson(body.modelInput);
+
+    const attemptNo = (latest?.attempt ?? 0) + 1;
+    const attemptId = newId("attempt");
+    const started = now();
+    db.prepare("INSERT INTO hydroma_execution_attempts (id, run_id, org_id, attempt, status, model_id, model_version, input_json, input_fingerprint, input_source, started_at) VALUES (?, ?, ?, ?, 'RUNNING', ?, ?, ?, ?, ?, ?)")
+      .run(attemptId, row.id, scope.orgId, attemptNo, row.model_id, row.model_version, inputJson, inputFingerprint, inputSource, started);
+
+    const execution = await executeModel({ modelId: row.model_id, modelVersion: row.model_version, input: body.modelInput, runId: row.id });
+    if (!execution.ok) {
+      const message = execution.message ?? "execution failed";
+      db.prepare("UPDATE hydroma_execution_attempts SET status = 'FAILED', error = ?, finished_at = ? WHERE id = ?").run(message, now(), attemptId);
+      db.prepare("UPDATE hydroma_runs SET status = 'FAILED', error = ?, completed_at = ?, updated_at = ? WHERE id = ? AND org_id = ? AND status IN ('QUEUED','RUNNING')").run(message, now(), now(), row.id, scope.orgId);
+      audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.execute", entity: "hydroma_runs", entityId: row.id, detail: { attempt: attemptNo, status: "FAILED", code: execution.code } });
+      const status = execution.code === "timeout" ? 504 : execution.code === "capacity_exhausted" ? 503 : 502;
+      return fail(res, status, execution.code ?? "engine_error", message);
+    }
+
+    const outputFingerprint = hashJson(execution.result);
+    db.prepare("UPDATE hydroma_execution_attempts SET status = 'SUCCEEDED', manifest_json = ?, manifest_fingerprint = ?, output_json = ?, output_fingerprint = ?, finished_at = ? WHERE id = ?")
+      .run(canonicalJson(execution.manifest), execution.manifestFingerprint ?? null, canonicalJson(execution.result), outputFingerprint, now(), attemptId);
+    db.prepare("UPDATE hydroma_runs SET status = 'COMPLETED', output_json = ?, result_summary = ?, provenance_json = ?, completed_at = ?, updated_at = ?, scientific_status = 'NOT_VALIDATED', software_maturity = NULL WHERE id = ? AND org_id = ? AND status IN ('QUEUED','RUNNING')")
+      .run(canonicalJson(execution.result), "Model execution completed.", canonicalJson(execution.manifest), now(), now(), row.id, scope.orgId);
+    audit(db, { orgId: scope.orgId, actorId: ctx.user.id, action: "hydroma.execute", entity: "hydroma_runs", entityId: row.id, detail: { attempt: attemptNo, status: "SUCCEEDED" } });
+    return json(res, 200, { attempt: attemptView(db.prepare("SELECT * FROM hydroma_execution_attempts WHERE id = ?").get(attemptId)) });
+  }, { auth: true });
+
   /* ------------------------------- HIC ---------------------------------- */
 
   // HIC is a SEPARATE, controlled ecosystem concept associated with Eco Nojin
@@ -2492,6 +3702,33 @@ export function createApp(options = {}) {
 
   /* ------------------------------ dispatch ------------------------------ */
 
+  /* -------------------------------- stac -------------------------------- */
+
+  route("GET", /^\/v1\/stac\/search$/u, async (req, res, ctx, url) => {
+    const result = await stacContract.search(Object.fromEntries(url.searchParams.entries()));
+    return json(res, 200, result);
+  }, { auth: false });
+
+  route("GET", /^\/v1\/stac\/collections\/(?<id>[\w-]+)$/u, async (req, res, ctx) => {
+    const collection = await stacContract.getCollection(ctx.params.id);
+    if (!collection) return fail(res, 404, "not_found", "Collection not found.");
+    return json(res, 200, collection);
+  }, { auth: false });
+
+  /* ------------------------------- science ------------------------------ */
+
+  route("POST", /^\/v1\/science\/gdd$/u, async (req, res, ctx) => {
+    const body = await readJson(req);
+    const result = runGdd(body, { runId: newId("run"), requestedBy: ctx.user?.id ?? "local" });
+    return json(res, result.status === "completed" ? 200 : 422, result);
+  }, { auth: false });
+
+  route("POST", /^\/v1\/science\/et0$/u, async (req, res, ctx) => {
+    const body = await readJson(req);
+    const result = runHargreavesEt0(body, { runId: newId("run"), requestedBy: ctx.user?.id ?? "local" });
+    return json(res, result.status === "completed" ? 200 : 422, result);
+  }, { auth: false });
+
   return async function handler(req, res) {
     cors(req, res);
     if (req.method === "OPTIONS") {
@@ -2501,6 +3738,16 @@ export function createApp(options = {}) {
         "access-control-max-age": "600",
       });
       return res.end();
+    }
+
+    // CSRF (SEC-06): reject state-changing requests that carry a cross-origin
+    // `Origin` header. Browsers always send Origin on cross-site POST/PATCH/DELETE,
+    // so this blocks CSRF while allowing same-origin browser calls and non-browser
+    // clients (which send no Origin). SameSite=Lax on the session cookie is the
+    // second layer.
+    const origin = req.headers.origin;
+    if (origin && !["GET", "HEAD", "OPTIONS"].includes(req.method) && !isAllowedOrigin(origin)) {
+      return fail(res, 403, "origin_forbidden", "Cross-origin request rejected.");
     }
 
     const url = new URL(req.url ?? "/", "http://localhost");

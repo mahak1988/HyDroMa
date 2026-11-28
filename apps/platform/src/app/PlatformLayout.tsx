@@ -9,6 +9,15 @@ import { UI, t } from "../content/ui";
 
 const OVERVIEW = pageById("overview");
 
+/**
+ * Only the platform workspace hosts the registry demo boundary. Other sections
+ * that reuse this layout (e.g. `/landscape`) have no `/demo` route, so they
+ * must not render a link that falls into their wildcard 404.
+ */
+export function demoHref(basePath: string): string | null {
+  return basePath === "/platform" ? "/platform/demo" : null;
+}
+
 type PlatformLayoutProps = {
   /** Public prefix for workspace links (defaults to the platform workspace). */
   basePath?: string;
@@ -69,9 +78,9 @@ export function PlatformLayout({ basePath = "/platform", sections: sectionIds, p
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search pages…"
+              placeholder={t(UI.search, locale)}
               className="pl-searchInput"
-              aria-label="Search pages"
+              aria-label={t(UI.search, locale)}
             />
           </div>
           {visibleSections.map((item) => {
@@ -124,12 +133,17 @@ export function PlatformLayout({ basePath = "/platform", sections: sectionIds, p
           })}
         </nav>
 
-        <div className="pl-sideFoot">
-          <Badge tone="warning" dot>
-            {t(UI.demo, locale)}
-          </Badge>
-          <p>{t(UI.demoNote, locale)}</p>
-        </div>
+        {demoHref(basePath) ? (
+          <div className="pl-sideFoot">
+            <Link to={demoHref(basePath)!} className="inline-flex items-center gap-2">
+              <Badge tone="warning" dot>
+                {t(UI.demo, locale)}
+              </Badge>
+              <span className="text-xs underline underline-offset-2">{t(UI.demoOpen, locale)}</span>
+            </Link>
+            <p>{t(UI.demoBannerBody, locale)}</p>
+          </div>
+        ) : null}
       </aside>
 
       <div className="pl-shell">

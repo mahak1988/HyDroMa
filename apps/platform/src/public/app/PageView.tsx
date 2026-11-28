@@ -1,18 +1,24 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "@eco-nojin/i18n";
 import { usePageMeta } from "./meta";
 import { useSite } from "../content/useContent";
-import type { PageKey } from "../content/types";
+import type { PageContent, PageKey } from "../content/types";
+import { getExtraPage, type ExtraPageKey } from "../content/extra";
 import { Sections } from "../components/Sections";
 import { LandscapeArt, TopoPattern } from "../components/Artwork";
 import { ContactForm } from "../components/ContactForm";
 
-export function PageView({ pageKey, path }: { pageKey: PageKey; path: string }) {
+function ContentPage({
+  page,
+  hero,
+  children,
+}: {
+  page: PageContent;
+  hero?: ReactNode;
+  children?: ReactNode;
+}) {
   const site = useSite();
-  const { locale } = useI18n();
-  const page = site.pages[pageKey];
-  usePageMeta({ title: page.title, description: page.description, path, locale });
-
   return (
     <article>
       <header className="relative overflow-hidden">
@@ -36,28 +42,55 @@ export function PageView({ pageKey, path }: { pageKey: PageKey; path: string }) 
               </a>
             </div>
           </div>
-          {pageKey === "home" ? (
-            <div className="relative">
-              <LandscapeArt className="w-full rounded-2xl border border-border shadow-e3" />
-            </div>
-          ) : (
-            <div aria-hidden="true" className="hidden justify-self-end lg:block">
-              <LandscapeArt className="w-[26rem] rounded-2xl border border-border opacity-90 shadow-e2" />
-            </div>
-          )}
+          <div aria-hidden="true" className="hidden justify-self-end lg:block">
+            {hero ?? <LandscapeArt className="w-[26rem] rounded-2xl border border-border opacity-90 shadow-e2" />}
+          </div>
         </div>
       </header>
 
       <div id="content" className="pt-6">
         <Sections blocks={page.blocks} />
-        {pageKey === "contact" ? (
-          <div className="mt-14">
-            <ContactForm />
-          </div>
-        ) : null}
+        {children}
       </div>
     </article>
   );
+}
+
+export function PageView({ pageKey, path }: { pageKey: PageKey; path: string }) {
+  const site = useSite();
+  const { locale } = useI18n();
+  const page = site.pages[pageKey];
+  usePageMeta({ title: page.title, description: page.description, path, locale });
+
+  return (
+    <ContentPage
+      page={page}
+      hero={
+        pageKey === "home" ? (
+          <LandscapeArt className="w-full rounded-2xl border border-border shadow-e3" />
+        ) : undefined
+      }
+    >
+      {pageKey === "contact" ? (
+        <div className="mt-14">
+          <ContactForm />
+        </div>
+      ) : null}
+    </ContentPage>
+  );
+}
+
+/**
+ * Public page backed by the additional `extra.ts` content (vision, impact,
+ * projects and the legal/accessibility drafts). These are not part of the core
+ * fifteen-locale `SiteContent.pages` record; `fa`, `en` and `ar` are authored
+ * and other locales fall back to English.
+ */
+export function ExtraPageView({ pageKey, path }: { pageKey: ExtraPageKey; path: string }) {
+  const { locale } = useI18n();
+  const page = getExtraPage(locale, pageKey);
+  usePageMeta({ title: page.title, description: page.description, path, locale });
+  return <ContentPage page={page} />;
 }
 
 export function NotFoundPage() {

@@ -40,7 +40,8 @@ test("a signed-in record syncs for real and is listed by the API", async ({ page
 
   await page.goto("/landscape/field/records");
   await expect(page.getByText("Synced terrace")).toBeVisible();
-  await expect(page.getByText("synced")).toBeVisible({ timeout: 15_000 });
+  // Exact match: the status badge "synced" must not collide with the title "Synced terrace".
+  await expect(page.getByText("synced", { exact: true })).toBeVisible({ timeout: 15_000 });
 
   const response = await context.request.get(`${API_BASE}/v1/resources/surveys`);
   expect(response.ok()).toBe(true);

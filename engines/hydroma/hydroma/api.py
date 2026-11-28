@@ -8,9 +8,10 @@ exposed. This is not a public API.
 
 from __future__ import annotations
 
+import os
 from typing import Optional
 
-from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
+from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
@@ -30,8 +31,15 @@ class RunRequest(BaseModel):
     tenant_id: Optional[str] = None
 
 
+def _require_gateway_token(x_hydroma_token: Optional[str] = Header(default=None)) -> None:
+    """Optional shared-token boundary. Enabled only when HYDROMA_API_TOKEN is set."""
+    expected = os.environ.get("HYDROMA_API_TOKEN")
+    if expected and x_hydroma_token != expected:
+        raise HTTPException(status_code=401, detail="invalid gateway token")
+
+
 def create_app(store: Optional[JobStore] = None, registry: Optional[ModelRegistry] = None) -> FastAPI:
-    app = FastAPI(title="HyDroMA Runtime", version="0.1.0")
+    app = FastAPI(title="HyDroMA Runtime", version="0.1.0", dependencies=[Depends(_require_gateway_token)])
     store = store or JobStore(":memory:")
     registry = registry or build_registry()
     app.state.store = store

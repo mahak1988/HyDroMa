@@ -1,0 +1,29 @@
+{
+  "name": "Eco Nojin — Unified Platform",
+  "short_name": "Eco Nojin",
+  "description": "Science, territory, economy and culture for living landscapes.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f7f2e9",
+  "theme_color": "#5a3d50",
+  "lang": "fa",
+  "dir": "rtl",
+  "categories": ["productivity", "education", "business"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

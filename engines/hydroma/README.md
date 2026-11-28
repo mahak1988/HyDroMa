@@ -1,7 +1,8 @@
 # engines/hydroma — scientific engine
 
-**Status:** Phase 2.1 MVP — **implemented and tested** (58 tests). Not scientifically
-validated. Not production-ready distributed infrastructure.
+**Status:** Phase 2.1 MVP — **implemented and tested** (1542 pytest tests, all passing; see
+`docs/reports/AUTONOMOUS_FULL_PROJECT_ENGINEERING_REPORT.md`). Not scientifically validated.
+Not production-ready distributed infrastructure.
 
 **Authority:** root `README.md`, `ARCHITECTURE-DECISIONS-OPEN.md`,
 `docs/architecture/PHASE-2.1-REQUIREMENTS-MAP.md`, and the TypeScript reference in
@@ -1267,3 +1268,212 @@ Two narrowly scoped additions to the Phase 3.26/3.27 framework (no model/equatio
 ## Phase 3.30 - First Real-Data Soil Water Balance Evaluation (SCAN 2046)
 
 `examples/prepare_scan_2046.py` is a reproducible real-data pipeline (no synthetic data). It reads the USDA NRCS SCAN daily soil-moisture (SMS) and weather (WEATHER) CSV exports for site 2046 (Perthshire, MS), calendar year 2024, derives root-zone storage from the 2/4/8/20/40 in sensors using documented midpoint layer boundaries (0/3/6/14/30/40 in), derives net radiation from measured solar radiation (FAO-56), computes ET0 with the existing `fao56_et0`, runs the stress-aware sequential model (`water_stress.compute_stress_aware_series`, Phase 3.21) over the longest contiguous run of complete days, and evaluates simulated vs observed storage with the Phase 3.26 evaluator. First run (2024-01-01..2024-09-29, 272 scored days): MAE 299.2 mm, RMSE 302.1 mm, Bias −299.2 mm, NSE −15.65, KGE 0.316 — a large negative bias caused by the documented loam θ_fc/θ_wp assumptions (0.27/0.12) being far below the observed θ regime (~0.36–0.65). This is a **preliminary empirical evaluation, not scientific validation**; Kc=1.0, p=0.5, loam parameters, zero irrigation/runoff/deep-percolation and midpoint layer integration are explicit assumptions. Maturity `tested`, scientific status **NOT_VALIDATED**.
+
+## Phase 3.31 - Agronomy, Drought, Pest & Groundwater Model Family
+
+Six bounded, deterministic, stdlib-only reference models added (no third-party
+dependency, empty dependency set preserved). Each is software-`tested` and
+scientifically **NOT_VALIDATED**; each publishes the full contract
+(inputs/outputs/assumptions/limitations/references/validation/provenance fields)
+and is registered in the Runtime/API. None changes an existing model.
+
+* **Drought index — `hydroma/drought.py`** (`eco-nojin.hydroma.drought-index`,
+  domain `drought`). Empirical standardized index (SPI/SPEI-style):
+  `index_i = Phi^-1((rank_i - 0.44)/(n + 0.12))` (Hazen plotting position +
+  Acklam inverse-normal CDF). `mode` = `SPI` (precipitation series) or `SPEI`
+  (P − ET0 series). Reports per-value class (McKee 1993). **Not** the gamma-fit
+  operational SPI; no seasonal grouping. Ref: `tests/test_drought.py`.
+* **Chilling & bloom — `hydroma/chilling.py`** (`eco-nojin.hydroma.chilling`,
+  domain `agriculture`). `compute_chilling` (Chilling Hours 0–7.2 °C + Utah
+  chill units, Richardson 1974); `estimate_bloom` (simplified chill-then-heat:
+  first day cumulative Utah chill ≥ requirement AND cumulative GDD ≥ bloom_gdd).
+  `chilling_adapter` dispatches on input shape for the single registered executor.
+  No chill-portions/Dynamic Model. Ref: `tests/test_chilling.py`.
+* **Crop growth & yield — `hydroma/crop_growth.py`**
+  (`eco-nojin.hydroma.crop-growth`, domain `crop`). Monteith (1977) RUE:
+  `dB = RUE·PAR·f_temp·f_water`; `Biomass = Σ dB`; `Yield = Biomass·HI`
+  (`1 g/m² = 0.01 t/ha`). Cardinal-temperature response; supplied `ks` (default
+  1.0). No CO2/nutrient/phenology partitioning. Ref: `tests/test_crop_growth.py`.
+* **Pest risk — `hydroma/pest_risk.py`** (`eco-nojin.hydroma.pest-risk`,
+  domain `agriculture`). `degree_day` mode (base + optional cap, biofix
+  `required_dd` → event day) and `suitability` mode (CLIMEX-lite
+  `f_temp·f_moist` → band). Not an operational forecast; no species calibration.
+  Ref: `tests/test_pest_risk.py`.
+* **Plant strengthening — `hydroma/plant_strengthening.py`**
+  (`eco-nojin.hydroma.plant-strengthening`, domain `agriculture`). Heuristic
+  weighted-mean resilience index over supplied factors in [0,1]
+  (`silicon`, `isr`, `sar`, `biostimulant`; optional `weights`). Transparent
+  aggregation only — no disease/yield prediction. Ref:
+  `tests/test_plant_strengthening.py`.
+* **Groundwater balance — `hydroma/groundwater.py`**
+  (`eco-nojin.hydroma.groundwater-balance`, domain `groundwater`). Lumped
+  single-bucket: `dS = recharge + lateral_in − discharge − pumping − lateral_out`.
+  Storage never clamped (negative → `out_of_domain`/`depleted`). Not MODFLOW;
+  no water quality. Ref: `tests/test_groundwater.py`.
+
+All six execute through the real Runtime/API path (verified end-to-end with
+provenance + `parameter_hash`). Full suite: **1357 passed**. Maturity `tested`,
+scientific status **NOT_VALIDATED** for every model.
+
+## Phase 3.32–3.36 - International-Standard Model Family (5 phases)
+
+Seven new bounded, deterministic, stdlib-only reference models added across the
+five prioritized phases (empty dependency set preserved; no existing model
+changed). Each publishes the full contract and is registered in the Runtime/API;
+all are software-`tested` and scientifically **NOT_VALIDATED**.
+
+### Phase 3.32 — WMO drought (`hydroma/drought_wmo.py`, `eco-nojin.hydroma.drought-wmo`, domain `drought`)
+* **Gamma-fit SPI** (Thom 1966; WMO 2012): method-of-moments gamma fit with
+  zero-frequency adjustment and Acklam inverse-normal transform
+  (`regularized_gamma_p` = regularized lower incomplete gamma). `method=spi_gamma`.
+* **Z-index** (simplified Palmer anomaly of P − PET). `method=z_index`.
+* **Simplified scPDSI** (single effective layer, supplied PET, α/β/γ/δ
+  calibration + duration recursion `X_i = Z_i + 0.897·X_{i-1}`). Not NCDC scPDSI.
+  `drought_wmo_adapter` dispatches on `method`. Ref: `tests/test_drought_wmo.py`.
+
+### Phase 3.33 — FAO crop (`hydroma/crop_dual.py`)
+* **Dual-Kc** (`eco-nojin.hydroma.dual-kc`, domain `crop`): FAO-56 Ch.7
+  `ETc = (Ks·Kcb + Ke)·ET0`, `Ke = Kr·(Kc_max − Kcb)`; `Ke=0` when `De` absent.
+* **AquaCrop-lite** (`eco-nojin.hydroma.aquacrop-lite`): `Biomass = WPb·ΣTr`,
+  `Yield = HI·Biomass`. Ref: `tests/test_crop_dual.py`.
+
+### Phase 3.34 — Soil physics (`hydroma/soil_physics.py`, `eco-nojin.hydroma.soil-physics`, domain `soil`)
+* **RUSLE** `A = R·K·LS·C·P` (McCool LS when slope+length supplied).
+* **Green-Ampt** ponded cumulative infiltration `F − c·ln(1+F/c) = K·t` (bisection).
+* **Pedotransfer** (texture-based, Saxton-Rawls-inspired, simplified; θwp < θfc).
+  `soil_physics_adapter` dispatches on `method`. Ref: `tests/test_soil_physics.py`.
+
+### Phase 3.35 — Sustainability (`hydroma/water_footprint.py`)
+* **Water footprint** (`eco-nojin.hydroma.water-footprint`, domain `water`):
+  green/blue/grey (Hoekstra) → total m³/ton.
+* **SDG 6.4.2 water stress** (`eco-nojin.hydroma.sdg-water-stress`):
+  `withdrawal/renewable·100` + level. Ref: `tests/test_water_footprint.py`.
+
+### Phase 3.36 — Groundwater MODFLOW-lite (`hydroma/groundwater_spatial.py`, `eco-nojin.hydroma.groundwater-spatial`, domain `groundwater`)
+* **Darcy flow** `Q = K·A·(h1−h2)/L`; **1-D steady head with recharge**;
+  **WTF recharge** `R = Sy·Δh/Δt`. Lumped/1-D, not a distributed solver.
+  `groundwater_spatial_adapter` dispatches on `method`.
+  Ref: `tests/test_groundwater_spatial.py`.
+
+All seven execute through the real Runtime/API path (verified end-to-end with
+provenance). Full suite: **1395 passed**. Maturity `tested`, scientific status
+**NOT_VALIDATED** for every model.
+
+## Phase 3.37–3.41 — Applied Science Model Family (5 phases)
+
+Five new bounded, deterministic, stdlib-only models (each a single registered
+model that dispatches on `method`; empty dependency set preserved; no existing
+model changed). All software-`tested`, scientifically **NOT_VALIDATED**.
+
+### Phase 3.37 — Agro-climate (`hydroma/agroclimate.py`, `eco-nojin.hydroma.agroclimate`, domain `climate`)
+* **Thornthwaite PET** (1948) with day-length correction and annual heat index.
+* **Priestley-Taylor ET0** (1972, α=1.26).
+* **Aridity Index** (UNEP) `P/PET` + class.
+* **Climate Normals** (WMO, descriptive n/mean/std/min/max/median).
+  `agroclimate_adapter` dispatches on `method`. Ref: `tests/test_agroclimate.py`.
+
+### Phase 3.38 — Surface hydrology (`hydroma/surface_hydrology.py`, `eco-nojin.hydroma.surface-hydrology`, domain `hydrology`)
+* **IHA (simplified subset)** (Richter 1996); **Flow duration curve**;
+  **7Q10** (10th percentile of 7-day minima); **Flood frequency** Gumbel (MoM)
+  + Log-Pearson III (Wilson-Hilferty). `surface_hydrology_adapter` dispatches on
+  `method`. Ref: `tests/test_surface_hydrology.py`.
+
+### Phase 3.39 — Carbon & GHG (`hydroma/carbon.py`, `eco-nojin.hydroma.carbon-mrv`, domain `soil`)
+* **RothC-lite** first-order SOC with Q10 temperature + moisture modifier.
+* **DNDC-lite** N2O from N input × WFPS × temperature response.
+* **IPCC MRV (Tier 1)** CO2 (44/12) + N2O (44/28) → CO2e (GWP AR6).
+* **4per1000** 0.4%/yr target and gap. `carbon_adapter` dispatches on `method`.
+  Ref: `tests/test_carbon.py`.
+
+### Phase 3.40 — Water productivity & zoning (`hydroma/water_productivity.py`, `eco-nojin.hydroma.water-productivity`, domain `water`)
+* **Water productivity** `Yield/ET` (kg/m³); **AEZ-lite** length of growing
+  period (`P ≥ 0.5·PET`); **Water scarcity index** (withdrawal / (availability −
+  EFR)). `water_productivity_adapter` dispatches on `method`.
+  Ref: `tests/test_water_productivity.py`.
+
+### Phase 3.41 — Biodiversity & stress (`hydroma/biodiversity_stress.py`, `eco-nojin.hydroma.biodiversity-stress`, domain `landscape`)
+* **WBGT** (ISO 7243, indoor/outdoor); **THI** (NRC 1971); **Habitat quality**
+  (InVEST-lite, threat-weighted); **Species suitability** (MaxEnt-lite / BIOCLIM
+  envelope). `biodiversity_adapter` dispatches on `method`.
+  Ref: `tests/test_biodiversity_stress.py`.
+
+All five execute through the real Runtime/API path (verified end-to-end with
+provenance). Full suite: **1436 passed**. Maturity `tested`, scientific status
+**NOT_VALIDATED** for every model.
+
+## Phase 3.42 — Remaining International Models (final batch)
+
+Seven new bounded, deterministic, stdlib-only models (empty dependency set
+preserved; no existing model changed). All software-`tested`, scientifically
+**NOT_VALIDATED**.
+
+* **Composite drought (EDO/GDO) + 2-layer scPDSI** — `hydroma/drought_composite.py`
+  (`eco-nojin.hydroma.drought-composite`, domain `drought`). Weighted standardized
+  component composite + a two-layer Palmer index (NCDC-lite, not full NCDC).
+  Ref: `tests/test_drought_composite.py`.
+* **Isotope hydrology** — `hydroma/isotope.py`
+  (`eco-nojin.hydroma.isotope-hydrology`, domain `groundwater`). Deuterium
+  excess (Dansgaard) + two-component mixing. Ref: `tests/test_isotope.py`.
+* **GRACE equivalent water height** — `hydroma/remote_sensing.py`
+  (`eco-nojin.hydroma.grace-anomaly`, domain `remote-sensing`). Mass anomaly →
+  equivalent water height/volume (NLDAS is a data product, not modeled).
+  Ref: `tests/test_remote_sensing.py`.
+* **DSSAT/APSIM-lite crop** — `hydroma/crop_dssat.py`
+  (`eco-nojin.hydroma.crop-dssat-lite`, domain `crop`). Thermal-time stage
+  development + RUE biomass + stage harvest index (not full DSSAT/APSIM).
+  Ref: `tests/test_crop_dssat.py`.
+* **Watershed (PRMS-lite) + nutrient (SPARROW-lite)** — `hydroma/watershed.py`
+  (`eco-nojin.hydroma.watershed-nutrient`, domain `hydrology`). Two-reservoir
+  daily balance + first-order nutrient delivery. Ref: `tests/test_watershed.py`.
+* **SDG indicators 6.4.1 / 2.4.1 / 15.3.1** — `hydroma/sdg_indicators.py`
+  (`eco-nojin.hydroma.sdg-indicators`, domain `water`). Water-use efficiency,
+  sustainable-agriculture share, degraded-land share. Ref:
+  `tests/test_sdg_indicators.py`.
+* **Rosetta-lite pedotransfer** — `hydroma/rosetta.py`
+  (`eco-nojin.hydroma.rosetta-pedotransfer`, domain `soil`). Texture + OM →
+  θ33/θ1500 (distinct from `soil_physics` simplified form; not full Rosetta).
+  Ref: `tests/test_rosetta.py`.
+
+All seven execute through the real Runtime/API path (verified end-to-end).
+Full suite: **1470 passed** across **47 registered models**. Maturity `tested`,
+scientific status **NOT_VALIDATED** for every model.
+
+## Phase 3.43 — Calibration & Free-Data Connection
+
+### Calibration (`hydroma/calibration.py`, `eco-nojin.hydroma.calibration`, domain `simulation`)
+A stdlib-only (no scipy) parameter-estimation toolkit:
+* `nelder_mead` (1965 simplex), `grid_search`, `objective_rmse`, `objective_nse`
+  (consistent with the Phase 3.26 evaluation metrics), `calibrate_generic`.
+* Registered `compute_calibration` fits `y = a·exp(-k·x)` by grid + Nelder-Mead,
+  returning `a`, `k`, RMSE, NSE and provenance.
+* Calibration **never** promotes maturity or scientific status; calibration and
+  validation datasets must stay distinct. Ref: `tests/test_calibration.py`.
+
+### Free-data connection (`hydroma/free_sources.py`)
+A **data-layer adapter** (no network I/O; the core stays offline and
+`test_boundaries` is preserved). It registers free, open sources and produces
+STAC Items / DataArtifact *references* (never opens the asset):
+* Sentinel-1/2 (ESA/Copernicus, CC BY-SA 3.0 IGO), Landsat 8/9 (USGS, public
+  domain), MODIS LAI/ET (NASA), CHIRPS (UCSB, CC BY 3.0), ERA5 (ECMWF/Copernicus),
+  GRACE-FO (NASA/JPL), SoilGrids 250m (ISRIC, CC BY 4.0), SRTM DEM (NASA/USGS).
+* `build_data_artifact` / `build_stac_item` / `list_sources`; each source carries
+  a `fetch_spec` (api/auth/assets) for a separate optional connector. The core
+  never calls the URL. Ref: `tests/test_free_sources.py`.
+
+Full suite: **1483 passed** across **48 registered models**. Maturity `tested`,
+scientific status **NOT_VALIDATED** for every model.
+
+## Phase 3.96 — Optional Environmental Data Connectors (`hydroma.connect`)
+
+An **optional** package (never imported by the core; core `dependencies = []`
+unchanged; optional groups `connect`/`raster`). Architecture: connectors →
+acquisition (SSRF/path-traversal/size/timeout/bounded-retry, lazy `httpx`) →
+cache (deterministic keys, atomic, SHA-256 verify, no silent overwrite) →
+artifacts (core `DataArtifact` dict + distinct lifecycle statuses) → STAC →
+adapters (`ClimateSeries`, `item_from_data_artifact`). Connectors: CHIRPS,
+ERA5/ERA5-Land (distinct, auth-aware), Sentinel-2 (STAC discovery + asset; no
+auto-NDVI). All tests offline via a fake transport; live acquisition opt-in.
+Boundary/security/integration tests in `tests/test_connect_*.py`. ADR:
+`docs/adr/ADR-0011-optional-environmental-connectors.md`. Report:
+`docs/reports/phase-3.96-optional-environmental-connectors-acquisition-report.md`.
+Full suite: **1532 passed**. Connectors are **NOT_VALIDATED** (reference-grade).

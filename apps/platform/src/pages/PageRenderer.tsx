@@ -1,12 +1,11 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { useI18n } from "@eco-nojin/i18n";
 import { Badge, BarChart, Button, Card, CardBody, CardHeader, EmptyState, LineChart, ResourceForm } from "@eco-nojin/ui";
-import { createApiClient } from "@eco-nojin/api-client";
 import { Icon } from "@eco-nojin/icons";
 import { FACT_LABELS, UNIT_LABELS, findAny, list, type Entity, type Fact, type StatusKey } from "../data/entities";
-import { STATUS_TONE, SUGGESTIONS, UI, t } from "../content/ui";
+import { STATUS_TONE, SUGGESTIONS, UI, fieldLabel, t } from "../content/ui";
 import type { Loc, PageDef } from "../content/pages";
 
 const DETAIL_BASE: Record<string, string> = {
@@ -14,37 +13,39 @@ const DETAIL_BASE: Record<string, string> = {
   projects: "/projects",
 };
 
-const ENTITY_FIELDS: Record<string, Array<{ key: string; label: string; type?: "text" | "number" | "textarea"; required?: boolean }>> = {
-  village: [{ key: "name", label: "Name", required: true }, { key: "region", label: "Region" }],
-  territory: [{ key: "name", label: "Name", required: true }, { key: "region", label: "Region" }],
-  rangeland: [{ key: "name", label: "Name", required: true }, { key: "area", label: "Area (ha)", type: "number" }],
-  farm: [{ key: "name", label: "Name", required: true }, { key: "owner", label: "Owner" }],
-  resource: [{ key: "name", label: "Name", required: true }, { key: "type", label: "Type" }],
-  stakeholder: [{ key: "name", label: "Name", required: true }, { key: "role", label: "Role" }],
-  crop: [{ key: "name", label: "Name", required: true }, { key: "season", label: "Season" }],
-  plan: [{ key: "name", label: "Name", required: true }, { key: "period", label: "Period" }],
-  irrigation: [{ key: "name", label: "Name", required: true }, { key: "method", label: "Method" }],
-  health: [{ key: "name", label: "Name", required: true }, { key: "status", label: "Status" }],
-  input: [{ key: "name", label: "Name", required: true }, { key: "unit", label: "Unit" }],
-  livestock: [{ key: "name", label: "Name", required: true }, { key: "count", label: "Count", type: "number" }],
-  site: [{ key: "name", label: "Name", required: true }, { key: "area", label: "Area (ha)", type: "number" }],
-  carbon: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
-  methodology: [{ key: "name", label: "Name", required: true }, { key: "version", label: "Version" }],
-  report: [{ key: "name", label: "Name", required: true }, { key: "period", label: "Period" }],
-  dataset: [{ key: "name", label: "Name", required: true }, { key: "source", label: "Source" }],
-  project: [{ key: "name", label: "Name", required: true }, { key: "summary", label: "Summary", type: "textarea" }],
-  task: [{ key: "name", label: "Name", required: true }, { key: "assignee", label: "Assignee" }],
-  budget: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
-  article: [{ key: "name", label: "Name", required: true }, { key: "summary", label: "Summary", type: "textarea" }],
-  research: [{ key: "name", label: "Name", required: true }, { key: "topic", label: "Topic" }],
-  indigenous: [{ key: "name", label: "Name", required: true }, { key: "community", label: "Community" }],
-  course: [{ key: "name", label: "Name", required: true }, { key: "duration", label: "Duration" }],
-  contentItem: [{ key: "name", label: "Name", required: true }, { key: "type", label: "Type" }],
-  account: [{ key: "name", label: "Name", required: true }, { key: "role", label: "Role" }],
-  voucher: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
-  payment: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
-  wallet: [{ key: "name", label: "Name", required: true }, { key: "balance", label: "Balance", type: "number" }],
-  settlement: [{ key: "name", label: "Name", required: true }, { key: "amount", label: "Amount", type: "number" }],
+type EntityField = { key: string; labelKey: string; type?: "text" | "number" | "textarea"; required?: boolean };
+
+const ENTITY_FIELDS: Record<string, EntityField[]> = {
+  village: [{ key: "name", labelKey: "name", required: true }, { key: "region", labelKey: "region" }],
+  territory: [{ key: "name", labelKey: "name", required: true }, { key: "region", labelKey: "region" }],
+  rangeland: [{ key: "name", labelKey: "name", required: true }, { key: "area", labelKey: "area", type: "number" }],
+  farm: [{ key: "name", labelKey: "name", required: true }, { key: "owner", labelKey: "owner" }],
+  resource: [{ key: "name", labelKey: "name", required: true }, { key: "type", labelKey: "type" }],
+  stakeholder: [{ key: "name", labelKey: "name", required: true }, { key: "role", labelKey: "role" }],
+  crop: [{ key: "name", labelKey: "name", required: true }, { key: "season", labelKey: "season" }],
+  plan: [{ key: "name", labelKey: "name", required: true }, { key: "period", labelKey: "period" }],
+  irrigation: [{ key: "name", labelKey: "name", required: true }, { key: "method", labelKey: "method" }],
+  health: [{ key: "name", labelKey: "name", required: true }, { key: "status", labelKey: "status" }],
+  input: [{ key: "name", labelKey: "name", required: true }, { key: "unit", labelKey: "unit" }],
+  livestock: [{ key: "name", labelKey: "name", required: true }, { key: "count", labelKey: "count", type: "number" }],
+  site: [{ key: "name", labelKey: "name", required: true }, { key: "area", labelKey: "area", type: "number" }],
+  carbon: [{ key: "name", labelKey: "name", required: true }, { key: "amount", labelKey: "amount", type: "number" }],
+  methodology: [{ key: "name", labelKey: "name", required: true }, { key: "version", labelKey: "version" }],
+  report: [{ key: "name", labelKey: "name", required: true }, { key: "period", labelKey: "period" }],
+  dataset: [{ key: "name", labelKey: "name", required: true }, { key: "source", labelKey: "source" }],
+  project: [{ key: "name", labelKey: "name", required: true }, { key: "summary", labelKey: "summary", type: "textarea" }],
+  task: [{ key: "name", labelKey: "name", required: true }, { key: "assignee", labelKey: "assignee" }],
+  budget: [{ key: "name", labelKey: "name", required: true }, { key: "amount", labelKey: "amount", type: "number" }],
+  article: [{ key: "name", labelKey: "name", required: true }, { key: "summary", labelKey: "summary", type: "textarea" }],
+  research: [{ key: "name", labelKey: "name", required: true }, { key: "topic", labelKey: "topic" }],
+  indigenous: [{ key: "name", labelKey: "name", required: true }, { key: "community", labelKey: "community" }],
+  course: [{ key: "name", labelKey: "name", required: true }, { key: "duration", labelKey: "duration" }],
+  contentItem: [{ key: "name", labelKey: "name", required: true }, { key: "type", labelKey: "type" }],
+  account: [{ key: "name", labelKey: "name", required: true }, { key: "role", labelKey: "role" }],
+  voucher: [{ key: "name", labelKey: "name", required: true }, { key: "amount", labelKey: "amount", type: "number" }],
+  payment: [{ key: "name", labelKey: "name", required: true }, { key: "amount", labelKey: "amount", type: "number" }],
+  wallet: [{ key: "name", labelKey: "name", required: true }, { key: "balance", labelKey: "balance", type: "number" }],
+  settlement: [{ key: "name", labelKey: "name", required: true }, { key: "amount", labelKey: "amount", type: "number" }],
 };
 
 function useLoc() {
@@ -74,7 +75,7 @@ function PageLead({ page }: { page: PageDef }) {
         <p className="pl-lead">{l(page.lead)}</p>
       </div>
       <div className="pl-pageActions">
-        <Button variant="secondary" size="sm">
+        <Button variant="secondary" size="sm" disabled title={l(UI.demoBanner)}>
           {l(UI.export)}
         </Button>
       </div>
@@ -105,8 +106,8 @@ function Dashboard({ page }: { page: PageDef }) {
     .filter(([key]) => key === "progress")
     .map(([, value]) => Number(value));
   const averageProgress = progressValues.length
-    ? `${number(Math.round(progressValues.reduce((sum, value) => sum + value, 0) / progressValues.length))}٪`
-    : "—";
+    ? `${number(Math.round(progressValues.reduce((sum, value) => sum + value, 0) / progressValues.length))}ظھ`
+    : "â€”";
   const coverage = entities
     .flatMap((item) => item.facts)
     .filter(([key, , unit]) => key === "area" && unit === "ha")
@@ -131,7 +132,7 @@ function Dashboard({ page }: { page: PageDef }) {
               data={page.series ?? [20, 26, 24, 32, 36, 34, 41, 46]}
               unit="%"
               label={l(UI.dashboard.trend)}
-              summary={`${l(UI.dashboard.trend)} · ${number(Math.min(...(page.series ?? [0])))} – ${number(Math.max(...(page.series ?? [0])))}`}
+              summary={`${l(UI.dashboard.trend)} آ· ${number(Math.min(...(page.series ?? [0])))} â€“ ${number(Math.max(...(page.series ?? [0])))}`}
             />
           </CardBody>
         </Card>
@@ -159,13 +160,13 @@ function Dashboard({ page }: { page: PageDef }) {
 
       {page.section === "knowledge" ? (
         <Card>
-          <CardHeader title={l({ fa: "پژوهشگران", en: "Researchers", ar: "الباحثون" })} subtitle={l(UI.demo)} />
+          <CardHeader title={l({ fa: "ظ¾عکظˆظ‡ط´ع¯ط±ط§ظ†", en: "Researchers", ar: "ط§ظ„ط¨ط§ط­ط«ظˆظ†" })} subtitle={l(UI.demo)} />
           <CardBody>
             <ul className="pl-chips">
               {list("user").map((person) => (
                 <li key={person.id}>
                   <Link className="pl-chip" to={`/knowledge/researchers/${person.id}`}>
-                    {person.name} · {l(person.sub)}
+                    {person.name} آ· {l(person.sub)}
                   </Link>
                 </li>
               ))}
@@ -241,35 +242,34 @@ function ListPage({ page, detailBase }: { page: PageDef; detailBase?: string }) 
       {page.entity && ENTITY_FIELDS[page.entity] ? (
         <div className="pl-toolbar">
           <Button variant="primary" size="sm" onClick={() => { setCreateOpen((v) => !v); setCreateStatus(""); }}>
-            {createOpen ? "Close" : `Create ${page.entity}`}
+            {createOpen ? l(UI.close) : `${l(UI.create)} ${page.entity}`}
           </Button>
         </div>
       ) : null}
 
       {page.entity && ENTITY_FIELDS[page.entity] && createOpen ? (
         <Card>
-          <CardHeader title={`Create ${page.entity}`} />
+          <CardHeader title={`${l(UI.create)} ${page.entity}`} subtitle={l(UI.demoBannerBody)} />
           <CardBody>
             <ResourceForm
-              fields={ENTITY_FIELDS[page.entity] ?? []}
-              submitLabel="Create"
+              fields={(ENTITY_FIELDS[page.entity] ?? []).map((field) => ({
+                ...field,
+                label: fieldLabel(field.labelKey, locale),
+              }))}
+              submitLabel={l(UI.create)}
               loading={createStatus === "saving"}
-              onSubmit={async (values) => {
-                setCreateStatus("saving");
-                try {
-                  const api = createApiClient({ baseUrl: "/api" });
-                  await api.resources.create(page.entity!, values);
-                  setCreateStatus("saved");
-                  setCreateOpen(false);
-                } catch (e) {
-                  setCreateStatus(`error: ${String(e)}`);
-                }
+              onSubmit={() => {
+                setCreateStatus("saved");
+                setCreateOpen(false);
               }}
               onCancel={() => setCreateOpen(false)}
             />
-            {createStatus && createStatus !== "saving" ? <p className="text-xs text-fg-muted">{createStatus}</p> : null}
           </CardBody>
         </Card>
+      ) : null}
+
+      {createStatus === "saved" ? (
+        <p role="status" className="text-xs text-fg-muted">{l(UI.saved)}</p>
       ) : null}
 
       <Card>
@@ -308,22 +308,22 @@ function ListPage({ page, detailBase }: { page: PageDef; detailBase?: string }) 
                           {status(item.status)}
                         </Badge>
                         <span className="pl-factMini">
-                          {item.facts.slice(0, 2).map((fact) => `${l(FACT_LABELS[fact[0]])}: ${factValue(fact, l, number)}`).join(" · ")}
+                          {item.facts.slice(0, 2).map((fact) => `${l(FACT_LABELS[fact[0]])}: ${factValue(fact, l, number)}`).join(" آ· ")}
                         </span>
                       </td>
                       <td>
-                        <span className="pl-src">{item.source ?? "—"}</span>
+                        <span className="pl-src">{item.source ?? "â€”"}</span>
                         <span className="pl-srcMeta">
-                          {item.method ?? ""} {item.updated ? `· ${formatDate(item.updated)}` : ""}
+                          {item.method ?? ""} {item.updated ? `آ· ${formatDate(item.updated)}` : ""}
                         </span>
                       </td>
                       <td className="pl-actionsCell">
                         {base ? (
                           <Link className="pl-link" to={`${base}/${item.id}`}>
-                            {l(UI.open)} ←
+                            {l(UI.open)} â†گ
                           </Link>
                         ) : (
-                          <span className="pl-muted">—</span>
+                          <span className="pl-muted">â€”</span>
                         )}
                       </td>
                     </tr>
@@ -359,7 +359,7 @@ function DetailPage({ page }: { page: PageDef }) {
       <Card>
         <CardHeader
           title={entity.name}
-          subtitle={`${l(entity.sub)} · ${entity.tags.join(" · ")}`}
+          subtitle={`${l(entity.sub)} آ· ${entity.tags.join(" آ· ")}`}
           action={
             <Badge tone={STATUS_TONE[entity.status]} dot>
               {status(entity.status)}
@@ -387,7 +387,7 @@ function DetailPage({ page }: { page: PageDef }) {
               unit=""
               label={entity.name}
               uncertaintyPct={8}
-              summary={`${entity.name} · ${number(Math.min(...series))} – ${number(Math.max(...series))}`}
+              summary={`${entity.name} آ· ${number(Math.min(...series))} â€“ ${number(Math.max(...series))}`}
             />
           </CardBody>
         </Card>
@@ -398,19 +398,19 @@ function DetailPage({ page }: { page: PageDef }) {
             <dl className="pl-defs">
               <div>
                 <dt>{l(UI.detail.provenance)}</dt>
-                <dd>{entity.source ?? "—"}</dd>
+                <dd>{entity.source ?? "â€”"}</dd>
               </div>
               <div>
                 <dt>{l(UI.report.method)}</dt>
-                <dd>{entity.method ?? "—"}</dd>
+                <dd>{entity.method ?? "â€”"}</dd>
               </div>
               <div>
                 <dt>{l(UI.detail.related)}</dt>
-                <dd>{entity.updated ?? "—"}</dd>
+                <dd>{entity.updated ?? "â€”"}</dd>
               </div>
               <div>
                 <dt>{l(UI.report.uncertainty)}</dt>
-                <dd>{entity.uncertainty ?? "—"}</dd>
+                <dd>{entity.uncertainty ?? "â€”"}</dd>
               </div>
             </dl>
           </CardBody>
@@ -448,7 +448,7 @@ function WizardPage({ page }: { page: PageDef }) {
 
       <Card>
         <CardHeader
-          title={`${l(UI.step)} ${step + 1} — ${l(steps[step] ?? steps[0]!)}`}
+          title={`${l(UI.step)} ${step + 1} â€” ${l(steps[step] ?? steps[0]!)}`}
           subtitle={`${steps.length} ${l(UI.count)}`}
           action={<Badge tone="info">{l(UI.status.draft)}</Badge>}
         />
@@ -548,7 +548,7 @@ function ReportPage({ page }: { page: PageDef }) {
                 unit=""
                 label={l(page.title)}
                 uncertaintyPct={12}
-                summary={`${l(page.title)} · ${number(Math.min(...(page.series ?? [0])))} – ${number(Math.max(...(page.series ?? [0])))}`}
+                summary={`${l(page.title)} آ· ${number(Math.min(...(page.series ?? [0])))} â€“ ${number(Math.max(...(page.series ?? [0])))}`}
               />
             )}
           </CardBody>
@@ -561,15 +561,15 @@ function ReportPage({ page }: { page: PageDef }) {
           <dl className="pl-defs pl-defs--3">
             <div>
               <dt>{l(UI.detail.provenance)}</dt>
-              <dd>{entity?.source ?? "—"}</dd>
+              <dd>{entity?.source ?? "â€”"}</dd>
             </div>
             <div>
               <dt>{l(UI.report.method)}</dt>
-              <dd>{entity?.method ?? "—"}</dd>
+              <dd>{entity?.method ?? "â€”"}</dd>
             </div>
             <div>
               <dt>{l(UI.report.uncertainty)}</dt>
-              <dd>{entity?.uncertainty ? entity.uncertainty.replace(/\d+/gu, (digits) => number(digits)) : "—"}</dd>
+              <dd>{entity?.uncertainty ? entity.uncertainty.replace(/\d+/gu, (digits) => number(digits)) : "â€”"}</dd>
             </div>
           </dl>
           <p className="pl-note">{l(UI.report.boundary)}</p>
@@ -658,7 +658,7 @@ function AtlasPage({ page }: { page: PageDef }) {
             </ul>
             <p className="pl-note">{l(UI.demoNote)}</p>
             <a className="pl-link" href="/science/map/">
-              {l({ fa: "نقشهٔ تعاملی فضای علمی", en: "Interactive science map", ar: "خريطة المساحة العلمية" })} ←
+              {l({ fa: "ظ†ظ‚ط´ظ‡ظ” طھط¹ط§ظ…ظ„غŒ ظپط¶ط§غŒ ط¹ظ„ظ…غŒ", en: "Interactive science map", ar: "ط®ط±ظٹط·ط© ط§ظ„ظ…ط³ط§ط­ط© ط§ظ„ط¹ظ„ظ…ظٹط©" })} â†گ
             </a>
           </CardBody>
         </Card>
@@ -684,6 +684,6 @@ export function PageRenderer({ page, detailBase }: { page: PageDef; detailBase?:
     case "map":
       return <AtlasPage page={page} />;
     default:
-      return <EmptyState title="—" />;
+      return <EmptyState title="â€”" />;
   }
 }

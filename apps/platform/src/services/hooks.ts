@@ -1,9 +1,9 @@
-/**
+﻿/**
  * Shared query layer for the platform workspace (TanStack Query).
  *
  * Every hook is thin: it reads the authoritative API client from the real
  * session and exposes typed query/mutation results. There is NO fallback to
- * demo data — an unreachable backend surfaces as an error state the UI renders
+ * demo data â€” an unreachable backend surfaces as an error state the UI renders
  * honestly. Non-idempotent mutations are never auto-retried (the transport only
  * retries GET), matching the API client policy.
  */
@@ -11,11 +11,18 @@ import { useMutation, useQuery, useQueryClient, type UseQueryResult } from "@tan
 import { useRealSession } from "@eco-nojin/auth-client";
 import type { ApiClient } from "@eco-nojin/api-client";
 import type {
+  AdjustmentRequest,
   Challenge,
   EcoCoinReconcile,
   EcoCoinSummary,
   HicStatus,
+  HydromaRun,
+  SoilProfile,
+  SoilObservation,
+  EnvParameter,
+  EnvObservation,
   LedgerEntry,
+  LedgerQuery,
   Participation,
   RewardRule,
   VerifyResult,
@@ -31,7 +38,7 @@ function useApi(): ApiClient {
   return useRealSession().api;
 }
 
-/** List a generic resource collection (landscapes, villages, projects, …). */
+/** List a generic resource collection (landscapes, villages, projects, â€¦). */
 export function useResourceList(
   type: ResourceType,
   query: { search?: string } = {},
@@ -198,6 +205,176 @@ export function useMarkNotificationsSeen() {
   });
 }
 
+export function useSoilProfiles(farmId?: string): UseQueryResult<{ items: SoilProfile[]; total: number }> {
+  const api = useApi();
+  const organizationId = useActiveOrg();
+  return useQuery({
+    queryKey: ["soil", "profiles", organizationId ?? "", farmId ?? ""],
+    queryFn: ({ signal }) => api.soil.listProfiles(farmId ? { farmId } : undefined, { signal }),
+    staleTime: STALE_MS,
+  });
+}
+
+export function useCreateSoilProfile() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { name: string; layers: Array<Record<string, unknown>>; source?: string; farmId?: string; projectId?: string; notes?: string }) =>
+      api.soil.createProfile(payload),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["soil", "profiles"] });
+    },
+  });
+}
+
+export function useSoilVersions(profileId: string): UseQueryResult<{ items: Array<{ id: string; profileId: string; version: number; layers: Array<Record<string, unknown>>; source: string; notes: string | null; createdAt: string }>; total: number }> {
+  const api = useApi();
+  return useQuery({
+    queryKey: ["soil", "versions", profileId],
+    queryFn: ({ signal }) => api.soil.listVersions(profileId, { signal }),
+    enabled: Boolean(profileId),
+    staleTime: STALE_MS,
+  });
+}
+
+export function useSoilObservations(farmId?: string): UseQueryResult<{ items: SoilObservation[]; total: number }> {
+  const api = useApi();
+  const organizationId = useActiveOrg();
+  return useQuery({
+    queryKey: ["soil", "observations", organizationId ?? "", farmId ?? ""],
+    queryFn: ({ signal }) => api.soil.listObservations(farmId ? { farmId } : undefined, { signal }),
+    staleTime: STALE_MS,
+  });
+}
+
+export function useCreateSoilObservation() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { farmId?: string; projectId?: string; profileId?: string; observedAt: string; depthMm?: number; parameter: string; value: number; unit: string; source?: string; method?: string; instrument?: string; quality?: string; notes?: string }) =>
+      api.soil.createObservation(payload),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["soil", "observations"] });
+    },
+  });
+}
+
+export function useUpdateSoilProfile() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, payload }: { id: string; payload: { layers?: Array<Record<string, unknown>>; source?: string; notes?: string } }) => api.soil.updateProfile(id, payload),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["soil", "profiles"] });
+      void client.invalidateQueries({ queryKey: ["soil", "versions"] });
+    },
+  });
+}
+
+export function useExecuteRun() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, modelInput }: { id: string; modelInput: Record<string, unknown> }) => api.hydroma.executeRun(id, modelInput),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["hydroma", "runs"] });
+      void client.invalidateQueries({ queryKey: ["hydroma", "run"] });
+    },
+  });
+}
+
+export function useCreateDatasetRun() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { runKey: string; modelId: string; modelVersion: string; input: Record<string, unknown>; datasetId?: string; farmId?: string; projectId?: string }) => api.hydroma.createRun(payload),
+    onSuccess: () => { void client.invalidateQueries({ queryKey: ["hydroma", "runs"] }); },
+  });
+}
+
+export function useDatasets(): UseQueryResult<{ items: Array<{ id: string; farmId: string | null; projectId: string | null; startDate: string; endDate: string; readiness: string; coverage: number; createdAt: string }>; total: number }> {
+  const api = useApi();
+  return useQuery({ queryKey: ["datasets"], queryFn: ({ signal }) => api.datasets.list({ signal }), staleTime: STALE_MS });
+}
+
+export function useAssembleDataset() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { farmId?: string; projectId?: string; startDate: string; endDate: string; parameters: string[] }) => api.datasets.assemble(payload),
+    onSuccess: () => { void client.invalidateQueries({ queryKey: ["datasets"] }); },
+  });
+}
+
+export function useDatasetModelInput() {
+  const api = useApi();
+  return useMutation({ mutationFn: ({ id, modelId, modelVersion }: { id: string; modelId: string; modelVersion: string }) => api.datasets.modelInput(id, { modelId, modelVersion }) });
+}
+
+export function useEnvParameters(): UseQueryResult<{ items: EnvParameter[]; total: number }> {
+  const api = useApi();
+  return useQuery({ queryKey: ["env", "parameters"], queryFn: ({ signal }) => api.envData.listParameters({ signal }), staleTime: STALE_MS });
+}
+
+export function useEnvObservations(farmId?: string): UseQueryResult<{ items: EnvObservation[]; total: number }> {
+  const api = useApi();
+  const organizationId = useActiveOrg();
+  return useQuery({
+    queryKey: ["env", "observations", organizationId ?? "", farmId ?? ""],
+    queryFn: ({ signal }) => api.envData.listObservations(farmId ? { farmId } : undefined, { signal }),
+    staleTime: STALE_MS,
+  });
+}
+
+export function useEnvImports(): UseQueryResult<{ items: Array<{ id: string; filename: string; source: string; status: string; total: number; imported: number; rejected: number; duplicates: number; createdAt: string }>; total: number }> {
+  const api = useApi();
+  return useQuery({ queryKey: ["env", "imports"], queryFn: ({ signal }) => api.envData.listImports({ signal }), staleTime: STALE_MS });
+}
+
+export function useImportEnvCsv() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { csv: string; filename?: string; source?: string; farmId?: string; projectId?: string }) => api.envData.importCsv(payload),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["env", "observations"] });
+      void client.invalidateQueries({ queryKey: ["env", "imports"] });
+    },
+  });
+}
+
+export function useHydromaRuns(limit = 20, farmId?: string): UseQueryResult<{ items: HydromaRun[]; total: number; nextCursor: string | null }> {
+  const api = useApi();
+  const organizationId = useActiveOrg();
+  return useQuery({
+    queryKey: ["hydroma", "runs", organizationId ?? "", limit, farmId ?? ""],
+    queryFn: ({ signal }) => api.hydroma.listRuns({ limit: String(limit), ...(farmId ? { farmId } : {}) }, { signal }) as Promise<{ items: HydromaRun[]; total: number; nextCursor: string | null }>,
+    staleTime: STALE_MS,
+  });
+}
+
+export function useHydromaRun(id: string): UseQueryResult<{ run: HydromaRun }> {
+  const api = useApi();
+  return useQuery({
+    queryKey: ["hydroma", "run", id],
+    queryFn: ({ signal }) => api.hydroma.getRun(id, { signal }),
+    enabled: Boolean(id),
+    staleTime: STALE_MS,
+  });
+}
+
+export function useCreateIrrigationRun() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { runKey: string; input: Record<string, unknown>; farmId?: string; cropCycleId?: string; projectId?: string; soilProfileId?: string; soilProfileVersion?: number; correlationId?: string }) =>
+      api.hydroma.createIrrigationRun(payload),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["hydroma", "runs"] });
+    },
+  });
+}
+
 export function useModels(): UseQueryResult<{ models: Array<{ id: string; version: string; title?: string; domain?: string; scientific_status?: string; maturity?: string }>; source?: string }> {
   const api = useApi();
   return useQuery({
@@ -357,12 +534,13 @@ export function useEcoCoinSummary(): UseQueryResult<EcoCoinSummary> {
   });
 }
 
-export function useEcoCoinLedger(): UseQueryResult<LedgerPage> {
+export function useEcoCoinLedger(filters: LedgerQuery = {}): UseQueryResult<LedgerPage> {
   const api = useApi();
   const organizationId = useActiveOrg();
+  const query: LedgerQuery = { ...filters, organizationId: filters.organizationId ?? organizationId };
   return useQuery({
-    queryKey: ["ecocoin", "ledger", organizationId ?? ""],
-    queryFn: ({ signal }) => api.ecocoin.ledger(organizationId, { signal }) as Promise<LedgerPage>,
+    queryKey: ["ecocoin", "ledger", query],
+    queryFn: ({ signal }) => api.ecocoin.ledger(query, { signal }) as Promise<LedgerPage>,
     staleTime: STALE_MS,
   });
 }
@@ -389,6 +567,66 @@ export function useAdjustEcoCoin() {
 }
 
 export type { Challenge, EcoCoinReconcile, EcoCoinSummary, LedgerEntry, Participation, RewardRule, VerifyResult };
+
+export type AdjustmentRequestPage = { items: AdjustmentRequest[]; nextCursor: string | null; total: number };
+
+/** Pending/approved/rejected manual EcoCoin correction requests (four-eyes). */
+export function useAdjustmentRequests(): UseQueryResult<AdjustmentRequestPage> {
+  const api = useApi();
+  return useQuery({
+    queryKey: ["ecocoin", "adjustment-requests"],
+    queryFn: ({ signal }) => api.ecocoin.listAdjustmentRequests({ signal }) as Promise<AdjustmentRequestPage>,
+    staleTime: STALE_MS,
+  });
+}
+
+export function useApproveAdjustmentRequest() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, note }: { id: string; note?: string }) => api.ecocoin.approveAdjustmentRequest(id, note),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["ecocoin", "adjustment-requests"] });
+      void client.invalidateQueries({ queryKey: ["ecocoin"] });
+    },
+  });
+}
+
+export function useRejectAdjustmentRequest() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, note }: { id: string; note?: string }) => api.ecocoin.rejectAdjustmentRequest(id, note),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["ecocoin", "adjustment-requests"] });
+      void client.invalidateQueries({ queryKey: ["ecocoin"] });
+    },
+  });
+}
+
+export function useExecuteAdjustmentRequest() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => api.ecocoin.executeAdjustmentRequest(id),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["ecocoin", "adjustment-requests"] });
+      void client.invalidateQueries({ queryKey: ["ecocoin"] });
+    },
+  });
+}
+
+export function useRequestAdjustment() {
+  const api = useApi();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { targetUserId: string; amount: number; entryType: "credit" | "debit"; reason: string }) =>
+      api.ecocoin.requestAdjustment(payload),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: ["ecocoin", "adjustment-requests"] });
+    },
+  });
+}
 
 /** Submit structured evidence for the current user's participation. */
 export function useSubmitEvidence(challengeId: string) {
@@ -578,7 +816,7 @@ export function useCreateSource() {
 
 /* -------------------------------- HIC ---------------------------------- */
 
-/** HIC status — read-only, inactive, non-financial foundation. */
+/** HIC status â€” read-only, inactive, non-financial foundation. */
 export function useHicStatus() {
   const api = useApi();
   return useQuery({

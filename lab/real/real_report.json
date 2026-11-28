@@ -1,0 +1,83 @@
+{
+  "aridity": {
+    "annual_pet_mm": 1389.83,
+    "annual_precip_mm": 234.3,
+    "class": "arid",
+    "index": 0.1686
+  },
+  "crop_water": {
+    "depletion_mm": 60.0,
+    "et0_mm_per_day": 5.452,
+    "etc_adjusted_mm_per_day": 4.6342,
+    "etc_potential_mm_per_day": 4.6342,
+    "kc": 0.85,
+    "ks": 1.0,
+    "ks_status": "readily_available",
+    "raw_mm": 66.0,
+    "taw_mm": 120.0
+  },
+  "data_source": "Open-Meteo (CC BY 4.0), real daily data",
+  "drought": {
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "spei_min": null,
+    "spi_max": 1.72,
+    "spi_min": -0.967
+  },
+  "et0": {
+    "fao_max": 11.724,
+    "fao_mean": 5.452,
+    "fao_min": 0.486,
+    "hargreaves_mean": 3.808
+  },
+  "evaluation_fao56_vs_hargreaves": {
+    "bias": {
+      "status": "OK",
+      "value": 1.6440030136986301
+    },
+    "kge": {
+      "status": "OK",
+      "value": 0.437951981757408
+    },
+    "mae": {
+      "status": "OK",
+      "value": 1.646935616438356
+    },
+    "nse": {
+      "status": "OK",
+      "value": 0.20264406707587068
+    },
+    "rmse": {
+      "status": "OK",
+      "value": 1.877246293552749
+    }
+  },
+  "generated_at": "2026-11-27T17:00:26.880230+00:00",
+  "location": {
+    "latitude": 35.7,
+    "longitude": 51.4,
+    "name": "Tehran, Iran"
+  },
+  "n_days": 365,
+  "period": {
+    "end": "2023-12-31",
+    "start": "2023-01-01"
+  },
+  "root_zone": {
+    "final_storage_mm": 14.39,
+    "min_ks": 0.0,
+    "taw_mm": 120.0
+  }
+}

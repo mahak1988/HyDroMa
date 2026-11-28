@@ -1,0 +1,533 @@
+{
+  "assessments": [
+    {
+      "model_id": "eco-nojin.hydroma.fao56-et0",
+      "status": "BENCHMARKED_WITH_LIMITATIONS"
+    },
+    {
+      "model_id": "eco-nojin.hydroma.hargreaves-et0",
+      "status": "BENCHMARKED_WITH_LIMITATIONS"
+    },
+    {
+      "model_id": "eco-nojin.hydroma.drought-wmo",
+      "status": "BENCHMARKED_WITH_LIMITATIONS"
+    },
+    {
+      "model_id": "eco-nojin.hydroma.water-balance",
+      "status": "BENCHMARKED_WITH_LIMITATIONS"
+    },
+    {
+      "model_id": "eco-nojin.hydroma.fao56-crop-etc",
+      "status": "BENCHMARKED_WITH_LIMITATIONS"
+    }
+  ],
+  "classification": "SCIENTIFIC_LAB_REMEDIATION_COMPLETED_WITH_EVIDENCE",
+  "consistency": [
+    {
+      "actual": 4.0,
+      "check": "et0_to_crop_etc",
+      "expected": 4.0,
+      "status": "CONSISTENT"
+    },
+    {
+      "check": "precip_to_mass_balance",
+      "inflow": 10.0,
+      "outflow": 4.0,
+      "status": "CONSISTENT",
+      "storage_change": 6.0
+    },
+    {
+      "check": "soil_to_irrigation_monotonic",
+      "high_depletion": null,
+      "low_depletion": null,
+      "status": "INCONCLUSIVE"
+    }
+  ],
+  "data": {
+    "kind": "real",
+    "n_days": 365,
+    "source": "Open-Meteo (CC BY 4.0)",
+    "wind_variable": "wind_speed_10m_mean"
+  },
+  "data_provenance": {
+    "cache_fingerprint": "6d5fc9db636f3b10",
+    "citation": "Open-Meteo (CC BY 4.0), https://open-meteo.com/",
+    "data_type": "reanalysis_model_based",
+    "fetched_at": "2026-11-27T22:32:13.756943+00:00",
+    "is_observational_ground_truth": false,
+    "known_limitations": [
+      "Reanalysis/model-based, not in-situ observations; not ground truth.",
+      "Point extraction from a grid; sub-grid and terrain effects unresolved.",
+      "Wind is at 10 m; FAO-56 requires 2 m (converted in normalize.py).",
+      "1-year record is INSUFFICIENT_CLIMATOLOGICAL_BASELINE for SPI/anomaly indices."
+    ],
+    "license": "CC BY 4.0",
+    "location": {
+      "latitude": 35.7,
+      "longitude": 51.4
+    },
+    "numeric_uncertainty": null,
+    "period": {
+      "end": "2023-12-31",
+      "start": "2023-01-01"
+    },
+    "product": "Historical Weather API (archive-api.open-meteo.com/v1/archive)",
+    "provider": "Open-Meteo",
+    "scientific_status": "NOT_VALIDATED",
+    "source_key": "open-meteo-archive",
+    "spatial_resolution": "UNKNOWN (gridded reanalysis; exact grid not stated by the lab)",
+    "temporal_resolution": "daily",
+    "uncertainty": [
+      {
+        "definition": "measurement/reanalysis error of the input data",
+        "kind": "data_uncertainty",
+        "value": "UNKNOWN"
+      },
+      {
+        "definition": "uncertainty in model parameters/coefficients",
+        "kind": "parameter_uncertainty",
+        "value": "UNKNOWN"
+      },
+      {
+        "definition": "uncertainty from model structure/equations",
+        "kind": "model_structure_uncertainty",
+        "value": "UNKNOWN"
+      },
+      {
+        "definition": "uncertainty from a short (1-year) record; not climatologically representative",
+        "kind": "climatic_sampling_uncertainty",
+        "value": "HIGH (1-year record; INSUFFICIENT_CLIMATOLOGICAL_BASELINE)"
+      }
+    ],
+    "variables": [
+      {
+        "aggregation": "daily_max",
+        "id": "temperature_2m_max",
+        "unit": "degC"
+      },
+      {
+        "aggregation": "daily_min",
+        "id": "temperature_2m_min",
+        "unit": "degC"
+      },
+      {
+        "aggregation": "daily_sum",
+        "id": "precipitation_sum",
+        "unit": "mm"
+      },
+      {
+        "aggregation": "daily_sum",
+        "id": "shortwave_radiation_sum",
+        "unit": "MJ_m2_day"
+      },
+      {
+        "aggregation": "daily_mean",
+        "height_m": 10.0,
+        "id": "wind_speed_10m_mean",
+        "unit": "kmh"
+      },
+      {
+        "aggregation": "daily_max",
+        "height_m": 10.0,
+        "id": "wind_speed_10m_max",
+        "unit": "kmh"
+      }
+    ]
+  },
+  "evidence": {
+    "computational_independence": "COMPUTATIONALLY_INDEPENDENT",
+    "field_validation": "NOT_VALIDATED",
+    "numerical": "NUMERICALLY_REPRODUCED",
+    "scientific_support": "NOT_VALIDATED",
+    "scientific_validation": "NOT_VALIDATED",
+    "software": "SOFTWARE_VERIFIED"
+  },
+  "findings": [
+    {
+      "category": "STATISTICAL_METHOD_ERROR",
+      "evidence": {
+        "engine_note": "undefined/all-zero for negative balance",
+        "engine_spi_ok": false
+      },
+      "id": "F1",
+      "model_id": "eco-nojin.hydroma.drought-wmo",
+      "severity": "P2",
+      "source": "drought_wmo.py",
+      "suggested_correction": "use a signed distribution (e.g. log-logistic/normal) for SPEI",
+      "summary": "Engine SPEI uses gamma on P-PET; undefined for negative balance (lab uses Z-score water-balance anomaly)"
+    },
+    {
+      "category": "STATISTICAL_METHOD_ERROR",
+      "evidence": {
+        "baseline": {
+          "required_years": 30,
+          "status": "INSUFFICIENT_CLIMATOLOGICAL_BASELINE",
+          "years": 1.0
+        }
+      },
+      "id": "F2",
+      "model_id": "eco-nojin.hydroma.drought-wmo",
+      "severity": "P2",
+      "source": "",
+      "suggested_correction": "require >= 30 years (WMO-No.1090)",
+      "summary": "1-year record is INSUFFICIENT_CLIMATOLOGICAL_BASELINE for SPI/SPEI"
+    },
+    {
+      "category": "UNIT_ERROR",
+      "evidence": {
+        "wind_variable_used": "wind_speed_10m_mean"
+      },
+      "id": "F3",
+      "model_id": "eco-nojin.hydroma.fao56-et0",
+      "severity": "P3",
+      "source": "normalize.py",
+      "suggested_correction": "use wind_speed_10m_mean + wind_at_2m_from_10m",
+      "summary": "Wind must be mean (not max), converted km/h->m/s and 10 m->2 m"
+    },
+    {
+      "category": "SCIENTIFIC_VALIDATION_GAP",
+      "evidence": {
+        "ref_eval": {
+          "bias": -0.0,
+          "kge": 1.0,
+          "mae": 0.0001,
+          "nse": 1.0,
+          "rmse": 0.0001
+        }
+      },
+      "id": "F4",
+      "model_id": "eco-nojin.hydroma.hargreaves-et0",
+      "severity": "P3",
+      "source": "",
+      "suggested_correction": "",
+      "summary": "Hargreaves vs FAO-56 agreement is not validation"
+    }
+  ],
+  "findings_by_severity": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 2,
+    "P3": 2,
+    "P4": 0
+  },
+  "generated_at": "2026-11-27T23:31:25.640697+00:00",
+  "independence": {
+    "classification": "COMPUTATIONALLY_INDEPENDENT",
+    "file": "references.py",
+    "hydroma_imported": false,
+    "imports": [
+      "__future__",
+      "math"
+    ],
+    "shared_lab_helpers": []
+  },
+  "inventory": [
+    {
+      "family": "meteorological",
+      "file": "fao56_et0.py",
+      "model_id": "eco-nojin.hydroma.fao56-et0"
+    },
+    {
+      "family": "meteorological",
+      "file": "hargreaves_et0.py",
+      "model_id": "eco-nojin.hydroma.hargreaves-et0"
+    },
+    {
+      "family": "water-resources",
+      "file": "water_balance.py",
+      "model_id": "eco-nojin.hydroma.water-balance"
+    },
+    {
+      "family": "agricultural",
+      "file": "crop_etc.py",
+      "model_id": "eco-nojin.hydroma.fao56-crop-etc"
+    },
+    {
+      "family": "agroclimatic",
+      "file": "drought_wmo.py",
+      "model_id": "eco-nojin.hydroma.drought-wmo"
+    },
+    {
+      "family": "agroclimatic",
+      "file": "agroclimate.py",
+      "model_id": "eco-nojin.hydroma.agroclimate"
+    }
+  ],
+  "limitations": [
+    "Reference is an independent reimplementation, not authoritative published vectors.",
+    "Reanalysis data are not independent ground truth.",
+    "1-year record insufficient for operational SPI/SPEI baseline.",
+    "Engine SPEI (gamma) undefined for negative balance; lab computes a Z-score standardized water-balance anomaly (NOT conventional SPEI).",
+    "Wind: mean variable + km/h->m/s + 10 m->2 m conversion applied."
+  ],
+  "quality": {
+    "errors": [],
+    "n": 365,
+    "ok": true,
+    "schema_version": "1.0.0",
+    "warnings": []
+  },
+  "reference": {
+    "kind": "independent_reimplementation_not_authoritative",
+    "version": "real2-1.0.0"
+  },
+  "reference_evaluation": {
+    "bias": -0.0,
+    "kge": 1.0,
+    "mae": 0.0001,
+    "nse": 1.0,
+    "rmse": 0.0001
+  },
+  "regression": [
+    {
+      "category": "STATISTICAL_METHOD_ERROR",
+      "expectation": "SPEI must not be computed by gamma-fitting a series with negative values",
+      "id": "spei_negative_balance",
+      "model_id": "eco-nojin.hydroma.drought-wmo",
+      "status": "DOCUMENTED"
+    },
+    {
+      "category": "STATISTICAL_METHOD_ERROR",
+      "expectation": "1-year record is INSUFFICIENT_CLIMATOLOGICAL_BASELINE for operational SPI",
+      "id": "spi_one_year_baseline",
+      "model_id": "eco-nojin.hydroma.drought-wmo",
+      "status": "DOCUMENTED"
+    },
+    {
+      "category": "UNIT_ERROR",
+      "expectation": "Open-Meteo wind (km/h, 10 m) must be converted to m/s at 2 m before FAO-56",
+      "id": "wind_unit_kmh",
+      "model_id": "eco-nojin.hydroma.fao56-et0",
+      "status": "DOCUMENTED"
+    },
+    {
+      "category": "SCIENTIFIC_VALIDATION_GAP",
+      "expectation": "Hargreaves vs FAO-56 agreement is not validation",
+      "id": "hargreaves_fao_disagreement",
+      "model_id": "eco-nojin.hydroma.hargreaves-et0",
+      "status": "DOCUMENTED"
+    }
+  ],
+  "retractions": [
+    {
+      "id": "F5",
+      "reason": "previous neg_rad 'violation' was a LAB error: negative NET radiation (Rn) is physically valid; expectation corrected to VALID_RESULT."
+    }
+  ],
+  "review": {
+    "status": "NOT_RUN \u2014 Nemotron 3 Ultra unavailable; self-assessment only."
+  },
+  "scientific_status": "NOT_VALIDATED",
+  "sensitivity": [
+    {
+      "delta": 1,
+      "output": 4.6499,
+      "param": "t",
+      "rel_change_pct": 4.796
+    },
+    {
+      "delta": 2,
+      "output": 4.86,
+      "param": "t",
+      "rel_change_pct": 9.531
+    },
+    {
+      "delta": -1,
+      "output": 4.2218,
+      "param": "t",
+      "rel_change_pct": -4.852
+    },
+    {
+      "delta": -2,
+      "output": 4.0043,
+      "param": "t",
+      "rel_change_pct": -9.754
+    },
+    {
+      "delta": 0.2,
+      "output": 4.5706,
+      "param": "u2",
+      "rel_change_pct": 3.009
+    },
+    {
+      "delta": 0.4,
+      "output": 4.6996,
+      "param": "u2",
+      "rel_change_pct": 5.916
+    },
+    {
+      "delta": -0.2,
+      "output": 4.2987,
+      "param": "u2",
+      "rel_change_pct": -3.119
+    },
+    {
+      "delta": -0.4,
+      "output": 4.1552,
+      "param": "u2",
+      "rel_change_pct": -6.353
+    },
+    {
+      "delta": 1,
+      "output": 4.666,
+      "param": "rn",
+      "rel_change_pct": 5.159
+    },
+    {
+      "delta": 2,
+      "output": 4.895,
+      "param": "rn",
+      "rel_change_pct": 10.32
+    },
+    {
+      "delta": -1,
+      "output": 4.2081,
+      "param": "rn",
+      "rel_change_pct": -5.161
+    },
+    {
+      "delta": -2,
+      "output": 3.9791,
+      "param": "rn",
+      "rel_change_pct": -10.322
+    },
+    {
+      "delta": 0.1,
+      "output": 4.2766,
+      "param": "ea",
+      "rel_change_pct": -3.617
+    },
+    {
+      "delta": -0.1,
+      "output": 4.5975,
+      "param": "ea",
+      "rel_change_pct": 3.615
+    }
+  ],
+  "spi": {
+    "baseline": {
+      "required_years": 30,
+      "status": "INSUFFICIENT_CLIMATOLOGICAL_BASELINE",
+      "years": 1.0
+    },
+    "method": "gamma-fit SPI",
+    "min": -0.9674
+  },
+  "standardized_water_balance_anomaly": {
+    "baseline": {
+      "required_years": 30,
+      "status": "INSUFFICIENT_CLIMATOLOGICAL_BASELINE",
+      "years": 1.0
+    },
+    "method": "standardized climatic water-balance anomaly (Z-score; NOT conventional SPEI)",
+    "min": -1.4659
+  },
+  "status_legend": {
+    "COMPUTATIONALLY_INDEPENDENT": "reference imports no engine code; NOT third-party review",
+    "NOT_VALIDATED": "no independent, fit-for-use scientific/field validation evidence",
+    "NSE_1_0": "code-agreement in the cross-check; NOT forecast skill",
+    "NUMERICALLY_REPRODUCED": "two code paths agree numerically; NOT predictive accuracy",
+    "SOFTWARE_VERIFIED": "software behaves per spec; NOT scientific validation",
+    "STRESS_VIOLATIONS_0": "no stress expectation broken; NOT model correctness"
+  },
+  "stress": [
+    {
+      "class": "VALID_RESULT",
+      "error": null,
+      "expect": "valid",
+      "id": "high_temp",
+      "ok": true,
+      "value": 12.0982
+    },
+    {
+      "class": "VALID_RESULT",
+      "error": null,
+      "expect": "valid",
+      "id": "low_temp",
+      "ok": true,
+      "value": -0.197
+    },
+    {
+      "class": "VALID_RESULT",
+      "error": null,
+      "expect": "valid",
+      "id": "zero_wind",
+      "ok": true,
+      "value": 2.7842
+    },
+    {
+      "class": "VALID_RESULT",
+      "error": null,
+      "expect": "valid",
+      "id": "high_wind",
+      "ok": true,
+      "value": 10.6362
+    },
+    {
+      "class": "VALID_RESULT",
+      "error": null,
+      "expect": "valid",
+      "id": "zero_rad",
+      "ok": true,
+      "value": 2.1474
+    },
+    {
+      "class": "VALID_RESULT",
+      "error": null,
+      "expect": "valid",
+      "id": "high_rad",
+      "ok": true,
+      "value": 13.5958
+    },
+    {
+      "class": "VALID_RESULT",
+      "error": null,
+      "expect": "valid",
+      "id": "neg_rad",
+      "ok": true,
+      "value": 1.0025
+    },
+    {
+      "class": "EXPECTED_REJECTION",
+      "error": [
+        {
+          "code": "MISSING",
+          "field": "ea",
+          "value": null
+        }
+      ],
+      "expect": "reject",
+      "id": "missing_ea",
+      "ok": false,
+      "value": null
+    },
+    {
+      "class": "EXPECTED_REJECTION",
+      "error": [
+        {
+          "code": "NON_FINITE",
+          "field": "t",
+          "value": NaN
+        }
+      ],
+      "expect": "reject",
+      "id": "nan_temp",
+      "ok": false,
+      "value": null
+    },
+    {
+      "class": "EXPECTED_REJECTION",
+      "error": [
+        {
+          "code": "NON_FINITE",
+          "field": "u2",
+          "value": Infinity
+        }
+      ],
+      "expect": "reject",
+      "id": "inf_wind",
+      "ok": false,
+      "value": null
+    }
+  ]
+}

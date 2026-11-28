@@ -63,6 +63,55 @@ from .root_zone import (
     ROOT_ZONE_DEFINITION,
     compute_root_zone_water_balance,
 )
+from .drought import DROUGHT_DEFINITION, compute_drought_index
+from .chilling import CHILLING_DEFINITION, chilling_adapter
+from .crop_growth import CROP_GROWTH_DEFINITION, compute_crop_growth
+from .pest_risk import PEST_RISK_DEFINITION, compute_pest_risk
+from .plant_strengthening import (
+    PLANT_STRENGTHENING_DEFINITION,
+    compute_plant_strengthening,
+)
+from .groundwater import GROUNDWATER_DEFINITION, compute_groundwater_balance
+from .drought_wmo import DROUGHT_WMO_DEFINITION, drought_wmo_adapter
+from .crop_dual import (
+    CROP_DUAL_DEFINITION,
+    AQUACROP_LITE_DEFINITION,
+    compute_dual_crop_etc,
+    compute_aquacrop_lite,
+)
+from .soil_physics import SOIL_PHYSICS_DEFINITION, soil_physics_adapter
+from .water_footprint import (
+    WATER_FOOTPRINT_DEFINITION,
+    SDG_WATER_STRESS_DEFINITION,
+    compute_water_footprint,
+    compute_sdg_water_stress,
+)
+from .groundwater_spatial import (
+    GROUNDWATER_SPATIAL_DEFINITION,
+    groundwater_spatial_adapter,
+)
+from .agroclimate import AGROCLIMATE_DEFINITION, agroclimate_adapter
+from .surface_hydrology import (
+    SURFACE_HYDROLOGY_DEFINITION,
+    surface_hydrology_adapter,
+)
+from .carbon import CARBON_DEFINITION, carbon_adapter
+from .water_productivity import (
+    WATER_PRODUCTIVITY_DEFINITION,
+    water_productivity_adapter,
+)
+from .biodiversity_stress import (
+    BIODIVERSITY_DEFINITION,
+    biodiversity_adapter,
+)
+from .drought_composite import DROUGHT_COMPOSITE_DEFINITION, drought_composite_adapter
+from .isotope import ISOTOPE_DEFINITION, isotope_adapter
+from .remote_sensing import GRACE_DEFINITION, compute_grace_anomaly
+from .crop_dssat import CROP_DSSAT_DEFINITION, compute_dssat_lite
+from .watershed import WATERSHED_DEFINITION, watershed_adapter
+from .sdg_indicators import SDG_DEFINITION, sdg_adapter
+from .rosetta import ROSETTA_DEFINITION, compute_rosetta
+from .calibration import CALIBRATION_DEFINITION, compute_calibration
 
 __all__ = ["build_registry", "execute_run", "build_provenance"]
 
@@ -91,6 +140,32 @@ def build_registry() -> ModelRegistry:
     registry.register(EVALUATION_DEFINITION, evaluate_model_outputs_adapter)
     registry.register(EVALUATION_PROTOCOL_DEFINITION, build_evaluation_protocol_adapter)
     registry.register(ROOT_ZONE_DEFINITION, compute_root_zone_water_balance)
+    registry.register(DROUGHT_DEFINITION, compute_drought_index)
+    registry.register(CHILLING_DEFINITION, chilling_adapter)
+    registry.register(CROP_GROWTH_DEFINITION, compute_crop_growth)
+    registry.register(PEST_RISK_DEFINITION, compute_pest_risk)
+    registry.register(PLANT_STRENGTHENING_DEFINITION, compute_plant_strengthening)
+    registry.register(GROUNDWATER_DEFINITION, compute_groundwater_balance)
+    registry.register(DROUGHT_WMO_DEFINITION, drought_wmo_adapter)
+    registry.register(CROP_DUAL_DEFINITION, compute_dual_crop_etc)
+    registry.register(AQUACROP_LITE_DEFINITION, compute_aquacrop_lite)
+    registry.register(SOIL_PHYSICS_DEFINITION, soil_physics_adapter)
+    registry.register(WATER_FOOTPRINT_DEFINITION, compute_water_footprint)
+    registry.register(SDG_WATER_STRESS_DEFINITION, compute_sdg_water_stress)
+    registry.register(GROUNDWATER_SPATIAL_DEFINITION, groundwater_spatial_adapter)
+    registry.register(AGROCLIMATE_DEFINITION, agroclimate_adapter)
+    registry.register(SURFACE_HYDROLOGY_DEFINITION, surface_hydrology_adapter)
+    registry.register(CARBON_DEFINITION, carbon_adapter)
+    registry.register(WATER_PRODUCTIVITY_DEFINITION, water_productivity_adapter)
+    registry.register(BIODIVERSITY_DEFINITION, biodiversity_adapter)
+    registry.register(DROUGHT_COMPOSITE_DEFINITION, drought_composite_adapter)
+    registry.register(ISOTOPE_DEFINITION, isotope_adapter)
+    registry.register(GRACE_DEFINITION, compute_grace_anomaly)
+    registry.register(CROP_DSSAT_DEFINITION, compute_dssat_lite)
+    registry.register(WATERSHED_DEFINITION, watershed_adapter)
+    registry.register(SDG_DEFINITION, sdg_adapter)
+    registry.register(ROSETTA_DEFINITION, compute_rosetta)
+    registry.register(CALIBRATION_DEFINITION, compute_calibration)
     return registry
 
 

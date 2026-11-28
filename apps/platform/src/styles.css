@@ -660,6 +660,7 @@ html[dir="rtl"] .pl-navList a {
 }
 
 .pl-field input,
+.pl-field select,
 .pl-field textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);

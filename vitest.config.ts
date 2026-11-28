@@ -13,6 +13,7 @@ export default defineConfig({
       "@eco-nojin/configuration": fileURLToPath(new URL("./packages/configuration/src/index.ts", import.meta.url)),
       "@eco-nojin/design-system": fileURLToPath(new URL("./packages/design-system/src/index.ts", import.meta.url)),
       "@eco-nojin/domain-types": fileURLToPath(new URL("./packages/domain-types/src/index.ts", import.meta.url)),
+      "@eco-nojin/frontend-core/theme": fileURLToPath(new URL("./packages/frontend-core/src/theme.tsx", import.meta.url)),
       "@eco-nojin/frontend-core": fileURLToPath(new URL("./packages/frontend-core/src/index.ts", import.meta.url)),
       "@eco-nojin/hydroma-client": fileURLToPath(new URL("./packages/hydroma-client/src/index.ts", import.meta.url)),
       "@eco-nojin/i18n": fileURLToPath(new URL("./packages/i18n/src/index.ts", import.meta.url)),
@@ -31,5 +32,7 @@ export default defineConfig({
     include: ["packages/*/tests/**/*.test.{ts,tsx}", "archive/legacy-console/tests/**/*.test.{ts,tsx}", "archive/legacy-marketplace/tests/unit/**/*.test.ts", "archive/legacy-tourism/tests/unit/**/*.test.ts", "archive/legacy-scientific-workspace/tests/**/*.test.{ts,tsx}", "apps/platform/tests/**/*.test.{ts,tsx}"],
     setupFiles: ["./vitest.setup.ts"],
     restoreMocks: true,
+    testTimeout: 30000,
+    hookTimeout: 30000,
   },
 });

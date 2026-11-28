@@ -586,4 +586,205 @@ __all__ = [
     "to_climate_series",
 ]
 
+from .gdd import GDD_MODEL, GDD_DEFINITION, compute_gdd, accumulate_gdd, validate_gdd_input
+from .hargreaves_et0 import (
+    HARGREAVES_MODEL,
+    HARGREAVES_DEFINITION,
+    compute_hargreaves_et0,
+    validate_hargreaves_input,
+)
+from .drought import (
+    DROUGHT_MODEL,
+    DROUGHT_DEFINITION,
+    DROUGHT_MODES,
+    compute_drought_index,
+    validate_drought_input,
+    inverse_normal_cdf,
+)
+from .chilling import (
+    CHILLING_MODEL,
+    CHILLING_DEFINITION,
+    compute_chilling,
+    estimate_bloom,
+    chilling_adapter,
+    validate_chilling_input,
+    validate_bloom_input,
+    utah_chill_unit,
+)
+from .crop_growth import (
+    CROP_GROWTH_MODEL,
+    CROP_GROWTH_DEFINITION,
+    compute_crop_growth,
+    validate_crop_growth_input,
+    temperature_response,
+)
+from .pest_risk import (
+    PEST_RISK_MODEL,
+    PEST_RISK_DEFINITION,
+    PEST_MODES,
+    compute_pest_risk,
+    validate_pest_input,
+)
+from .plant_strengthening import (
+    PLANT_STRENGTHENING_MODEL,
+    PLANT_STRENGTHENING_DEFINITION,
+    STRENGTHENING_FACTORS,
+    compute_plant_strengthening,
+    validate_strengthening_input,
+)
+from .groundwater import (
+    GROUNDWATER_MODEL,
+    GROUNDWATER_DEFINITION,
+    compute_groundwater_balance,
+    validate_groundwater_input,
+)
+from .drought_wmo import (
+    DROUGHT_WMO_MODEL,
+    DROUGHT_WMO_DEFINITION,
+    regularized_gamma_p,
+    compute_spi_gamma,
+    compute_z_index,
+    compute_scpdsi,
+    drought_wmo_adapter,
+)
+from .crop_dual import (
+    CROP_DUAL_MODEL,
+    CROP_DUAL_DEFINITION,
+    AQUACROP_LITE_MODEL,
+    AQUACROP_LITE_DEFINITION,
+    compute_dual_crop_etc,
+    compute_aquacrop_lite,
+)
+from .soil_physics import (
+    SOIL_PHYSICS_MODEL,
+    SOIL_PHYSICS_DEFINITION,
+    compute_rusle,
+    compute_green_ampt,
+    compute_pedotransfer,
+    soil_physics_adapter,
+)
+from .water_footprint import (
+    WATER_FOOTPRINT_MODEL,
+    WATER_FOOTPRINT_DEFINITION,
+    SDG_WATER_STRESS_MODEL,
+    SDG_WATER_STRESS_DEFINITION,
+    compute_water_footprint,
+    compute_sdg_water_stress,
+)
+from .groundwater_spatial import (
+    GROUNDWATER_SPATIAL_MODEL,
+    GROUNDWATER_SPATIAL_DEFINITION,
+    compute_darcy_flow,
+    compute_head_profile,
+    compute_wtf_recharge,
+    groundwater_spatial_adapter,
+)
+from .agroclimate import (
+    AGROCLIMATE_MODEL,
+    AGROCLIMATE_DEFINITION,
+    compute_thornthwaite,
+    compute_priestley_taylor,
+    compute_aridity_index,
+    compute_climate_normals,
+    agroclimate_adapter,
+    daylight_hours,
+)
+from .surface_hydrology import (
+    SURFACE_HYDROLOGY_MODEL,
+    SURFACE_HYDROLOGY_DEFINITION,
+    compute_iha,
+    compute_flow_duration,
+    compute_low_flow_7q10,
+    compute_flood_frequency,
+    surface_hydrology_adapter,
+)
+from .carbon import (
+    CARBON_MODEL,
+    CARBON_DEFINITION,
+    compute_rothc_lite,
+    compute_dndc_lite,
+    compute_ipcc_mrv,
+    compute_4per1000,
+    carbon_adapter,
+)
+from .water_productivity import (
+    WATER_PRODUCTIVITY_MODEL,
+    WATER_PRODUCTIVITY_DEFINITION,
+    compute_water_productivity,
+    compute_aez,
+    compute_water_scarcity,
+    water_productivity_adapter,
+)
+from .biodiversity_stress import (
+    BIODIVERSITY_MODEL,
+    BIODIVERSITY_DEFINITION,
+    compute_wbgt,
+    compute_thi,
+    compute_habitat_quality,
+    compute_species_suitability,
+    biodiversity_adapter,
+)
+from .drought_composite import (
+    DROUGHT_COMPOSITE_MODEL,
+    DROUGHT_COMPOSITE_DEFINITION,
+    compute_edo_composite,
+    compute_pdsi_2layer,
+    drought_composite_adapter,
+)
+from .isotope import (
+    ISOTOPE_MODEL,
+    ISOTOPE_DEFINITION,
+    compute_deuterium_excess,
+    compute_two_component_mixing,
+    isotope_adapter,
+)
+from .remote_sensing import (
+    GRACE_MODEL,
+    GRACE_DEFINITION,
+    compute_grace_anomaly,
+)
+from .crop_dssat import (
+    CROP_DSSAT_MODEL,
+    CROP_DSSAT_DEFINITION,
+    compute_dssat_lite,
+)
+from .watershed import (
+    WATERSHED_MODEL,
+    WATERSHED_DEFINITION,
+    compute_prms_lite,
+    compute_sparrow_lite,
+    watershed_adapter,
+)
+from .sdg_indicators import (
+    SDG_MODEL,
+    SDG_DEFINITION,
+    compute_sdg_641,
+    compute_sdg_241,
+    compute_sdg_1531,
+    sdg_adapter,
+)
+from .rosetta import (
+    ROSETTA_MODEL,
+    ROSETTA_DEFINITION,
+    compute_rosetta,
+)
+from .calibration import (
+    CALIBRATION_MODEL,
+    CALIBRATION_DEFINITION,
+    nelder_mead,
+    grid_search,
+    objective_rmse,
+    objective_nse,
+    calibrate_generic,
+    compute_calibration,
+)
+from .free_sources import (
+    FREE_SOURCES,
+    SOURCE_KEYS,
+    get_source,
+    build_data_artifact,
+    build_stac_item,
+    list_sources,
+)
+
 __version__ = "0.1.0"

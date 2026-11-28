@@ -1,16 +1,17 @@
 import { expect, test } from "@playwright/test";
+import { ensureSignedIn } from "./admin-auth.helper";
 
 /**
  * Smoke gate for the unified platform: the public core renders, the /platform
- * workspace still works under its prefix, and the real sign-in flow works
- * against the API.
+ * workspace is gated for guests and renders for a real session, and the real
+ * sign-in flow works against the API.
  */
 const RUN = Date.now();
 
 test("public home renders with the unified header", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(page.getByText(/اپلیکیشنها|Applications|التطبيقات/)).toBeVisible();
+  await expect(page.getByRole("button", { name: /Applications|اپلیکیشنها|التطبيقات/ })).toBeVisible();
 });
 
 test("public intro pages render", async ({ page }) => {
@@ -20,7 +21,43 @@ test("public intro pages render", async ({ page }) => {
   }
 });
 
-test("the /platform workspace renders under its prefix", async ({ page }) => {
+test("public information and legal pages render", async ({ page }) => {
+  for (const route of [
+    "/vision",
+    "/impact",
+    "/landscapes",
+    "/projects",
+    "/technology",
+    "/partners",
+    "/accessibility",
+    "/privacy",
+    "/terms",
+  ]) {
+    await page.goto(route);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  }
+});
+
+test("public shell has no horizontal overflow on mobile", async ({ page }) => {
+  for (const width of [360, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    expect(overflow, `horizontal overflow at ${width}px`).toBeLessThanOrEqual(0);
+  }
+});
+
+test("the /platform workspace fails closed for guests", async ({ page }) => {
+  await page.goto("/platform");
+  const heading = page.getByRole("heading", { level: 1 });
+  await expect(heading).toBeVisible();
+  await expect(heading).toContainText(/sign in|login|ورود|تسجيل|تسجيل الدخول/i);
+});
+
+test("the /platform workspace renders for a signed-in session", async ({ page, context }) => {
+  await ensureSignedIn(context);
   await page.goto("/platform");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.goto("/platform/landscapes");

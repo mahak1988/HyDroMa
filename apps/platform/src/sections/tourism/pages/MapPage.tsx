@@ -61,7 +61,7 @@ export function MapPage() {
           <Card>
             <CardHeader title={c.nomadic.consentTitle} />
             <CardBody>
-              <p className="text-xs leading-relaxed text-fg-muted">{c.map.sensitiveHidden} {c.map.reviewHidden}</p>
+              <p className="text-xs leading-relaxed text-fg-muted">{c.map.reviewHidden}</p>
             </CardBody>
           </Card>
         </div>

@@ -11,6 +11,7 @@ export type SectionId =
   | "projects"
   | "knowledge"
   | "finance"
+  | "incentives"
   | "community"
   | "governance";
 
@@ -38,6 +39,7 @@ export const SECTIONS: Array<{ id: SectionId; label: Loc; icon: string }> = [
   { id: "projects", label: L("پروژه‌ها و احیا", "Projects", "المشاريع"), icon: "model" },
   { id: "knowledge", label: L("دانش‌یار", "Knowledge", "المعرفة"), icon: "knowledge" },
   { id: "finance", label: L("مالی و اقتصاد", "Finance", "المالية"), icon: "product" },
+  { id: "incentives", label: L("انگیزه و مشارکت", "Incentives", "الحوافز والمشاركة"), icon: "participation" },
   { id: "community", label: L("ارتباطات", "Community", "التواصل"), icon: "participation" },
   { id: "governance", label: L("حاکمیت", "Governance", "الحوكمة"), icon: "services" },
 ];
@@ -256,6 +258,33 @@ export const PAGES: PageDef[] = [
     entity: "crop",
   },
   {
+    id: "crop-cycles",
+    path: "agriculture/cycles",
+    section: "agriculture",
+    kind: "list",
+    title: L("چرخهٔ محصول", "Crop cycles", "دورات المحصول"),
+    lead: L("چرخهٔ واقعی کشت از برنامه تا برداشت با اعتبارسنجی زراعی.", "Real crop lifecycle from plan to harvest with agronomic validation.", "دورة محصول حقيقية من الخطة إلى الحصاد مع التحقق الزراعي."),
+    entity: "crop",
+  },
+  {
+    id: "irrigation",
+    path: "agriculture/irrigation",
+    section: "agriculture",
+    kind: "list",
+    title: L("رویدادهای آبیاری", "Irrigation events", "أحداث الري"),
+    lead: L("ثبت مشاهدات آبیاری مرتبط با مزرعه و چرخهٔ محصول.", "Record irrigation observations linked to farm and crop cycle.", "تسجيل ملاحظات الري المرتبطة بالمزرعة ودورة المحصول."),
+    entity: "farm",
+  },
+  {
+    id: "field-observations",
+    path: "agriculture/observations",
+    section: "agriculture",
+    kind: "list",
+    title: L("مشاهدات میدانی", "Field observations", "الملاحظات الحقلية"),
+    lead: L("ثبت شرایط میدانی محصول، خاک و آب مرتبط با مزرعه و چرخهٔ محصول.", "Record crop, soil and water field conditions linked to farm and crop cycle.", "تسجيل ظروف المحصول والتربة والمياه الحقلية المرتبطة بالمزرعة ودورة المحصول."),
+    entity: "crop",
+  },
+  {
     id: "crop-plan",
     path: "agriculture/planning",
     section: "agriculture",
@@ -269,15 +298,6 @@ export const PAGES: PageDef[] = [
       L("تقویم عملیات", "Operation calendar", "تقويم العمليات"),
       L("بازبینی و تأیید", "Review and approval", "المراجعة والاعتماد"),
     ],
-  },
-  {
-    id: "irrigation",
-    path: "agriculture/irrigation",
-    section: "agriculture",
-    kind: "list",
-    title: L("مدیریت آبیاری", "Irrigation management", "إدارة الري"),
-    lead: L("دستور آبیاری بر پایهٔ بیلان آب، نه حدس.", "Irrigation orders based on the water balance, not guesswork.", "أوامر الري على أساس موازنة المياه لا التخمين."),
-    entity: "irrigation",
   },
   {
     id: "crop-health",
@@ -791,6 +811,32 @@ export const PAGES: PageDef[] = [
       L("امنیت", "Security", "الأمن"),
       L("سیاست داده", "Data policy", "سياسة البيانات"),
     ],
+  },
+
+  /* ------------------------------- incentives ----------------------------- */
+  {
+    id: "ecocoin",
+    path: "ecocoin",
+    section: "incentives",
+    kind: "dashboard",
+    title: L("اکوکوین", "EcoCoin", "إيكو كوين"),
+    lead: L(
+      "واحد داخلی مشارکت و پاداش — غیرقابل‌معامله، با دفتر تغییرناپذیر و ماندهٔ بازساختی.",
+      "Internal participation and reward unit — non-tradable, with an immutable ledger and reconstructible balance.",
+      "وحدة مشاركة ومكافأة داخلية — غير قابلة للتداول، بسجل غير قابل للتغيير ورصيد قابل لإعادة البناء.",
+    ),
+  },
+  {
+    id: "challenges",
+    path: "challenges",
+    section: "incentives",
+    kind: "list",
+    title: L("چالش‌ها و پاداش‌ها", "Challenges & Rewards", "التحديات والمكافآت"),
+    lead: L(
+      "کاتالوگ چالش‌ها، چرخهٔ وضعیت و مشارکت با تأیید سرور و پاداش idempotent.",
+      "Challenge catalogue, lifecycle and server-verified participation with idempotent rewards.",
+      "كتالوج التحديات ودورة الحالة والمشاركة عبر تحقق الخادم مع مكافآت لا تكرارية.",
+    ),
   },
 ];
 

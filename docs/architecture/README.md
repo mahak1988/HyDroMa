@@ -13,6 +13,28 @@ Read, in this order:
    `../../ECO-NOJIN-ARCHITECTURE-CORRECTION-AND-READINESS.md`).
 4. `../../ROOT-STRUCTURE-MANIFEST.md` — what each root folder is for and its status.
 
+## Consolidated architecture set (added 2026-11-24)
+
+This directory now also hosts the cross-cutting **maps, registries and C4** that consolidate the
+authoritative `architecture/` tree without duplicating it. Start at
+[architecture-overview.md](./architecture-overview.md).
+
+| Document | Covers |
+|---|---|
+| `architecture-overview.md` | entry point, reading order, what is/is not claimed |
+| `architecture-principles.md` | 7 normative principles + dependency direction |
+| `target-architecture.md` | mission target tree ↔ actual repo reconciliation (no relocation) |
+| `architecture-status.md` | two-axis maturity vocabulary + verified component status |
+| `component-registry.md` / `domain-registry.md` | component & domain registries |
+| `registries/contract-registry.md` · `integration-registry.md` · `infrastructure-registry.md` · `adr-registry.md` | contract/integration/infrastructure/ADR registries |
+| `dependency-map.md` · `system-boundaries.md` · `integration-map.md` · `data-flow.md` | cross-cutting maps |
+| `c4/` | C1 context, C2 container, C3 component, deployment (Mermaid) |
+| `architecture-roadmap.md` | evidence-based staged roadmap |
+| `integration-strategy.md` · `vertical-slice-strategy.md` · `testing-strategy.md` | delivery strategies |
+| `<branch>/README.md` | per-branch indexes (backend, database, iam, api, events, workflows, services, hydroma, data-acquisition, geospatial, storage, integrations, ai, security, audit, observability, notifications, cache, configuration, resilience, devops, i18n, search, analytics, data-governance, governance) |
+
+These files reference `architecture/` for depth and never restate it (ADR-0001).
+
 ## Domain architecture added 2026-11-18 (in `../../architecture/`)
 
 | Document | Covers |

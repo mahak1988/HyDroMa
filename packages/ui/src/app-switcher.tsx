@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+﻿import type { CSSProperties } from "react";
 import { APPS, isUnified, type AppId } from "@eco-nojin/configuration";
 import { useI18n, type TranslationKey } from "@eco-nojin/i18n";
 
@@ -7,7 +7,7 @@ import { useI18n, type TranslationKey } from "@eco-nojin/i18n";
  *
  * It renders **only** when the build is served under a path prefix (the unified
  * host). In a standalone app (`BASE_URL="/"`) there is nowhere to switch to, so
- * the switcher stays out of the way — and out of the e2e baseline.
+ * the switcher stays out of the way â€” and out of the e2e baseline.
  *
  * Links are plain anchors: crossing an app boundary is a document navigation,
  * not a client-side route change, because each app is its own bundle.
@@ -40,7 +40,7 @@ const rail: CSSProperties = {
   overflowX: "auto",
   padding: "var(--space-1, 4px)",
   background: "var(--surface, #fff)",
-  border: "1px solid var(--border, #d5dde0)",
+  border: "1px solid var(--border, #ded5c9)",
   borderRadius: "var(--radius-pill, 999px)",
   boxShadow: "var(--shadow-e3, 0 8px 24px rgb(8 13 11 / 0.12))",
   pointerEvents: "auto",

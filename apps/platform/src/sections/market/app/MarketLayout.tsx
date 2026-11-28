@@ -75,6 +75,25 @@ function ThemeMenu() {
   );
 }
 
+
+/** Persistent demo boundary for the demonstration marketplace. */
+export function MarketDemoNotice() {
+  const { t } = useI18n();
+  return (
+    <div
+      role="note"
+      aria-label={t("market.demo")}
+      className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-warning-soft bg-warning-soft/40 px-3 py-2 text-xs text-warning-soft-fg"
+    >
+      <Badge tone="warning">{t("market.demo")}</Badge>
+      <span>{t("market.demoScope")}</span>
+      <Link to="/platform/marketplace" className="ms-auto font-medium underline underline-offset-2">
+        {t("market.liveCatalog")}
+      </Link>
+    </div>
+  );
+}
+
 export function MarketLayout() {
   const { t } = useI18n();
   const { count } = useCart();
@@ -177,6 +196,7 @@ export function MarketLayout() {
       </header>
 
       <main id="main" className="mx-auto w-full max-w-[var(--container-max)] px-4 py-5 lg:px-6">
+        <MarketDemoNotice />
         <Outlet />
       </main>
 

@@ -30,17 +30,18 @@ import { sciencePath } from "../lib/paths";
 type NavItem = { to: string; key: string; icon: typeof LayoutDashboard; end?: boolean };
 
 const NAV: NavItem[] = [
-  { to: "/", key: "hydro.nav.dashboard", icon: LayoutDashboard, end: true },
-  { to: "/water", key: "hydro.nav.water", icon: Droplets },
-  { to: "/soil", key: "hydro.nav.soil", icon: Layers },
-  { to: "/climate", key: "hydro.nav.climate", icon: Sun },
-  { to: "/vegetation", key: "hydro.nav.vegetation", icon: Sprout },
-  { to: "/remote-sensing", key: "hydro.nav.remote", icon: Satellite },
-  { to: "/map", key: "hydro.nav.map", icon: MapIcon },
-  { to: "/simulation", key: "hydro.nav.simulation", icon: FlaskConical },
-  { to: "/scenarios", key: "hydro.nav.scenarios", icon: GitCompare },
-  { to: "/projects", key: "hydro.nav.projects", icon: FolderKanban },
+  { to: "/demo", key: "hydro.nav.dashboard", icon: LayoutDashboard, end: true },
+  { to: "/demo/water", key: "hydro.nav.water", icon: Droplets },
+  { to: "/demo/soil", key: "hydro.nav.soil", icon: Layers },
+  { to: "/demo/climate", key: "hydro.nav.climate", icon: Sun },
+  { to: "/demo/vegetation", key: "hydro.nav.vegetation", icon: Sprout },
+  { to: "/demo/remote-sensing", key: "hydro.nav.remote", icon: Satellite },
+  { to: "/demo/map", key: "hydro.nav.map", icon: MapIcon },
+  { to: "/demo/simulation", key: "hydro.nav.simulation", icon: FlaskConical },
+  { to: "/demo/scenarios", key: "hydro.nav.scenarios", icon: GitCompare },
+  { to: "/demo/projects", key: "hydro.nav.projects", icon: FolderKanban },
   { to: "/models", key: "hydroma.models", icon: Layers },
+  { to: "/run", key: "hydroma.runModel", icon: FlaskConical },
 ] as const;
 
 function Brand() {
